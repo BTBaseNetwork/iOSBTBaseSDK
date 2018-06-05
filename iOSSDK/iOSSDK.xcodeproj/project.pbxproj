@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8179EF76D881D6FCAA8998EC /* Pods_BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */; };
 		E724679C20C691DF003641C0 /* BTBaseLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E76E76A020C58246008F61BA /* BTBaseLocalized.strings */; };
 		E724679D20C691F5003641C0 /* BTBaseSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
 		E724679E20C691F5003641C0 /* BTBaseSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E754A25D20C3A9D5006F36EB /* BTBaseSDKUI.bundle */; };
+		E72467A020C69A92003641C0 /* BTBaseSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */; };
 		E738006220C44DAF0043A201 /* UpdateEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006120C44DAF0043A201 /* UpdateEmailViewController.swift */; };
 		E738006420C44DC20043A201 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006320C44DC20043A201 /* UpdatePasswordViewController.swift */; };
 		E738006620C44DCF0043A201 /* UpdateNickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006520C44DCF0043A201 /* UpdateNickViewController.swift */; };
@@ -76,6 +78,7 @@
 		E75D404C20C518F300BEAF79 /* ShareHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403120C518F300BEAF79 /* ShareHelper.swift */; };
 		E75D404D20C518F300BEAF79 /* UIView+RemoveChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403220C518F300BEAF79 /* UIView+RemoveChildView.swift */; };
 		E75D404E20C518F300BEAF79 /* TableViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403320C518F300BEAF79 /* TableViewEx.swift */; };
+		E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */; };
 		E788686820C2F981008E0E8D /* iOSSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E788686620C2F981008E0E8D /* iOSSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E788687320C2FA77008E0E8D /* BTServiceDBContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687220C2FA77008E0E8D /* BTServiceDBContext.swift */; };
 		E788687620C2FDF5008E0E8D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687520C2FDF5008E0E8D /* Models.swift */; };
@@ -86,6 +89,8 @@
 		E788688120C30429008E0E8D /* BTSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788688020C30429008E0E8D /* BTSessionService.swift */; };
 		E788688320C30435008E0E8D /* BTAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788688220C30435008E0E8D /* BTAccountService.swift */; };
 		E788688520C3043E008E0E8D /* BTMemberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788688420C3043E008E0E8D /* BTMemberService.swift */; };
+		E78B406020C6C4930049ED91 /* FileManager+Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B405F20C6C4930049ED91 /* FileManager+Paths.swift */; };
+		E78B406220C6CA060049ED91 /* btbase.plist in Resources */ = {isa = PBXBuildFile; fileRef = E78B406120C6CA060049ED91 /* btbase.plist */; };
 		E7C105B820C628EA001BFB11 /* Models+FMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105B720C628EA001BFB11 /* Models+FMDB.swift */; };
 		E7C105BA20C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105B920C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift */; };
 		E7C105BC20C62FE5001BFB11 /* BTServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */; };
@@ -121,9 +126,12 @@
 		048F9DC096F966E62392A9CF /* Pods-BTBaseSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTBaseSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-BTBaseSDK/Pods-BTBaseSDK.release.xcconfig"; sourceTree = "<group>"; };
 		197259A5692423664D182705 /* Pods-SDKTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest.debug.xcconfig"; sourceTree = "<group>"; };
 		1B5974EA4A52598493238C54 /* Pods-iOSSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSSDK/Pods-iOSSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BTBaseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FF0676A78305323D1BB70A /* Pods-SDKTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest.release.xcconfig"; sourceTree = "<group>"; };
 		65D6C8E0EA77D734511F995D /* Pods-BTBaseSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTBaseSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BTBaseSDK/Pods-BTBaseSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		7CFCC91E1A04E91302F6FB02 /* Pods-iOSSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSSDK/Pods-iOSSDK.release.xcconfig"; sourceTree = "<group>"; };
+		D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseSDKManager.swift; sourceTree = "<group>"; };
 		E738006120C44DAF0043A201 /* UpdateEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEmailViewController.swift; sourceTree = "<group>"; };
 		E738006320C44DC20043A201 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		E738006520C44DCF0043A201 /* UpdateNickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNickViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +218,8 @@
 		E788688020C30429008E0E8D /* BTSessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTSessionService.swift; sourceTree = "<group>"; };
 		E788688220C30435008E0E8D /* BTAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAccountService.swift; sourceTree = "<group>"; };
 		E788688420C3043E008E0E8D /* BTMemberService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTMemberService.swift; sourceTree = "<group>"; };
+		E78B405F20C6C4930049ED91 /* FileManager+Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Paths.swift"; sourceTree = "<group>"; };
+		E78B406120C6CA060049ED91 /* btbase.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = btbase.plist; sourceTree = "<group>"; };
 		E7C105B720C628EA001BFB11 /* Models+FMDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+FMDB.swift"; sourceTree = "<group>"; };
 		E7C105B920C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTAPIClientProfile+DeviceInfo.swift"; sourceTree = "<group>"; };
 		E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTServiceInfo.swift; sourceTree = "<group>"; };
@@ -230,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E73E6AA820C55E54000A4B2E /* BTBaseSDK.framework in Frameworks */,
+				E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +248,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8179EF76D881D6FCAA8998EC /* Pods_BTBaseSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +271,8 @@
 		9DB69D6EC2B9B4572DB70441 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */,
+				D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -380,6 +394,7 @@
 				E75D403220C518F300BEAF79 /* UIView+RemoveChildView.swift */,
 				E7C105BD20C63649001BFB11 /* UIDeviceExtensions.swift */,
 				E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */,
+				E78B405F20C6C4930049ED91 /* FileManager+Paths.swift */,
 			);
 			path = BTUIKit;
 			sourceTree = "<group>";
@@ -393,6 +408,7 @@
 				E754A31920C3EC6C006F36EB /* Assets.xcassets */,
 				E754A31B20C3EC6C006F36EB /* LaunchScreen.storyboard */,
 				E754A31E20C3EC6C006F36EB /* Info.plist */,
+				E78B406120C6CA060049ED91 /* btbase.plist */,
 			);
 			path = SDKTest;
 			sourceTree = "<group>";
@@ -463,6 +479,7 @@
 				E788688420C3043E008E0E8D /* BTMemberService.swift */,
 				E754A2A420C3CFEA006F36EB /* BTGameWall.swift */,
 				E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */,
+				E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -615,6 +632,7 @@
 				E724679D20C691F5003641C0 /* BTBaseSDK.framework in Resources */,
 				E724679E20C691F5003641C0 /* BTBaseSDKUI.bundle in Resources */,
 				E754A31D20C3EC6C006F36EB /* LaunchScreen.storyboard in Resources */,
+				E78B406220C6CA060049ED91 /* btbase.plist in Resources */,
 				E754A31A20C3EC6C006F36EB /* Assets.xcassets in Resources */,
 				E754A31820C3EC6B006F36EB /* Main.storyboard in Resources */,
 			);
@@ -642,6 +660,7 @@
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -649,6 +668,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -730,9 +750,11 @@
 				E754A29720C3C077006F36EB /* Math.swift in Sources */,
 				E754A1EB20C389DD006F36EB /* BTAPIClient.swift in Sources */,
 				E75D403F20C518F300BEAF79 /* SimpleBrowser.swift in Sources */,
+				E78B406020C6C4930049ED91 /* FileManager+Paths.swift in Sources */,
 				E75D403C20C518F300BEAF79 /* UICollectionViewFlowLayouts.swift in Sources */,
 				E75D401620C516DF00BEAF79 /* CommonRegexPatterns.swift in Sources */,
 				E754A29820C3C077006F36EB /* NetworkReachability.swift in Sources */,
+				E72467A020C69A92003641C0 /* BTBaseSDKManager.swift in Sources */,
 				E7C105B820C628EA001BFB11 /* Models+FMDB.swift in Sources */,
 				E75D401420C4C56F00BEAF79 /* BTAPIResult.swift in Sources */,
 				E754A29120C3C077006F36EB /* MF_Base64Additions.m in Sources */,

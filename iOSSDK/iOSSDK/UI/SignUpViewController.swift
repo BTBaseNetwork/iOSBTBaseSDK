@@ -29,6 +29,10 @@ class SignUpViewController: UIViewController {
         setCheckTag(passwordCheckImage, false)
         setCheckTag(emailCheckImage, false)
         setCheckTag(confirmEmailCheckImage, false)
+        usernameTextField.isEnabled = true
+        passwordTextField.isEnabled = false
+        emailTextField.isEnabled = false
+        confirmEmailTextField.isEnabled = false
     }
 
     @IBAction func onClickSignUp(_: Any) {

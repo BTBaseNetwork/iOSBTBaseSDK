@@ -14,7 +14,7 @@ public class BTAccount: Codable {
     public var nick: String!
     public var email: String!
     public var mobile: String!
-    public var signDateTs: Int64 = 0
+    public var signDateTs: Double = 0
 }
 
 public class BTAppLink: Codable {

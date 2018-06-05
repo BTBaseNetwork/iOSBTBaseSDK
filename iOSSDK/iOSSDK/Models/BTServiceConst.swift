@@ -41,7 +41,7 @@ public class BTServiceConst {
     public static let UNITY_IAP_STORE_APPLE_APP_STORE = "AppleAppStore"
     public static let UNITY_IAP_STORE_GOOGLE_PLAY = "GooglePlay"
 
-    private static let CLIENT_PASSWORD_SALT = "GNDAYZHAJ"
+    private static let CLIENT_PASSWORD_SALT = "GNDAYZHAJ".md5
 
     public static func generateClientSaltPassword(password: String) -> String {
         return (password.sha256 + CLIENT_PASSWORD_SALT).sha256

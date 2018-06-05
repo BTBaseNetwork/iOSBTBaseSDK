@@ -38,6 +38,10 @@ class UpdateEmailViewController: UIViewController {
         setCheckTag(securityCodeCheckImage, false)
         setCheckTag(newEmailCheckImage, false)
         setCheckTag(confirmNewEmailCheckImage, false)
+        curEmailTextField.isEnabled = true
+        securityCodeTextField.isEnabled = false
+        newEmailTextField.isEnabled = false
+        confirmNewEmailTextField.isEnabled = false
         resendAvailableTime = 0
     }
 

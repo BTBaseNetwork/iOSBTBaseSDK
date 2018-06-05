@@ -19,18 +19,19 @@ public class BTAPIResultError: Codable {
     }
 }
 
-public class BTAPIResult<T>: BTAPIResultBase where T: Codable {
-    public var content: T!
-}
-
-public class BTAPIResultBase: Codable {
+public class BTAPIResult<T>: Codable where T: Codable {
     public var code: Int = 0
     public var msg: String!
+    public var content: T!
     public var error: BTAPIResultError!
     public var msgWithoutSpaces: String! {
         if let m = msg {
             return m.replacingOccurrences(of: " ", with: "")
         }
         return msg
+    }
+
+    public var isHttpOK: Bool {
+        return code == 200
     }
 }

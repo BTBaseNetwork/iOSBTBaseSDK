@@ -7,11 +7,27 @@
 //
 
 import Foundation
+
+public class BTMemberProfile
+{
+    public var accountId = BTServiceConst.ACCOUNT_ID_UNLOGIN
+    public var members = [BTMember]()
+}
+
 public class BTMemberService {
     var host = "http://localhost:6000"
     var dbContext: BTServiceDBContext!
-    func configure(serverHost: String) {
+    
+    private(set) var localProfile = BTMemberProfile()
+    
+    func configure(serverHost: String, db: BTServiceDBContext) {
+        initDB(db: db)
         host = serverHost
+    }
+
+    private func initDB(db: BTServiceDBContext) {
+        dbContext = db
+        dbContext.createTable(model: BTMember())
     }
 
     func fetchMemberProfile() {
@@ -30,16 +46,21 @@ public class BTMemberService {
         req.channel = channel
         req.sandBox = sandBox
         req.response = respAction
+        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
     }
+    
+    func setLogout() {
+        localProfile = BTMemberProfile()
+    }
 }
 
 extension BTServiceContainer {
-    public static func useBTMemberService(serverHost: String) {
+    public static func useBTMemberService(serverHost: String, dbContext: BTServiceDBContext) {
         let service = BTMemberService()
-        service.configure(serverHost: serverHost)
+        service.configure(serverHost: serverHost, db: dbContext)
         addService(name: "BTMemberService", service: service)
     }
 

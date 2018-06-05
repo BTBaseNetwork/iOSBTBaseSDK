@@ -36,9 +36,7 @@ public class RegistAccountRequest: BTAPIRequest<RegistAccountResult> {
     }
 }
 
-public class GetAccountProfileResult: BTAccount {}
-
-public class GetAccountProfileRequest: BTAPIRequest<GetAccountProfileResult> {
+public class GetAccountProfileRequest: BTAPIRequest<BTAccount> {
     override init() {
         super.init()
         api = "api/v1/Accounts/Profile"

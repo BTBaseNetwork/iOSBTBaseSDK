@@ -12,34 +12,32 @@ import Foundation
 public class BTAccountService {
     public static let onLocalAccountUpdated = Notification.Name("BTAccountService_onLocalAccountUpdated")
 
-    static let createBTAccountSql = "create table BTAccount"
-
+    var host = "http://localhost:6000/"
     var dbContext: BTServiceDBContext!
 
     var localAccount: BTAccount! {
         didSet {
-            NotificationCenter.default.post(name: BTAccountService.onLocalAccountUpdated, object: self)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: BTAccountService.onLocalAccountUpdated, object: self)
+            }
         }
     }
 
-    var host = "http://localhost:6000/"
-
-    func configure(serverHost: String) {
-        host = serverHost
-        // self.initDB()
+    func configure(serverHost: String, db: BTServiceDBContext) {
+        self.initDB(db: db)
+        self.host = serverHost
     }
 
-    func initDB() {
-        if !dbContext.database.tableExists("BTAccount") {
-            dbContext.database.executeStatements(BTAccountService.createBTAccountSql)
-        }
+    private func initDB(db: BTServiceDBContext) {
+        self.dbContext = db
+        self.dbContext.createTable(model: BTAccount())
     }
 
     func loadLocalAccount(accountId: String) {
-        if let db = dbContext?.database, let resultSet = try? db.executeQuery("select * from BTAccount where AccountId = ?", values: [accountId]) {
-            localAccount = BTAccount.parse(resultSet: resultSet)
+        if let account = dbContext.select(model: BTAccount(), query: "AccountId = ?", parameters: [accountId]).first {
+            self.localAccount = account
         } else {
-            localAccount = BTAccount()
+            self.localAccount = BTAccount()
         }
     }
 
@@ -56,7 +54,18 @@ public class BTAccountService {
 
     func fetchProfile() {
         let req = GetAccountProfileRequest()
-        req.response = { _, _ in
+        req.response = { _, result in
+            if result.isHttpOK {
+                let account = BTAccount()
+                account.accountId = result.content.accountId
+                account.accountTypes = result.content.accountTypes
+                account.email = result.content.email
+                account.mobile = result.content.mobile
+                account.nick = result.content.nick
+                account.signDateTs = result.content.signDateTs
+                account.userName = result.content.userName
+                self.localAccount = account
+            }
         }
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useDeviceInfos().useAccountId().useAuthorizationAPIToken().useLang()
@@ -67,6 +76,7 @@ public class BTAccountService {
         let req = CheckUsernameExistsRequest()
         req.username = username
         req.response = respAction
+        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         req.request(profile: clientProfile)
     }
@@ -76,6 +86,7 @@ public class BTAccountService {
         req.newPassword = BTServiceConst.generateClientSaltPassword(password: newPassword)
         req.password = BTServiceConst.generateClientSaltPassword(password: currentPassword)
         req.response = respAction
+        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
@@ -85,6 +96,7 @@ public class BTAccountService {
         let req = UpdateNickRequest()
         req.newNick = newNick
         req.response = respAction
+        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
@@ -94,6 +106,7 @@ public class BTAccountService {
         let req = SendCodeForUpdateEmailRequest()
         req.email = email
         req.response = respAction
+        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
@@ -104,6 +117,7 @@ public class BTAccountService {
         req.newEmail = newEmail
         req.securityCode = securityCode
         req.response = respAction
+        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
@@ -114,6 +128,7 @@ public class BTAccountService {
         req.accountId = accountId
         req.email = email
         req.response = respAction
+        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
@@ -125,16 +140,21 @@ public class BTAccountService {
         req.newPassword = BTServiceConst.generateClientSaltPassword(password: newPassword)
         req.securityCode = securityCode
         req.response = respAction
+        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
     }
+
+    func setLogout() {
+        self.localAccount = BTAccount()
+    }
 }
 
 extension BTServiceContainer {
-    public static func useBTAccountService(serverHost: String) {
+    public static func useBTAccountService(serverHost: String, dbContext: BTServiceDBContext) {
         let service = BTAccountService()
-        service.configure(serverHost: serverHost)
+        service.configure(serverHost: serverHost, db: dbContext)
         addService(name: "BTAccountService", service: service)
     }
 

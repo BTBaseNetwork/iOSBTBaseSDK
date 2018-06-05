@@ -37,6 +37,10 @@ class ForgetPasswordViewController: UIViewController {
         setCheckTag(accoundIdCheckImage, false)
         setCheckTag(codeCheckImage, false)
         setCheckTag(newPasswordCheckImage, false)
+        accountIdTextField.isEnabled = true
+        emailTextField.isEnabled = false
+        securityCodeTextField.isEnabled = false
+        newPasswordTextField.isEnabled = false
         resendAvailableTime = 0
     }
 

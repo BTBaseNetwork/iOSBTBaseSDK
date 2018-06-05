@@ -22,6 +22,8 @@ class UpdatePasswordViewController: UIViewController {
         newPasswordCheckImage.isHidden = true
         newPasswordCheckImage.isHidden = true
         updatePasswordButton.isEnabled = false
+        curPasswordTextField.isEnabled = true
+        newPasswordTextField.isEnabled = false
     }
 
     @IBAction func onClickUpdatePassword(_: Any) {

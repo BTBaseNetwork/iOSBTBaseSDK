@@ -17,6 +17,7 @@ class UpdateNickViewController: UIViewController {
         super.viewDidLoad()
         newNickCheckImage.isHidden = true
         updateNickButton.isEnabled = false
+        newNickTextField.isEnabled = true
     }
 
     @IBAction func onClickUpdateNick(_: Any) {

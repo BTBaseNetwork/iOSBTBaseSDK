@@ -10,6 +10,7 @@ pod 'Alamofire', '~> 4.7'
 pod 'FMDB'
 pod 'SDWebImage', '~> 4.0'
 pod 'MBProgressHUD', '~> 1.1.0'
+pod 'SwiftyStoreKit'
 end
 
 target 'SDKTest' do
@@ -19,4 +20,5 @@ target 'SDKTest' do
     pod 'FMDB'
     pod 'SDWebImage', '~> 4.0'
     pod 'MBProgressHUD', '~> 1.1.0'
+    pod 'SwiftyStoreKit'
 end

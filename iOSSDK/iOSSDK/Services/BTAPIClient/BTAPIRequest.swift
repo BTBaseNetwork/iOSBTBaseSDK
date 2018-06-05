@@ -51,7 +51,8 @@ public class BTAPIRequest<T> where T: Codable {
     public func request(profile: BTAPIClientProfile) -> BTAPIRequest<T> {
         useHeaders(headers: profile.defaultHeaders)
         host = profile.host.hasSuffix("/") ? profile.host : profile.host + "/"
-        rawRequest = Alamofire.request(url, method: method, parameters: parameters, encoding: URLEncoding.default, headers: headers).responseJSON(queue: queue, options: JSONSerialization.ReadingOptions.allowFragments, completionHandler: { response in
+
+        rawRequest = Alamofire.request(url, method: method, parameters: parameters, encoding: URLEncoding.default, headers: headers).validate(contentType: ["application/json"]).responseData(queue: queue, completionHandler: { response in
             if let statusCode = response.response?.statusCode, statusCode == 401 {
                 let tobj = BTAPIResult<T>()
                 tobj.code = 401
@@ -61,11 +62,9 @@ public class BTAPIRequest<T> where T: Codable {
                 tobj.msg = "Unauthorized"
                 NotificationCenter.default.post(name: onBTAPIRequestUnauthorized, object: self)
                 self.response?(self, tobj)
-            } else if let _ = response.result.value, let d = response.data, let tobj = try? JSONDecoder().decode(BTAPIResult<T>.self, from: d) {
+            } else if let data = response.result.value, let tobj = try? JSONDecoder().decode(BTAPIResult<T>.self, from: data) {
                 self.response?(self, tobj)
-            }
-
-            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+            } else if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                 let tobj = BTAPIResult<T>()
                 tobj.code = response.response?.statusCode ?? 555
                 tobj.error = BTAPIResultError()

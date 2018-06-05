@@ -12,10 +12,9 @@ import UIKit
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        BTServiceContainer.useBTGameWall(configUrl: "https://raw.githubusercontent.com/BTAds/AdsAssets/master/BTGameWallConfig_01.json")
-        BTServiceContainer.useBTMemberService(serverHost: "https://btbase.mobi/web/")
-        BTServiceContainer.useBTAccountService(serverHost: "https://btbase.mobi/web/")
-        BTServiceContainer.useBTSessionService(serverHost: "https://btbase.mobi/auth/")
+        if !BTBaseSDKManager.isSDKInited {
+            BTBaseSDKManager.start()
+        }
     }
 
     var firstAppear = true

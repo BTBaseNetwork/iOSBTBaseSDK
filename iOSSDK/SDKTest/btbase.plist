@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BTBaseDB</key>
+	<string>btbase.db</string>
+	<key>BTGameWallConfig</key>
+	<string>https://raw.githubusercontent.com/BTAds/AdsAssets/master/BTGameWallConfig_01.json</string>
+	<key>BTSessionServiceHost</key>
+	<string>https://btbase.mobi/auth/</string>
+	<key>BTAccountServiceHost</key>
+	<string>https://btbase.mobi/web/</string>
+	<key>BTMemberServiceHost</key>
+	<string>https://btbase.mobi/web/</string>
+</dict>
+</plist>
