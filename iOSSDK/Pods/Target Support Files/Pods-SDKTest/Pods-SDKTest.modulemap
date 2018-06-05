@@ -1,0 +1,6 @@
+framework module Pods_SDKTest {
+  umbrella header "Pods-SDKTest-umbrella.h"
+
+  export *
+  module * { export * }
+}
