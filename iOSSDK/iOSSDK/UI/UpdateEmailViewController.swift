@@ -32,6 +32,11 @@ class UpdateEmailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        for textField in [curEmailTextField, securityCodeTextField, newEmailTextField, confirmNewEmailTextField] {
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
+        }
         updateEmailButton.isEnabled = false
         tipsLabel.text = nil
         sendCodeButton.isEnabled = false
@@ -48,17 +53,18 @@ class UpdateEmailViewController: UIViewController {
     @IBAction func onClickSendCode(_: Any) {
         sendCodeButton.isHidden = true
         curEmailTextField.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.sendUpdateEmailSecurityCode(email: curEmailTextField.text!, respAction: { _, result in
-            self.sendCodeButton.isHidden = result.code == 200
+        BTServiceContainer.getBTAccountService()?.sendUpdateEmailSecurityCode(email: curEmailTextField.text!, respAction: { req, result in
+            self.sendCodeButton.isHidden = result.isHttpOK
             self.curEmailTextField.isEnabled = true
-            if result.code == 200 {
+            
+            if result.isHttpOK {
                 self.securityCodeTextField.isEnabled = true
                 self.securityCodeTextField.text = nil
                 self.resendAvailableTime = 30
                 Timer(timeInterval: 1, target: self, selector: #selector(self.resendCodeTimeTicking(timer:)), userInfo: nil, repeats: true).fire()
                 self.showAlert("BTLocTitleCodeSended".localizedBTBaseString, msg: "BTLocMsgCodeSended".localizedBTBaseString)
-            } else if result.code == 500 {
-                self.tipsLabel.text = "BTLocMsgNetworkErr".localizedBTBaseString
+            } else if result.isHttpServerError {
+                self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if let msg = result.error.msgWithoutSpaces {
                 self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
             } else {
@@ -80,7 +86,7 @@ class UpdateEmailViewController: UIViewController {
         updateEmailButton.isEnabled = false
         BTServiceContainer.getBTAccountService()?.updateEmailWithSecurityCode(newEmail: newEmailTextField.text!, securityCode: securityCodeTextField.text!, respAction: { _, result in
             self.updateEmailButton.isEnabled = true
-            if result.code == 200 {
+            if result.isHttpOK {
                 self.showAlert("BTLocTitleEmailUpdated".localizedBTBaseString, msg: nil, actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
                 })])
@@ -90,7 +96,7 @@ class UpdateEmailViewController: UIViewController {
         })
     }
 
-    @IBAction func onTextFieldEditingChanged(_ sender: Any) {
+    @IBAction func onTextFieldEditingChanged(sender: Any) {
         if let textField = sender as? UITextField {
             switch textField {
             case curEmailTextField: onCurrentEmailChanged()
@@ -102,10 +108,10 @@ class UpdateEmailViewController: UIViewController {
         }
     }
 
-    @IBAction func onTextFieldEditingDidBegin(_: Any) {
+    @IBAction func onTextFieldEditingDidBegin(sender: Any) {
     }
 
-    @IBAction func onTextFieldEditingDidEnd(_: Any) {
+    @IBAction func onTextFieldEditingDidEnd(sender: Any) {
     }
 
     private func onCurrentEmailChanged() {

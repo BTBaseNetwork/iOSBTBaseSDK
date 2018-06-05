@@ -15,6 +15,11 @@ class UpdateNickViewController: UIViewController {
     @IBOutlet var newNickCheckImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        for textField in [newNickTextField] {
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
+        }
         newNickCheckImage.isHidden = true
         updateNickButton.isEnabled = false
         newNickTextField.isEnabled = true
@@ -24,7 +29,7 @@ class UpdateNickViewController: UIViewController {
         updateNickButton.isEnabled = false
         newNickTextField.isEnabled = false
         BTServiceContainer.getBTAccountService()?.updateNick(newNick: newNickTextField.text!, respAction: { _, result in
-            if result.code == 200 {
+            if result.isHttpOK {
                 self.showAlert("BTLocTitleUpdateNickSuc".localizedBTBaseString, msg: nil, actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
                 })])
@@ -36,7 +41,7 @@ class UpdateNickViewController: UIViewController {
         })
     }
 
-    @IBAction func onTextFieldEditingChanged(_: Any) {
+    @objc private func onTextFieldEditingChanged(sender: Any) {
         if String.isNullOrWhiteSpace(newNickTextField.text) {
             newNickCheckImage.isHidden = true
             updateNickButton.isEnabled = false
@@ -46,9 +51,9 @@ class UpdateNickViewController: UIViewController {
         }
     }
 
-    @IBAction func onTextFieldEditingDidBegin(_: Any) {
+    @objc private func onTextFieldEditingDidBegin(sender: Any) {
     }
 
-    @IBAction func onTextFieldEditingDidEnd(_: Any) {
+    @objc private func onTextFieldEditingDidEnd(sender: Any) {
     }
 }

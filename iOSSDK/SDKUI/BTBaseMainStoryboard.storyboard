@@ -296,11 +296,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="FX7-dd-GVA" eventType="editingDidEnd" id="bL6-RB-jSC"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="FX7-dd-GVA" eventType="editingDidEnd" id="PvB-WE-enr"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="FX7-dd-GVA" eventType="editingDidEnd" id="Ii6-O6-bb9"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="uR4-pP-z1v" userLabel="Check">
                                 <rect key="frame" x="327" y="95" width="16" height="16"/>
@@ -315,11 +310,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="FX7-dd-GVA" eventType="editingDidEnd" id="W9k-R5-L3h"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="FX7-dd-GVA" eventType="editingDidEnd" id="rOH-Ni-tSK"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="FX7-dd-GVA" eventType="editingDidEnd" id="GkG-OS-p0B"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="zAb-7G-ZRs" userLabel="Check">
                                 <rect key="frame" x="327" y="141" width="16" height="16"/>
@@ -383,11 +373,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="nickname"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="9jJ-n1-FDa" eventType="editingDidEnd" id="hjJ-Ts-aYP"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="9jJ-n1-FDa" eventType="editingDidEnd" id="ovf-N0-HEF"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="9jJ-n1-FDa" eventType="editingDidEnd" id="rEX-jr-7ni"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="NC2-j5-QyM" userLabel="Check">
                                 <rect key="frame" x="327" y="95" width="16" height="16"/>
@@ -444,22 +429,12 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="yaL-fI-NTB"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="mxY-HY-qGU"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="u3p-OS-RV5"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter security code..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tXg-Xi-8gb" userLabel="SecurityCodeTextField">
                                 <rect key="frame" x="20" y="134" width="335" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="ieq-SB-kc7"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="SXy-ft-YPf"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="UUw-Ry-WDU"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="91L-l6-bqa" userLabel="Check">
                                 <rect key="frame" x="327" y="141" width="16" height="16"/>
@@ -474,11 +449,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="nSq-yZ-Z7w"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="OHN-wA-Lcb"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="cIQ-hB-Q9b"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="K8c-SN-UkH" userLabel="Check">
                                 <rect key="frame" x="327" y="187" width="16" height="16"/>
@@ -493,11 +463,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="QEi-8S-hcd"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="TgT-zS-Ums"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="iaA-AM-OLu" eventType="editingDidEnd" id="48c-l2-geL"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="sOp-gd-dkS" userLabel="Check">
                                 <rect key="frame" x="327" y="233" width="16" height="16"/>
@@ -594,11 +559,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="cQG-fK-1fZ" eventType="editingDidEnd" id="Lbv-fJ-pZ1"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="cQG-fK-1fZ" eventType="editingDidEnd" id="a3R-27-KFs"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="cQG-fK-1fZ" eventType="editingDidEnd" id="tT4-rq-FV3"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="3M5-hW-Gx4" userLabel="Check">
                                 <rect key="frame" x="327" y="261.5" width="16" height="16"/>
@@ -613,11 +573,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="cQG-fK-1fZ" eventType="editingDidEnd" id="Z1x-nO-rgw"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="cQG-fK-1fZ" eventType="editingDidEnd" id="cB9-Xp-6iO"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="cQG-fK-1fZ" eventType="editingDidEnd" id="Ppc-A1-Lqh"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="HRV-KV-Ck2" userLabel="Check">
                                 <rect key="frame" x="327" y="323" width="16" height="16"/>
@@ -722,11 +677,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="Ygm-Na-Yeg"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="D03-K6-Gtu"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="KFe-fQ-pHZ"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="kiu-cE-WaN" userLabel="Check">
                                 <rect key="frame" x="327" y="95" width="16" height="16"/>
@@ -741,11 +691,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="Ohq-eP-FTg"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="C9a-Dj-lf7"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="LrY-ij-fqP"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="vBv-a9-0em" userLabel="Check">
                                 <rect key="frame" x="327" y="141" width="16" height="16"/>
@@ -760,11 +705,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="yq1-6L-2hY"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="wwz-0h-2aU"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="j7D-qa-3JT"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="z9A-vw-FpC" userLabel="Check">
                                 <rect key="frame" x="327" y="187" width="16" height="16"/>
@@ -779,11 +719,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="bdh-BX-2W2"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="488-hM-FTX"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="SCc-Ig-tk9" eventType="editingDidEnd" id="Uet-co-nTr"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="SZg-Uf-yde" userLabel="Check">
                                 <rect key="frame" x="327" y="233" width="16" height="16"/>
@@ -879,11 +814,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="gW1-z2-5er" eventType="editingChanged" id="HaX-C3-5y2"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="gW1-z2-5er" eventType="editingDidBegin" id="Srl-8D-fMb"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="gW1-z2-5er" eventType="editingDidEnd" id="lqW-Kt-veQ"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="m3g-Jm-w3e" userLabel="Check">
                                 <rect key="frame" x="327" y="95" width="16" height="16"/>
@@ -898,22 +828,12 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="gW1-z2-5er" eventType="editingDidEnd" id="Q7N-vu-CLH"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="gW1-z2-5er" eventType="editingDidEnd" id="lWI-rn-fGI"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="gW1-z2-5er" eventType="editingDidEnd" id="RMW-64-d9h"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter security code..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jEW-bg-G7U">
                                 <rect key="frame" x="20" y="180" width="335" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="gW1-z2-5er" eventType="editingDidEnd" id="1P7-Ca-CEH"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="gW1-z2-5er" eventType="editingDidEnd" id="P0x-5v-6R0"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="gW1-z2-5er" eventType="editingDidEnd" id="NcO-cf-KZo"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="rLd-BJ-cmz" userLabel="Check">
                                 <rect key="frame" x="327" y="187" width="16" height="16"/>
@@ -928,11 +848,6 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
-                                <connections>
-                                    <action selector="onTextFieldEditingChanged:" destination="gW1-z2-5er" eventType="editingDidEnd" id="Q3z-oY-JLJ"/>
-                                    <action selector="onTextFieldEditingDidBegin:" destination="gW1-z2-5er" eventType="editingDidEnd" id="cuW-fY-UvE"/>
-                                    <action selector="onTextFieldEditingDidEnd:" destination="gW1-z2-5er" eventType="editingDidEnd" id="dWn-ad-eUc"/>
-                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="Itg-3L-GFu" userLabel="Check">
                                 <rect key="frame" x="327" y="233" width="16" height="16"/>

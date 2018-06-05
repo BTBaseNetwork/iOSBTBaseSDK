@@ -31,6 +31,13 @@ class ForgetPasswordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        for textField in [accountIdTextField, emailTextField, securityCodeTextField, newPasswordTextField] {
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
+        }
+
         resetPasswordButton.isEnabled = false
         tipsLabel.text = nil
         sendCodeButton.isEnabled = false
@@ -44,7 +51,7 @@ class ForgetPasswordViewController: UIViewController {
         resendAvailableTime = 0
     }
 
-    @IBAction func onTextFieldEditingChanged(sender: Any) {
+    @objc private func onTextFieldEditingChanged(sender: Any) {
         if let textField = sender as? UITextField {
             switch textField {
             case accountIdTextField: onAccountIdChanged()
@@ -56,10 +63,10 @@ class ForgetPasswordViewController: UIViewController {
         }
     }
 
-    @IBAction func onTextFieldEditingDidBegin(_: Any) {
+    @objc private func onTextFieldEditingDidBegin(sender : Any) {
     }
 
-    @IBAction func onTextFieldEditingDidEnd(_: Any) {
+    @objc private func onTextFieldEditingDidEnd(sender : Any) {
     }
 
     @IBAction func onClickSendCode(_: Any) {
@@ -67,17 +74,17 @@ class ForgetPasswordViewController: UIViewController {
         emailTextField.isEnabled = false
         accountIdTextField.isEnabled = false
         BTServiceContainer.getBTAccountService()?.sendResetPasswordSecurityCode(accountId: accountIdTextField.text!, email: emailTextField.text!, respAction: { _, result in
-            self.sendCodeButton.isHidden = result.code == 200
+            self.sendCodeButton.isHidden = result.isHttpOK
             self.emailTextField.isEnabled = true
             self.accountIdTextField.isEnabled = true
-            if result.code == 200 {
+            if result.isHttpOK {
                 self.securityCodeTextField.isEnabled = true
                 self.securityCodeTextField.text = nil
                 self.resendAvailableTime = 30
                 Timer(timeInterval: 1, target: self, selector: #selector(self.resendCodeTimeTicking(timer:)), userInfo: nil, repeats: true).fire()
                 self.showAlert("BTLocTitleCodeSended".localizedBTBaseString, msg: "BTLocMsgCodeSended".localizedBTBaseString)
-            } else if result.code == 500 {
-                self.tipsLabel.text = "BTLocMsgNetworkErr".localizedBTBaseString
+            } else if result.isHttpServerError {
+                self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if let msg = result.error.msgWithoutSpaces {
                 self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
             } else {
@@ -99,10 +106,10 @@ class ForgetPasswordViewController: UIViewController {
         resetPasswordButton.isEnabled = false
         BTServiceContainer.getBTAccountService()?.resetPasswordWithSecurityCode(accountId: accountIdTextField.text!, newPassword: emailTextField.text!, securityCode: securityCodeTextField.text!, respAction: { _, result in
             self.resetPasswordButton.isEnabled = true
-            if result.code == 200 {
+            if result.isHttpOK {
                 self.showAlert("BTLocTitlePasswordReseted".localizedBTBaseString, msg: "BTLocMsgPasswordResetedAndRelogin".localizedBTBaseString, actions: [])
-            } else if result.code == 500 {
-                self.tipsLabel.text = "BTLocMsgNetworkErr".localizedBTBaseString
+            } else if result.isHttpServerError {
+                self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if let msg = result.error?.msgWithoutSpaces {
                 self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
             } else {

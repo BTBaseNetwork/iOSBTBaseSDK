@@ -25,6 +25,11 @@ class SignUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        for textField in [usernameTextField, passwordTextField, emailTextField, confirmEmailTextField] {
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
+        }
         setCheckTag(usernameCheckImage, false)
         setCheckTag(passwordCheckImage, false)
         setCheckTag(emailCheckImage, false)
@@ -33,6 +38,7 @@ class SignUpViewController: UIViewController {
         passwordTextField.isEnabled = false
         emailTextField.isEnabled = false
         confirmEmailTextField.isEnabled = false
+        tipsLabel.text = nil
     }
 
     @IBAction func onClickSignUp(_: Any) {
@@ -49,9 +55,9 @@ class SignUpViewController: UIViewController {
             self.usernameTextField.isEnabled = true
             self.passwordTextField.isEnabled = true
             self.signupButton.isEnabled = false
-            if result.code == 500 {
-                self.tipsLabel.text = "BTLocMsgNetworkErr".localizedBTBaseString
-            } else if result.code == 200 {
+            if result.isHttpServerError {
+                self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
+            } else if result.isHttpOK {
                 self.showAlert("BTLocTitleRegistSuc".localizedBTBaseString, msg: String(format: "BTLocMsgYourAccountId_X".localizedBTBaseString, result.content.accountId), actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
                 })])
@@ -64,9 +70,9 @@ class SignUpViewController: UIViewController {
         })
     }
 
-    @IBAction func onTextFieldEditingChanged(_: Any) {}
-    @IBAction func onTextFieldEditingDidBegin(_: Any) {}
-    @IBAction func onTextFieldEditingDidEnd(_ sender: Any) {
+    @objc private func onTextFieldEditingChanged(sender: Any) {}
+    @objc private func onTextFieldEditingDidBegin(sender: Any) {}
+    @objc private func onTextFieldEditingDidEnd(sender: Any) {
         if let textField = sender as? UITextField {
             switch textField {
             case usernameTextField: onInputUserNameChanged()

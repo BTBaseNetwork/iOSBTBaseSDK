@@ -34,4 +34,12 @@ public class BTAPIResult<T>: Codable where T: Codable {
     public var isHttpOK: Bool {
         return code == 200
     }
+    
+    public var isHttpServerError:Bool{
+        return code >= 500 && code <= 599
+    }
+    
+    public var isNetworkError:Bool{
+        return false
+    }
 }

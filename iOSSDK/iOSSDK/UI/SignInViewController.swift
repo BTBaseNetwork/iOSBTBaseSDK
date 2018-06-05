@@ -22,6 +22,11 @@ class SignInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        for textField in [accountTextField, passwordTextField] {
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
+        }
         setCheckTag(accountCheckImage, false)
         setCheckTag(passwordCheckImage, false)
         tipsLabel.text = nil
@@ -42,14 +47,12 @@ class SignInViewController: UIViewController {
                 self.loginButton.isEnabled = true
                 self.accountTextField.isEnabled = true
                 self.passwordTextField.isEnabled = true
-                if result.code == 200 {
+                if result.isHttpOK {
                     self.onClickCancel(sender)
-                } else if result.code == 500 {
-                    self.tipsLabel.text = "BTLocMsgNetworkErr".localizedBTBaseString
-                } else {
+                }else {
                     if result.code == 404 {
                         self.tipsLabel.text = ("BTLocMsgLoginVerifyFalse").localizedBTBaseString
-                    } else if result.code == 500 {
+                    } else if result.isHttpServerError {
                         self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
                     } else {
                         self.tipsLabel.text = "BTLocMsgUnknowErr".localizedBTBaseString
@@ -59,7 +62,7 @@ class SignInViewController: UIViewController {
         }
     }
 
-    @IBAction func onTextFieldEditingChanged(_ sender: Any) {
+    @objc private func onTextFieldEditingChanged(sender: Any) {
         if let textField = sender as? UITextField {
             if textField == accountTextField {
                 if String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_ACCOUNT_ID)
@@ -83,11 +86,11 @@ class SignInViewController: UIViewController {
         }
     }
 
-    @IBAction func onTextFieldEditingDidBegin(_: Any) {
+    @objc private func onTextFieldEditingDidBegin(sender: Any) {
         tipsLabel.text = nil
     }
 
-    @IBAction func onTextFieldEditingDidEnd(_: Any) {
+    @objc private func onTextFieldEditingDidEnd(sender: Any) {
     }
 
     @IBAction func onClickCancel(_: Any) {
