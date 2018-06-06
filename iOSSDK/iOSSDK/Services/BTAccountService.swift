@@ -65,6 +65,7 @@ public class BTAccountService {
                 account.nick = result.content.nick
                 account.signDateTs = result.content.signDateTs
                 account.userName = result.content.userName
+                self.dbContext.tableAccount.update(model: account, upsert: true)
                 self.localAccount = account
             }
         }
@@ -96,7 +97,13 @@ public class BTAccountService {
     func updateNick(newNick: String, respAction: UpdateNickRequest.ResponseAction?) {
         let req = UpdateNickRequest()
         req.newNick = newNick
-        req.response = respAction
+        req.response = { request, res in
+            if res.isHttpOK {
+                self.localAccount.nick = newNick
+                self.dbContext.tableAccount.update(model: self.localAccount, upsert: true)
+            }
+            respAction?(request, res)
+        }
         req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
@@ -117,7 +124,13 @@ public class BTAccountService {
         let req = UpdateEmailRequest()
         req.newEmail = newEmail
         req.securityCode = securityCode
-        req.response = respAction
+        req.response = { request, res in
+            if res.isHttpOK {
+                self.localAccount.email = "\(newEmail.first!)***@\(newEmail.split("@")[1])"
+                self.dbContext.tableAccount.update(model: self.localAccount, upsert: true)
+            }
+            respAction?(request, res)
+        }
         req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()

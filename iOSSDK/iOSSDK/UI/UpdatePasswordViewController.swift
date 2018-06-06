@@ -24,7 +24,7 @@ class UpdatePasswordViewController: UIViewController {
             textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
             textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
         }
-        newPasswordCheckImage.isHidden = true
+        curPasswordCheckImage.isHidden = true
         newPasswordCheckImage.isHidden = true
         updatePasswordButton.isEnabled = false
         curPasswordTextField.isEnabled = true
@@ -49,6 +49,7 @@ class UpdatePasswordViewController: UIViewController {
         if let textField = sender as? UITextField {
             if textField == curPasswordTextField {
                 curPasswordCheckImage.isHidden = !String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_PASSWORD)
+                newPasswordTextField.isEnabled = !curPasswordCheckImage.isHidden
             } else if textField == newPasswordTextField {
                 newPasswordCheckImage.isHidden = !String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_PASSWORD)
             }

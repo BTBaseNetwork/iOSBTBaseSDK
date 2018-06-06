@@ -57,6 +57,7 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         return database.tableExists(entity.scheme)
     }
     
+    @discardableResult
     public override func query(sql: String, parameters: [Any]?) -> [T] {
         if let resultSet = try? database.executeQuery(sql, values: parameters) {
             var result = [T]()
@@ -84,10 +85,12 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
                 }
                 result.append(model)
             }
+            return result
         }
         return []
     }
     
+    @discardableResult
     public override func add(model: T) -> T {
         let properties: [BTDBEntity.Property<T>] = entity.getProperties()
         
@@ -98,6 +101,7 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         return model
     }
     
+    @discardableResult
     public override func update(model: T, upsert: Bool) -> T {
         let priProperties: [BTDBEntity.Property<T>] = entity.getPrimaryKey()
         let priKvs = priProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
@@ -116,6 +120,7 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         return model
     }
     
+    @discardableResult
     public override func delete(model: T) -> Bool {
         let priProperties: [BTDBEntity.Property<T>] = entity.getPrimaryKey()
         let priKvs = priProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }

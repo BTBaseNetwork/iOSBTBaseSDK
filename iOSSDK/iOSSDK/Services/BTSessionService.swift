@@ -101,6 +101,7 @@ public class BTSessionService {
         req.response = { _, result in
             if result.isHttpOK {
                 self.localSession.sessionToken = result.content.token
+                self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
             }
         }
         let clientProfile = BTAPIClientProfile(host: host)
@@ -110,11 +111,19 @@ public class BTSessionService {
 
     func logoutDevice() {
         let req = LogoutDeviceRequest()
-        req.response = { _, _ in
+        req.response = { _, res in
+            if res.isHttpOK {
+                self.logoutClient()
+            }
         }
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useDeviceInfos().useAccountId().useAuthorizationSessionServerToken().useSessionKey()
         req.request(profile: clientProfile)
+    }
+    
+    func logoutClient() {
+        self.localSession.status = BTAccountSession.STATUS_LOGOUT_DEFAULT
+        self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
     }
 }
 
