@@ -29,6 +29,7 @@
 		E740BC4C20C78C73001C13F1 /* SQLiteTableSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */; };
 		E740BC4E20C7B93C001C13F1 /* BTAccountSession+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */; };
 		E740BC5020C7BA32001C13F1 /* BTMember+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */; };
+		E740E0EA20C85B6E00B25B5B /* PlayGameVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740E0E920C85B6E00B25B5B /* PlayGameVideoViewController.swift */; };
 		E754A1DC20C37EFB006F36EB /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = E754A1DB20C37EFB006F36EB /* Podfile */; };
 		E754A1EB20C389DD006F36EB /* BTAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1EA20C389DD006F36EB /* BTAPIClient.swift */; };
 		E754A1EE20C39411006F36EB /* BTAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1ED20C39411006F36EB /* BTAccountAPI.swift */; };
@@ -156,6 +157,7 @@
 		E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteTableSet.swift; sourceTree = "<group>"; };
 		E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTAccountSession+BTDB.swift"; sourceTree = "<group>"; };
 		E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTMember+BTDB.swift"; sourceTree = "<group>"; };
+		E740E0E920C85B6E00B25B5B /* PlayGameVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayGameVideoViewController.swift; sourceTree = "<group>"; };
 		E754A1DB20C37EFB006F36EB /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E754A1EA20C389DD006F36EB /* BTAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAPIClient.swift; sourceTree = "<group>"; };
 		E754A1ED20C39411006F36EB /* BTAccountAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAccountAPI.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				E738006720C452D00043A201 /* SignInViewController.swift */,
 				E738006920C452DC0043A201 /* SignUpViewController.swift */,
 				E738006B20C452EB0043A201 /* ForgetPasswordViewController.swift */,
+				E740E0E920C85B6E00B25B5B /* PlayGameVideoViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -703,8 +706,8 @@
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ZFPlayer/ZFPlayer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -712,8 +715,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZFPlayer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -847,6 +850,7 @@
 				E75D404720C518F300BEAF79 /* ControllerExtension.swift in Sources */,
 				E7C105BE20C63649001BFB11 /* UIDeviceExtensions.swift in Sources */,
 				E75D401020C4B01700BEAF79 /* BTServiceContainer.swift in Sources */,
+				E740E0EA20C85B6E00B25B5B /* PlayGameVideoViewController.swift in Sources */,
 				E754A2A520C3CFEA006F36EB /* BTGameWall.swift in Sources */,
 				E788687D20C303A2008E0E8D /* MemberViewController.swift in Sources */,
 				E754A29D20C3C077006F36EB /* UserSetting.swift in Sources */,

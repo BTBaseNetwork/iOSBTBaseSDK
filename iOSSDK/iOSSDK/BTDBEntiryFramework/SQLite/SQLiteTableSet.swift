@@ -105,12 +105,13 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
     public override func update(model: T, upsert: Bool) -> T {
         let priProperties: [BTDBEntity.Property<T>] = entity.getPrimaryKey()
         let priKvs = priProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
-        let querySql = SQLiteHelper.selectSql(tableName: entity.scheme, query: priKvs.map { $0.column }.map { "\($0)=?" }.joined(separator: " "))
+        let queryFieldsSql = priKvs.map { $0.column }.map { "\($0)=?" }.joined(separator: " ")
+        let querySql = SQLiteHelper.selectSql(tableName: entity.scheme, query: queryFieldsSql)
         let priValues = priKvs.map { $0.value }
         if let _: T = query(sql: querySql, parameters: priValues).first {
             let notpriProperties: [BTDBEntity.Property<T>] = entity.getNotPrimaryKey()
             let notPriKvs = notpriProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
-            let sql = SQLiteHelper.updateSql(tableName: entity.scheme, fields: notPriKvs.map { $0.column }, query: querySql)
+            let sql = SQLiteHelper.updateSql(tableName: entity.scheme, fields: notPriKvs.map { $0.column }, query: queryFieldsSql)
             try? database.executeUpdate(sql, values: notPriKvs.map { $0.value } + priValues)
             return model
         } else if upsert {
@@ -124,9 +125,9 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
     public override func delete(model: T) -> Bool {
         let priProperties: [BTDBEntity.Property<T>] = entity.getPrimaryKey()
         let priKvs = priProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
-        let querySql = SQLiteHelper.selectSql(tableName: entity.scheme, query: priKvs.map { $0.column }.map { "\($0)=?" }.joined(separator: " "))
+        let queryFieldsSql = priKvs.map { $0.column }.map { "\($0)=?" }.joined(separator: " ")
         let priValues = priKvs.map { $0.value }
-        let sql = SQLiteHelper.deleteSql(tableName: entity.scheme, query: querySql)
+        let sql = SQLiteHelper.deleteSql(tableName: entity.scheme, query: queryFieldsSql)
         if (try? database.executeUpdate(sql, values: priValues)) != nil {
             return true
         }

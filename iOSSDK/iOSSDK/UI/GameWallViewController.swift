@@ -9,6 +9,7 @@
 import SDWebImage
 import StoreKit
 import UIKit
+import ZFPlayer
 
 class GameWallBannerItemCell: UITableViewCell {
     static let reuseId = "GameWallBannerItemCell"
@@ -63,6 +64,12 @@ class GameWallBannerItemCell: UITableViewCell {
     }
 
     @IBAction func onClickPlayVideo(_: Any) {
+        let vc = UIViewController.instanceFromStoryBoard("BTBaseMainStoryboard", identifier: "PlayGameVideoViewController", bundle: Bundle.iOSBTBaseSDKUI!)
+        rootController?.present(vc, animated: true, completion: {
+            let playmgr = ZFAVPlayerManager()
+            let player = ZFPlayerController(playerManager: playmgr, containerView: vc.view)
+            player.assetURLs = [URL(string: self.gameWallItem.videoUrl)!]
+        })
     }
 
     @IBAction func onClickPlayGame(_: Any) {

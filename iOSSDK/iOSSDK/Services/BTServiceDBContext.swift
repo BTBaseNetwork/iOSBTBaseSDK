@@ -8,7 +8,6 @@
 
 import FMDB
 import Foundation
-import SQLite
 
 public class BTServiceDBContext: SQLiteDbContext {
     private(set) var tableAccount: BTDBTableSet<BTAccount>!

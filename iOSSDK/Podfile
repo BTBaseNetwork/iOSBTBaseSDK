@@ -4,14 +4,16 @@ install! 'cocoapods', :integrate_targets => true
 platform :ios, '8.0'
 
 target 'BTBaseSDK' do
-use_frameworks!
+    use_frameworks!
 
-pod 'Alamofire', '~> 4.7'
-pod 'FMDB'
-pod 'SDWebImage', '~> 4.0'
-pod 'MBProgressHUD', '~> 1.1.0'
-pod 'SwiftyStoreKit'
-pod 'SQLite.swift', '~> 0.11.5'
+    pod 'Alamofire', '~> 4.7'
+    pod 'FMDB'
+    pod 'SDWebImage', '~> 4.0'
+    pod 'MBProgressHUD', '~> 1.1.0'
+    pod 'SwiftyStoreKit'
+    pod 'ZFPlayer', '~> 3.0.2'
+    pod 'ZFPlayer/AVPlayer', '~> 3.0.2'
+    pod 'ZFPlayer/ControlView', '~> 3.0.2'
 end
 
 target 'SDKTest' do
@@ -22,5 +24,7 @@ target 'SDKTest' do
     pod 'SDWebImage', '~> 4.0'
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'SwiftyStoreKit'
-    pod 'SQLite.swift', '~> 0.11.5'
+    pod 'ZFPlayer', '~> 3.0.2'
+    pod 'ZFPlayer/AVPlayer', '~> 3.0.2'
+    pod 'ZFPlayer/ControlView', '~> 3.0.2'
 end

@@ -412,6 +412,45 @@
             </objects>
             <point key="canvasLocation" x="1382" y="2060"/>
         </scene>
+        <!--Play Game Video View Controller-->
+        <scene sceneID="6Ks-uL-i5m">
+            <objects>
+                <viewController storyboardIdentifier="PlayGameVideoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zhB-k6-UtD" customClass="PlayGameVideoViewController" customModule="BTBaseSDK" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CLh-y1-F7z"/>
+                        <viewControllerLayoutGuide type="bottom" id="D23-HX-rXk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="x9e-38-WqJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjM-e4-ISh">
+                                <rect key="frame" x="16" y="28" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="RAR-PX-tdy"/>
+                                    <constraint firstAttribute="height" constant="32" id="iVb-92-4Je"/>
+                                </constraints>
+                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button" image="ikons_arrow_left"/>
+                                <connections>
+                                    <action selector="onClickClose:" destination="zhB-k6-UtD" eventType="touchUpInside" id="zJx-tS-Ukf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mjM-e4-ISh" firstAttribute="leading" secondItem="x9e-38-WqJ" secondAttribute="leading" constant="16" id="48P-9z-zP9"/>
+                            <constraint firstItem="mjM-e4-ISh" firstAttribute="top" secondItem="CLh-y1-F7z" secondAttribute="bottom" constant="8" id="ykj-xZ-b1Y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="mjM-e4-ISh" id="NXL-f8-LCZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Djq-x6-6ax" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1382" y="494"/>
+        </scene>
         <!--Update Email-->
         <scene sceneID="Qcg-gx-kcK">
             <objects>
@@ -1080,6 +1119,7 @@
         <image name="btbase_tab_gamewall" width="32" height="32"/>
         <image name="btbase_tab_me" width="32" height="32"/>
         <image name="btbase_tab_member" width="32" height="32"/>
+        <image name="ikons_arrow_left" width="128" height="128"/>
         <image name="ikons_arrow_right" width="128" height="128"/>
         <image name="ikons_grid_2" width="128" height="128"/>
         <image name="ikons_star" width="128" height="128"/>
