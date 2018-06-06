@@ -33,7 +33,7 @@ public class BTDeviceInstalledApp: Codable {
     public var launchDateTs: Double = 0
 }
 
-public struct BTAccountSession: Codable {
+public class BTAccountSession: Codable {
     public static let STATUS_LOGOUT = 0
     public static let STATUS_LOGIN = 1
     public static let STATUS_LOGOUT_DEFAULT = 2

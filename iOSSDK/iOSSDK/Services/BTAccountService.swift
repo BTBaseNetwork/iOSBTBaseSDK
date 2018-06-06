@@ -30,11 +30,12 @@ public class BTAccountService {
 
     private func initDB(db: BTServiceDBContext) {
         self.dbContext = db
-        self.dbContext.createTable(model: BTAccount())
+        self.dbContext.tableAccount.createTable()
     }
 
     func loadLocalAccount(accountId: String) {
-        if let account = dbContext.select(model: BTAccount(), query: "AccountId = ?", parameters: [accountId]).first {
+        let resultSet = dbContext.tableAccount.query(sql: SQLiteHelper.selectSql(tableName: "BTAccount", query: "AccountId = ?"), parameters: [accountId])
+        if let account = resultSet.first {
             self.localAccount = account
         } else {
             self.localAccount = BTAccount()

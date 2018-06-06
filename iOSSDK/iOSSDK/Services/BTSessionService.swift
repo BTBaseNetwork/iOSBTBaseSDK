@@ -34,7 +34,7 @@ public class BTSessionService {
 
     private func initDB(db: BTServiceDBContext) {
         self.dbContext = db
-        self.dbContext.createTable(model: BTAccountSession())
+        self.dbContext.tableAccountSession.createTable()
     }
 
     @objc private func onRequestUnauthorized(a _: Notification) {
@@ -48,7 +48,8 @@ public class BTSessionService {
     }
 
     private func loadCachedSession() {
-        if let session = dbContext.select(model: BTAccountSession(), query: "Status >= ?", parameters: [BTAccountSession.STATUS_LOGIN]).first {
+        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: "BTAccountSession", query: "Status >= ?"), parameters: [BTAccountSession.STATUS_LOGIN])
+        if let session = resultSet.first {
             self.localSession = session
         } else {
             self.localSession = BTAccountSession()

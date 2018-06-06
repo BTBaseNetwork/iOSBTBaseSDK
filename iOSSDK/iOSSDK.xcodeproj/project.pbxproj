@@ -27,6 +27,8 @@
 		E740BC4820C78888001C13F1 /* SQLiteDbContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4720C78888001C13F1 /* SQLiteDbContext.swift */; };
 		E740BC4A20C788CE001C13F1 /* SQLiteHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4920C788CE001C13F1 /* SQLiteHelper.swift */; };
 		E740BC4C20C78C73001C13F1 /* SQLiteTableSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */; };
+		E740BC4E20C7B93C001C13F1 /* BTAccountSession+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */; };
+		E740BC5020C7BA32001C13F1 /* BTMember+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */; };
 		E754A1DC20C37EFB006F36EB /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = E754A1DB20C37EFB006F36EB /* Podfile */; };
 		E754A1EB20C389DD006F36EB /* BTAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1EA20C389DD006F36EB /* BTAPIClient.swift */; };
 		E754A1EE20C39411006F36EB /* BTAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1ED20C39411006F36EB /* BTAccountAPI.swift */; };
@@ -152,6 +154,8 @@
 		E740BC4720C78888001C13F1 /* SQLiteDbContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDbContext.swift; sourceTree = "<group>"; };
 		E740BC4920C788CE001C13F1 /* SQLiteHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteHelper.swift; sourceTree = "<group>"; };
 		E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteTableSet.swift; sourceTree = "<group>"; };
+		E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTAccountSession+BTDB.swift"; sourceTree = "<group>"; };
+		E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTMember+BTDB.swift"; sourceTree = "<group>"; };
 		E754A1DB20C37EFB006F36EB /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E754A1EA20C389DD006F36EB /* BTAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAPIClient.swift; sourceTree = "<group>"; };
 		E754A1ED20C39411006F36EB /* BTAccountAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAccountAPI.swift; sourceTree = "<group>"; };
@@ -528,6 +532,8 @@
 				E7C105B720C628EA001BFB11 /* Models+FMDB.swift */,
 				E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */,
 				E740BC3D20C77F81001C13F1 /* BTAccount+BTDB.swift */,
+				E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */,
+				E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -815,6 +821,7 @@
 				E754A1F220C396BA006F36EB /* BTSessionAPI.swift in Sources */,
 				E754A29920C3C077006F36EB /* NormalDistribution.swift in Sources */,
 				E75D404620C518F300BEAF79 /* LockScreenHelper.swift in Sources */,
+				E740BC4E20C7B93C001C13F1 /* BTAccountSession+BTDB.swift in Sources */,
 				E75D404820C518F300BEAF79 /* HSL.swift in Sources */,
 				E75D403420C518F300BEAF79 /* BahamutTextView.swift in Sources */,
 				E740BC4A20C788CE001C13F1 /* SQLiteHelper.swift in Sources */,
@@ -830,6 +837,7 @@
 				E788687620C2FDF5008E0E8D /* Models.swift in Sources */,
 				E740BC4120C786C6001C13F1 /* BTDBEntity.swift in Sources */,
 				E754A29A20C3C077006F36EB /* RegexUtil.swift in Sources */,
+				E740BC5020C7BA32001C13F1 /* BTMember+BTDB.swift in Sources */,
 				E788688320C30435008E0E8D /* BTAccountService.swift in Sources */,
 				E7C105C020C6389E001BFB11 /* LocaleExtensions.swift in Sources */,
 				E75D404520C518F300BEAF79 /* ImageUtil.swift in Sources */,

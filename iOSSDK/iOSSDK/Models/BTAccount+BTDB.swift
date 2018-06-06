@@ -8,7 +8,8 @@
 
 import Foundation
 extension BTAccount: BTDBEntityModel {
-    public static func newDefaultModel() -> Any {
+    
+    public static func newDefaultModel() -> BTDBEntityModel {
         return BTAccount()
     }
     

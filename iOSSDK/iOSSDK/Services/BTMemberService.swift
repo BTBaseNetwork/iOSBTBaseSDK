@@ -27,7 +27,7 @@ public class BTMemberService {
 
     private func initDB(db: BTServiceDBContext) {
         dbContext = db
-        dbContext.createTable(model: BTMember())
+        dbContext.tableMember.createTable()
     }
 
     func fetchMemberProfile() {

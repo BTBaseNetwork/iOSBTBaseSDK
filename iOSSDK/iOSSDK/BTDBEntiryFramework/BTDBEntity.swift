@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol BTDBEntityModel {
-    static func newDefaultModel() -> Any
+    static func newDefaultModel() -> BTDBEntityModel
     static func onBuildBTDBEntity(entity: BTDBEntity.Builder)
 }
 
@@ -58,7 +58,7 @@ extension BTDBEntity {
             return Property<T, V>(propertyName: name, getter: defaultGetter, setter: defaultSetter)
         }
         
-        public func build<T>(_ type:T.Type) -> BTDBEntity where T:BTDBEntityModel {
+        public func build<T>(_ type: T.Type) -> BTDBEntity where T: BTDBEntityModel {
             T.onBuildBTDBEntity(entity: self)
             return entity
         }
