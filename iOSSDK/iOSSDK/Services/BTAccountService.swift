@@ -108,7 +108,7 @@ public class BTAccountService {
         req.response = respAction
         req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
-        clientProfile.useAccountId().useAuthorizationAPIToken()
+        clientProfile.useAccountId().useAuthorizationAPIToken().useLang()
         req.request(profile: clientProfile)
     }
 
@@ -130,6 +130,7 @@ public class BTAccountService {
         req.response = respAction
         req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
+        clientProfile.useLang()
         req.request(profile: clientProfile)
     }
 

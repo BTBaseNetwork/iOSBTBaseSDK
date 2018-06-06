@@ -39,6 +39,7 @@ class UpdateEmailViewController: UIViewController {
         }
         updateEmailButton.isEnabled = false
         tipsLabel.text = nil
+        sendCodeButton.isHidden = true
         sendCodeButton.isEnabled = false
         setCheckTag(securityCodeCheckImage, false)
         setCheckTag(newEmailCheckImage, false)
@@ -54,7 +55,8 @@ class UpdateEmailViewController: UIViewController {
         sendCodeButton.isHidden = true
         curEmailTextField.isEnabled = false
         BTServiceContainer.getBTAccountService()?.sendUpdateEmailSecurityCode(email: curEmailTextField.text!, respAction: { req, result in
-            self.sendCodeButton.isHidden = result.isHttpOK
+            self.sendCodeButton.isHidden = false
+            self.sendCodeButton.isEnabled = !result.isHttpOK
             self.curEmailTextField.isEnabled = true
             
             if result.isHttpOK {
@@ -116,7 +118,8 @@ class UpdateEmailViewController: UIViewController {
 
     private func onCurrentEmailChanged() {
         if String.regexTestStringWithPattern(value: curEmailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
-            sendCodeButton.isEnabled = true
+            sendCodeButton.isEnabled = resendAvailableTime <= 0
+            sendCodeButton.isHidden = false
             tipsLabel.text = nil
 
         } else {

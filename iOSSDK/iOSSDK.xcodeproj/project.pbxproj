@@ -20,6 +20,13 @@
 		E738006C20C452EB0043A201 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006B20C452EB0043A201 /* ForgetPasswordViewController.swift */; };
 		E73E6AA820C55E54000A4B2E /* BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
 		E73E6AA920C55E54000A4B2E /* BTBaseSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E740BC3E20C77F81001C13F1 /* BTAccount+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC3D20C77F81001C13F1 /* BTAccount+BTDB.swift */; };
+		E740BC4120C786C6001C13F1 /* BTDBEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4020C786C6001C13F1 /* BTDBEntity.swift */; };
+		E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4220C7871E001C13F1 /* BTDBTableSet.swift */; };
+		E740BC4520C78791001C13F1 /* BTDBContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4420C78791001C13F1 /* BTDBContext.swift */; };
+		E740BC4820C78888001C13F1 /* SQLiteDbContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4720C78888001C13F1 /* SQLiteDbContext.swift */; };
+		E740BC4A20C788CE001C13F1 /* SQLiteHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4920C788CE001C13F1 /* SQLiteHelper.swift */; };
+		E740BC4C20C78C73001C13F1 /* SQLiteTableSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */; };
 		E754A1DC20C37EFB006F36EB /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = E754A1DB20C37EFB006F36EB /* Podfile */; };
 		E754A1EB20C389DD006F36EB /* BTAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1EA20C389DD006F36EB /* BTAPIClient.swift */; };
 		E754A1EE20C39411006F36EB /* BTAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1ED20C39411006F36EB /* BTAccountAPI.swift */; };
@@ -138,6 +145,13 @@
 		E738006720C452D00043A201 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E738006920C452DC0043A201 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E738006B20C452EB0043A201 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		E740BC3D20C77F81001C13F1 /* BTAccount+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTAccount+BTDB.swift"; sourceTree = "<group>"; };
+		E740BC4020C786C6001C13F1 /* BTDBEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTDBEntity.swift; sourceTree = "<group>"; };
+		E740BC4220C7871E001C13F1 /* BTDBTableSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTDBTableSet.swift; sourceTree = "<group>"; };
+		E740BC4420C78791001C13F1 /* BTDBContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTDBContext.swift; sourceTree = "<group>"; };
+		E740BC4720C78888001C13F1 /* SQLiteDbContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDbContext.swift; sourceTree = "<group>"; };
+		E740BC4920C788CE001C13F1 /* SQLiteHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteHelper.swift; sourceTree = "<group>"; };
+		E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteTableSet.swift; sourceTree = "<group>"; };
 		E754A1DB20C37EFB006F36EB /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E754A1EA20C389DD006F36EB /* BTAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAPIClient.swift; sourceTree = "<group>"; };
 		E754A1ED20C39411006F36EB /* BTAccountAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAccountAPI.swift; sourceTree = "<group>"; };
@@ -275,6 +289,27 @@
 				D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E740BC3F20C786A7001C13F1 /* BTDBEntiryFramework */ = {
+			isa = PBXGroup;
+			children = (
+				E740BC4620C78875001C13F1 /* SQLite */,
+				E740BC4020C786C6001C13F1 /* BTDBEntity.swift */,
+				E740BC4220C7871E001C13F1 /* BTDBTableSet.swift */,
+				E740BC4420C78791001C13F1 /* BTDBContext.swift */,
+			);
+			path = BTDBEntiryFramework;
+			sourceTree = "<group>";
+		};
+		E740BC4620C78875001C13F1 /* SQLite */ = {
+			isa = PBXGroup;
+			children = (
+				E740BC4720C78888001C13F1 /* SQLiteDbContext.swift */,
+				E740BC4920C788CE001C13F1 /* SQLiteHelper.swift */,
+				E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */,
+			);
+			path = SQLite;
 			sourceTree = "<group>";
 		};
 		E754A1DD20C38232006F36EB /* Libs */ = {
@@ -460,6 +495,7 @@
 			children = (
 				E754A1DD20C38232006F36EB /* Libs */,
 				E788687420C2FDBE008E0E8D /* Models */,
+				E740BC3F20C786A7001C13F1 /* BTDBEntiryFramework */,
 				E788687120C2FA34008E0E8D /* Services */,
 				E754A25820C3A88D006F36EB /* UI */,
 				E788686620C2F981008E0E8D /* iOSSDK.h */,
@@ -491,6 +527,7 @@
 				E788687720C3017D008E0E8D /* BTServiceConst.swift */,
 				E7C105B720C628EA001BFB11 /* Models+FMDB.swift */,
 				E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */,
+				E740BC3D20C77F81001C13F1 /* BTAccount+BTDB.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -738,6 +775,7 @@
 				E788688520C3043E008E0E8D /* BTMemberService.swift in Sources */,
 				E754A28A20C3C077006F36EB /* ArrayUtil.swift in Sources */,
 				E754A1F020C3957D006F36EB /* BTMemberAPI.swift in Sources */,
+				E740BC3E20C77F81001C13F1 /* BTAccount+BTDB.swift in Sources */,
 				E75D404B20C518F300BEAF79 /* PaddingLabel.swift in Sources */,
 				E738006620C44DCF0043A201 /* UpdateNickViewController.swift in Sources */,
 				E75D403920C518F300BEAF79 /* UIView+Boom.m in Sources */,
@@ -747,15 +785,19 @@
 				E75D403D20C518F300BEAF79 /* UIImagePicker+SourceAlert.swift in Sources */,
 				E738006A20C452DC0043A201 /* SignUpViewController.swift in Sources */,
 				E754A1EE20C39411006F36EB /* BTAccountAPI.swift in Sources */,
+				E740BC4C20C78C73001C13F1 /* SQLiteTableSet.swift in Sources */,
 				E754A29720C3C077006F36EB /* Math.swift in Sources */,
 				E754A1EB20C389DD006F36EB /* BTAPIClient.swift in Sources */,
 				E75D403F20C518F300BEAF79 /* SimpleBrowser.swift in Sources */,
 				E78B406020C6C4930049ED91 /* FileManager+Paths.swift in Sources */,
 				E75D403C20C518F300BEAF79 /* UICollectionViewFlowLayouts.swift in Sources */,
 				E75D401620C516DF00BEAF79 /* CommonRegexPatterns.swift in Sources */,
+				E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */,
+				E740BC4520C78791001C13F1 /* BTDBContext.swift in Sources */,
 				E754A29820C3C077006F36EB /* NetworkReachability.swift in Sources */,
 				E72467A020C69A92003641C0 /* BTBaseSDKManager.swift in Sources */,
 				E7C105B820C628EA001BFB11 /* Models+FMDB.swift in Sources */,
+				E740BC4820C78888001C13F1 /* SQLiteDbContext.swift in Sources */,
 				E75D401420C4C56F00BEAF79 /* BTAPIResult.swift in Sources */,
 				E754A29120C3C077006F36EB /* MF_Base64Additions.m in Sources */,
 				E788688120C30429008E0E8D /* BTSessionService.swift in Sources */,
@@ -775,6 +817,7 @@
 				E75D404620C518F300BEAF79 /* LockScreenHelper.swift in Sources */,
 				E75D404820C518F300BEAF79 /* HSL.swift in Sources */,
 				E75D403420C518F300BEAF79 /* BahamutTextView.swift in Sources */,
+				E740BC4A20C788CE001C13F1 /* SQLiteHelper.swift in Sources */,
 				E75D404220C518F300BEAF79 /* ToastHelper.swift in Sources */,
 				E75D404C20C518F300BEAF79 /* ShareHelper.swift in Sources */,
 				E75D404120C518F300BEAF79 /* SystemSoundHelper.swift in Sources */,
@@ -785,6 +828,7 @@
 				E788687F20C303BA008E0E8D /* AccountViewController.swift in Sources */,
 				E754A29520C3C077006F36EB /* GameCenterHelper.swift in Sources */,
 				E788687620C2FDF5008E0E8D /* Models.swift in Sources */,
+				E740BC4120C786C6001C13F1 /* BTDBEntity.swift in Sources */,
 				E754A29A20C3C077006F36EB /* RegexUtil.swift in Sources */,
 				E788688320C30435008E0E8D /* BTAccountService.swift in Sources */,
 				E7C105C020C6389E001BFB11 /* LocaleExtensions.swift in Sources */,

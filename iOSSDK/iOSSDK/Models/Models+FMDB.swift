@@ -78,12 +78,12 @@ extension BTAccount: BTServiceDBModel {
     public func insertFieldsValues() -> [(field: String, value: Any)] {
         return [
             ("accountId", accountId),
-            ("accountTypes", accountId),
-            ("email", accountId),
-            ("mobile", accountId),
-            ("nick", accountId),
-            ("signDateTs", accountId),
-            ("userName", accountId),
+            ("accountTypes", accountTypes),
+            ("email", email),
+            ("mobile", mobile),
+            ("nick", nick),
+            ("signDateTs", signDateTs),
+            ("userName", userName),
         ]
     }
 

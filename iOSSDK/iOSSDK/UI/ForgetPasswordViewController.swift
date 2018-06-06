@@ -41,6 +41,7 @@ class ForgetPasswordViewController: UIViewController {
         resetPasswordButton.isEnabled = false
         tipsLabel.text = nil
         sendCodeButton.isEnabled = false
+        sendCodeButton.isHidden = true
         setCheckTag(accoundIdCheckImage, false)
         setCheckTag(codeCheckImage, false)
         setCheckTag(newPasswordCheckImage, false)
@@ -74,7 +75,8 @@ class ForgetPasswordViewController: UIViewController {
         emailTextField.isEnabled = false
         accountIdTextField.isEnabled = false
         BTServiceContainer.getBTAccountService()?.sendResetPasswordSecurityCode(accountId: accountIdTextField.text!, email: emailTextField.text!, respAction: { _, result in
-            self.sendCodeButton.isHidden = result.isHttpOK
+            self.sendCodeButton.isHidden = false
+            self.sendCodeButton.isEnabled = !result.isHttpOK
             self.emailTextField.isEnabled = true
             self.accountIdTextField.isEnabled = true
             if result.isHttpOK {
@@ -141,7 +143,8 @@ class ForgetPasswordViewController: UIViewController {
 
     private func onEmailChanged() {
         if String.regexTestStringWithPattern(value: emailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
-            sendCodeButton.isEnabled = true
+            sendCodeButton.isEnabled = resendAvailableTime <= 0
+            sendCodeButton.isHidden = false
             tipsLabel.text = nil
 
         } else {

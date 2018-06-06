@@ -7,3 +7,8 @@
 //
 
 import Foundation
+public protocol BTDBContext {
+    func executeSql(sql: String)
+    func beginTransaction()
+    func commit()
+}
