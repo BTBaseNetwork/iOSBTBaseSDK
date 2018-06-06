@@ -7,6 +7,9 @@ PODS:
   - SDWebImage (4.4.0):
     - SDWebImage/Core (= 4.4.0)
   - SDWebImage/Core (4.4.0)
+  - SQLite.swift (0.11.5):
+    - SQLite.swift/standard (= 0.11.5)
+  - SQLite.swift/standard (0.11.5)
   - SwiftyStoreKit (0.13.2)
 
 DEPENDENCIES:
@@ -14,6 +17,7 @@ DEPENDENCIES:
   - FMDB
   - MBProgressHUD (~> 1.1.0)
   - SDWebImage (~> 4.0)
+  - SQLite.swift (~> 0.11.5)
   - SwiftyStoreKit
 
 SPEC REPOS:
@@ -22,6 +26,7 @@ SPEC REPOS:
     - FMDB
     - MBProgressHUD
     - SDWebImage
+    - SQLite.swift
     - SwiftyStoreKit
 
 SPEC CHECKSUMS:
@@ -29,8 +34,9 @@ SPEC CHECKSUMS:
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   SDWebImage: b534502786e43dde36dfcaee89356fe6df30e203
+  SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   SwiftyStoreKit: b7563505440a68c9d9fa70bc43d8a97015519409
 
-PODFILE CHECKSUM: 6915608ea1cfd0e7d91a1357db1aee2788db15a9
+PODFILE CHECKSUM: 7eb7719c12d9ef8571c45c225f2f8a3a855c643f
 
 COCOAPODS: 1.5.3

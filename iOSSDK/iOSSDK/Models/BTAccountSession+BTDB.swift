@@ -13,31 +13,28 @@ extension BTAccountSession: BTDBEntityModel {
     }
     
     public static func onBuildBTDBEntity(entity: BTDBEntity.Builder) {
-        entity.hasProperty("id") { (model: BTAccountSession, value: Int?) in
-            model.id = value ?? 0
-        }.hasPrimaryKey().autoIncrement()
+        entity.hasProperty("accountId", String.self) { (model: BTAccountSession, value: Any) in
+            model.accountId = value as! String
+        }.length(valueLength: 32).hasPrimaryKey()
         
-        entity.hasProperty("accountId") { (model: BTAccountSession, value: String?) in
-            model.accountId = value
-        }.length(valueLength: 24)
-        
-        entity.hasProperty("session") { (model: BTAccountSession, value: String?) in
-            model.session = value
+        entity.hasProperty("session", String.self) { (model: BTAccountSession, value: Any) in
+            model.session = value as? String
         }
         
-        entity.hasProperty("sessionToken") { (model: BTAccountSession, value: String?) in
-            model.sessionToken = value
+        entity.hasProperty("sessionToken", String.self) { (model: BTAccountSession, value: Any) in
+            model.sessionToken = value as? String
         }
         
-        entity.hasProperty("status") { (model: BTAccountSession, value: Int?) in
-            model.status = value ?? 0
+        entity.hasProperty("status", Int.self) { (model: BTAccountSession, value: Any) in
+            model.status = value as! Int
         }
         
-        entity.hasProperty("token") { (model: BTAccountSession, value: String?) in
-            model.token = value
+        entity.hasProperty("token", String.self) { (model: BTAccountSession, value: Any) in
+            model.token = value as? String
         }
-        entity.hasProperty("password") { (model: BTAccountSession, value: String?) in
-            model.password = value
+        
+        entity.hasProperty("password", String.self) { (model: BTAccountSession, value: Any) in
+            model.password = value as? String
         }
     }
 }

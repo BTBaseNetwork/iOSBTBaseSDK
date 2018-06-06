@@ -14,20 +14,38 @@ public protocol BTDBEntityModel {
 }
 
 public class BTDBEntity {
-    var properties = [Property<Any, Any>]()
+    private(set) var properties = [PropertyBase]()
     var scheme: String
     
     init(scheme: String) {
         self.scheme = scheme
     }
+    
+    private func addProperty(property: PropertyBase) {
+        properties.append(property)
+    }
 }
 
 extension BTDBEntity {
-    var primaryKeys: [Property<Any, Any>] {
+    func getProperties<T>() -> [Property<T>] {
+        return properties as! [Property<T>]
+    }
+    
+    func getPrimaryKey<T>() -> [Property<T>] {
+        let keys = properties.filter { $0.primaryKey }
+        return keys as! [Property<T>]
+    }
+    
+    func getNotPrimaryKey<T>() -> [Property<T>] {
+        let keys = properties.filter { !$0.primaryKey }
+        return keys as! [Property<T>]
+    }
+    
+    var primaryKeys: [PropertyBase] {
         return properties.filter { $0.primaryKey }
     }
     
-    var notPrimaryKeys: [Property<Any, Any>] {
+    var notPrimaryKeys: [PropertyBase] {
         return properties.filter { !$0.primaryKey }
     }
 }
@@ -41,21 +59,26 @@ extension BTDBEntity {
         private var entity: BTDBEntity
         
         @discardableResult
-        public func hasProperty<T, V>(_ name: String, setter: @escaping Property<T, V>.Setter) -> Property<T, V> {
-            let defaultGetter: Property<T, V>.Getter = { model in
+        public func hasProperty<T>(_ name: String, _ type: Any, setter: @escaping PropertyAccessor<T>.Setter) -> Property<T> {
+            let defaultGetter: PropertyAccessor<T>.Getter = { model in
                 let modelMirror = Mirror(reflecting: model)
                 let modelP = modelMirror.children.first(where: { (label, _) -> Bool in
                     label! == name
                 })!
-                return modelP.value as? V
+                return modelP.value
             }
             
             /* TODO: after swift upgrade reflecting features*/
             
-            let defaultSetter: Property<T, V>.Setter = { model, value in
+            let defaultSetter: PropertyAccessor<T>.Setter = { model, value in
                 setter(model, value)
             }
-            return Property<T, V>(propertyName: name, getter: defaultGetter, setter: defaultSetter)
+            
+            let accessor = PropertyAccessor<T>.init(getter: defaultGetter, setter: defaultSetter)
+            
+            let pt = Property<T>(name, type, accessor: accessor)
+            entity.addProperty(property: pt)
+            return pt
         }
         
         public func build<T>(_ type: T.Type) -> BTDBEntity where T: BTDBEntityModel {
@@ -64,13 +87,11 @@ extension BTDBEntity {
         }
     }
     
-    public class Property<T, V> {
-        private(set) var length: Int = 0
-        public typealias Setter = (_ model: T, _ value: V?) -> Void
-        public typealias Getter = (_ model: T) -> V?
-        private(set) var setter: Setter
-        private(set) var getter: Getter
+    public class PropertyBase {
         private(set) var propertyName: String
+        private(set) var valueType: Any
+        var valueTypeName: String { return "\(valueType)" }
+        
         private(set) var columnName: String
         private(set) var primaryKey = false
         private(set) var isNotNull = false
@@ -78,60 +99,78 @@ extension BTDBEntity {
         private(set) var isAutoIncrement = false
         private(set) var defaultValue: Any?
         private(set) var checkString: String?
-        
-        internal init(propertyName: String, getter: @escaping Getter, setter: @escaping Setter) {
+        private(set) var length: Int = 0
+        internal init(propertyName: String, valueType: Any) {
             self.propertyName = propertyName
+            self.valueType = valueType
             columnName = propertyName
-            self.getter = getter
-            self.setter = setter
         }
         
         @discardableResult
-        public func hasPrimaryKey(value: Bool = true) -> Property<T, V> {
+        public func hasPrimaryKey(value: Bool = true) -> PropertyBase {
             primaryKey = value
             return self
         }
         
         @discardableResult
-        public func notNull(value: Bool = true) -> Property<T, V> {
+        public func notNull(value: Bool = true) -> PropertyBase {
             isNotNull = value
             return self
         }
         
         @discardableResult
-        public func autoIncrement(value: Bool = true) -> Property<T, V> {
+        public func autoIncrement(value: Bool = true) -> PropertyBase {
             isAutoIncrement = value
             return self
         }
         
         @discardableResult
-        public func hasDefaultValue(defaultValue: Any?) -> Property<T, V> {
+        public func hasDefaultValue(defaultValue: Any?) -> PropertyBase {
             self.defaultValue = defaultValue
             return self
         }
         
         @discardableResult
-        public func unique(value: Bool = true) -> Property<T, V> {
+        public func unique(value: Bool = true) -> PropertyBase {
             isUnique = value
             return self
         }
         
         @discardableResult
-        public func check(limited: String?) -> Property<T, V> {
+        public func check(limited: String?) -> PropertyBase {
             checkString = limited
             return self
         }
         
         @discardableResult
-        public func length(valueLength: Int) -> Property<T, V> {
+        public func length(valueLength: Int) -> PropertyBase {
             length = valueLength
             return self
         }
         
         @discardableResult
-        public func bindColumn(name: String) -> Property<T, V> {
+        public func bindColumn(name: String) -> PropertyBase {
             columnName = name
             return self
+        }
+    }
+    
+    public class Property<T>: PropertyBase {
+        var accessor: PropertyAccessor<T>!
+        internal init(_ propertyName: String, _ valueType: Any, accessor: PropertyAccessor<T>) {
+            self.accessor = accessor
+            super.init(propertyName: propertyName, valueType: valueType)
+        }
+    }
+    
+    public class PropertyAccessor<T> {
+        public typealias Setter = (_ model: T, _ value: Any?) -> Void
+        public typealias Getter = (_ model: T) -> Any?
+        internal private(set) var getValue: Getter
+        internal private(set) var setValue: Setter
+        init(getter: @escaping Getter, setter: @escaping Setter) {
+            getValue = getter
+            setValue = setter
         }
     }
 }

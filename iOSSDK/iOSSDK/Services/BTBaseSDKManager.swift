@@ -18,6 +18,7 @@ public class BTBaseSDKManager {
             if let dbname = config["BTBaseDB"] as? String {
                 let dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
                 let dbContext = BTServiceDBContext(dbpath: dbPath)
+                dbContext.open()
                 BTBaseSDKManager.defaultDbContext = dbContext
                 if let gameWallConfigUrl = config["BTGameWallConfig"] as? String {
                     BTServiceContainer.useBTGameWall(configUrl: gameWallConfigUrl)
@@ -48,6 +49,7 @@ public class BTBaseSDKManager {
                 }
 
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
+                NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
 
                 isSDKInited = true
 
@@ -59,11 +61,15 @@ public class BTBaseSDKManager {
         }
     }
 
+    @objc private func applicationWillTerminate(a: Notification) {
+        BTBaseSDKManager.defaultDbContext?.close()
+    }
+
     @objc private func onSessionUpdated(a: Notification) {
         if BTServiceContainer.getBTSessionService()!.isSessionLogined {
             BTServiceContainer.getBTAccountService()?.fetchProfile()
             BTServiceContainer.getBTMemberService()?.fetchMemberProfile()
-        }else{
+        } else {
             BTServiceContainer.getBTAccountService()?.setLogout()
             BTServiceContainer.getBTMemberService()?.setLogout()
         }

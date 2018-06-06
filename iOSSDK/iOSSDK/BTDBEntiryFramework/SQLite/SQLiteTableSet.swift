@@ -6,59 +6,106 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
-import Foundation
 import FMDB
+import Foundation
+
 public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
-    
-    var database:FMDatabase!{
+    var database: FMDatabase! {
         return (dbContext as? SQLiteDbContext)?.database
     }
     
+    private func getConstraints(property: BTDBEntity.PropertyBase) -> [String] {
+        var strs = [String]()
+        if property.isNotNull { strs.append("NOT NULL") }
+        if property.primaryKey { strs.append("PRIMARY KEY") }
+        if property.isUnique { strs.append("UNIQUE") }
+        if property.isAutoIncrement { strs.append("AUTOINCREMENT") }
+        return strs
+    }
+    
+    private func getColumnType(property: BTDBEntity.PropertyBase) -> String {
+        var propertyType = "BLOB"
+        
+        if let pt = swiftTypeToSqliteType[property.valueTypeName] {
+            propertyType = pt
+        }
+        
+        if propertyType == "TEXT" && property.length > 0 {
+            return "CHAR(\(property.length))"
+        }
+        
+        return propertyType
+    }
+    
+    private func getColumnDesc(property: BTDBEntity.PropertyBase) -> String {
+        return "\(getColumnType(property: property)) \(getConstraints(property: property).joined(separator: " "))"
+    }
     
     public override func createTable() {
         let fields = entity.properties.map { p -> (String, String) in
-            let pt = p as! SQLiteEntityProperty
-            return (pt.columnName, pt.columnDesc)
+            return (p.columnName, getColumnDesc(property: p))
         }
         let sql = SQLiteHelper.createTableSql(tableName: entity.scheme, fields: fields)
         database.executeStatements(sql)
     }
-
+    
     public override func dropTable() {
         database.executeStatements("DROP TABLE \(entity.scheme)")
     }
-
+    
     public override func tableExists() -> Bool {
         return database.tableExists(entity.scheme)
     }
-
+    
     public override func query(sql: String, parameters: [Any]?) -> [T] {
         if let resultSet = try? database.executeQuery(sql, values: parameters) {
             var result = [T]()
             while resultSet.next() {
                 let model = T.newDefaultModel() as! T
-                for property in entity.properties {
-                    property.setter(model, resultSet.value(forKey: property.columnName))
+                for property: BTDBEntity.Property<T> in entity.getProperties() {
+                    switch property.valueTypeName {
+                    case "\(Int.self)": property.accessor?.setValue(model, resultSet.long(forColumn: property.columnName))
+                    case "\(String.self)": property.accessor?.setValue(model, resultSet.string(forColumn: property.columnName))
+                    case "\(Int32.self)": property.accessor?.setValue(model, resultSet.int(forColumn: property.columnName))
+                    case "\(Int64.self)": property.accessor?.setValue(model, resultSet.longLongInt(forColumn: property.columnName))
+                    case "\(Double.self)": property.accessor?.setValue(model, resultSet.double(forColumn: property.columnName))
+                    case "\(Float.self)": property.accessor?.setValue(model, resultSet.double(forColumn: property.columnName))
+                    case "\(Bool.self)": property.accessor?.setValue(model, resultSet.bool(forColumn: property.columnName))
+                    case "\(Date.self)": property.accessor?.setValue(model, resultSet.date(forColumn: property.columnName))
+                    case "\(uint.self)": property.accessor?.setValue(model, resultSet.unsignedLongLongInt(forColumn: property.columnName))
+                    case "\(UInt64.self)": property.accessor?.setValue(model, resultSet.unsignedLongLongInt(forColumn: property.columnName))
+                    case "\(UInt.self)": property.accessor?.setValue(model, resultSet.unsignedLongLongInt(forColumn: property.columnName))
+                    case "\(Float32.self)": property.accessor?.setValue(model, resultSet.double(forColumn: property.columnName))
+                    case "\(Float80.self)": property.accessor?.setValue(model, resultSet.double(forColumn: property.columnName))
+                        
+                    default: break
+                    }
+                    // property.accessor?.setValue(model, resultSet.object(forColumn: property.columnName))
                 }
                 result.append(model)
             }
         }
         return []
     }
-
+    
     public override func add(model: T) -> T {
-        let fields = entity.properties.map { (name: $0.columnName, value: $0.getter(model)) }
+        let properties: [BTDBEntity.Property<T>] = entity.getProperties()
+        
+        let fields = properties.map { (name: $0.columnName, value: $0.accessor.getValue(model)) }.map { (name: $0.name, value: $0.value) }
         let sql = SQLiteHelper.insertSql(tableName: entity.scheme, fields: fields.map { $0.name })
-        try? database.executeUpdate(sql, values: fields.map { $0.value })
+        let parameters = fields.map { $0.value ?? "" }
+        try? database.executeUpdate(sql, values: parameters)
         return model
     }
-
+    
     public override func update(model: T, upsert: Bool) -> T {
-        let priKvs = entity.primaryKeys.map { (column: $0.columnName, value: $0.getter(model)) }
+        let priProperties: [BTDBEntity.Property<T>] = entity.getPrimaryKey()
+        let priKvs = priProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
         let querySql = SQLiteHelper.selectSql(tableName: entity.scheme, query: priKvs.map { $0.column }.map { "\($0)=?" }.joined(separator: " "))
         let priValues = priKvs.map { $0.value }
         if let _: T = query(sql: querySql, parameters: priValues).first {
-            let notPriKvs = entity.notPrimaryKeys.map { (column: $0.columnName, value: $0.getter(model)) }
+            let notpriProperties: [BTDBEntity.Property<T>] = entity.getNotPrimaryKey()
+            let notPriKvs = notpriProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
             let sql = SQLiteHelper.updateSql(tableName: entity.scheme, fields: notPriKvs.map { $0.column }, query: querySql)
             try? database.executeUpdate(sql, values: notPriKvs.map { $0.value } + priValues)
             return model
@@ -68,9 +115,10 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         }
         return model
     }
-
+    
     public override func delete(model: T) -> Bool {
-        let priKvs = entity.primaryKeys.map { (column: $0.columnName, value: $0.getter(model)) }
+        let priProperties: [BTDBEntity.Property<T>] = entity.getPrimaryKey()
+        let priKvs = priProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
         let querySql = SQLiteHelper.selectSql(tableName: entity.scheme, query: priKvs.map { $0.column }.map { "\($0)=?" }.joined(separator: " "))
         let priValues = priKvs.map { $0.value }
         let sql = SQLiteHelper.deleteSql(tableName: entity.scheme, query: querySql)
@@ -80,3 +128,21 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         return false
     }
 }
+
+private var swiftTypeToSqliteType: [String: String] = {
+    var dict = [String: String]()
+    dict["\(Int.self)"] = "INTEGER"
+    dict["\(Int32.self)"] = "INTEGER"
+    dict["\(Int64.self)"] = "INTEGER"
+    dict["\(uint.self)"] = "INTEGER"
+    dict["\(UInt64.self)"] = "INTEGER"
+    dict["\(UInt.self)"] = "INTEGER"
+    dict["\(Float.self)"] = "NUMERIC"
+    dict["\(Float32.self)"] = "NUMERIC"
+    dict["\(Float80.self)"] = "NUMERIC"
+    dict["\(Double.self)"] = "NUMERIC"
+    dict["\(Bool.self)"] = "NUMERIC"
+    dict["\(String.self)"] = "TEXT"
+    dict["\(Date.self)"] = "TEXT"
+    return dict
+}()

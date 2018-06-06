@@ -11,4 +11,6 @@ public protocol BTDBContext {
     func executeSql(sql: String)
     func beginTransaction()
     func commit()
+    func open()
+    func close()
 }

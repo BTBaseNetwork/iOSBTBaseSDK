@@ -703,6 +703,7 @@
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -711,6 +712,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

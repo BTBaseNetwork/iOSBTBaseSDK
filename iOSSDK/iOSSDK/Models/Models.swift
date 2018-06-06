@@ -8,12 +8,12 @@
 
 import Foundation
 public class BTAccount: Codable {
-    public var accountId: String! = BTServiceConst.ACCOUNT_ID_UNLOGIN
-    public var accountTypes: String!
-    public var userName: String!
-    public var nick: String!
-    public var email: String!
-    public var mobile: String!
+    public var accountId: String = BTServiceConst.ACCOUNT_ID_UNLOGIN
+    public var accountTypes: String?
+    public var userName: String?
+    public var nick: String?
+    public var email: String?
+    public var mobile: String?
     public var signDateTs: Double = 0
 }
 
@@ -26,10 +26,10 @@ public class BTAppLink: Codable {
 }
 
 public class BTDeviceInstalledApp: Codable {
-    public var uniqueId: String!
-    public var channel: String!
-    public var bundleId: String!
-    public var urlSchemes: String!
+    public var uniqueId: String?
+    public var channel: String?
+    public var bundleId: String?
+    public var urlSchemes: String?
     public var launchDateTs: Double = 0
 }
 
@@ -38,13 +38,12 @@ public class BTAccountSession: Codable {
     public static let STATUS_LOGIN = 1
     public static let STATUS_LOGOUT_DEFAULT = 2
 
-    public var id: Int = 0
-    public var accountId: String! = BTServiceConst.ACCOUNT_ID_UNLOGIN
+    public var accountId: String = BTServiceConst.ACCOUNT_ID_UNLOGIN
     public var status: Int = BTAccountSession.STATUS_LOGOUT
-    public var session: String!
-    public var sessionToken: String!
-    public var token: String!
-    public var password: String!
+    public var session: String?
+    public var sessionToken: String?
+    public var token: String?
+    public var password: String?
 
     public func IsSessionLogined() -> Bool { return status == BTAccountSession.STATUS_LOGIN }
 }
@@ -57,15 +56,15 @@ public class BTMember: Codable {
     public static let MEMBER_TYPE_ADVANCED = 3
 
     public var id: Int64 = 0
-    public var accountId: String!
+    public var accountId: String?
     public var memberType: Int = 0
     public var expiredDateTs: Double = 0
 }
 
 public class BTMemberOrderReceipt: Codable {
-    public var transactionId: String!
-    public var store: String!
-    public var payload: String!
+    public var transactionId: String = ""
+    public var store: String?
+    public var payload: String?
 }
 
 public class BTGameWallItem: Codable {

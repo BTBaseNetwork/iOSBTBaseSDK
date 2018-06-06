@@ -20,8 +20,12 @@ public class BTDBTableSet<M> where M: BTDBEntityModel {
     public func tableExists() -> Bool { return false }
     
     public func dropTable() {}
+    @discardableResult
     public func add(model: M) -> M { return model }
+    @discardableResult
     public func query(sql: String, parameters: [Any]?) -> [M] { return [] }
+    @discardableResult
     public func update(model: M, upsert: Bool) -> M { return model }
+    @discardableResult
     public func delete(model: M) -> Bool { return false }
 }

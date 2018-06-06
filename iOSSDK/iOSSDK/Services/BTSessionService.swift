@@ -74,13 +74,14 @@ public class BTSessionService {
         req.response = { request, result in
 
             if result.isHttpOK {
-                var session = BTAccountSession()
+                let session = BTAccountSession()
                 session.accountId = result.content.accountId
                 session.password = cachedPassword ? password : nil
                 session.session = result.content.session
                 session.sessionToken = result.content.sessionToken
                 session.status = BTAccountSession.STATUS_LOGIN
                 session.token = result.content.token
+                self.dbContext.tableAccountSession.update(model: session, upsert: true)
                 self.localSession = session
             }
 

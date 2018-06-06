@@ -8,38 +8,37 @@
 
 import Foundation
 extension BTAccount: BTDBEntityModel {
-    
     public static func newDefaultModel() -> BTDBEntityModel {
         return BTAccount()
     }
     
     public static func onBuildBTDBEntity(entity: BTDBEntity.Builder) {
-        entity.hasProperty("accountId") { (model: BTAccount, value: String?) in
-            model.accountId = value
-        }.hasPrimaryKey().length(valueLength: 24).notNull()
+        entity.hasProperty("accountId", String.self) { (model: BTAccount, value: Any) in
+            model.accountId = value as! String
+        }.hasPrimaryKey().length(valueLength: 32).notNull()
         
-        entity.hasProperty("accountTypes") { (model: BTAccount, value: String?) in
-            model.accountTypes = value
+        entity.hasProperty("accountTypes", String.self) { (model: BTAccount, value: Any) in
+            model.accountTypes = value as? String
         }
         
-        entity.hasProperty("email") { (model: BTAccount, value: String?) in
-            model.email = value
+        entity.hasProperty("email", String.self) { (model: BTAccount, value: Any) in
+            model.email = value as? String
         }
         
-        entity.hasProperty("mobile") { (model: BTAccount, value: String?) in
-            model.mobile = value
+        entity.hasProperty("mobile", String.self) { (model: BTAccount, value: Any) in
+            model.mobile = value as? String
         }
         
-        entity.hasProperty("nick") { (model: BTAccount, value: String?) in
-            model.nick = value
+        entity.hasProperty("nick", String.self) { (model: BTAccount, value: Any) in
+            model.nick = value as? String
         }
         
-        entity.hasProperty("signDateTs") { (model: BTAccount, value: Double?) in
-            model.signDateTs = value ?? 0
+        entity.hasProperty("signDateTs", Double.self) { (model: BTAccount, value: Any) in
+            model.signDateTs = value as! Double
         }
         
-        entity.hasProperty("userName") { (model: BTAccount, value: String?) in
-            model.userName = value
+        entity.hasProperty("userName", String.self) { (model: BTAccount, value: Any) in
+            model.userName = value as? String
         }
     }
 }

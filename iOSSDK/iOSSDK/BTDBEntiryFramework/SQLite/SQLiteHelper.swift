@@ -17,7 +17,7 @@ class SQLiteHelper {
     }
     
     static func insertSql(tableName: String, fields: [String]) -> String {
-        let sql = "INSERT INTO \(tableName)(\(fields.joined(separator: ",")) VALUES(\(fields.map { _ in "?" }.joined(separator: ",")))"
+        let sql = "INSERT INTO \(tableName) (\(fields.joined(separator: ","))) VALUES (\(fields.map { _ in "?" }.joined(separator: ",")))"
         #if DEBUG
         debugLog("insertSql:\n%@", sql)
         #endif
