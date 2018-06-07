@@ -4,7 +4,7 @@
 <dict>
 	<key>BTBaseDB</key>
 	<string>btbase.db</string>
-	<key>BTGameWallConfig</key>
+	<key>BTGameWallConfigUrl</key>
 	<string>https://raw.githubusercontent.com/BTAds/AdsAssets/master/BTGameWallConfig_01.json</string>
 	<key>BTSessionServiceHost</key>
 	<string>https://btbase.mobi/auth/</string>
@@ -12,5 +12,7 @@
 	<string>https://btbase.mobi/web/</string>
 	<key>BTMemberServiceHost</key>
 	<string>https://btbase.mobi/web/</string>
+	<key>BTMemberIAPListUrl</key>
+	<string>https://raw.githubusercontent.com/BTAds/AdsAssets/master/BTMemberIAP_AppID.json</string>
 </dict>
 </plist>

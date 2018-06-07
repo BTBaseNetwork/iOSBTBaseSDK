@@ -101,6 +101,8 @@
 		E788688520C3043E008E0E8D /* BTMemberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788688420C3043E008E0E8D /* BTMemberService.swift */; };
 		E78B406020C6C4930049ED91 /* FileManager+Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B405F20C6C4930049ED91 /* FileManager+Paths.swift */; };
 		E78B406220C6CA060049ED91 /* btbase.plist in Resources */ = {isa = PBXBuildFile; fileRef = E78B406120C6CA060049ED91 /* btbase.plist */; };
+		E791C88C20C97DD0003E36A1 /* BTBaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */; };
+		E791C88E20C9897F003E36A1 /* DispatchQueue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */; };
 		E7C105B820C628EA001BFB11 /* Models+FMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105B720C628EA001BFB11 /* Models+FMDB.swift */; };
 		E7C105BA20C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105B920C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift */; };
 		E7C105BC20C62FE5001BFB11 /* BTServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */; };
@@ -244,6 +246,8 @@
 		E788688420C3043E008E0E8D /* BTMemberService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTMemberService.swift; sourceTree = "<group>"; };
 		E78B405F20C6C4930049ED91 /* FileManager+Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Paths.swift"; sourceTree = "<group>"; };
 		E78B406120C6CA060049ED91 /* btbase.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = btbase.plist; sourceTree = "<group>"; };
+		E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseConfig.swift; sourceTree = "<group>"; };
+		E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extensions.swift"; sourceTree = "<group>"; };
 		E7C105B720C628EA001BFB11 /* Models+FMDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+FMDB.swift"; sourceTree = "<group>"; };
 		E7C105B920C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTAPIClientProfile+DeviceInfo.swift"; sourceTree = "<group>"; };
 		E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTServiceInfo.swift; sourceTree = "<group>"; };
@@ -404,6 +408,7 @@
 				E754A28720C3C077006F36EB /* UserSetting.swift */,
 				E754A2A320C3C4CC006F36EB /* module.modulemap */,
 				E75D401520C516DF00BEAF79 /* CommonRegexPatterns.swift */,
+				E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */,
 			);
 			path = BahamutCommon;
 			sourceTree = "<group>";
@@ -527,6 +532,7 @@
 				E754A2A420C3CFEA006F36EB /* BTGameWall.swift */,
 				E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */,
 				E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */,
+				E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -808,6 +814,7 @@
 				E754A28A20C3C077006F36EB /* ArrayUtil.swift in Sources */,
 				E754A1F020C3957D006F36EB /* BTMemberAPI.swift in Sources */,
 				E740BC3E20C77F81001C13F1 /* BTAccount+BTDB.swift in Sources */,
+				E791C88E20C9897F003E36A1 /* DispatchQueue+Extensions.swift in Sources */,
 				E75D404B20C518F300BEAF79 /* PaddingLabel.swift in Sources */,
 				E738006620C44DCF0043A201 /* UpdateNickViewController.swift in Sources */,
 				E75D403920C518F300BEAF79 /* UIView+Boom.m in Sources */,
@@ -823,6 +830,7 @@
 				E75D403F20C518F300BEAF79 /* SimpleBrowser.swift in Sources */,
 				E78B406020C6C4930049ED91 /* FileManager+Paths.swift in Sources */,
 				E75D403C20C518F300BEAF79 /* UICollectionViewFlowLayouts.swift in Sources */,
+				E791C88C20C97DD0003E36A1 /* BTBaseConfig.swift in Sources */,
 				E75D401620C516DF00BEAF79 /* CommonRegexPatterns.swift in Sources */,
 				E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */,
 				E740BC4520C78791001C13F1 /* BTDBContext.swift in Sources */,

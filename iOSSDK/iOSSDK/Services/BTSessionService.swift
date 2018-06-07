@@ -11,8 +11,8 @@ import Foundation
 public class BTSessionService {
     public static let onSessionUpdated = NSNotification.Name("BTSessionService_onSessionUpdated")
     public static let onSessionUnauthorized = NSNotification.Name("BTSessionService_onSessionUnauthorized")
-
-    var host: String = "http://localhost/"
+    fileprivate var config: BTBaseConfig!
+    private var host: String = "http://localhost/"
     private(set) var localSession: BTAccountSession! {
         didSet {
             DispatchQueue.main.async {
@@ -25,9 +25,10 @@ public class BTSessionService {
 
     var dbContext: BTServiceDBContext!
 
-    func configure(sessionServerHost: String, db: BTServiceDBContext) {
+    func configure(config: BTBaseConfig, db: BTServiceDBContext) {
+        self.config = config
+        self.host = config.getString(key: "BTSessionServiceHost")!
         self.initDB(db: db)
-        self.host = sessionServerHost
         self.loadCachedSession()
         NotificationCenter.default.addObserver(self, selector: #selector(self.onRequestUnauthorized(a:)), name: onBTAPIRequestUnauthorized, object: nil)
     }
@@ -128,9 +129,9 @@ public class BTSessionService {
 }
 
 extension BTServiceContainer {
-    public static func useBTSessionService(serverHost: String, dbContext: BTServiceDBContext) {
+    public static func useBTSessionService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
         let service = BTSessionService()
-        service.configure(sessionServerHost: serverHost, db: dbContext)
+        service.configure(config:config, db: dbContext)
         addService(name: "BTSessionService", service: service)
     }
 

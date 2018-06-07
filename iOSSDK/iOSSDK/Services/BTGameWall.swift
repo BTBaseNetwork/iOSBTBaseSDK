@@ -12,8 +12,8 @@ import Foundation
 public class BTGameWall {
     public static let onGameWallListUpdated = Notification.Name("BTGameWall_onGameWallListUpdated")
 
-    var configJsonUrl = "http://localhost/gamewall.json"
-
+    fileprivate var configJsonUrl = "http://localhost/gamewall.json"
+    fileprivate var config: BTBaseConfig!
     static var cachedConfigJsonPathUrl: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let fileURL = documentsURL.appendingPathComponent("BTGameWallConfig.json")
@@ -30,7 +30,7 @@ public class BTGameWall {
         }
     }
 
-    var gameItemCount: Int { return cachedConfigModel?.items?.count ?? 0 }
+    var gameItemCount: Int { return self.cachedConfigModel?.items?.count ?? 0 }
 
     func getItem(index: Int) -> BTGameWallItem? {
         if let items = cachedConfigModel?.items {
@@ -40,7 +40,7 @@ public class BTGameWall {
     }
 
     func refreshGameWallList() {
-        Alamofire.download(configJsonUrl, to: destination).response { response in
+        Alamofire.download(self.configJsonUrl, to: self.destination).response { response in
             if response.error == nil, let _ = response.destinationURL?.path {
                 self.loadCachedGamewallConfig()
             }
@@ -50,16 +50,17 @@ public class BTGameWall {
     func loadCachedGamewallConfig() {
         if let json = try? String(contentsOfFile: BTGameWall.cachedConfigJsonPathUrl.path), let data = json.data(using: String.Encoding.utf8) {
             if let configModel = try? JSONDecoder().decode(BTGameWallConfig.self, from: data) {
-                cachedConfigModel = configModel
+                self.cachedConfigModel = configModel
             }
         }
     }
 }
 
 extension BTServiceContainer {
-    public static func useBTGameWall(configUrl: String) {
+    public static func useBTGameWall(_ config: BTBaseConfig) {
         let gameWall = BTGameWall()
-        gameWall.configJsonUrl = configUrl
+        gameWall.config = config
+        gameWall.configJsonUrl = config.getString(key: "BTGameWallConfigUrl")!
         addService(name: "BTGameWall", service: gameWall)
     }
 

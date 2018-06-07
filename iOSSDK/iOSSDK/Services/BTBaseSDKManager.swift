@@ -14,39 +14,17 @@ public class BTBaseSDKManager {
     public private(set) static var isSDKInited: Bool = false
 
     public static func start() {
-        if let configPath = Bundle.main.path(forResource: "btbase", ofType: "plist"), let config = NSDictionary(contentsOfFile: configPath) {
-            if let dbname = config["BTBaseDB"] as? String {
+        if let config = BTBaseConfig() {
+            if let dbname = config.getString(key: "BTBaseDB") {
                 let dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
                 let dbContext = BTServiceDBContext(dbpath: dbPath)
                 dbContext.open()
                 BTBaseSDKManager.defaultDbContext = dbContext
-                if let gameWallConfigUrl = config["BTGameWallConfig"] as? String {
-                    BTServiceContainer.useBTGameWall(configUrl: gameWallConfigUrl)
-                } else {
-                    debugLog("Couldn't initialize BTBaseSDK: lost BTGameWallConfig")
-                    return
-                }
 
-                if let memberServiceHost = config["BTMemberServiceHost"] as? String {
-                    BTServiceContainer.useBTMemberService(serverHost: memberServiceHost, dbContext: dbContext)
-                } else {
-                    debugLog("Couldn't initialize BTBaseSDK: lost BTMemberServiceHost")
-                    return
-                }
-
-                if let accountServiceHost = config["BTAccountServiceHost"] as? String {
-                    BTServiceContainer.useBTAccountService(serverHost: accountServiceHost, dbContext: dbContext)
-                } else {
-                    debugLog("Couldn't initialize BTBaseSDK: lost BTAccountServiceHost")
-                    return
-                }
-
-                if let sessionServiceHost = config["BTSessionServiceHost"] as? String {
-                    BTServiceContainer.useBTSessionService(serverHost: sessionServiceHost, dbContext: dbContext)
-                } else {
-                    debugLog("Couldn't initialize BTBaseSDK: lost BTSessionServiceHost")
-                    return
-                }
+                BTServiceContainer.useBTGameWall(config)
+                BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
+                BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
+                BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
 
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)

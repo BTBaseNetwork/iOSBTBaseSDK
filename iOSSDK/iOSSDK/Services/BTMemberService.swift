@@ -6,7 +6,10 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
+import Alamofire
 import Foundation
+import StoreKit
+import SwiftyStoreKit
 
 public class BTMemberProfile {
     public var accountId = BTServiceConst.ACCOUNT_ID_UNLOGIN
@@ -15,8 +18,24 @@ public class BTMemberProfile {
 
 public class BTMemberService {
     public static let onLocalMemberProfileUpdated = Notification.Name("BTMemberService_onLocalMemberProfileUpdated")
-    var host = "http://localhost:6000"
-    var dbContext: BTServiceDBContext!
+    public static let onMemberProductsUpdated = Notification.Name("BTMemberService_onMemberProductsUpdated")
+    private var config: BTBaseConfig!
+    private var host = "http://localhost:6000"
+    private var iapListUrl: String { return self.config.getString(key: "BTMemberIAPListUrl")! }
+    private var dbContext: BTServiceDBContext!
+    private var paymentTransactionObserver: BTMemberPaymentTransactionObserver!
+    fileprivate(set) var productIdentifiers: Set<String>!
+    fileprivate(set) var products: Set<SKProduct>! {
+        didSet {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: BTMemberService.onMemberProductsUpdated, object: self)
+            }
+        }
+    }
+
+    init() {
+        self.paymentTransactionObserver = BTMemberPaymentTransactionObserver(memberService: self)
+    }
 
     private(set) var localProfile: BTMemberProfile! {
         didSet {
@@ -26,8 +45,9 @@ public class BTMemberService {
         }
     }
 
-    func configure(serverHost: String, db: BTServiceDBContext) {
-        self.host = serverHost
+    func configure(config: BTBaseConfig, db: BTServiceDBContext) {
+        self.config = config
+        self.host = config.getString(key: "BTMemberServiceHost")!
         self.initDB(db: db)
     }
 
@@ -77,10 +97,50 @@ public class BTMemberService {
     }
 }
 
+extension BTMemberService {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    }
+
+    func loadIAPList() {
+        Alamofire.download(self.iapListUrl).response(queue: DispatchQueue.utility) { _ in
+        }
+    }
+
+    func purchaseMemberProduct(p: SKProduct) {
+        
+    }
+
+    func loadIAPProducts(_ productIdentifiers: Set<String>) {
+        self.productIdentifiers = productIdentifiers
+        SwiftyStoreKit.retrieveProductsInfo(productIdentifiers) { results in
+            if results.error == nil {
+                self.products = results.retrievedProducts
+            }
+        }
+    }
+}
+
+class BTMemberPaymentTransactionObserver: NSObject, SKPaymentTransactionObserver {
+    var service: BTMemberService
+    init(memberService: BTMemberService) {
+        self.service = memberService
+        super.init()
+        SKPaymentQueue.default().add(self)
+    }
+
+    deinit {
+        SKPaymentQueue.default().remove(self)
+    }
+
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        self.service.paymentQueue(queue, updatedTransactions: transactions)
+    }
+}
+
 extension BTServiceContainer {
-    public static func useBTMemberService(serverHost: String, dbContext: BTServiceDBContext) {
+    public static func useBTMemberService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
         let service = BTMemberService()
-        service.configure(serverHost: serverHost, db: dbContext)
+        service.configure(config: config, db: dbContext)
         addService(name: "BTMemberService", service: service)
     }
 

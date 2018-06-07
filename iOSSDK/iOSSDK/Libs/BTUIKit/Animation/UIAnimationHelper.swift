@@ -181,17 +181,6 @@ class UIAnimationHelper {
     }
 }
 
-extension DispatchQueue {
-    func afterMS(_ ms: UInt64, handler: @escaping () -> Void) {
-        let time = DispatchTime.now() + Double(NSNumber(value: NSEC_PER_MSEC * ms as UInt64).int64Value) / Double(NSEC_PER_SEC)
-        asyncAfter(deadline: time, execute: handler)
-    }
-
-    static func background() -> DispatchQueue {
-        return DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-    }
-}
-
 extension CAAnimation {
     func setStorePropertyOnComplete() {
         isRemovedOnCompletion = false

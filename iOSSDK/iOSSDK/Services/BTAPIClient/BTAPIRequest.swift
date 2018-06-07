@@ -19,7 +19,7 @@ public class BTAPIRequest<T> where T: Codable {
     internal(set) var host = ""
     internal(set) var method = HTTPMethod.get
 
-    var queue = DispatchQueue.background()
+    var queue = DispatchQueue.utility
 
     var response: ResponseAction?
 

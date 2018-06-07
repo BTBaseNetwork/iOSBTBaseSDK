@@ -15,9 +15,10 @@ let kBTRegistedUsername = "kBTRegistedUsername"
 public class BTAccountService {
     public static let onLocalAccountUpdated = Notification.Name("BTAccountService_onLocalAccountUpdated")
     public static let onNewAccountRegisted = Notification.Name("BTAccountService_onNewAccountRegisted")
-    
-    var host = "http://localhost:6000/"
-    var dbContext: BTServiceDBContext!
+
+    private var host = "http://localhost:6000/"
+    private var dbContext: BTServiceDBContext!
+    private var config: BTBaseConfig!
 
     var localAccount: BTAccount! {
         didSet {
@@ -27,9 +28,10 @@ public class BTAccountService {
         }
     }
 
-    func configure(serverHost: String, db: BTServiceDBContext) {
+    func configure(config: BTBaseConfig, db: BTServiceDBContext) {
+        self.config = config
+        self.host = config.getString(key: "BTAccountServiceHost")!
         self.initDB(db: db)
-        self.host = serverHost
     }
 
     private func initDB(db: BTServiceDBContext) {
@@ -51,9 +53,9 @@ public class BTAccountService {
         req.email = email
         req.password = BTServiceConst.generateClientSaltPassword(password: password)
         req.username = username
-        req.response = { _,res in
+        req.response = { _, res in
             if res.isHttpOK {
-                let uinfo:[String:Any] = [kBTRegistedUsername:res.content.userName,kBTRegistedAccountId:res.content.accountId]
+                let uinfo: [String: Any] = [kBTRegistedUsername: res.content.userName, kBTRegistedAccountId: res.content.accountId]
                 NotificationCenter.default.post(name: BTAccountService.onNewAccountRegisted, object: self, userInfo: uinfo)
             }
         }
@@ -174,9 +176,9 @@ public class BTAccountService {
 }
 
 extension BTServiceContainer {
-    public static func useBTAccountService(serverHost: String, dbContext: BTServiceDBContext) {
+    public static func useBTAccountService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
         let service = BTAccountService()
-        service.configure(serverHost: serverHost, db: dbContext)
+        service.configure(config: config, db: dbContext)
         addService(name: "BTAccountService", service: service)
     }
 
