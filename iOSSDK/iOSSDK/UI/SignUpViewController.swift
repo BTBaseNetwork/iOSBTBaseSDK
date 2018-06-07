@@ -55,7 +55,7 @@ class SignUpViewController: UIViewController {
             self.usernameTextField.isEnabled = true
             self.passwordTextField.isEnabled = true
             self.signupButton.isEnabled = false
-            if result.isHttpServerError {
+            if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if result.isHttpOK {
                 self.showAlert("BTLocTitleRegistSuc".localizedBTBaseString, msg: String(format: "BTLocMsgYourAccountId_X".localizedBTBaseString, result.content.accountId), actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in

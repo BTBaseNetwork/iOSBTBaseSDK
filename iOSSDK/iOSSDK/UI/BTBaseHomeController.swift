@@ -32,17 +32,22 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
     }
 }
 
+import IQKeyboardManagerSwift
 public class BTBaseHomeEntry {
     internal private(set) static var homeController: BTBaseHomeController?
-
+    private static var IQKeyboardManagerEnabledOutOfSDK = false
     public static func getEntryViewController() -> UIViewController {
         let board = UIStoryboard(name: "BTBaseMainStoryboard", bundle: Bundle.iOSBTBaseSDKUI)
         BahamutCommonLocalizedBundle = Bundle.iOSBTBaseSDKUI!
+        BTBaseHomeEntry.IQKeyboardManagerEnabledOutOfSDK = IQKeyboardManager.shared.enable
+        IQKeyboardManager.shared.enable = true
         homeController = board.instantiateViewController(withIdentifier: "BTBaseHomeController") as? BTBaseHomeController
         return homeController!
     }
 
     public static func closeHomeController() {
-        homeController?.dismiss(animated: true, completion: nil)
+        homeController?.dismiss(animated: true){
+            IQKeyboardManager.shared.enable = IQKeyboardManagerEnabledOutOfSDK
+        }
     }
 }

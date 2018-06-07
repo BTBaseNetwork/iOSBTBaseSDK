@@ -32,6 +32,24 @@ class SignInViewController: UIViewController {
         tipsLabel.text = nil
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.default.removeObserver(self, name: BTAccountService.onNewAccountRegisted, object: nil)
+    }
+
+    @objc func onNewAccountRegisted(a: Notification) {
+        if let username = a.userInfo?[kBTRegistedUsername] as? String {
+            accountTextField.text = username
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "SignUp" {
+            NotificationCenter.default.addObserver(self, selector: #selector(onNewAccountRegisted(a:)), name: BTAccountService.onNewAccountRegisted, object: nil)
+        }
+    }
+
     @IBAction func onClickSignIn(_ sender: Any) {
         if String.isNullOrWhiteSpace(accountTextField.text) {
             tipsLabel.text = "BTLocMsgEmptyUserLogStr".localizedBTBaseString
@@ -49,10 +67,14 @@ class SignInViewController: UIViewController {
                 self.passwordTextField.isEnabled = true
                 if result.isHttpOK {
                     self.onClickCancel(sender)
-                }else {
-                    if result.code == 404 {
-                        self.tipsLabel.text = ("BTLocMsgLoginVerifyFalse").localizedBTBaseString
-                    } else if result.isHttpServerError {
+                } else {
+                    if result.isHttpNotFound {
+                        if let msg = result.error?.msgWithoutSpaces, msg == "LoginTooOften" {
+                            self.showAlert("BTLogTitleLoginTooOften".localizedBTBaseString, msg: "BTLogMsgLoginTooOften".localizedBTBaseString)
+                        } else {
+                            self.tipsLabel.text = ("BTLocMsgLoginVerifyFalse").localizedBTBaseString
+                        }
+                    } else if result.isServerError {
                         self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
                     } else {
                         self.tipsLabel.text = "BTLocMsgUnknowErr".localizedBTBaseString

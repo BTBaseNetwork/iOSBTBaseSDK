@@ -23,12 +23,13 @@ class UpdateEmailViewController: UIViewController {
     private var resendAvailableTime = 0 {
         didSet {
             if resendAvailableTime <= 0 {
-                sendCodeButton?.titleLabel?.text = "BTLocSendCode".localizedBTBaseString
+                sendCodeButton?.setTitle("BTLocSendCode".localizedBTBaseString, for: .normal)
             } else {
-                sendCodeButton?.titleLabel?.text = String(format: "%@s", resendAvailableTime)
+                sendCodeButton?.setTitle(String(format: "%ds", resendAvailableTime), for: .normal)
             }
         }
     }
+    private var resendTimer:Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,10 +63,12 @@ class UpdateEmailViewController: UIViewController {
             if result.isHttpOK {
                 self.securityCodeTextField.isEnabled = true
                 self.securityCodeTextField.text = nil
-                self.resendAvailableTime = 30
-                Timer(timeInterval: 1, target: self, selector: #selector(self.resendCodeTimeTicking(timer:)), userInfo: nil, repeats: true).fire()
-                self.showAlert("BTLocTitleCodeSended".localizedBTBaseString, msg: "BTLocMsgCodeSended".localizedBTBaseString)
-            } else if result.isHttpServerError {
+                let ok = UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
+                    self.resendAvailableTime = 30
+                    self.resendTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(UpdateEmailViewController.resendCodeTimeTicking), userInfo: nil, repeats: true)
+                })
+                self.showAlert("BTLocTitleCodeSended".localizedBTBaseString, msg: "BTLocMsgCodeSended".localizedBTBaseString, actions: [ok])
+            } else if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if let msg = result.error.msgWithoutSpaces {
                 self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
@@ -75,12 +78,13 @@ class UpdateEmailViewController: UIViewController {
         })
     }
 
-    @objc private func resendCodeTimeTicking(timer: Timer) {
+    @objc private func resendCodeTimeTicking() {
         if resendAvailableTime > 0 {
             resendAvailableTime -= 1
         } else {
-            timer.invalidate()
+            resendTimer?.invalidate()
             sendCodeButton.isEnabled = String.regexTestStringWithPattern(value: curEmailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL)
+            resendTimer = nil
         }
     }
 

@@ -3,6 +3,7 @@ PODS:
   - FMDB (2.7.2):
     - FMDB/standard (= 2.7.2)
   - FMDB/standard (2.7.2)
+  - IQKeyboardManagerSwift (6.0.3)
   - MBProgressHUD (1.1.0)
   - MobilePlayer (1.2.0)
   - SDWebImage (4.4.0):
@@ -13,6 +14,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - FMDB
+  - IQKeyboardManagerSwift
   - MBProgressHUD (~> 1.1.0)
   - MobilePlayer
   - SDWebImage (~> 4.0)
@@ -22,6 +24,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - FMDB
+    - IQKeyboardManagerSwift
     - MBProgressHUD
     - MobilePlayer
     - SDWebImage
@@ -30,11 +33,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  IQKeyboardManagerSwift: 04e8679f85e496bb2c474eeb9284052f1b3c391c
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MobilePlayer: 069b13482499f14c25b6ce53f63a91e17975b073
   SDWebImage: b534502786e43dde36dfcaee89356fe6df30e203
   SwiftyStoreKit: b7563505440a68c9d9fa70bc43d8a97015519409
 
-PODFILE CHECKSUM: d6f749d9e9b457dfc7d9d7c174923a99d1d21ecc
+PODFILE CHECKSUM: 7e36cbf2376e9bff5d338f8444610d6befdb43fe
 
 COCOAPODS: 1.5.3

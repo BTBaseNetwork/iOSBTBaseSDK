@@ -22,12 +22,14 @@ class ForgetPasswordViewController: UIViewController {
     private var resendAvailableTime = 0 {
         didSet {
             if resendAvailableTime <= 0 {
-                sendCodeButton?.titleLabel?.text = "BTLocSendCode".localizedBTBaseString
+                sendCodeButton?.setTitle("BTLocSendCode".localizedBTBaseString, for: .normal)
             } else {
-                sendCodeButton?.titleLabel?.text = String(format: "%@s", resendAvailableTime)
+                sendCodeButton?.setTitle(String(format: "%ds", resendAvailableTime), for: .normal)
             }
         }
     }
+
+    private var resendTimer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +54,12 @@ class ForgetPasswordViewController: UIViewController {
         resendAvailableTime = 0
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        resendTimer?.invalidate()
+        resendTimer = nil
+    }
+
     @objc private func onTextFieldEditingChanged(sender: Any) {
         if let textField = sender as? UITextField {
             switch textField {
@@ -64,10 +72,10 @@ class ForgetPasswordViewController: UIViewController {
         }
     }
 
-    @objc private func onTextFieldEditingDidBegin(sender : Any) {
+    @objc private func onTextFieldEditingDidBegin(sender _: Any) {
     }
 
-    @objc private func onTextFieldEditingDidEnd(sender : Any) {
+    @objc private func onTextFieldEditingDidEnd(sender _: Any) {
     }
 
     @IBAction func onClickSendCode(_: Any) {
@@ -82,10 +90,12 @@ class ForgetPasswordViewController: UIViewController {
             if result.isHttpOK {
                 self.securityCodeTextField.isEnabled = true
                 self.securityCodeTextField.text = nil
-                self.resendAvailableTime = 30
-                Timer(timeInterval: 1, target: self, selector: #selector(self.resendCodeTimeTicking(timer:)), userInfo: nil, repeats: true).fire()
-                self.showAlert("BTLocTitleCodeSended".localizedBTBaseString, msg: "BTLocMsgCodeSended".localizedBTBaseString)
-            } else if result.isHttpServerError {
+                let ok = UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
+                    self.resendAvailableTime = 30
+                    self.resendTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ForgetPasswordViewController.resendCodeTimeTicking), userInfo: nil, repeats: true)
+                })
+                self.showAlert("BTLocTitleCodeSended".localizedBTBaseString, msg: "BTLocMsgCodeSended".localizedBTBaseString, actions: [ok])
+            } else if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if let msg = result.error.msgWithoutSpaces {
                 self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
@@ -95,12 +105,13 @@ class ForgetPasswordViewController: UIViewController {
         })
     }
 
-    @objc private func resendCodeTimeTicking(timer: Timer) {
+    @objc private func resendCodeTimeTicking() {
         if resendAvailableTime > 0 {
             resendAvailableTime -= 1
         } else {
-            timer.invalidate()
+            resendTimer?.invalidate()
             sendCodeButton.isEnabled = String.regexTestStringWithPattern(value: emailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL)
+            resendTimer = nil
         }
     }
 
@@ -109,8 +120,11 @@ class ForgetPasswordViewController: UIViewController {
         BTServiceContainer.getBTAccountService()?.resetPasswordWithSecurityCode(accountId: accountIdTextField.text!, newPassword: emailTextField.text!, securityCode: securityCodeTextField.text!, respAction: { _, result in
             self.resetPasswordButton.isEnabled = true
             if result.isHttpOK {
-                self.showAlert("BTLocTitlePasswordReseted".localizedBTBaseString, msg: "BTLocMsgPasswordResetedAndRelogin".localizedBTBaseString, actions: [])
-            } else if result.isHttpServerError {
+                let actions = [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
+                    self.navigationController?.dismiss(animated: true, completion: nil)
+                })]
+                self.showAlert("BTLocTitlePasswordReseted".localizedBTBaseString, msg: "BTLocMsgPasswordResetedAndRelogin".localizedBTBaseString,actions: actions)
+            } else if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if let msg = result.error?.msgWithoutSpaces {
                 self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString

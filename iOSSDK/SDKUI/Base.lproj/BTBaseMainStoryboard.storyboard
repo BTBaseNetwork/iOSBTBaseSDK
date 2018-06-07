@@ -597,13 +597,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account ID/Username/Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FBN-Ym-QPG">
-                                <rect key="frame" x="20" y="254.5" width="335" height="30"/>
+                                <rect key="frame" x="20" y="246.5" width="335" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="3M5-hW-Gx4" userLabel="Check">
-                                <rect key="frame" x="327" y="261.5" width="16" height="16"/>
+                                <rect key="frame" x="327" y="253.5" width="16" height="16"/>
                                 <color key="tintColor" red="0.45138680930000002" green="0.99309605359999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="ugg-J2-bQj"/>
@@ -611,13 +611,13 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1BR-w0-pTA">
-                                <rect key="frame" x="20" y="316" width="335" height="30"/>
+                                <rect key="frame" x="20" y="308" width="335" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_tick" translatesAutoresizingMaskIntoConstraints="NO" id="HRV-KV-Ck2" userLabel="Check">
-                                <rect key="frame" x="327" y="323" width="16" height="16"/>
+                                <rect key="frame" x="327" y="315" width="16" height="16"/>
                                 <color key="tintColor" red="0.45138680930000002" green="0.99309605359999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="4BQ-bZ-GvR"/>
@@ -625,7 +625,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zn-I6-BCQ">
-                                <rect key="frame" x="163.5" y="402" width="47" height="30"/>
+                                <rect key="frame" x="163.5" y="394" width="47" height="30"/>
                                 <state key="normal" title="Sign In"/>
                                 <connections>
                                     <action selector="onClickSignIn:" destination="cQG-fK-1fZ" eventType="touchUpInside" id="0bS-aW-HJ6"/>
@@ -635,24 +635,24 @@
                                 <rect key="frame" x="304" y="617" width="55" height="30"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
-                                    <segue destination="SCc-Ig-tk9" kind="show" id="Hul-Ie-t90"/>
+                                    <segue destination="SCc-Ig-tk9" kind="show" identifier="SignUp" id="Hul-Ie-t90"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TlK-Wf-Yk5">
                                 <rect key="frame" x="20" y="617" width="115" height="30"/>
                                 <state key="normal" title="Forget Password"/>
                                 <connections>
-                                    <segue destination="DbP-go-Qzz" kind="showDetail" id="K30-Ps-roG"/>
+                                    <segue destination="DbP-go-Qzz" kind="showDetail" identifier="ResetPassword" id="K30-Ps-roG"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsp-F4-Z01">
-                                <rect key="frame" x="20" y="361.5" width="335" height="21"/>
+                                <rect key="frame" x="20" y="353.5" width="335" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jgq-KM-DUa">
-                                <rect key="frame" x="177.5" y="362" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="354" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -669,7 +669,7 @@
                             <constraint firstItem="jgq-KM-DUa" firstAttribute="centerX" secondItem="1BR-w0-pTA" secondAttribute="centerX" id="UQa-xX-oLN"/>
                             <constraint firstItem="jgq-KM-DUa" firstAttribute="top" secondItem="1BR-w0-pTA" secondAttribute="bottom" constant="16" id="Ui9-La-stT"/>
                             <constraint firstItem="gsp-F4-Z01" firstAttribute="trailing" secondItem="1BR-w0-pTA" secondAttribute="trailing" id="WNN-af-Nwg"/>
-                            <constraint firstItem="FBN-Ym-QPG" firstAttribute="centerY" secondItem="jKc-es-w3H" secondAttribute="centerY" constant="-64" id="WWK-mZ-ALO"/>
+                            <constraint firstItem="FBN-Ym-QPG" firstAttribute="centerY" secondItem="jKc-es-w3H" secondAttribute="centerY" constant="-72" id="WWK-mZ-ALO"/>
                             <constraint firstItem="frt-KG-djg" firstAttribute="top" secondItem="CEG-IR-uTk" secondAttribute="bottom" constant="20" id="XiN-uQ-RUD"/>
                             <constraint firstItem="gsp-F4-Z01" firstAttribute="leading" secondItem="1BR-w0-pTA" secondAttribute="leading" id="cz0-3P-ZBY"/>
                             <constraint firstItem="FBN-Ym-QPG" firstAttribute="leading" secondItem="jKc-es-w3H" secondAttribute="leading" constant="20" id="f0N-2o-5O9"/>
@@ -772,7 +772,6 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixp-nh-Q0H">
                                 <rect key="frame" x="160" y="326" width="55" height="30"/>
-                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <action selector="onClickSignUp:" destination="SCc-Ig-tk9" eventType="touchUpInside" id="tZm-of-7GF"/>
@@ -901,7 +900,6 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3us-nS-bg5">
                                 <rect key="frame" x="133" y="326" width="109" height="30"/>
-                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Reset Password"/>
                                 <connections>
                                     <action selector="onClickResetPassword:" destination="gW1-z2-5er" eventType="touchUpInside" id="eNc-s5-7kl"/>

@@ -9,9 +9,13 @@
 import FMDB
 import Foundation
 
+let kBTRegistedAccountId = "kBTRegistedAccountId"
+let kBTRegistedUsername = "kBTRegistedUsername"
+
 public class BTAccountService {
     public static let onLocalAccountUpdated = Notification.Name("BTAccountService_onLocalAccountUpdated")
-
+    public static let onNewAccountRegisted = Notification.Name("BTAccountService_onNewAccountRegisted")
+    
     var host = "http://localhost:6000/"
     var dbContext: BTServiceDBContext!
 
@@ -47,7 +51,12 @@ public class BTAccountService {
         req.email = email
         req.password = BTServiceConst.generateClientSaltPassword(password: password)
         req.username = username
-        req.response = respAction
+        req.response = { _,res in
+            if res.isHttpOK {
+                let uinfo:[String:Any] = [kBTRegistedUsername:res.content.userName,kBTRegistedAccountId:res.content.accountId]
+                NotificationCenter.default.post(name: BTAccountService.onNewAccountRegisted, object: self, userInfo: uinfo)
+            }
+        }
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useDeviceInfos().useLang()
         req.request(profile: clientProfile)
