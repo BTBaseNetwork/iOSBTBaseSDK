@@ -15,7 +15,7 @@ public protocol BTDBEntityModel {
 
 public class BTDBEntity {
     private(set) var properties = [PropertyBase]()
-    var scheme: String
+    private(set) var scheme: String
     
     init(scheme: String) {
         self.scheme = scheme

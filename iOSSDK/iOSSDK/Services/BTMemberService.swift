@@ -8,31 +8,51 @@
 
 import Foundation
 
-public class BTMemberProfile
-{
+public class BTMemberProfile {
     public var accountId = BTServiceConst.ACCOUNT_ID_UNLOGIN
     public var members = [BTMember]()
 }
 
 public class BTMemberService {
+    public static let onLocalMemberProfileUpdated = Notification.Name("BTMemberService_onLocalMemberProfileUpdated")
     var host = "http://localhost:6000"
     var dbContext: BTServiceDBContext!
-    
-    private(set) var localProfile = BTMemberProfile()
-    
+
+    private(set) var localProfile: BTMemberProfile! {
+        didSet {
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: BTMemberService.onLocalMemberProfileUpdated, object: self)
+            }
+        }
+    }
+
     func configure(serverHost: String, db: BTServiceDBContext) {
-        initDB(db: db)
-        host = serverHost
+        self.host = serverHost
+        self.initDB(db: db)
+    }
+
+    func loadLocalProfile(accountId: String) {
+        let profile = BTMemberProfile()
+        profile.accountId = accountId
+        if let table = dbContext.tableMember {
+            profile.members = table.query(sql: SQLiteHelper.selectSql(tableName: table.tableName, query: "accountId=?"), parameters: [accountId])
+        }
+        self.localProfile = profile
     }
 
     private func initDB(db: BTServiceDBContext) {
-        dbContext = db
-        dbContext.tableMember.createTable()
+        self.dbContext = db
+        self.dbContext.tableMember.createTable()
     }
 
     func fetchMemberProfile() {
         let req = GetBTMemberProfileRequest()
-        req.response = { _, _ in
+        req.response = { _, res in
+            if res.isHttpOK {
+                res.content.members.forEach({ m in
+                    self.dbContext.tableMember.update(model: m, upsert: true)
+                })
+            }
         }
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
@@ -51,9 +71,9 @@ public class BTMemberService {
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
     }
-    
+
     func setLogout() {
-        localProfile = BTMemberProfile()
+        self.localProfile = BTMemberProfile()
     }
 }
 

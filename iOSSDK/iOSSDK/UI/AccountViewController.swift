@@ -34,6 +34,20 @@ class AccountViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
+
+    override func viewWillAppear(_: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(onAccoutProfileUpdated(a:)), name: BTAccountService.onLocalAccountUpdated, object: nil)
+        tableView.reloadData()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc func onAccoutProfileUpdated(a _: Notification) {
+        tableView.reloadData()
+    }
 }
 
 extension AccountViewController: UITableViewDataSource, UITableViewDelegate {

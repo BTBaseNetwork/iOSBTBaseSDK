@@ -66,12 +66,18 @@ public class BTBaseSDKManager {
     }
 
     @objc private func onSessionUpdated(a: Notification) {
-        if BTServiceContainer.getBTSessionService()!.isSessionLogined {
-            BTServiceContainer.getBTAccountService()?.fetchProfile()
-            BTServiceContainer.getBTMemberService()?.fetchMemberProfile()
-        } else {
-            BTServiceContainer.getBTAccountService()?.setLogout()
-            BTServiceContainer.getBTMemberService()?.setLogout()
+        if let sessionService = BTServiceContainer.getBTSessionService(), let accountId = sessionService.localSession?.accountId {
+            let accountService = BTServiceContainer.getBTAccountService()
+            let memberService = BTServiceContainer.getBTMemberService()
+            if sessionService.isSessionLogined {
+                accountService?.loadLocalAccount(accountId: accountId)
+                memberService?.loadLocalProfile(accountId: accountId)
+                accountService?.fetchProfile()
+                memberService?.fetchMemberProfile()
+            } else {
+                accountService?.setLogout()
+                memberService?.setLogout()
+            }
         }
     }
 }

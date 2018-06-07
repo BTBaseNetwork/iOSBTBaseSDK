@@ -11,6 +11,10 @@ public class BTDBTableSet<M> where M: BTDBEntityModel {
     private(set) var dbContext: BTDBContext
     private(set) var entity: BTDBEntity
     
+    public var tableName:String{
+        return entity.scheme
+    }
+    
     init(dbContext: BTDBContext, scheme: String) {
         self.dbContext = dbContext
         self.entity = BTDBEntity.Builder(scheme: scheme).build(M.self)
