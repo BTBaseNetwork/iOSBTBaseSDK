@@ -11,9 +11,7 @@ target 'BTBaseSDK' do
     pod 'SDWebImage', '~> 4.0'
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'SwiftyStoreKit'
-    pod 'ZFPlayer', '~> 3.0.2'
-    pod 'ZFPlayer/AVPlayer', '~> 3.0.2'
-    pod 'ZFPlayer/ControlView', '~> 3.0.2'
+    pod 'MobilePlayer'
 end
 
 target 'SDKTest' do
@@ -24,7 +22,5 @@ target 'SDKTest' do
     pod 'SDWebImage', '~> 4.0'
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'SwiftyStoreKit'
-    pod 'ZFPlayer', '~> 3.0.2'
-    pod 'ZFPlayer/AVPlayer', '~> 3.0.2'
-    pod 'ZFPlayer/ControlView', '~> 3.0.2'
+    pod 'MobilePlayer'
 end

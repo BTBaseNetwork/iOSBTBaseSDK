@@ -6,32 +6,22 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
+import MobilePlayer
 import SDWebImage
 import StoreKit
 import UIKit
-import ZFPlayer
 
 class GameWallBannerItemCell: UITableViewCell {
     static let reuseId = "GameWallBannerItemCell"
 
-    @IBOutlet var playVideoButton: UIButton! {
-        didSet {
-            playVideoButton.setImage(playVideoButton.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
-            playVideoButton.imageView?.tintColor = UIColor.red
-        }
-    }
+    @IBOutlet var playVideoButton: UIButton!
 
-    @IBOutlet var playGameButton: UIButton! {
-        didSet {
-            playGameButton.setImage(playGameButton.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
-            playGameButton.imageView?.tintColor = UIColor.blue
-        }
-    }
+    @IBOutlet var playGameButton: UIButton!
 
     @IBOutlet var itemIcon: UIImageView! {
         didSet {
+            itemIcon.clipsToBounds = true
             itemIcon.layer.cornerRadius = 8
-            itemIcon.layer.masksToBounds = true
         }
     }
 
@@ -49,30 +39,41 @@ class GameWallBannerItemCell: UITableViewCell {
 
     var gameWallItem: BTGameWallItem! {
         didSet {
-            itemIcon.sd_setImage(with: URL(string: gameWallItem.iconUrl!), placeholderImage: GameWallBannerItemCell.iconPlaceholder)
-            gameTitle.text = gameWallItem.gameName
+            let itemIconUrl = URL(string: gameWallItem.iconUrl!)
+            itemIcon.sd_setImage(with: itemIconUrl, placeholderImage: GameWallBannerItemCell.iconPlaceholder)
+            gameTitle.text = gameWallItem.getLocalizedGameName()
             for i in 0 ..< starImages.count {
                 if Float(i) < gameWallItem.stars {
-                    starImages[i].tintColor = UIColor.yellow
+                    starImages[i].tintColor = starImages[i].tintColor.withAlphaComponent(1)
                 } else if Float(i) < gameWallItem.stars + 0.5 {
-                    starImages[i].tintColor = UIColor.yellow.withAlphaComponent(0.5)
+                    starImages[i].tintColor = starImages[i].tintColor.withAlphaComponent(0.5)
                 } else {
-                    starImages[i].tintColor = UIColor.clear
+                    starImages[i].tintColor = starImages[i].tintColor.withAlphaComponent(0)
                 }
             }
         }
     }
 
     @IBAction func onClickPlayVideo(_: Any) {
-        let vc = UIViewController.instanceFromStoryBoard("BTBaseMainStoryboard", identifier: "PlayGameVideoViewController", bundle: Bundle.iOSBTBaseSDKUI!)
-        rootController?.present(vc, animated: true, completion: {
-            let playmgr = ZFAVPlayerManager()
-            let player = ZFPlayerController(playerManager: playmgr, containerView: vc.view)
-            player.assetURLs = [URL(string: self.gameWallItem.videoUrl)!]
-        })
+        let videoURL = URL(string: gameWallItem.videoUrl)!
+        let playerVC = MobilePlayerViewController(contentURL: videoURL)
+        playerVC.title = gameTitle.text
+        let gameUrl = URL(string: "itms-apps://itunes.apple.com/app/id\(gameWallItem.appLink.iOSAppId!)")!
+        playerVC.activityItems = [gameTitle.text ?? "", gameUrl] // Check the documentation for more information.
+        rootController?.present(playerVC, animated: true, completion: nil)
     }
 
     @IBAction func onClickPlayGame(_: Any) {
+        let gameName = gameWallItem.getLocalizedGameName()
+        let title = String(format: "BTLocTitleOpenGameXOrOpenStore".localizedBTBaseString, gameName)
+        let msg = String(format: "BTLocMsgOpenGameXOrOpenStore".localizedBTBaseString, gameName)
+        let ok = UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default) { _ in
+            self.playGame()
+        }
+        rootController?.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, ok])
+    }
+
+    func playGame() {
         let url = URL(string: gameWallItem.appLink.iOSUrlScheme)!
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(url, options: [:]) { suc in
@@ -94,7 +95,14 @@ class GameWallBannerItemCell: UITableViewCell {
             let vc = SKStoreProductViewController()
             vc.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appId], completionBlock: nil)
             rootVc.present(vc, animated: true, completion: nil)
+            vc.delegate = self
         }
+    }
+}
+
+extension GameWallBannerItemCell: SKStoreProductViewControllerDelegate {
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -119,6 +127,7 @@ class GameWallViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tableView.reloadData()
     }
 
     @objc func onGameWallListUpdated(a _: Notification) {

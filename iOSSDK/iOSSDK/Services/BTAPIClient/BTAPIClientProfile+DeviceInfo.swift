@@ -19,7 +19,7 @@ extension BTAPIClientProfile {
 
     @discardableResult
     public func useLang() -> BTAPIClientProfile {
-        useHeader("lang", Locale.preferredLangCode)
+        useHeader("lang", Locale.preferredLangCodeUnderlined)
         return self
     }
 

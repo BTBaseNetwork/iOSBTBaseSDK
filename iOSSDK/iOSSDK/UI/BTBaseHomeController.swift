@@ -37,6 +37,7 @@ public class BTBaseHomeEntry {
 
     public static func getEntryViewController() -> UIViewController {
         let board = UIStoryboard(name: "BTBaseMainStoryboard", bundle: Bundle.iOSBTBaseSDKUI)
+        BahamutCommonLocalizedBundle = Bundle.iOSBTBaseSDKUI!
         homeController = board.instantiateViewController(withIdentifier: "BTBaseHomeController") as? BTBaseHomeController
         return homeController!
     }

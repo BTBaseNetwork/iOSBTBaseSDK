@@ -77,8 +77,6 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
                     case "\(UInt64.self)": property.accessor?.setValue(model, resultSet.unsignedLongLongInt(forColumn: property.columnName))
                     case "\(UInt.self)": property.accessor?.setValue(model, resultSet.unsignedLongLongInt(forColumn: property.columnName))
                     case "\(Float32.self)": property.accessor?.setValue(model, resultSet.double(forColumn: property.columnName))
-                    case "\(Float80.self)": property.accessor?.setValue(model, resultSet.double(forColumn: property.columnName))
-                        
                     default: break
                     }
                     // property.accessor?.setValue(model, resultSet.object(forColumn: property.columnName))
@@ -145,7 +143,6 @@ private var swiftTypeToSqliteType: [String: String] = {
     dict["\(UInt.self)"] = "INTEGER"
     dict["\(Float.self)"] = "NUMERIC"
     dict["\(Float32.self)"] = "NUMERIC"
-    dict["\(Float80.self)"] = "NUMERIC"
     dict["\(Double.self)"] = "NUMERIC"
     dict["\(Bool.self)"] = "NUMERIC"
     dict["\(String.self)"] = "TEXT"

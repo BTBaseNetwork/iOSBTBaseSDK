@@ -9,8 +9,10 @@
 import Foundation
 
 let BahamutCommonLocalizedTableName = "BahamutCommonLocalized"
+var BahamutCommonLocalizedBundle = Bundle.main
+
 extension String {
     var bahamutCommonLocalizedString: String {
-        return LocalizedString(self, tableName: BahamutCommonLocalizedTableName, bundle: Bundle.main)
+        return LocalizedString(self, tableName: BahamutCommonLocalizedTableName, bundle: BahamutCommonLocalizedBundle)
     }
 }

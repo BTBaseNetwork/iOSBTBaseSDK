@@ -91,6 +91,15 @@ public class BTGameWallItem: Codable {
     public var appLink: BTAppLink!
 
     public var loc: [String: String]!
+
+    func getLocalizedString(key: String, defaultValue: String?) -> String? {
+        let langCode = Locale.preferredLangCodeUnderlined
+        return loc["\(key)_\(langCode)"] ?? defaultValue
+    }
+
+    func getLocalizedGameName() -> String {
+        return getLocalizedString(key: "gameName", defaultValue: gameName) ?? "Unknow Game"
+    }
 }
 
 public class BTGameWallConfig: Codable {

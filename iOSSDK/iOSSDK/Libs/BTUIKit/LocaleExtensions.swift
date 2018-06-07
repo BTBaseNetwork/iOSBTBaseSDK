@@ -19,4 +19,9 @@ public extension Locale {
             return lang
         }
     }
+    
+    public static var preferredLangCodeUnderlined: String {
+        return preferredLangCode.replacingOccurrences(of: "-", with: "_")
+    }
+    
 }

@@ -37,9 +37,9 @@
 		E754A1F220C396BA006F36EB /* BTSessionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1F120C396BA006F36EB /* BTSessionAPI.swift */; };
 		E754A26320C3AA10006F36EB /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E754A1F320C39925006F36EB /* Media.xcassets */; };
 		E754A28A20C3C077006F36EB /* ArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27120C3C077006F36EB /* ArrayUtil.swift */; };
-		E754A28B20C3C077006F36EB /* BahamutCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = E754A27220C3C077006F36EB /* BahamutCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E754A28B20C3C077006F36EB /* BahamutCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = E754A27220C3C077006F36EB /* BahamutCommon.h */; };
 		E754A28C20C3C077006F36EB /* BahamutCommonLocalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27320C3C077006F36EB /* BahamutCommonLocalized.swift */; };
-		E754A29020C3C077006F36EB /* MF_Base64Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = E754A27920C3C077006F36EB /* MF_Base64Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E754A29020C3C077006F36EB /* MF_Base64Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = E754A27920C3C077006F36EB /* MF_Base64Additions.h */; };
 		E754A29120C3C077006F36EB /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E754A27A20C3C077006F36EB /* MF_Base64Additions.m */; };
 		E754A29220C3C077006F36EB /* CommonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27B20C3C077006F36EB /* CommonExtension.swift */; };
 		E754A29320C3C077006F36EB /* CommonValueCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27C20C3C077006F36EB /* CommonValueCast.swift */; };
@@ -54,7 +54,6 @@
 		E754A29C20C3C077006F36EB /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A28620C3C077006F36EB /* StringHelper.swift */; };
 		E754A29D20C3C077006F36EB /* UserSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A28720C3C077006F36EB /* UserSetting.swift */; };
 		E754A2A520C3CFEA006F36EB /* BTGameWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A2A420C3CFEA006F36EB /* BTGameWall.swift */; };
-		E754A2EE20C3EA58006F36EB /* BahamutCommonLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E754A27620C3C077006F36EB /* BahamutCommonLocalized.strings */; };
 		E754A2F120C3EB55006F36EB /* BTBaseSDKBundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A2F020C3EB55006F36EB /* BTBaseSDKBundleExtensions.swift */; };
 		E754A31320C3EC6B006F36EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A31220C3EC6B006F36EB /* AppDelegate.swift */; };
 		E754A31520C3EC6B006F36EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A31420C3EC6B006F36EB /* ViewController.swift */; };
@@ -63,6 +62,7 @@
 		E754A31D20C3EC6C006F36EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E754A31B20C3EC6C006F36EB /* LaunchScreen.storyboard */; };
 		E754A32920C3EF60006F36EB /* BTBaseMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E754A26720C3AE0A006F36EB /* BTBaseMainStoryboard.storyboard */; };
 		E754A32B20C3F1C0006F36EB /* BTBaseHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A32A20C3F1C0006F36EB /* BTBaseHomeController.swift */; };
+		E75B5E1020C8E627005BE4FB /* BahamutCommonLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E754A27620C3C077006F36EB /* BahamutCommonLocalized.strings */; };
 		E75D401020C4B01700BEAF79 /* BTServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */; };
 		E75D401220C4C54900BEAF79 /* BTAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D401120C4C54900BEAF79 /* BTAPIRequest.swift */; };
 		E75D401420C4C56F00BEAF79 /* BTAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D401320C4C56F00BEAF79 /* BTAPIResult.swift */; };
@@ -197,6 +197,8 @@
 		E754A31C20C3EC6C006F36EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E754A31E20C3EC6C006F36EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E754A32A20C3F1C0006F36EB /* BTBaseHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseHomeController.swift; sourceTree = "<group>"; };
+		E75B5E0C20C8E4BE005BE4FB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		E75B5E0E20C8E4BE005BE4FB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTServiceContainer.swift; sourceTree = "<group>"; };
 		E75D401120C4C54900BEAF79 /* BTAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAPIRequest.swift; sourceTree = "<group>"; };
 		E75D401320C4C56F00BEAF79 /* BTAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAPIResult.swift; sourceTree = "<group>"; };
@@ -664,8 +666,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E75B5E1020C8E627005BE4FB /* BahamutCommonLocalized.strings in Resources */,
 				E724679C20C691DF003641C0 /* BTBaseLocalized.strings in Resources */,
-				E754A2EE20C3EA58006F36EB /* BahamutCommonLocalized.strings in Resources */,
 				E754A32920C3EF60006F36EB /* BTBaseMainStoryboard.storyboard in Resources */,
 				E754A26320C3AA10006F36EB /* Media.xcassets in Resources */,
 			);
@@ -705,18 +707,18 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MobilePlayer/MobilePlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/ZFPlayer/ZFPlayer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MobilePlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZFPlayer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -888,6 +890,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				E754A31720C3EC6B006F36EB /* Base */,
+				E75B5E0C20C8E4BE005BE4FB /* zh-Hans */,
+				E75B5E0E20C8E4BE005BE4FB /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -920,6 +924,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = NO;
 				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SDKUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -941,6 +946,7 @@
 				COMBINE_HIDPI_IMAGES = NO;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SDKUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -963,6 +969,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2BW6TGDJAV;
 				INFOPLIST_FILE = SDKTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -983,6 +990,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2BW6TGDJAV;
 				INFOPLIST_FILE = SDKTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1139,7 +1147,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = iOSSDK/iOSSDK.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1171,7 +1179,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = iOSSDK/iOSSDK.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

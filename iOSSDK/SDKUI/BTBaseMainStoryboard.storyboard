@@ -21,12 +21,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VIT-Eo-VHY">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="36" sectionFooterHeight="32" translatesAutoresizingMaskIntoConstraints="NO" id="VIT-Eo-VHY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GameWallBannerItemCell" rowHeight="72" id="dxr-Gc-M35" customClass="GameWallBannerItemCell" customModule="BTBaseSDK">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="72"/>
+                                        <rect key="frame" x="0.0" y="36" width="375" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dxr-Gc-M35" id="R5U-AJ-1pr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
@@ -40,13 +40,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FO8-Up-ybA" userLabel="GameTitle">
-                                                    <rect key="frame" x="66" y="12" width="167" height="21"/>
+                                                    <rect key="frame" x="66" y="12" width="239" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_star" translatesAutoresizingMaskIntoConstraints="NO" id="esE-bx-R6H" userLabel="Star0">
                                                     <rect key="frame" x="66" y="40" width="16" height="16"/>
+                                                    <color key="tintColor" red="0.99607843137254903" green="0.70588235294117641" blue="0.025092230902777776" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="FaX-al-N7u"/>
                                                         <constraint firstAttribute="height" constant="16" id="qWf-pa-GQo"/>
@@ -54,6 +55,7 @@
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_star" translatesAutoresizingMaskIntoConstraints="NO" id="tL2-Ct-nFI" userLabel="Star1">
                                                     <rect key="frame" x="86" y="40" width="16" height="16"/>
+                                                    <color key="tintColor" red="0.99607843137254903" green="0.70588235294117641" blue="0.025092230902777776" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="MGG-Xc-H8R"/>
                                                         <constraint firstAttribute="width" constant="16" id="bYK-E9-uj6"/>
@@ -61,6 +63,7 @@
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_star" translatesAutoresizingMaskIntoConstraints="NO" id="NNI-14-Lg3" userLabel="Star2">
                                                     <rect key="frame" x="106" y="40" width="16" height="16"/>
+                                                    <color key="tintColor" red="0.99607843137254903" green="0.70588235294117641" blue="0.025092230902777776" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="1dT-aP-a5r"/>
                                                         <constraint firstAttribute="height" constant="16" id="1dU-hI-r12"/>
@@ -68,6 +71,7 @@
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_star" translatesAutoresizingMaskIntoConstraints="NO" id="lEX-Qq-hCh" userLabel="Star3">
                                                     <rect key="frame" x="126" y="40" width="16" height="16"/>
+                                                    <color key="tintColor" red="0.99607843137254903" green="0.70588235294117641" blue="0.025092230902777776" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="aus-W6-Tt9"/>
                                                         <constraint firstAttribute="height" constant="16" id="taJ-Jw-kIg"/>
@@ -75,31 +79,28 @@
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_star" translatesAutoresizingMaskIntoConstraints="NO" id="gp5-Yw-U0j" userLabel="Star4">
                                                     <rect key="frame" x="146" y="40" width="16" height="16"/>
+                                                    <color key="tintColor" red="0.99607843137254903" green="0.70588235294117641" blue="0.025092230902777776" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="LIJ-iF-8dN"/>
                                                         <constraint firstAttribute="width" constant="16" id="USK-6U-xnI"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gi-jC-bD3" userLabel="PlayGameButton">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                                    <connections>
+                                                        <action selector="onClickPlayGame:" destination="dxr-Gc-M35" eventType="touchUpInside" id="fSp-d2-6eb"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cz5-al-Uoj" userLabel="PlayVideoButton">
-                                                    <rect key="frame" x="249" y="12" width="48" height="48"/>
+                                                    <rect key="frame" x="321" y="12" width="48" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="EDK-Ou-Pfd"/>
                                                         <constraint firstAttribute="width" constant="48" id="LEb-Y2-daI"/>
                                                     </constraints>
+                                                    <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                                                     <state key="normal" image="ikons_youtube"/>
                                                     <connections>
                                                         <action selector="onClickPlayVideo:" destination="dxr-Gc-M35" eventType="touchUpInside" id="sP3-3j-c0P"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gi-jC-bD3" userLabel="PlayGameButton">
-                                                    <rect key="frame" x="317" y="12" width="48" height="48"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="48" id="S0A-2Z-dyj"/>
-                                                        <constraint firstAttribute="height" constant="48" id="swR-jR-mEI"/>
-                                                    </constraints>
-                                                    <state key="normal" image="btbase_play_game"/>
-                                                    <connections>
-                                                        <action selector="onClickPlayGame:" destination="dxr-Gc-M35" eventType="touchUpInside" id="fSp-d2-6eb"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -112,15 +113,17 @@
                                                 <constraint firstItem="NNI-14-Lg3" firstAttribute="leading" secondItem="tL2-Ct-nFI" secondAttribute="trailing" constant="4" id="Ee9-UI-vr0"/>
                                                 <constraint firstItem="tL2-Ct-nFI" firstAttribute="leading" secondItem="esE-bx-R6H" secondAttribute="trailing" constant="4" id="HnU-7j-5kv"/>
                                                 <constraint firstItem="73d-r5-Af2" firstAttribute="centerY" secondItem="R5U-AJ-1pr" secondAttribute="centerY" id="LJL-I1-yuR"/>
+                                                <constraint firstItem="8gi-jC-bD3" firstAttribute="width" secondItem="R5U-AJ-1pr" secondAttribute="width" id="O53-GN-bjY"/>
+                                                <constraint firstItem="8gi-jC-bD3" firstAttribute="height" secondItem="R5U-AJ-1pr" secondAttribute="height" id="Ose-pz-mRW"/>
+                                                <constraint firstItem="8gi-jC-bD3" firstAttribute="centerX" secondItem="R5U-AJ-1pr" secondAttribute="centerX" id="UQg-UF-IpQ"/>
                                                 <constraint firstItem="esE-bx-R6H" firstAttribute="leading" secondItem="73d-r5-Af2" secondAttribute="trailing" constant="8" id="V7D-9r-k7R"/>
                                                 <constraint firstItem="lEX-Qq-hCh" firstAttribute="centerY" secondItem="NNI-14-Lg3" secondAttribute="centerY" id="Y8X-bM-kid"/>
-                                                <constraint firstAttribute="trailing" secondItem="8gi-jC-bD3" secondAttribute="trailing" constant="10" id="Yr3-Fa-aKe"/>
                                                 <constraint firstItem="FO8-Up-ybA" firstAttribute="leading" secondItem="73d-r5-Af2" secondAttribute="trailing" constant="8" id="bbo-ZY-Ogh"/>
+                                                <constraint firstItem="8gi-jC-bD3" firstAttribute="centerY" secondItem="R5U-AJ-1pr" secondAttribute="centerY" id="ctM-Pg-kqF"/>
                                                 <constraint firstItem="FO8-Up-ybA" firstAttribute="top" secondItem="73d-r5-Af2" secondAttribute="top" id="hUo-wm-Wts"/>
                                                 <constraint firstItem="cz5-al-Uoj" firstAttribute="leading" secondItem="FO8-Up-ybA" secondAttribute="trailing" constant="16" id="ifN-KM-umm"/>
-                                                <constraint firstItem="8gi-jC-bD3" firstAttribute="centerY" secondItem="R5U-AJ-1pr" secondAttribute="centerY" id="kDb-Q0-auk"/>
-                                                <constraint firstItem="8gi-jC-bD3" firstAttribute="leading" secondItem="cz5-al-Uoj" secondAttribute="trailing" constant="20" id="kOV-FZ-GQr"/>
                                                 <constraint firstItem="gp5-Yw-U0j" firstAttribute="centerY" secondItem="lEX-Qq-hCh" secondAttribute="centerY" id="kdw-no-j6K"/>
+                                                <constraint firstAttribute="trailing" secondItem="cz5-al-Uoj" secondAttribute="trailing" constant="6" id="rOc-76-CC9"/>
                                                 <constraint firstItem="73d-r5-Af2" firstAttribute="leading" secondItem="R5U-AJ-1pr" secondAttribute="leading" constant="10" id="u0D-rT-HmA"/>
                                                 <constraint firstItem="gp5-Yw-U0j" firstAttribute="leading" secondItem="lEX-Qq-hCh" secondAttribute="trailing" constant="4" id="wpS-ds-Dp2"/>
                                             </constraints>
@@ -1115,7 +1118,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btbase_play_game" width="512" height="512"/>
         <image name="btbase_tab_gamewall" width="32" height="32"/>
         <image name="btbase_tab_me" width="32" height="32"/>
         <image name="btbase_tab_member" width="32" height="32"/>
