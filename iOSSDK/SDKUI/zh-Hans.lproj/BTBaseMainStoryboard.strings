@@ -1,0 +1,147 @@
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "1BR-w0-pTA"; */
+"1BR-w0-pTA.placeholder" = "密码";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "3Py-ly-kAj"; */
+"3Py-ly-kAj.placeholder" = "用户名";
+
+/* Class = "UIButton"; normalTitle = "Reset Password"; ObjectID = "3us-nS-bg5"; */
+"3us-nS-bg5.normalTitle" = "重置密码";
+
+/* Class = "UITabBarItem"; title = "Member"; ObjectID = "5vg-A8-YKe"; */
+"5vg-A8-YKe.title" = "高级会员";
+
+/* Class = "UIButton"; normalTitle = "Sign In"; ObjectID = "5zn-I6-BCQ"; */
+"5zn-I6-BCQ.normalTitle" = "登录";
+
+/* Class = "UINavigationItem"; title = "Update Password"; ObjectID = "8Wt-VO-lUI"; */
+"8Wt-VO-lUI.title" = "更新密码";
+
+/* Class = "UILabel"; text = "PropertyName"; ObjectID = "8s7-Ay-btS"; */
+"8s7-Ay-btS.text" = "PropertyName";
+
+/* Class = "UINavigationItem"; title = "Sign In"; ObjectID = "BrX-WM-ML8"; */
+"BrX-WM-ML8.title" = "登录";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "CEG-IR-uTk"; */
+"CEG-IR-uTk.normalTitle" = "注册";
+
+/* Class = "UINavigationItem"; title = "Member"; ObjectID = "CTf-S7-82e"; */
+"CTf-S7-82e.title" = "高级会员";
+
+/* Class = "UITextField"; placeholder = "Confirm Email"; ObjectID = "ENj-Q3-nC9"; */
+"ENj-Q3-nC9.placeholder" = "确认邮箱";
+
+/* Class = "UITextField"; placeholder = "Account ID/Username/Email"; ObjectID = "FBN-Ym-QPG"; */
+"FBN-Ym-QPG.placeholder" = "账号/用户名/邮箱";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "FO8-Up-ybA"; */
+"FO8-Up-ybA.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Send Code"; ObjectID = "Fmz-G0-FF4"; */
+"Fmz-G0-FF4.normalTitle" = "发送验证码";
+
+/* Class = "UIButton"; normalTitle = "Update Nick"; ObjectID = "G1o-bT-paS"; */
+"G1o-bT-paS.normalTitle" = "更新昵称";
+
+/* Class = "UITextField"; placeholder = "Enter account ID..."; ObjectID = "G7A-rF-Ca9"; */
+"G7A-rF-Ca9.placeholder" = "输入账号...";
+
+/* Class = "UIButton"; normalTitle = "Send Code"; ObjectID = "Hdz-GT-lD5"; */
+"Hdz-GT-lD5.normalTitle" = "发送验证码";
+
+/* Class = "UINavigationItem"; title = "Sign Up"; ObjectID = "Jr9-n8-zmg"; */
+"Jr9-n8-zmg.title" = "注册";
+
+/* Class = "UITextField"; placeholder = "Enter a new password..."; ObjectID = "Jy7-GQ-QrC"; */
+"Jy7-GQ-QrC.placeholder" = "输入新密码...";
+
+/* Class = "UITextField"; placeholder = "Enter current password..."; ObjectID = "MnW-ug-hO0"; */
+"MnW-ug-hO0.placeholder" = "输入当前密码...";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "Nj1-4D-nh9"; */
+"Nj1-4D-nh9.placeholder" = "邮箱";
+
+/* Class = "UILabel"; text = "Tips"; ObjectID = "QzB-xb-j9D"; */
+"QzB-xb-j9D.text" = "Tips";
+
+/* Class = "UIButton"; normalTitle = "Update Email"; ObjectID = "SAv-Rp-mB0"; */
+"SAv-Rp-mB0.normalTitle" = "更新邮箱";
+
+/* Class = "UILabel"; text = "PropertyName"; ObjectID = "T7U-h1-eXZ"; */
+"T7U-h1-eXZ.text" = "PropertyName";
+
+/* Class = "UIButton"; normalTitle = "Forget Password"; ObjectID = "TlK-Wf-Yk5"; */
+"TlK-Wf-Yk5.normalTitle" = "忘记密码";
+
+/* Class = "UITextField"; placeholder = "Enter new password..."; ObjectID = "UoQ-od-dCW"; */
+"UoQ-od-dCW.placeholder" = "输入新密码...";
+
+/* Class = "UITextField"; placeholder = "Enter new nick name..."; ObjectID = "VXk-Eq-92r"; */
+"VXk-Eq-92r.placeholder" = "输入新昵称...";
+
+/* Class = "UITextField"; placeholder = "Confirm new email..."; ObjectID = "Wzt-sz-nSj"; */
+"Wzt-sz-nSj.placeholder" = "确认新邮箱...";
+
+/* Class = "UITextField"; placeholder = "Enter email of the account..."; ObjectID = "Xoc-gw-kGo"; */
+"Xoc-gw-kGo.placeholder" = "账号绑定的邮箱...";
+
+/* Class = "UILabel"; text = "Tips"; ObjectID = "YWm-oj-uBp"; */
+"YWm-oj-uBp.text" = "Tips";
+
+/* Class = "UILabel"; text = "PropertyValue"; ObjectID = "aaU-lK-FgS"; */
+"aaU-lK-FgS.text" = "PropertyValue";
+
+/* Class = "UITabBarItem"; title = "Me"; ObjectID = "dxU-kl-IMX"; */
+"dxU-kl-IMX.title" = "我";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "eTO-RB-gZk"; */
+"eTO-RB-gZk.placeholder" = "密码";
+
+/* Class = "UINavigationItem"; title = "Reset Password"; ObjectID = "fb7-ba-bMS"; */
+"fb7-ba-bMS.title" = "重置密码";
+
+/* Class = "UINavigationItem"; title = "Update Email"; ObjectID = "g9v-KH-0Lz"; */
+"g9v-KH-0Lz.title" = "更新密码";
+
+/* Class = "UINavigationItem"; title = "Update Nick"; ObjectID = "gSb-4V-DYQ"; */
+"gSb-4V-DYQ.title" = "更新昵称";
+
+/* Class = "UILabel"; text = "Tips"; ObjectID = "gsp-F4-Z01"; */
+"gsp-F4-Z01.text" = "Tips";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "ixp-nh-Q0H"; */
+"ixp-nh-Q0H.normalTitle" = "注册";
+
+/* Class = "UITextField"; placeholder = "Enter security code..."; ObjectID = "jEW-bg-G7U"; */
+"jEW-bg-G7U.placeholder" = "输入验证码...";
+
+/* Class = "UIButton"; normalTitle = "Update Password"; ObjectID = "koB-Et-P6N"; */
+"koB-Et-P6N.normalTitle" = "更新密码";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "mjM-e4-ISh"; */
+"mjM-e4-ISh.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Enter current email..."; ObjectID = "n5z-UC-PQH"; */
+"n5z-UC-PQH.placeholder" = "输入当前邮箱...";
+
+/* Class = "UITabBarItem"; title = "Game Wall"; ObjectID = "oF6-wv-3Tw"; */
+"oF6-wv-3Tw.title" = "游戏墙";
+
+/* Class = "UILabel"; text = "PropertyValue"; ObjectID = "qZo-qR-yWn"; */
+"qZo-qR-yWn.text" = "PropertyValue";
+
+/* Class = "UITextField"; placeholder = "Enter new email..."; ObjectID = "qn0-TG-PbJ"; */
+"qn0-TG-PbJ.placeholder" = "输入新邮箱...";
+
+/* Class = "UINavigationItem"; title = "Game Wall"; ObjectID = "sHB-RJ-wPt"; */
+"sHB-RJ-wPt.title" = "游戏墙";
+
+/* Class = "UITextField"; placeholder = "Enter security code..."; ObjectID = "tXg-Xi-8gb"; */
+"tXg-Xi-8gb.placeholder" = "输入验证码...";
+
+/* Class = "UINavigationItem"; title = "Me"; ObjectID = "v3P-dO-Ejx"; */
+"v3P-dO-Ejx.title" = "我";
+
+/* Class = "UILabel"; text = "Tips"; ObjectID = "yYN-qy-MUx"; */
+"yYN-qy-MUx.text" = "Tips";

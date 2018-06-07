@@ -35,7 +35,8 @@ class GameWallBannerItemCell: UITableViewCell {
 
     weak var rootController: UIViewController?
 
-    static let iconPlaceholder = UIImage.BTSDKUIImage(named: "ikons_205")
+    static let iconPlaceholder: UIImage? = { UIImage.BTSDKUIImage(named: "ikons_grid_2") }()
+    static let starIconTintColor: UIColor = { UIColor(hexString: "#FEB406") }()
 
     var gameWallItem: BTGameWallItem! {
         didSet {
@@ -44,11 +45,11 @@ class GameWallBannerItemCell: UITableViewCell {
             gameTitle.text = gameWallItem.getLocalizedGameName()
             for i in 0 ..< starImages.count {
                 if Float(i) < gameWallItem.stars {
-                    starImages[i].tintColor = starImages[i].tintColor.withAlphaComponent(1)
+                    starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(1)
                 } else if Float(i) < gameWallItem.stars + 0.5 {
-                    starImages[i].tintColor = starImages[i].tintColor.withAlphaComponent(0.5)
+                    starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(0.5)
                 } else {
-                    starImages[i].tintColor = starImages[i].tintColor.withAlphaComponent(0)
+                    starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(0)
                 }
             }
         }
@@ -59,7 +60,10 @@ class GameWallBannerItemCell: UITableViewCell {
         let playerVC = MobilePlayerViewController(contentURL: videoURL)
         playerVC.title = gameTitle.text
         let gameUrl = URL(string: "itms-apps://itunes.apple.com/app/id\(gameWallItem.appLink.iOSAppId!)")!
-        playerVC.activityItems = [gameTitle.text ?? "", gameUrl] // Check the documentation for more information.
+        playerVC.activityItems = [gameTitle.text ?? "", gameUrl]
+        if let img = self.itemIcon.image {
+            playerVC.activityItems?.append(img)
+        }
         rootController?.present(playerVC, animated: true, completion: nil)
     }
 
@@ -67,7 +71,7 @@ class GameWallBannerItemCell: UITableViewCell {
         let gameName = gameWallItem.getLocalizedGameName()
         let title = String(format: "BTLocTitleOpenGameXOrOpenStore".localizedBTBaseString, gameName)
         let msg = String(format: "BTLocMsgOpenGameXOrOpenStore".localizedBTBaseString, gameName)
-        let ok = UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default) { _ in
+        let ok = UIAlertAction(title: "BTLocPlayNow".localizedBTBaseString, style: .default) { _ in
             self.playGame()
         }
         rootController?.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, ok])

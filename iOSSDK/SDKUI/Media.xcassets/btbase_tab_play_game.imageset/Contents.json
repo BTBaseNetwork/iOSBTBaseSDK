@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "DSPIconDreamlo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "btbase_tab_play_game.png",
       "scale" : "2x"
     },
     {
