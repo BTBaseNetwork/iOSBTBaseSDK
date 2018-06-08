@@ -31,9 +31,11 @@ class AccountViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SetupBTBaseUI()
         accountService = BTServiceContainer.getBTAccountService()
         sessionService = BTServiceContainer.getBTSessionService()
         tableView.tableFooterView = UIView()
+        tableView.tableFooterView?.backgroundColor = self.view.backgroundColor
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -55,15 +57,25 @@ class AccountViewController: UIViewController {
 
 extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in _: UITableView) -> Int {
-        return (sessionService?.isSessionLogined ?? false) ? 1 : 0
+        return (sessionService?.isSessionLogined ?? false) ? 3 : 0
     }
 
-    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 7
+    func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section > 0 {
+            return 1
+        }else{
+            return 5
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        if indexPath.section > 0 {
+            if indexPath.section == 1 {
+                return tableView.dequeueReusableCell(withIdentifier: AccountViewController.logoutGameCellReuseId, for: indexPath)
+            } else if indexPath.section == 2 {
+                return tableView.dequeueReusableCell(withIdentifier: AccountViewController.logoutDeviceCellReuseId, for: indexPath)
+            }
+        } else if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: AccountDisplayItemCell.reuseId, for: indexPath) as! AccountDisplayItemCell
             cell.nameLabel.text = "BTLocAccountId".localizedBTBaseString
             cell.valueLabel.text = accountService.localAccount.accountId
@@ -88,10 +100,6 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
             cell.nameLabel.text = "BTLocPassword".localizedBTBaseString
             cell.valueLabel.text = "****"
             return cell
-        } else if indexPath.row == 5 {
-            return tableView.dequeueReusableCell(withIdentifier: AccountViewController.logoutGameCellReuseId, for: indexPath)
-        } else if indexPath.row == 6 {
-            return tableView.dequeueReusableCell(withIdentifier: AccountViewController.logoutDeviceCellReuseId, for: indexPath)
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: AccountDisplayItemCell.reuseId, for: indexPath) as! AccountDisplayItemCell
@@ -101,23 +109,33 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 2 {
+        if indexPath.section > 0{
+            if indexPath.section == 1 {
+                let ok = UIAlertAction(title: "BTLocLogoutGame".localizedBTBaseString, style: .default) { _ in
+                    self.sessionService?.logoutClient()
+                }
+                showAlert("BTLocLogoutGame".localizedBTBaseString, msg: "BTLocMsgLogoutGame".localizedBTBaseString, actions: [ALERT_ACTION_CANCEL, ok])
+            } else if indexPath.section == 2 {
+                let ok = UIAlertAction(title: "BTLocLogoutDevice".localizedBTBaseString, style: .default) { _ in
+                    self.sessionService?.logoutDevice()
+                }
+                showAlert("BTLocLogoutDevice".localizedBTBaseString, msg: "BTLocMsgLogoutDevice".localizedBTBaseString, actions: [ALERT_ACTION_CANCEL, ok])
+            }
+        }else if indexPath.row == 2 {
             performSegue(withIdentifier: "UpdateNick", sender: self)
         } else if indexPath.row == 3 {
             performSegue(withIdentifier: "UpdateEmail", sender: self)
         } else if indexPath.row == 4 {
             performSegue(withIdentifier: "UpdatePassword", sender: self)
-        } else if indexPath.row == 5 {
-            let ok = UIAlertAction(title: "BTLocLogoutGame".localizedBTBaseString, style: .default) { _ in
-                self.sessionService?.logoutClient()
-            }
-            showAlert("BTLocLogoutGame".localizedBTBaseString, msg: "BTLocMsgLogoutGame".localizedBTBaseString, actions: [ALERT_ACTION_CANCEL, ok])
-        } else if indexPath.row == 6 {
-            let ok = UIAlertAction(title: "BTLocLogoutDevice".localizedBTBaseString, style: .default) { _ in
-                self.sessionService?.logoutDevice()
-            }
-            showAlert("BTLocLogoutDevice".localizedBTBaseString, msg: "BTLocMsgLogoutDevice".localizedBTBaseString, actions: [ALERT_ACTION_CANCEL, ok])
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section > 0 {
+            return 56
+        }else{
+            return 64
+        }
     }
 }

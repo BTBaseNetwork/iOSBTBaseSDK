@@ -15,7 +15,7 @@ class ForgetPasswordViewController: UIViewController {
     @IBOutlet var securityCodeTextField: UITextField!
     @IBOutlet var newPasswordTextField: UITextField!
     @IBOutlet var sendCodeButton: UIButton!
-    @IBOutlet var resetPasswordButton: UIButton!{ didSet { resetPasswordButton.SetupBTBaseUI() } }
+    @IBOutlet var resetPasswordButton: UIButton! { didSet { resetPasswordButton.SetupBTBaseUI() } }
     @IBOutlet var accoundIdCheckImage: UIImageView!
     @IBOutlet var codeCheckImage: UIImageView!
     @IBOutlet var newPasswordCheckImage: UIImageView!
@@ -33,7 +33,7 @@ class ForgetPasswordViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        SetupBTBaseUI()
         for textField in [accountIdTextField, emailTextField, securityCodeTextField, newPasswordTextField] {
             textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
             textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)

@@ -34,6 +34,7 @@ class UpdateEmailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SetupBTBaseUI()
         for textField in [curEmailTextField, securityCodeTextField, newEmailTextField, confirmNewEmailTextField] {
             textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
             textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)

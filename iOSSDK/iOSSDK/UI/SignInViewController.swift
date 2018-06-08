@@ -22,6 +22,7 @@ class SignInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SetupBTBaseUI()
         for textField in [accountTextField, passwordTextField] {
             textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
             textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
@@ -32,6 +33,11 @@ class SignInViewController: UIViewController {
         tipsLabel.text = nil
         if let status = BTServiceContainer.getBTSessionService()?.localSession.status, status == BTAccountSession.STATUS_LOGOUT_DEFAULT {
             accountTextField.text = BTServiceContainer.getBTSessionService()?.localSession.accountId
+        } else {
+            accountTextField.text = nil
+            DispatchQueue.main.afterMS(1000) {
+                self.performSegue(withIdentifier: "SignUp", sender: self)
+            }
         }
     }
 

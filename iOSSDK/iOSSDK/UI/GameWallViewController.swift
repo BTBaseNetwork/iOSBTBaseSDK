@@ -121,9 +121,11 @@ class GameWallViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SetupBTBaseUI()
         gamewall = BTServiceContainer.getGameWall()
         gamewall.loadCachedGamewallConfig()
         tableView.tableFooterView = UIView()
+        tableView.tableFooterView?.backgroundColor = self.view.backgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(onGameWallListUpdated(a:)), name: BTGameWall.onGameWallListUpdated, object: nil)
@@ -169,6 +171,6 @@ extension GameWallViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 72
+        return 76
     }
 }

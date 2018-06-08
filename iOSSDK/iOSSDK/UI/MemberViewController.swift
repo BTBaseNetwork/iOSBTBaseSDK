@@ -16,38 +16,25 @@ class MemberCardCell: UITableViewCell {
     
     @IBOutlet var expiredOnDateLabel: UILabel!
     
-    @IBOutlet var unloginView: UIVisualEffectView!
-    
-    @IBAction func onClickSignIn(_: Any) {
-        BTBaseHomeEntry.getEntryViewController().performSegue(withIdentifier: "SignIn", sender: nil)
-    }
-    
     func refresh() {
-        if !BTServiceContainer.getBTSessionService()!.isSessionLogined {
-            unloginView.isHidden = false
-            memberTypeLabel.text = "BTLocMemberTypeNotLogin".localizedBTBaseString
-            expiredOnDateLabel.text = "BTLocMemberTypeNotLogin".localizedBTBaseString
-        } else {
-            unloginView.isHidden = true
-            let service = BTServiceContainer.getBTMemberService()!
-            if let member = service.localProfile.preferredMember {
-                switch member.memberType {
-                case BTMember.MEMBER_TYPE_PREMIUM: memberTypeLabel.text = "BTLocMemberTypePremium".localizedBTBaseString
-                case BTMember.MEMBER_TYPE_ADVANCED: memberTypeLabel.text = "BTLocMemberTypeAdvance".localizedBTBaseString
-                default: break
-                }
-                if member.expiredDateTs > Date().timeIntervalSince1970 {
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "BTLocMemberExpiredDateFormat".localizedBTBaseString
-                    formatter.locale = Locale.current
-                    expiredOnDateLabel.text = formatter.string(from: Date(timeIntervalSince1970: member.expiredDateTs))
-                } else {
-                    expiredOnDateLabel.text = "BTLocMemberOutOfDate".localizedBTBaseString
-                }
-            } else {
-                memberTypeLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
-                expiredOnDateLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
+        let service = BTServiceContainer.getBTMemberService()!
+        if let member = service.localProfile.preferredMember {
+            switch member.memberType {
+            case BTMember.MEMBER_TYPE_PREMIUM: memberTypeLabel.text = "BTLocMemberTypePremium".localizedBTBaseString
+            case BTMember.MEMBER_TYPE_ADVANCED: memberTypeLabel.text = "BTLocMemberTypeAdvance".localizedBTBaseString
+            default: break
             }
+            if member.expiredDateTs > Date().timeIntervalSince1970 {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "BTLocMemberExpiredDateFormat".localizedBTBaseString
+                formatter.locale = Locale.current
+                expiredOnDateLabel.text = formatter.string(from: Date(timeIntervalSince1970: member.expiredDateTs))
+            } else {
+                expiredOnDateLabel.text = "BTLocMemberOutOfDate".localizedBTBaseString
+            }
+        } else {
+            memberTypeLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
+            expiredOnDateLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
         }
     }
 }
@@ -59,7 +46,11 @@ class MemberProductCell: UITableViewCell {
     
     @IBOutlet var descLabel: UILabel!
     @IBOutlet var priceLabel: UILabel!
-    @IBOutlet var purchaseButton: UIButton!
+    @IBOutlet var purchaseButton: UIButton!{
+        didSet{
+            purchaseButton.SetupBTBaseUI()
+        }
+    }
     
     var product: SKProduct! {
         didSet {
@@ -82,6 +73,11 @@ class MemberProductCell: UITableViewCell {
 }
 
 class MemberViewController: UIViewController {
+    @IBOutlet weak var signInButton: UIButton!{
+        didSet{
+            signInButton.SetupBTBaseUI()
+        }
+    }
     @IBOutlet var tableView: UITableView!
     var products: [SKProduct]! {
         didSet {
@@ -91,15 +87,22 @@ class MemberViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SetupBTBaseUI()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        tableView.tableFooterView?.backgroundColor = self.view.backgroundColor
     }
     
     override func viewWillAppear(_: Bool) {
         tableView.reloadData()
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProfileUpdated(a:)), name: BTMemberService.onLocalMemberProfileUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProductsUpdated(a:)), name: BTMemberService.onMemberProductsUpdated, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(onClickTabbarItem(a:)), name: BTBaseHomeController.DidSelectViewController, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -110,11 +113,26 @@ class MemberViewController: UIViewController {
     @objc func onMemberProfileUpdated(a _: Notification) {
         tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
+    
+    @objc private func onClickTabbarItem(a: Notification) {
+        if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
+            BTServiceContainer.getBTMemberService()?.loadIAPList()
+        }
+    }
+    
+    @IBAction func onClickSignIn(_: Any) {
+        BTBaseHomeEntry.getEntryViewController().performSegue(withIdentifier: "SignIn", sender: nil)
+    }
 }
 
 extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
-        return 2
+        if BTServiceContainer.getBTSessionService()!.isSessionLogined {
+            signInButton.isHidden = true
+            return 2
+        }
+        signInButton.isHidden = false
+        return 0
     }
     
     func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {

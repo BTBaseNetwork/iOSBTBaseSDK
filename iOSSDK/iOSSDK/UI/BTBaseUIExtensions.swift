@@ -8,15 +8,20 @@
 
 import Foundation
 
-public class BTBaseUIConfig {
+public class BTBaseUIConfigure {
     /// MARK: UIButton
-    public static var ButtonBackgroundColor = UIColor(hexString: "73FA79")
-    public static var ButtonCornerRadius: CGFloat = 8
-    public static var ButtonContentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    public static var ButtonHeight: CGFloat = 48
-    public static var ButtonTitleFontSize: CGFloat = 16
-    public static var ButtonTitleColor = UIColor.darkGray
+    public var ButtonBackgroundColor = UIColor(hexString: "73FA79")
+    public var ButtonCornerRadius: CGFloat = 8
+    public var ButtonContentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    public var ButtonHeight: CGFloat = 42
+    public var ButtonTitleFontSize: CGFloat = 16
+    public var ButtonTitleColor = UIColor.darkGray
+    
+    /// MARK: UIViewController
+    public var ViewControllerViewColor = UIColor(hexString: "#7D8080")
 }
+
+var BTBaseUIConfig = BTBaseUIConfigure()
 
 extension UIButton {
     func SetupBTBaseUI() {
@@ -31,5 +36,11 @@ extension UIButton {
         }
         setTitleColor(BTBaseUIConfig.ButtonTitleColor, for: .normal)
         titleLabel?.font = titleLabel!.font.withSize(BTBaseUIConfig.ButtonTitleFontSize)
+    }
+}
+
+extension UIViewController {
+    func SetupBTBaseUI() {
+        self.view.backgroundColor = BTBaseUIConfig.ViewControllerViewColor
     }
 }

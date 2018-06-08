@@ -13,6 +13,7 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
     static let DidSelectViewController = Notification.Name("BTBaseHomeController_DidSelectViewController")
     override func viewDidLoad() {
         super.viewDidLoad()
+        SetupBTBaseUI()
         delegate = self
     }
 
