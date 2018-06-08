@@ -15,7 +15,7 @@ class UpdateEmailViewController: UIViewController {
     @IBOutlet var newEmailTextField: UITextField!
     @IBOutlet var confirmNewEmailTextField: UITextField!
     @IBOutlet var sendCodeButton: UIButton!
-    @IBOutlet var updateEmailButton: UIButton!
+    @IBOutlet var updateEmailButton: UIButton! { didSet { updateEmailButton.SetupBTBaseUI() } }
 
     @IBOutlet var securityCodeCheckImage: UIImageView!
     @IBOutlet var newEmailCheckImage: UIImageView!

@@ -12,6 +12,7 @@
 		E724679D20C691F5003641C0 /* BTBaseSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
 		E724679E20C691F5003641C0 /* BTBaseSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E754A25D20C3A9D5006F36EB /* BTBaseSDKUI.bundle */; };
 		E72467A020C69A92003641C0 /* BTBaseSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */; };
+		E726F56320CAB6DE00F4C875 /* BTBaseUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */; };
 		E738006220C44DAF0043A201 /* UpdateEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006120C44DAF0043A201 /* UpdateEmailViewController.swift */; };
 		E738006420C44DC20043A201 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006320C44DC20043A201 /* UpdatePasswordViewController.swift */; };
 		E738006620C44DCF0043A201 /* UpdateNickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006520C44DCF0043A201 /* UpdateNickViewController.swift */; };
@@ -145,6 +146,7 @@
 		D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7241B8F20C907D300DFB70A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BTBaseMainStoryboard.strings"; sourceTree = "<group>"; };
 		E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseSDKManager.swift; sourceTree = "<group>"; };
+		E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseUIExtensions.swift; sourceTree = "<group>"; };
 		E738006120C44DAF0043A201 /* UpdateEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEmailViewController.swift; sourceTree = "<group>"; };
 		E738006320C44DC20043A201 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		E738006520C44DCF0043A201 /* UpdateNickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNickViewController.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				E738006720C452D00043A201 /* SignInViewController.swift */,
 				E738006920C452DC0043A201 /* SignUpViewController.swift */,
 				E738006B20C452EB0043A201 /* ForgetPasswordViewController.swift */,
+				E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 				E788688120C30429008E0E8D /* BTSessionService.swift in Sources */,
 				E738006C20C452EB0043A201 /* ForgetPasswordViewController.swift in Sources */,
 				E75D401220C4C54900BEAF79 /* BTAPIRequest.swift in Sources */,
+				E726F56320CAB6DE00F4C875 /* BTBaseUIExtensions.swift in Sources */,
 				E75D404920C518F300BEAF79 /* UIColor.swift in Sources */,
 				E75D403A20C518F300BEAF79 /* MailHelper.swift in Sources */,
 				E754A32B20C3F1C0006F36EB /* BTBaseHomeController.swift in Sources */,

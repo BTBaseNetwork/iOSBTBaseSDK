@@ -28,8 +28,8 @@ public class BTSessionService {
         self.host = config.getString(key: "BTSessionServiceHost")!
         self.initDB(db: db)
         self.loadCachedSession()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(onRequestUnauthorized(a:)), name: Notification.Name.BTAPIRequestUnauthorized, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onRequestUnauthorized(a:)), name: Notification.Name.BTAPIRequestUnauthorized, object: nil)
     }
 
     private func initDB(db: BTServiceDBContext) {
@@ -46,7 +46,7 @@ public class BTSessionService {
     }
 
     private func loadCachedSession() {
-        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: "BTAccountSession", query: "Status >= ?"), parameters: [BTAccountSession.STATUS_LOGIN])
+        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status >= ?"), parameters: [BTAccountSession.STATUS_LOGIN])
         if let session = resultSet.first {
             self.localSession = session
         } else {
@@ -81,6 +81,8 @@ public class BTSessionService {
                 session.token = result.content.token
                 self.dbContext.tableAccountSession.update(model: session, upsert: true)
                 self.localSession = session
+                let sql = SQLiteHelper.updateSql(tableName: self.dbContext.tableAccountSession.tableName, fields: ["status"], query: "accountId != ?")
+                self.dbContext.tableAccountSession.executeUpdateSql(sql: sql, parameters: [BTAccountSession.STATUS_LOGOUT, session.accountId])
             }
 
             DispatchQueue.main.async {
@@ -122,8 +124,8 @@ public class BTSessionService {
     func logoutClient() {
         self.localSession.status = BTAccountSession.STATUS_LOGOUT_DEFAULT
         let s = self.localSession
-        self.localSession = s
         self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+        self.localSession = s
     }
 }
 

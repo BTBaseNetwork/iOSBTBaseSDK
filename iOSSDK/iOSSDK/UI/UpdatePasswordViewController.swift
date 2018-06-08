@@ -15,7 +15,7 @@ class UpdatePasswordViewController: UIViewController {
 
     @IBOutlet var curPasswordCheckImage: UIImageView!
     @IBOutlet var newPasswordCheckImage: UIImageView!
-    @IBOutlet var updatePasswordButton: UIButton!
+    @IBOutlet var updatePasswordButton: UIButton! { didSet { updatePasswordButton.SetupBTBaseUI() } }
 
     override func viewDidLoad() {
         super.viewDidLoad()

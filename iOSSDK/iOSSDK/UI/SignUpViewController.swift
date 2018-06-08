@@ -16,7 +16,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var confirmEmailTextField: UITextField!
 
-    @IBOutlet var signupButton: UIButton!
+    @IBOutlet var signupButton: UIButton!{ didSet { signupButton.SetupBTBaseUI() } }
 
     @IBOutlet var usernameCheckImage: UIImageView!
     @IBOutlet var passwordCheckImage: UIImageView!

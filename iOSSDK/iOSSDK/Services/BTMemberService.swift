@@ -170,8 +170,14 @@ extension BTMemberService {
         }
     }
 
-    func purchaseMemberProduct(p: SKProduct) {
-        SwiftyStoreKit.purchaseProduct(p.productIdentifier) { _ in
+    func purchaseMemberProduct(p: SKProduct,completion:@escaping (Bool)->Void) {
+        SwiftyStoreKit.purchaseProduct(p.productIdentifier) { r in
+            switch r{
+            case .success(let purchase):
+                completion(true)
+            case .error(let error):
+                completion(false)
+            }
         }
     }
 

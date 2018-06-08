@@ -26,14 +26,23 @@ public class SQLiteDbContext: BTDBContext {
         database.beginTransaction()
     }
 
-    public func executeSql(sql: String) {
-        database.executeStatements(sql)
+    public func executeSql(sql: String, parameters: [Any]?) {
+        if parameters == nil {
+            database.executeStatements(sql)
+        } else {
+            let sqlupper = sql.uppercased()
+            if sqlupper.hasBegin("INSERT") || sqlupper.hasBegin("UPDATE") || sqlupper.hasBegin("DELETE") {
+                try? database.executeUpdate(sql, values: parameters)
+            } else if sqlupper.hasBegin("SELECT") {
+                _ = try? database.executeQuery(sql, values: parameters)
+            }
+        }
     }
-    
+
     public func open() {
         database.open()
     }
-    
+
     public func close() {
         database.close()
     }

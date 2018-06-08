@@ -120,6 +120,11 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
     }
     
     @discardableResult
+    public override func executeUpdateSql(sql: String, parameters: [Any]?) {
+        try? database.executeUpdate(sql, values: parameters)
+    }
+    
+    @discardableResult
     public override func delete(model: T) -> Bool {
         let priProperties: [BTDBEntity.Property<T>] = entity.getPrimaryKey()
         let priKvs = priProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
@@ -130,6 +135,11 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
             return true
         }
         return false
+    }
+    
+    @discardableResult
+    public override func executeDeleteSql(sql: String, parameters: [Any]?) {
+        try? database.executeUpdate(sql, values: parameters)
     }
 }
 

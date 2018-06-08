@@ -9,7 +9,7 @@
 import UIKit
 
 class UpdateNickViewController: UIViewController {
-    @IBOutlet var updateNickButton: UIButton!
+    @IBOutlet var updateNickButton: UIButton! { didSet { updateNickButton.SetupBTBaseUI() } }
     @IBOutlet var newNickTextField: UITextField!
 
     @IBOutlet var newNickCheckImage: UIImageView!

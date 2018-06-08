@@ -15,7 +15,7 @@ class ForgetPasswordViewController: UIViewController {
     @IBOutlet var securityCodeTextField: UITextField!
     @IBOutlet var newPasswordTextField: UITextField!
     @IBOutlet var sendCodeButton: UIButton!
-    @IBOutlet var resetPasswordButton: UIButton!
+    @IBOutlet var resetPasswordButton: UIButton!{ didSet { resetPasswordButton.SetupBTBaseUI() } }
     @IBOutlet var accoundIdCheckImage: UIImageView!
     @IBOutlet var codeCheckImage: UIImageView!
     @IBOutlet var newPasswordCheckImage: UIImageView!

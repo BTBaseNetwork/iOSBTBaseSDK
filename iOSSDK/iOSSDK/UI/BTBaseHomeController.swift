@@ -7,8 +7,10 @@
 //
 
 import UIKit
+let kDidSelectViewController = "kDidSelectVievController"
 
 class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
+    static let DidSelectViewController = Notification.Name("BTBaseHomeController_DidSelectViewController")
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -26,7 +28,7 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
 
     @objc private func onSessionUpdated(a _: Notification) {
         if !BTServiceContainer.getBTSessionService()!.isSessionLogined {
-            self.selectedIndex = 0
+            selectedIndex = 0
         }
     }
 
@@ -41,6 +43,10 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
             return false
         }
         return true
+    }
+
+    func tabBarController(_: UITabBarController, didSelect viewController: UIViewController) {
+        NotificationCenter.default.post(name: BTBaseHomeController.DidSelectViewController, object: viewController, userInfo: [kDidSelectViewController: viewController])
     }
 
     @IBAction func OnClickClose(_: Any) {

@@ -41,7 +41,7 @@ class GameWallBannerItemCell: UITableViewCell {
     var gameWallItem: BTGameWallItem! {
         didSet {
             let itemIconUrl = URL(string: gameWallItem.iconUrl!)
-            itemIcon.tintColor = UIColor.blue
+            itemIcon.tintColor = BTBaseUIConfig.ButtonBackgroundColor
             itemIcon.sd_setImage(with: itemIconUrl, placeholderImage: GameWallBannerItemCell.iconPlaceholder)
             gameTitle.text = gameWallItem.getLocalizedGameName()
             for i in 0 ..< starImages.count {
@@ -133,6 +133,13 @@ class GameWallViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
+        NotificationCenter.default.addObserver(self, selector: #selector(onClickTabbarItem(a:)), name: BTBaseHomeController.DidSelectViewController, object: nil)
+    }
+
+    @objc private func onClickTabbarItem(a: Notification) {
+        if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
+            gamewall.refreshGameWallList()
+        }
     }
 
     @objc private func onGameWallListUpdated(a _: Notification) {

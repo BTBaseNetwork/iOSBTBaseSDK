@@ -8,7 +8,7 @@
 
 import Foundation
 public protocol BTDBContext {
-    func executeSql(sql: String)
+    func executeSql(sql: String, parameters: [Any]?)
     func beginTransaction()
     func commit()
     func open()

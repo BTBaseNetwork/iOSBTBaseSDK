@@ -75,7 +75,9 @@ class MemberProductCell: UITableViewCell {
     }
     
     @IBAction func onClickPurchase(_: Any) {
-        BTServiceContainer.getBTMemberService()?.purchaseMemberProduct(p: product)
+        BTServiceContainer.getBTMemberService()?.purchaseMemberProduct(p: product){ suc in
+            
+        }
     }
 }
 

@@ -18,7 +18,7 @@ class SignInViewController: UIViewController {
     @IBOutlet var accountCheckImage: UIImageView!
     @IBOutlet var passwordCheckImage: UIImageView!
 
-    @IBOutlet var loginButton: UIButton!
+    @IBOutlet var loginButton: UIButton! { didSet { loginButton.SetupBTBaseUI() } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
