@@ -22,6 +22,9 @@ class AccountEditableItemCell: UITableViewCell {
 }
 
 class AccountViewController: UIViewController {
+    static let logoutGameCellReuseId = "LogoutGameCell"
+    static let logoutDeviceCellReuseId = "LogoutDeviceCell"
+
     @IBOutlet var tableView: UITableView!
     var accountService: BTAccountService!
     var sessionService: BTSessionService!
@@ -56,7 +59,7 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 5
+        return 7
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,12 +88,16 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
             cell.nameLabel.text = "BTLocPassword".localizedBTBaseString
             cell.valueLabel.text = "****"
             return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: AccountDisplayItemCell.reuseId, for: indexPath) as! AccountDisplayItemCell
-            cell.nameLabel.text = "Error Property"
-            cell.valueLabel.text = "Fix Issue"
-            return cell
+        } else if indexPath.row == 5 {
+            return tableView.dequeueReusableCell(withIdentifier: AccountViewController.logoutGameCellReuseId, for: indexPath)
+        } else if indexPath.row == 6 {
+            return tableView.dequeueReusableCell(withIdentifier: AccountViewController.logoutDeviceCellReuseId, for: indexPath)
         }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: AccountDisplayItemCell.reuseId, for: indexPath) as! AccountDisplayItemCell
+        cell.nameLabel.text = "Error Property"
+        cell.valueLabel.text = "Fix Issue"
+        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,6 +107,16 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
             performSegue(withIdentifier: "UpdateEmail", sender: self)
         } else if indexPath.row == 4 {
             performSegue(withIdentifier: "UpdatePassword", sender: self)
+        } else if indexPath.row == 5 {
+            let ok = UIAlertAction(title: "BTLocLogoutGame".localizedBTBaseString, style: .default) { _ in
+                self.sessionService?.logoutClient()
+            }
+            showAlert("BTLocLogoutGame".localizedBTBaseString, msg: "BTLocMsgLogoutGame".localizedBTBaseString, actions: [ALERT_ACTION_CANCEL, ok])
+        } else if indexPath.row == 6 {
+            let ok = UIAlertAction(title: "BTLocLogoutDevice".localizedBTBaseString, style: .default) { _ in
+                self.sessionService?.logoutDevice()
+            }
+            showAlert("BTLocLogoutDevice".localizedBTBaseString, msg: "BTLocMsgLogoutDevice".localizedBTBaseString, actions: [ALERT_ACTION_CANCEL, ok])
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

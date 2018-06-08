@@ -120,7 +120,7 @@
 "koB-Et-P6N.normalTitle" = "更換密碼";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "mjM-e4-ISh"; */
-"mjM-e4-ISh.normalTitle" = "Button";
+//"mjM-e4-ISh.normalTitle" = "Button";
 
 /* Class = "UITextField"; placeholder = "Enter current email..."; ObjectID = "n5z-UC-PQH"; */
 "n5z-UC-PQH.placeholder" = "輸入當前郵箱...";
@@ -145,3 +145,44 @@
 
 /* Class = "UILabel"; text = "Tips"; ObjectID = "yYN-qy-MUx"; */
 "yYN-qy-MUx.text" = "Tips";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-08 09:34:53
+//##################################################################################
+
+/* Class = "UILabel"; text = "Logout Device"; ObjectID = "PQk-0h-Dzm"; */
+"PQk-0h-Dzm.text" = "註銷這台設備";
+
+/* Class = "UILabel"; text = "Product Desc"; ObjectID = "1H9-6b-dNd"; */
+"1H9-6b-dNd.text" = "Product Desc";
+
+/* Class = "UIButton"; normalTitle = "Purchase"; ObjectID = "Y6p-am-YBL"; */
+"Y6p-am-YBL.normalTitle" = "訂閱";
+
+/* Class = "UILabel"; text = "Price"; ObjectID = "Smf-eb-Khi"; */
+"Smf-eb-Khi.text" = "Price";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "llB-LM-Tzi"; */
+"llB-LM-Tzi.text" = "Title";
+
+/* Class = "UILabel"; text = "Logout Game"; ObjectID = "zxO-QC-RWG"; */
+"zxO-QC-RWG.text" = "退出遊戲賬號";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-08 11:36:00
+//##################################################################################
+
+/* Class = "UIButton"; normalTitle = "Sign In First"; ObjectID = "ZWK-e5-8XG"; */
+"ZWK-e5-8XG.normalTitle" = "請登錄";
+
+/* Class = "UILabel"; text = "Member"; ObjectID = "k0C-Ql-6VQ"; */
+"k0C-Ql-6VQ.text" = "會員類型:";
+
+/* Class = "UILabel"; text = "MemberType"; ObjectID = "Wve-LN-h9g"; */
+"Wve-LN-h9g.text" = "MemberType";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "OgQ-lz-2qG"; */
+"OgQ-lz-2qG.text" = "Date";
+
+/* Class = "UILabel"; text = "Exprited On"; ObjectID = "qAM-vX-xTc"; */
+"qAM-vX-xTc.text" = "訂閱到期時間:";

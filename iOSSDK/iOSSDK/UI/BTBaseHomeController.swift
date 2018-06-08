@@ -14,6 +14,22 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
         delegate = self
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+        super.viewWillDisappear(animated)
+    }
+
+    @objc private func onSessionUpdated(a _: Notification) {
+        if !BTServiceContainer.getBTSessionService()!.isSessionLogined {
+            self.selectedIndex = 0
+        }
+    }
+
     func tabBarController(_: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController.restorationIdentifier == "AccountNavigationController" {
             if let sessionService = BTServiceContainer.getBTSessionService() {
@@ -34,9 +50,12 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
 
 import IQKeyboardManagerSwift
 public class BTBaseHomeEntry {
-    internal private(set) static var homeController: BTBaseHomeController?
+    private static var homeController: BTBaseHomeController?
     private static var IQKeyboardManagerEnabledOutOfSDK = false
     public static func getEntryViewController() -> UIViewController {
+        if homeController != nil {
+            return homeController!
+        }
         let board = UIStoryboard(name: "BTBaseMainStoryboard", bundle: Bundle.iOSBTBaseSDKUI)
         BahamutCommonLocalizedBundle = Bundle.iOSBTBaseSDKUI!
         BTBaseHomeEntry.IQKeyboardManagerEnabledOutOfSDK = IQKeyboardManager.shared.enable
@@ -46,8 +65,9 @@ public class BTBaseHomeEntry {
     }
 
     public static func closeHomeController() {
-        homeController?.dismiss(animated: true){
+        homeController?.dismiss(animated: true) {
             IQKeyboardManager.shared.enable = IQKeyboardManagerEnabledOutOfSDK
+            homeController = nil
         }
     }
 }

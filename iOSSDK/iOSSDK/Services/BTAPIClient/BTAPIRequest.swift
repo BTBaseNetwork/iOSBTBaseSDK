@@ -9,7 +9,9 @@
 import Alamofire
 import Foundation
 
-let onBTAPIRequestUnauthorized = Notification.Name(rawValue: "onBTAPIRequestUnauthorized")
+extension Notification.Name {
+    static let BTAPIRequestUnauthorized = Notification.Name(rawValue: "BTAPIRequestUnauthorized")
+}
 
 public class BTAPIRequest<T> where T: Codable {
     typealias ResponseAction = (_ req: BTAPIRequest<T>, _ result: BTAPIResult<T>) -> Void
@@ -60,7 +62,7 @@ public class BTAPIRequest<T> where T: Codable {
                 tobj.error.code = 401
                 tobj.error.msg = "Unauthorized"
                 tobj.msg = "Unauthorized"
-                NotificationCenter.default.post(name: onBTAPIRequestUnauthorized, object: self)
+                NotificationCenter.default.postWithMainQueue(name: Notification.Name.BTAPIRequestUnauthorized, object: self)
                 self.response?(self, tobj)
             } else if let data = response.result.value, let tobj = try? JSONDecoder().decode(BTAPIResult<T>.self, from: data) {
                 self.response?(self, tobj)
@@ -71,6 +73,14 @@ public class BTAPIRequest<T> where T: Codable {
                 tobj.error.code = tobj.code
                 tobj.error.msg = "Unsupport Content"
                 tobj.msg = utf8Text
+                self.response?(self, tobj)
+            } else {
+                let tobj = BTAPIResult<T>()
+                tobj.code = response.response?.statusCode ?? 556
+                tobj.error = BTAPIResultError()
+                tobj.error.code = tobj.code
+                tobj.error.msg = "Network Error"
+                tobj.msg = "Network Error"
                 self.response?(self, tobj)
             }
         })

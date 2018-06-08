@@ -748,7 +748,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python ${SRCROOT}/SDKUI/AutoGenStrings.py ${SRCROOT}/${TARGET_NAME}";
+			shellScript = "python ${SRCROOT}/SDKUI/AutoGenStrings.py ${SRCROOT}/SDKUI";
 		};
 		F52D72D6A16C312E868E95F3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

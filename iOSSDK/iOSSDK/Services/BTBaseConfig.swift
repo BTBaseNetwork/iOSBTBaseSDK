@@ -21,8 +21,9 @@ public class BTBaseConfig {
     init?(filePath: String) {
         if let dict = NSDictionary(contentsOfFile: filePath) {
             config = dict
+        } else {
+            return nil
         }
-        return nil
     }
     
     func getString(key: String) -> String? {

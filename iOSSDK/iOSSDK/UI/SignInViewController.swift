@@ -30,6 +30,9 @@ class SignInViewController: UIViewController {
         setCheckTag(accountCheckImage, false)
         setCheckTag(passwordCheckImage, false)
         tipsLabel.text = nil
+        if let status = BTServiceContainer.getBTSessionService()?.localSession.status, status == BTAccountSession.STATUS_LOGOUT_DEFAULT {
+            accountTextField.text = BTServiceContainer.getBTSessionService()?.localSession.accountId
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -26,7 +26,7 @@ public class BTGameWall {
 
     private var cachedConfigModel: BTGameWallConfig? {
         didSet {
-            NotificationCenter.default.post(name: BTGameWall.onGameWallListUpdated, object: self)
+            NotificationCenter.default.postWithMainQueue(name: BTGameWall.onGameWallListUpdated, object: self)
         }
     }
 

@@ -25,7 +25,7 @@ public class BTBaseSDKManager {
                 BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
                 BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
                 BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
-
+                
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
 

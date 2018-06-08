@@ -74,6 +74,6 @@ public extension BTAPIResult {
     }
     
     public var isNetworkError: Bool {
-        return false
+        return code == 556 || msg == "Network Error"
     }
 }

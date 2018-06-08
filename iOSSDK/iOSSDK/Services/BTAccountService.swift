@@ -22,9 +22,7 @@ public class BTAccountService {
 
     var localAccount: BTAccount! {
         didSet {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: BTAccountService.onLocalAccountUpdated, object: self)
-            }
+            NotificationCenter.default.postWithMainQueue(name: BTAccountService.onLocalAccountUpdated, object: self)
         }
     }
 
@@ -56,7 +54,7 @@ public class BTAccountService {
         req.response = { _, res in
             if res.isHttpOK {
                 let uinfo: [String: Any] = [kBTRegistedUsername: res.content.userName, kBTRegistedAccountId: res.content.accountId]
-                NotificationCenter.default.post(name: BTAccountService.onNewAccountRegisted, object: self, userInfo: uinfo)
+                NotificationCenter.default.postWithMainQueue(name: BTAccountService.onNewAccountRegisted, object: self, userInfo: uinfo)
             }
         }
         let clientProfile = BTAPIClientProfile(host: host)

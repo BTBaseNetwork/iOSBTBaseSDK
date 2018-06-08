@@ -10,7 +10,11 @@ import Foundation
 
 open class DateHelper {
     open static var UnixTimeSpanTotalMilliseconds: Int64 {
-        return Int64(Date().timeIntervalSince1970 * 1000)
+        return Int64(unixTimeSpan * 1000)
+    }
+
+    open static var unixTimeSpan: TimeInterval {
+        return Date().timeIntervalSince1970
     }
 
     fileprivate static let accurateDateTimeFomatter: DateFormatter = {
@@ -340,7 +344,11 @@ public extension Date {
 }
 
 extension DateHelper {
+    static func dateOfUnixTimeSpan(_ unixTimeSpan: TimeInterval) -> Date {
+        return Date(timeIntervalSince1970: unixTimeSpan)
+    }
+
     static func unixTimeSpanMsToDate(timeSpanFromUnxiMS: Int64) -> Date {
-        return Date(timeIntervalSince1970: Double(timeSpanFromUnxiMS) / 1000)
+        return dateOfUnixTimeSpan(TimeInterval(timeSpanFromUnxiMS) / 1000)
     }
 }

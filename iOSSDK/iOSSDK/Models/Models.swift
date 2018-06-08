@@ -51,7 +51,7 @@ public class BTAccountSession: Codable {
 public class BTMember: Codable {
     public static let MEMBER_TYPE_LOGOUT = -1
     public static let MEMBER_TYPE_FREE = 0
-    public static let MEMBER_TYPE_EXPIRED = 1
+    public static let MEMBER_TYPE_RESERVED = 1
     public static let MEMBER_TYPE_PREMIUM = 2
     public static let MEMBER_TYPE_ADVANCED = 3
 

@@ -15,9 +15,7 @@ public class BTSessionService {
     private var host: String = "http://localhost/"
     private(set) var localSession: BTAccountSession! {
         didSet {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: BTSessionService.onSessionUpdated, object: self)
-            }
+            NotificationCenter.default.postWithMainQueue(name: BTSessionService.onSessionUpdated, object: self)
         }
     }
 
@@ -30,7 +28,8 @@ public class BTSessionService {
         self.host = config.getString(key: "BTSessionServiceHost")!
         self.initDB(db: db)
         self.loadCachedSession()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onRequestUnauthorized(a:)), name: onBTAPIRequestUnauthorized, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onRequestUnauthorized(a:)), name: Notification.Name.BTAPIRequestUnauthorized, object: nil)
     }
 
     private func initDB(db: BTServiceDBContext) {
@@ -39,9 +38,7 @@ public class BTSessionService {
     }
 
     @objc private func onRequestUnauthorized(a _: Notification) {
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: BTSessionService.onSessionUnauthorized, object: self)
-        }
+        NotificationCenter.default.postWithMainQueue(name: BTSessionService.onSessionUnauthorized, object: self)
     }
 
     deinit {
@@ -121,9 +118,11 @@ public class BTSessionService {
         clientProfile.useDeviceInfos().useAccountId().useAuthorizationSessionServerToken().useSessionKey()
         req.request(profile: clientProfile)
     }
-    
+
     func logoutClient() {
         self.localSession.status = BTAccountSession.STATUS_LOGOUT_DEFAULT
+        let s = self.localSession
+        self.localSession = s
         self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
     }
 }
@@ -131,7 +130,7 @@ public class BTSessionService {
 extension BTServiceContainer {
     public static func useBTSessionService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
         let service = BTSessionService()
-        service.configure(config:config, db: dbContext)
+        service.configure(config: config, db: dbContext)
         addService(name: "BTSessionService", service: service)
     }
 

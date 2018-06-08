@@ -2,17 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AppStoreID</key>
+	<string>1396330070</string>
 	<key>BTBaseDB</key>
 	<string>btbase.db</string>
-	<key>BTGameWallConfigUrl</key>
-	<string>https://raw.githubusercontent.com/BTAds/AdsAssets/master/BTGameWallConfig_01.json</string>
 	<key>BTSessionServiceHost</key>
 	<string>https://btbase.mobi/auth/</string>
 	<key>BTAccountServiceHost</key>
 	<string>https://btbase.mobi/web/</string>
 	<key>BTMemberServiceHost</key>
 	<string>https://btbase.mobi/web/</string>
+	<key>BTGameWallConfigUrl</key>
+	<string>https://raw.githubusercontent.com/BTBaseNetwork/Resources/master/config/gamewall_config_01.json</string>
 	<key>BTMemberIAPListUrl</key>
-	<string>https://raw.githubusercontent.com/BTAds/AdsAssets/master/BTMemberIAP_AppID.json</string>
+	<string>https://raw.githubusercontent.com/BTBaseNetwork/Resources/master/config/member_products_appstore_1396330070.json</string>
 </dict>
 </plist>

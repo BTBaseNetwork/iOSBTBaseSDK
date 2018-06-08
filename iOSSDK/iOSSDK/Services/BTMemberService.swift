@@ -14,11 +14,14 @@ import SwiftyStoreKit
 public class BTMemberProfile {
     public var accountId = BTServiceConst.ACCOUNT_ID_UNLOGIN
     public var members = [BTMember]()
+    public var preferredMember: BTMember? {
+        return self.members.first
+    }
 }
 
 public class BTMemberService {
     public static let onLocalMemberProfileUpdated = Notification.Name("BTMemberService_onLocalMemberProfileUpdated")
-    public static let onMemberProductsUpdated = Notification.Name("BTMemberService_onMemberProductsUpdated")
+
     private var config: BTBaseConfig!
     private var host = "http://localhost:6000"
     private var iapListUrl: String { return self.config.getString(key: "BTMemberIAPListUrl")! }
@@ -27,9 +30,7 @@ public class BTMemberService {
     fileprivate(set) var productIdentifiers: Set<String>!
     fileprivate(set) var products: Set<SKProduct>! {
         didSet {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: BTMemberService.onMemberProductsUpdated, object: self)
-            }
+            NotificationCenter.default.postWithMainQueue(name: BTMemberService.onMemberProductsUpdated, object: self)
         }
     }
 
@@ -39,9 +40,7 @@ public class BTMemberService {
 
     private(set) var localProfile: BTMemberProfile! {
         didSet {
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: BTMemberService.onLocalMemberProfileUpdated, object: self)
-            }
+            NotificationCenter.default.postWithMainQueue(name: BTMemberService.onLocalMemberProfileUpdated, object: self)
         }
     }
 
@@ -49,8 +48,11 @@ public class BTMemberService {
         self.config = config
         self.host = config.getString(key: "BTMemberServiceHost")!
         self.initDB(db: db)
+        self.loadIAPList()
     }
+}
 
+extension BTMemberService {
     func loadLocalProfile(accountId: String) {
         let profile = BTMemberProfile()
         profile.accountId = accountId
@@ -79,42 +81,108 @@ public class BTMemberService {
         req.request(profile: clientProfile)
     }
 
-    func RechargeMember(productId: String, channel: String, unityReceiptData: String, payload _: String, sandBox: Bool, respAction: RechargeMemberRequest.ResponseAction?) {
-        let req = RechargeMemberRequest()
-        req.productId = productId
-        req.receiptData = unityReceiptData
-        req.channel = channel
-        req.sandBox = sandBox
-        req.response = respAction
-        req.queue = DispatchQueue.main
-        let clientProfile = BTAPIClientProfile(host: host)
-        clientProfile.useAccountId().useAuthorizationAPIToken()
-        req.request(profile: clientProfile)
-    }
-
     func setLogout() {
         self.localProfile = BTMemberProfile()
     }
 }
 
+let kBTRefreshMemberProductsState = "kBTRefreshMemberProductsState"
+
 extension BTMemberService {
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    public static let onMemberProductsUpdated = Notification.Name("BTMemberService_onMemberProductsUpdated")
+    public static let onRefreshProductsEvent = Notification.Name("BTMemberService_onRefreshProductsEvent")
+
+    fileprivate class IAPInfo: Codable {
+        var id: String!
+        var enabled = false
+    }
+
+    fileprivate class IAPResult: Codable {
+        var products: [IAPInfo]!
+    }
+
+    func paymentQueue(_: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased, .restored: self.verifyTransactionAndRechargeMember(transaction)
+            case .deferred, .failed, .purchasing: break
+            }
+        }
+    }
+
+    class BTMemberValidator: ReceiptValidator {
+        var transaction: SKPaymentTransaction
+        var service: BTMemberService
+
+        let v = AppleReceiptValidator(service: .production, sharedSecret: nil)
+
+        init(service: BTMemberService, transaction: SKPaymentTransaction) {
+            self.service = service
+            self.transaction = transaction
+        }
+
+        func validate(receiptData receipt: Data, completion: @escaping (VerifyReceiptResult) -> Void) {
+            let receiptDataStr = receipt.base64EncodedString()
+
+            self.RechargeMember(productId: transaction.payment.productIdentifier, channel: BTServiceConst.CHANNEL_APP_STORE, unityReceiptData: receiptDataStr, sandBox: false) { _, res in
+                if res.isHttpOK {
+                    completion(.success(receipt: ReceiptInfo()))
+                } else {
+                    completion(.error(error: ReceiptError.jsonDecodeError(string: res.error.msg)))
+                }
+            }
+        }
+
+        func RechargeMember(productId: String, channel: String, unityReceiptData: String, sandBox: Bool, respAction: RechargeMemberRequest.ResponseAction?) {
+            let req = RechargeMemberRequest()
+            req.productId = productId
+            req.receiptData = unityReceiptData
+            req.channel = channel
+            req.sandBox = sandBox
+            req.response = respAction
+            let clientProfile = BTAPIClientProfile(host: service.host)
+            clientProfile.useAccountId().useAuthorizationAPIToken()
+            req.request(profile: clientProfile)
+        }
+    }
+
+    func verifyTransactionAndRechargeMember(_ transaction: SKPaymentTransaction) {
+        let validator = BTMemberValidator(service: self, transaction: transaction)
+        SwiftyStoreKit.verifyReceipt(using: validator) { r in
+            switch r {
+            case .error(error: _): break
+            case .success(receipt: _): self.fetchMemberProfile()
+            }
+        }
     }
 
     func loadIAPList() {
-        Alamofire.download(self.iapListUrl).response(queue: DispatchQueue.utility) { _ in
+        Alamofire.download(self.iapListUrl).responseData(queue: DispatchQueue.utility) { resp in
+            if resp.error == nil, let data = resp.result.value {
+                if let result = try? JSONDecoder().decode(IAPResult.self, from: data), let products = result.products {
+                    let productIdentifiers = products.filter { $0.enabled }.map { $0.id! }
+                    let idSet = Set<String>(productIdentifiers)
+                    self.loadIAPProducts(idSet)
+                    return
+                }
+            }
+            NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsState: false])
         }
     }
 
     func purchaseMemberProduct(p: SKProduct) {
-        
+        SwiftyStoreKit.purchaseProduct(p.productIdentifier) { _ in
+        }
     }
 
-    func loadIAPProducts(_ productIdentifiers: Set<String>) {
+    private func loadIAPProducts(_ productIdentifiers: Set<String>) {
         self.productIdentifiers = productIdentifiers
         SwiftyStoreKit.retrieveProductsInfo(productIdentifiers) { results in
             if results.error == nil {
                 self.products = results.retrievedProducts
+                NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsState: true])
+            } else {
+                NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsState: false])
             }
         }
     }

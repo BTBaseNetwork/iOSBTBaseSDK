@@ -35,12 +35,13 @@ class GameWallBannerItemCell: UITableViewCell {
 
     weak var rootController: UIViewController?
 
-    static let iconPlaceholder: UIImage? = { UIImage.BTSDKUIImage(named: "ikons_grid_2") }()
+    static let iconPlaceholder: UIImage? = { UIImage.BTSDKUIImage(named: "ikons_grid_2")?.withRenderingMode(.alwaysTemplate) }()
     static let starIconTintColor: UIColor = { UIColor(hexString: "#FEB406") }()
 
     var gameWallItem: BTGameWallItem! {
         didSet {
             let itemIconUrl = URL(string: gameWallItem.iconUrl!)
+            itemIcon.tintColor = UIColor.blue
             itemIcon.sd_setImage(with: itemIconUrl, placeholderImage: GameWallBannerItemCell.iconPlaceholder)
             gameTitle.text = gameWallItem.getLocalizedGameName()
             for i in 0 ..< starImages.count {
@@ -134,12 +135,13 @@ class GameWallViewController: UIViewController {
         tableView.reloadData()
     }
 
-    @objc func onGameWallListUpdated(a _: Notification) {
+    @objc private func onGameWallListUpdated(a _: Notification) {
         tableView.reloadData()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

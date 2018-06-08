@@ -92,7 +92,9 @@ class SignUpViewController: UIViewController {
         } else {
             setCheckTag(usernameCheckImage, false)
             passwordTextField.isEnabled = false
-            tipsLabel.text = "BTLocMsgInvalidUserName".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(usernameTextField.text) {
+                tipsLabel.text = "BTLocMsgInvalidUserName".localizedBTBaseString
+            }
         }
         tryEnableSignUpButton()
     }
@@ -105,7 +107,9 @@ class SignUpViewController: UIViewController {
         } else {
             setCheckTag(passwordCheckImage, false)
             emailTextField.isEnabled = false
-            tipsLabel.text = "BTLocMsgInvalidPassword".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(passwordTextField.text) {
+                tipsLabel.text = "BTLocMsgInvalidPassword".localizedBTBaseString
+            }
         }
         tryEnableSignUpButton()
     }
@@ -118,7 +122,9 @@ class SignUpViewController: UIViewController {
         } else {
             setCheckTag(emailCheckImage, false)
             confirmEmailTextField.isEnabled = false
-            tipsLabel.text = "BTLocMsgNeedEmail".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(emailTextField.text) {
+                tipsLabel.text = "BTLocMsgNeedEmail".localizedBTBaseString
+            }
         }
         tryEnableSignUpButton()
     }
@@ -129,7 +135,9 @@ class SignUpViewController: UIViewController {
             setCheckTag(confirmEmailCheckImage, true)
         } else {
             setCheckTag(confirmEmailCheckImage, false)
-            tipsLabel.text = "BTLocMsgDiffEmail".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(confirmEmailTextField.text) {
+                tipsLabel.text = "BTLocMsgDiffEmail".localizedBTBaseString
+            }
         }
         tryEnableSignUpButton()
     }

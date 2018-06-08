@@ -117,13 +117,13 @@ class ForgetPasswordViewController: UIViewController {
 
     @IBAction func onClickResetPassword(_: Any) {
         resetPasswordButton.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.resetPasswordWithSecurityCode(accountId: accountIdTextField.text!, newPassword: emailTextField.text!, securityCode: securityCodeTextField.text!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.resetPasswordWithSecurityCode(accountId: accountIdTextField.text!, newPassword: newPasswordTextField.text!, securityCode: securityCodeTextField.text!, respAction: { _, result in
             self.resetPasswordButton.isEnabled = true
             if result.isHttpOK {
                 let actions = [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.dismiss(animated: true, completion: nil)
                 })]
-                self.showAlert("BTLocTitlePasswordReseted".localizedBTBaseString, msg: "BTLocMsgPasswordResetedAndRelogin".localizedBTBaseString,actions: actions)
+                self.showAlert("BTLocTitlePasswordReseted".localizedBTBaseString, msg: "BTLocMsgPasswordResetedAndRelogin".localizedBTBaseString, actions: actions)
             } else if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if let msg = result.error?.msgWithoutSpaces {
@@ -150,8 +150,10 @@ class ForgetPasswordViewController: UIViewController {
 
         } else {
             emailTextField.isEnabled = false
-            tipsLabel.text = "BTLocMsgEnterValidAccountID".localizedBTBaseString
             setCheckTag(accoundIdCheckImage, false)
+            if !String.isNullOrWhiteSpace(accountIdTextField.text) {
+                tipsLabel.text = "BTLocMsgEnterValidAccountID".localizedBTBaseString
+            }
         }
     }
 
@@ -163,7 +165,9 @@ class ForgetPasswordViewController: UIViewController {
 
         } else {
             sendCodeButton.isEnabled = false
-            tipsLabel.text = "BTLocMsgInvalidEmail".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(emailTextField.text) {
+                tipsLabel.text = "BTLocMsgInvalidEmail".localizedBTBaseString
+            }
         }
     }
 
@@ -175,7 +179,9 @@ class ForgetPasswordViewController: UIViewController {
         } else {
             setCheckTag(codeCheckImage, false)
             newPasswordTextField.isEnabled = false
-            tipsLabel.text = "BTLocMsgEnterSecurityCode".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(securityCodeTextField.text) {
+                tipsLabel.text = "BTLocMsgEnterSecurityCode".localizedBTBaseString
+            }
         }
     }
 
@@ -187,7 +193,9 @@ class ForgetPasswordViewController: UIViewController {
         } else {
             resetPasswordButton.isEnabled = false
             setCheckTag(newPasswordCheckImage, false)
-            tipsLabel.text = "BTLocMsgEnterNewValidPassword".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(newPasswordTextField.text) {
+                tipsLabel.text = "BTLocMsgEnterNewValidPassword".localizedBTBaseString
+            }
         }
     }
 }

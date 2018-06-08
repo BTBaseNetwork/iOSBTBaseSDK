@@ -29,7 +29,8 @@ class UpdateEmailViewController: UIViewController {
             }
         }
     }
-    private var resendTimer:Timer?
+
+    private var resendTimer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +56,11 @@ class UpdateEmailViewController: UIViewController {
     @IBAction func onClickSendCode(_: Any) {
         sendCodeButton.isHidden = true
         curEmailTextField.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.sendUpdateEmailSecurityCode(email: curEmailTextField.text!, respAction: { req, result in
+        BTServiceContainer.getBTAccountService()?.sendUpdateEmailSecurityCode(email: curEmailTextField.text!, respAction: { _, result in
             self.sendCodeButton.isHidden = false
             self.sendCodeButton.isEnabled = !result.isHttpOK
             self.curEmailTextField.isEnabled = true
-            
+
             if result.isHttpOK {
                 self.securityCodeTextField.isEnabled = true
                 self.securityCodeTextField.text = nil
@@ -114,10 +115,10 @@ class UpdateEmailViewController: UIViewController {
         }
     }
 
-    @IBAction func onTextFieldEditingDidBegin(sender: Any) {
+    @IBAction func onTextFieldEditingDidBegin(sender _: Any) {
     }
 
-    @IBAction func onTextFieldEditingDidEnd(sender: Any) {
+    @IBAction func onTextFieldEditingDidEnd(sender _: Any) {
     }
 
     private func onCurrentEmailChanged() {
@@ -128,7 +129,9 @@ class UpdateEmailViewController: UIViewController {
 
         } else {
             sendCodeButton.isEnabled = false
-            tipsLabel.text = "BTLocMsgInvalidEmail".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(curEmailTextField.text) {
+                tipsLabel.text = "BTLocMsgInvalidEmail".localizedBTBaseString
+            }
         }
     }
 
@@ -140,7 +143,9 @@ class UpdateEmailViewController: UIViewController {
         } else {
             setCheckTag(securityCodeCheckImage, false)
             newEmailTextField.isEnabled = false
-            tipsLabel.text = "BTLocMsgEnterSecurityCode".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(securityCodeTextField.text) {
+                tipsLabel.text = "BTLocMsgEnterSecurityCode".localizedBTBaseString
+            }
         }
     }
 
@@ -152,7 +157,9 @@ class UpdateEmailViewController: UIViewController {
         } else {
             setCheckTag(confirmNewEmailCheckImage, false)
             confirmNewEmailTextField.isEnabled = false
-            tipsLabel.text = "BTLocMsgInvalidNewEmail".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(newEmailTextField.text) {
+                tipsLabel.text = "BTLocMsgInvalidNewEmail".localizedBTBaseString
+            }
         }
     }
 
@@ -164,7 +171,9 @@ class UpdateEmailViewController: UIViewController {
         } else {
             updateEmailButton.isEnabled = false
             setCheckTag(confirmNewEmailCheckImage, false)
-            tipsLabel.text = "BTLocMsgEmailNotMatch".localizedBTBaseString
+            if !String.isNullOrWhiteSpace(newEmailTextField.text) {
+                tipsLabel.text = "BTLocMsgEmailNotMatch".localizedBTBaseString
+            }
         }
     }
 

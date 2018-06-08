@@ -29,3 +29,23 @@ extension DispatchQueue {
         return DispatchQueue.global(qos: .userInitiated)
     }
 }
+
+extension NotificationCenter {
+    open func postWithMainQueue(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.post(notification)
+        }
+    }
+    
+    open func postWithMainQueue(name aName: NSNotification.Name, object anObject: Any?) {
+        DispatchQueue.main.async {
+            self.post(name: aName, object: anObject)
+        }
+    }
+    
+    open func postWithMainQueue(name aName: NSNotification.Name, object anObject: Any?, userInfo aUserInfo: [AnyHashable: Any]? = nil) {
+        DispatchQueue.main.async {
+            self.post(name: aName, object: anObject, userInfo: aUserInfo)
+        }
+    }
+}
