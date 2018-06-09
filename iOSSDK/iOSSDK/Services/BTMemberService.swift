@@ -20,15 +20,46 @@ public class BTMemberProfile {
 }
 
 public class BTMemberService {
+    public class MemberProduct: Hashable {
+        public var hashValue: Int {
+            return self.product.hashValue
+        }
+
+        public static func == (lhs: BTMemberService.MemberProduct, rhs: BTMemberService.MemberProduct) -> Bool {
+            return lhs.productId == rhs.productId
+        }
+
+        public var product: SKProduct
+        public var productId: String {
+            return self.product.productIdentifier
+        }
+
+        public var enabled: Bool = false
+
+        init(product: SKProduct, enabled: Bool) {
+            self.product = product
+            self.enabled = enabled
+        }
+    }
+
     public static let onLocalMemberProfileUpdated = Notification.Name("BTMemberService_onLocalMemberProfileUpdated")
 
     private var config: BTBaseConfig!
     private var host = "http://localhost:6000"
     private var iapListUrl: String { return self.config.getString(key: "BTMemberIAPListUrl")! }
+    static var cachedIAPListJsonPathUrl: URL {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileURL = documentsURL.appendingPathComponent("BTMemberIAPList.json")
+        return fileURL
+    }
+
+    static let cachedIAPListDownloadDestination: DownloadRequest.DownloadFileDestination = { _, _ in
+        (cachedIAPListJsonPathUrl, [.removePreviousFile, .createIntermediateDirectories])
+    }
     private var dbContext: BTServiceDBContext!
     private var paymentTransactionObserver: BTMemberPaymentTransactionObserver!
     fileprivate(set) var productIdentifiers: Set<String>!
-    fileprivate(set) var products: Set<SKProduct>! {
+    fileprivate(set) var products: Set<MemberProduct>! {
         didSet {
             NotificationCenter.default.postWithMainQueue(name: BTMemberService.onMemberProductsUpdated, object: self)
         }
@@ -48,7 +79,8 @@ public class BTMemberService {
         self.config = config
         self.host = config.getString(key: "BTMemberServiceHost")!
         self.initDB(db: db)
-        self.loadIAPList()
+        self.loadCachedIAPList()
+        self.fetchIAPList()
     }
 }
 
@@ -156,13 +188,21 @@ extension BTMemberService {
         }
     }
 
-    func loadIAPList() {
-        Alamofire.request(self.iapListUrl).responseJSON { (resp) in
-            if resp.error == nil, let data = resp.data{
-                if let result = try? JSONDecoder().decode(IAPResult.self, from: data), let products = result.products {
-                    let productIdentifiers = products.filter { $0.enabled }.map { $0.id! }
-                    let idSet = Set<String>(productIdentifiers)
-                    self.loadIAPProducts(idSet)
+    @discardableResult
+    func loadCachedIAPList() -> Bool {
+        if let json = try? String(contentsOfFile: BTMemberService.cachedIAPListJsonPathUrl.path), let data = json.data(using: String.Encoding.utf8) {
+            if let configModel = try? JSONDecoder().decode(IAPResult.self, from: data) {
+                self.retrieveProductsInfo(configModel.products)
+                return true
+            }
+        }
+        return false
+    }
+
+    func fetchIAPList() {
+        Alamofire.download(self.iapListUrl, to: BTMemberService.cachedIAPListDownloadDestination).response { resp in
+            if resp.error == nil, let _ = resp.destinationURL?.path {
+                if self.loadCachedIAPList() {
                     return
                 }
             }
@@ -170,22 +210,29 @@ extension BTMemberService {
         }
     }
 
-    func purchaseMemberProduct(p: SKProduct,completion:@escaping (Bool)->Void) {
+    func purchaseMemberProduct(p: SKProduct, completion: @escaping (Bool) -> Void) {
         SwiftyStoreKit.purchaseProduct(p.productIdentifier) { r in
-            switch r{
-            case .success(let purchase):
+            switch r {
+            case .success:
                 completion(true)
-            case .error(let error):
+            case .error:
                 completion(false)
             }
         }
     }
 
-    private func loadIAPProducts(_ productIdentifiers: Set<String>) {
-        self.productIdentifiers = productIdentifiers
-        SwiftyStoreKit.retrieveProductsInfo(productIdentifiers) { results in
+    private func retrieveProductsInfo(_ iapInfoArr: [IAPInfo]) {
+        self.productIdentifiers = Set<String>(iapInfoArr.map { $0.id })
+
+        SwiftyStoreKit.retrieveProductsInfo(self.productIdentifiers) { results in
             if results.error == nil {
-                self.products = results.retrievedProducts
+                let arr = results.retrievedProducts.map { p -> BTMemberService.MemberProduct in
+                    let iap = iapInfoArr.first(where: { (i) -> Bool in
+                        i.id == p.productIdentifier
+                    })
+                    return MemberProduct(product: p, enabled: iap!.enabled)
+                }
+                self.products = Set<MemberProduct>(arr)
                 NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsState: true])
             } else {
                 NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsState: false])

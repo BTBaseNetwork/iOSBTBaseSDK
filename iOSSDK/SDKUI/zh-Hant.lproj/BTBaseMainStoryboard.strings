@@ -42,7 +42,7 @@
 "Fmz-G0-FF4.normalTitle" = "發送驗證碼";
 
 /* Class = "UIButton"; normalTitle = "Update Nick"; ObjectID = "G1o-bT-paS"; */
-"G1o-bT-paS.normalTitle" = "更新暱稱";
+"G1o-bT-paS.normalTitle" = "更換暱稱";
 
 /* Class = "UITextField"; placeholder = "Enter account ID..."; ObjectID = "G7A-rF-Ca9"; */
 "G7A-rF-Ca9.placeholder" = "輸入賬號ID...";
@@ -66,7 +66,7 @@
 "QzB-xb-j9D.text" = "Tips";
 
 /* Class = "UIButton"; normalTitle = "Update Email"; ObjectID = "SAv-Rp-mB0"; */
-"SAv-Rp-mB0.normalTitle" = "更新郵箱";
+"SAv-Rp-mB0.normalTitle" = "更換郵箱";
 
 /* Class = "UILabel"; text = "PropertyName"; ObjectID = "T7U-h1-eXZ"; */
 "T7U-h1-eXZ.text" = "PropertyName";
@@ -102,10 +102,10 @@
 "fb7-ba-bMS.title" = "重置密碼";
 
 /* Class = "UINavigationItem"; title = "Update Email"; ObjectID = "g9v-KH-0Lz"; */
-"g9v-KH-0Lz.title" = "更新郵箱";
+"g9v-KH-0Lz.title" = "更換郵箱";
 
 /* Class = "UINavigationItem"; title = "Update Nick"; ObjectID = "gSb-4V-DYQ"; */
-"gSb-4V-DYQ.title" = "更新暱稱";
+"gSb-4V-DYQ.title" = "更換暱稱";
 
 /* Class = "UILabel"; text = "Tips"; ObjectID = "gsp-F4-Z01"; */
 "gsp-F4-Z01.text" = "Tips";
@@ -200,3 +200,10 @@
 
 /* Class = "UIButton"; normalTitle = "Privacy"; ObjectID = "Q8L-Lr-TU4"; */
 "Q8L-Lr-TU4.normalTitle" = "隱私政策";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-10 00:23:14
+//##################################################################################
+
+/* Class = "UILabel"; text = "No Subscription Available"; ObjectID = "bZm-fO-gzT"; */
+"bZm-fO-gzT.text" = "暫時沒有可訂閱的會員增值服務";

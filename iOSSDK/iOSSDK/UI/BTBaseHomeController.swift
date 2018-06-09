@@ -53,9 +53,18 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
     @IBAction func OnClickClose(_: Any) {
         navigationController?.dismiss(animated: true, completion: nil)
     }
+
+    deinit {
+        debugLog("Deinited:\(self.description)")
+    }
 }
 
 import IQKeyboardManagerSwift
+
+extension Notification.Name {
+    static let BTBaseHomeEntryClosed = Notification.Name("BTBaseHomeEntryClosed")
+}
+
 public class BTBaseHomeEntry {
     private static var homeController: BTBaseHomeController?
     private static var IQKeyboardManagerEnabledOutOfSDK = false
@@ -75,6 +84,7 @@ public class BTBaseHomeEntry {
         homeController?.dismiss(animated: true) {
             IQKeyboardManager.shared.enable = IQKeyboardManagerEnabledOutOfSDK
             homeController = nil
+            NotificationCenter.default.post(Notification(name: .BTBaseHomeEntryClosed))
         }
     }
 }

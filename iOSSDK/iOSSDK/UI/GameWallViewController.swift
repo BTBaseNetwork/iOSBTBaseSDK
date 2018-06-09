@@ -41,7 +41,7 @@ class GameWallBannerItemCell: UITableViewCell {
     var gameWallItem: BTGameWallItem! {
         didSet {
             let itemIconUrl = URL(string: gameWallItem.iconUrl!)
-            itemIcon.tintColor = BTBaseUIConfig.ButtonBackgroundColor
+            itemIcon.tintColor = BTBaseUIConfig.GlobalTintColor
             itemIcon.sd_setImage(with: itemIconUrl, placeholderImage: GameWallBannerItemCell.iconPlaceholder)
             gameTitle.text = gameWallItem.getLocalizedGameName()
             for i in 0 ..< starImages.count {
@@ -103,6 +103,10 @@ class GameWallBannerItemCell: UITableViewCell {
             vc.delegate = self
         }
     }
+
+    deinit {
+        debugLog("Deinited:\(self.description)")
+    }
 }
 
 extension GameWallBannerItemCell: SKStoreProductViewControllerDelegate {
@@ -114,7 +118,7 @@ extension GameWallBannerItemCell: SKStoreProductViewControllerDelegate {
 class GameWallViewController: UIViewController {
     var gamewall: BTGameWall!
     @IBOutlet var tableView: UITableView!
-
+    
     @IBAction func onClickClose(_: Any) {
         BTBaseHomeEntry.closeHomeController()
     }
@@ -125,7 +129,7 @@ class GameWallViewController: UIViewController {
         gamewall = BTServiceContainer.getGameWall()
         gamewall.loadCachedGamewallConfig()
         tableView.tableFooterView = UIView()
-        tableView.tableFooterView?.backgroundColor = self.view.backgroundColor
+        tableView.tableFooterView?.backgroundColor = view.backgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(onGameWallListUpdated(a:)), name: BTGameWall.onGameWallListUpdated, object: nil)
@@ -151,6 +155,10 @@ class GameWallViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+    }
+
+    deinit {
+        debugLog("Deinited:\(self.description)")
     }
 }
 

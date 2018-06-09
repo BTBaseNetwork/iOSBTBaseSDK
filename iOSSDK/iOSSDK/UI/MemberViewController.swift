@@ -6,6 +6,7 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
+import MBProgressHUD
 import StoreKit
 import UIKit
 
@@ -41,6 +42,7 @@ class MemberCardCell: UITableViewCell {
 
 class MemberProductCell: UITableViewCell {
     static let reuseId = "MemberProductCell"
+    var purchaseButtonObserve: Any?
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descLabel: UILabel!
@@ -50,26 +52,35 @@ class MemberProductCell: UITableViewCell {
         }
     }
     
-    var product: SKProduct! {
+    var product: BTMemberService.MemberProduct! {
         didSet {
             if product == nil {
                 purchaseButton.isEnabled = false
             } else {
-                titleLabel?.text = product.localizedTitle
-                descLabel?.text = product.localizedDescription
-                purchaseButton.setTitle(product.localizedPrice, for: .normal)
-                purchaseButton.isEnabled = true
+                titleLabel?.text = product.product.localizedTitle
+                descLabel?.text = product.product.localizedDescription
+                purchaseButton.setTitle(product.product.localizedPrice, for: .normal)
+                purchaseButton.isEnabled = product.enabled
             }
         }
     }
     
+    weak var rootController: UIViewController!
+    
     @IBAction func onClickPurchase(_: Any) {
-        BTServiceContainer.getBTMemberService()?.purchaseMemberProduct(p: product) { _ in
+        let hud = rootController.showActivityHud()
+        BTServiceContainer.getBTMemberService()?.purchaseMemberProduct(p: product.product) { _ in
+            hud.hide(animated: true)
         }
+    }
+    
+    deinit {
+        debugLog("Deinited:\(self.description)")
     }
 }
 
 class MemberViewController: UIViewController {
+    static let noMemberProductCellReuseId = "NoMemberProductCell"
     @IBOutlet var signInButton: UIButton! {
         didSet {
             signInButton.SetupBTBaseUI()
@@ -77,9 +88,9 @@ class MemberViewController: UIViewController {
     }
     
     @IBOutlet var tableView: UITableView!
-    var products: [SKProduct]! {
+    var products: [BTMemberService.MemberProduct]! {
         didSet {
-            tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+            tableView.reloadData()
         }
     }
     
@@ -115,12 +126,16 @@ class MemberViewController: UIViewController {
     
     @objc private func onClickTabbarItem(a: Notification) {
         if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
-            BTServiceContainer.getBTMemberService()?.loadIAPList()
+            BTServiceContainer.getBTMemberService()?.fetchIAPList()
         }
     }
     
     @IBAction func onClickSignIn(_: Any) {
         BTBaseHomeEntry.getEntryViewController().performSegue(withIdentifier: "SignIn", sender: nil)
+    }
+    
+    deinit {
+        debugLog("Deinited:\(self.description)")
     }
 }
 
@@ -128,7 +143,7 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
         if BTServiceContainer.getBTSessionService()!.isSessionLogined {
             signInButton.isHidden = true
-            return 2
+            return 3
         }
         signInButton.isHidden = false
         return 0
@@ -137,8 +152,10 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        } else {
+        } else if section == 1 {
             return products?.count ?? 0
+        } else {
+            return (products?.count ?? 0) > 0 ? 0 : 1
         }
     }
     
@@ -147,10 +164,13 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberCardCell.reuseId, for: indexPath) as! MemberCardCell
             cell.refresh()
             return cell
-        } else {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberProductCell.reuseId, for: indexPath) as! MemberProductCell
             cell.product = products[indexPath.row]
+            cell.rootController = self
             return cell
+        } else {
+            return tableView.dequeueReusableCell(withIdentifier: MemberViewController.noMemberProductCellReuseId, for: indexPath)
         }
     }
     
@@ -161,7 +181,7 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func reloadProducts() {
         if let pdset = BTServiceContainer.getBTMemberService()?.products {
             products = pdset.map { $0 }.sorted(by: { (a, b) -> Bool in
-                a.price.doubleValue < b.price.doubleValue
+                a.product.price.doubleValue < b.product.price.doubleValue
             })
         } else {
             products = []
@@ -171,7 +191,10 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 100
+        } else if indexPath.section == 1 {
+            return 86
+        } else {
+            return 64
         }
-        return 96
     }
 }

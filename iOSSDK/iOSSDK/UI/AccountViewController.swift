@@ -35,7 +35,7 @@ class AccountViewController: UIViewController {
         accountService = BTServiceContainer.getBTAccountService()
         sessionService = BTServiceContainer.getBTSessionService()
         tableView.tableFooterView = UIView()
-        tableView.tableFooterView?.backgroundColor = self.view.backgroundColor
+        tableView.tableFooterView?.backgroundColor = view.backgroundColor
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -53,6 +53,10 @@ class AccountViewController: UIViewController {
     @objc func onAccoutProfileUpdated(a _: Notification) {
         tableView.reloadData()
     }
+
+    deinit {
+        debugLog("Deinited:\(self.description)")
+    }
 }
 
 extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
@@ -63,7 +67,7 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section > 0 {
             return 1
-        }else{
+        } else {
             return 5
         }
     }
@@ -109,7 +113,7 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section > 0{
+        if indexPath.section > 0 {
             if indexPath.section == 1 {
                 let ok = UIAlertAction(title: "BTLocLogoutGame".localizedBTBaseString, style: .default) { _ in
                     self.sessionService?.logoutClient()
@@ -121,7 +125,7 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 showAlert("BTLocLogoutDevice".localizedBTBaseString, msg: "BTLocMsgLogoutDevice".localizedBTBaseString, actions: [ALERT_ACTION_CANCEL, ok])
             }
-        }else if indexPath.row == 2 {
+        } else if indexPath.row == 2 {
             performSegue(withIdentifier: "UpdateNick", sender: self)
         } else if indexPath.row == 3 {
             performSegue(withIdentifier: "UpdateEmail", sender: self)
@@ -130,11 +134,11 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+    func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section > 0 {
             return 56
-        }else{
+        } else {
             return 64
         }
     }
