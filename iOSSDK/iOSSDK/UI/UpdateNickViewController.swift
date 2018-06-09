@@ -10,7 +10,7 @@ import UIKit
 
 class UpdateNickViewController: UIViewController {
     @IBOutlet var updateNickButton: UIButton! { didSet { updateNickButton.SetupBTBaseUI() } }
-    @IBOutlet var newNickTextField: UITextField!
+    @IBOutlet var newNickTextField: UITextField!{ didSet { newNickTextField.SetupBTBaseUI() } }
 
     @IBOutlet var newNickCheckImage: UIImageView!
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ class UpdateNickViewController: UIViewController {
     @IBAction func onClickUpdateNick(_: Any) {
         updateNickButton.isEnabled = false
         newNickTextField.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.updateNick(newNick: newNickTextField.text!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.updateNick(newNick: newNickTextField.trimText!, respAction: { _, result in
             if result.isHttpOK {
                 self.showAlert("BTLocTitleUpdateNickSuc".localizedBTBaseString, msg: nil, actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
@@ -43,7 +43,7 @@ class UpdateNickViewController: UIViewController {
     }
 
     @objc private func onTextFieldEditingChanged(sender: Any) {
-        if String.isNullOrWhiteSpace(newNickTextField.text) {
+        if String.isNullOrWhiteSpace(newNickTextField.trimText) {
             newNickCheckImage.isHidden = true
             updateNickButton.isEnabled = false
         } else {

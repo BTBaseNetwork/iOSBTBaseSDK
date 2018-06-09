@@ -11,9 +11,9 @@ import UIKit
 class SignInViewController: UIViewController {
     @IBOutlet var loadingIndicator: UIActivityIndicatorView! { didSet { loadingIndicator.hidesWhenStopped = true } }
     @IBOutlet var tipsLabel: UILabel!
-    @IBOutlet var accountTextField: UITextField!
+    @IBOutlet var accountTextField: UITextField! { didSet { accountTextField.SetupBTBaseUI() } }
 
-    @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var passwordTextField: UITextField! { didSet { passwordTextField.SetupBTBaseUI() } }
 
     @IBOutlet var accountCheckImage: UIImageView!
     @IBOutlet var passwordCheckImage: UIImageView!
@@ -60,16 +60,16 @@ class SignInViewController: UIViewController {
     }
 
     @IBAction func onClickSignIn(_ sender: Any) {
-        if String.isNullOrWhiteSpace(accountTextField.text) {
+        if String.isNullOrWhiteSpace(accountTextField.trimText) {
             tipsLabel.text = "BTLocMsgEmptyUserLogStr".localizedBTBaseString
-        } else if String.isNullOrWhiteSpace(passwordTextField.text) {
+        } else if String.isNullOrWhiteSpace(passwordTextField.trimText) {
             tipsLabel.text = "BTLocMsgEmptyPassword".localizedBTBaseString
         } else {
             loadingIndicator.startAnimating()
             loginButton.isEnabled = false
             accountTextField.isEnabled = false
             passwordTextField.isEnabled = false
-            BTServiceContainer.getBTSessionService()?.login(userstring: accountTextField.text!, password: passwordTextField.text!, cachedPassword: false, respAction: { _, result in
+            BTServiceContainer.getBTSessionService()?.login(userstring: accountTextField.trimText!, password: passwordTextField.trimText!, cachedPassword: false, respAction: { _, result in
                 self.loadingIndicator.stopAnimating()
                 self.loginButton.isEnabled = true
                 self.accountTextField.isEnabled = true
@@ -96,9 +96,9 @@ class SignInViewController: UIViewController {
     @objc private func onTextFieldEditingChanged(sender: Any) {
         if let textField = sender as? UITextField {
             if textField == accountTextField {
-                if String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_ACCOUNT_ID)
-                    || String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_USERNAME)
-                    || String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
+                if String.regexTestStringWithPattern(value: textField.trimText, pattern: CommonRegexPatterns.PATTERN_ACCOUNT_ID)
+                    || String.regexTestStringWithPattern(value: textField.trimText, pattern: CommonRegexPatterns.PATTERN_USERNAME)
+                    || String.regexTestStringWithPattern(value: textField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
                     setCheckTag(accountCheckImage, true)
                     loginButton.isEnabled = true
                 } else {
@@ -106,7 +106,7 @@ class SignInViewController: UIViewController {
                     loginButton.isEnabled = false
                 }
             } else if textField == passwordTextField {
-                if String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_PASSWORD) {
+                if String.regexTestStringWithPattern(value: textField.trimText, pattern: CommonRegexPatterns.PATTERN_PASSWORD) {
                     setCheckTag(accountCheckImage, true)
                     loginButton.isEnabled = true
                 } else {

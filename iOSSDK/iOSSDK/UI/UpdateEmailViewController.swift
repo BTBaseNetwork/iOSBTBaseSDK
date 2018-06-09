@@ -10,10 +10,10 @@ import UIKit
 
 class UpdateEmailViewController: UIViewController {
     @IBOutlet var tipsLabel: UILabel!
-    @IBOutlet var curEmailTextField: UITextField!
-    @IBOutlet var securityCodeTextField: UITextField!
-    @IBOutlet var newEmailTextField: UITextField!
-    @IBOutlet var confirmNewEmailTextField: UITextField!
+    @IBOutlet var curEmailTextField: UITextField! { didSet { curEmailTextField.SetupBTBaseUI() } }
+    @IBOutlet var securityCodeTextField: UITextField! { didSet { securityCodeTextField.SetupBTBaseUI() } }
+    @IBOutlet var newEmailTextField: UITextField! { didSet { newEmailTextField.SetupBTBaseUI() } }
+    @IBOutlet var confirmNewEmailTextField: UITextField! { didSet { confirmNewEmailTextField.SetupBTBaseUI() } }
     @IBOutlet var sendCodeButton: UIButton!
     @IBOutlet var updateEmailButton: UIButton! { didSet { updateEmailButton.SetupBTBaseUI() } }
 
@@ -57,7 +57,7 @@ class UpdateEmailViewController: UIViewController {
     @IBAction func onClickSendCode(_: Any) {
         sendCodeButton.isHidden = true
         curEmailTextField.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.sendUpdateEmailSecurityCode(email: curEmailTextField.text!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.sendUpdateEmailSecurityCode(email: curEmailTextField.trimText!, respAction: { _, result in
             self.sendCodeButton.isHidden = false
             self.sendCodeButton.isEnabled = !result.isHttpOK
             self.curEmailTextField.isEnabled = true
@@ -85,14 +85,14 @@ class UpdateEmailViewController: UIViewController {
             resendAvailableTime -= 1
         } else {
             resendTimer?.invalidate()
-            sendCodeButton.isEnabled = String.regexTestStringWithPattern(value: curEmailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL)
+            sendCodeButton.isEnabled = String.regexTestStringWithPattern(value: curEmailTextField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL)
             resendTimer = nil
         }
     }
 
     @IBAction func onClickUpdateEmail(_: Any) {
         updateEmailButton.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.updateEmailWithSecurityCode(newEmail: newEmailTextField.text!, securityCode: securityCodeTextField.text!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.updateEmailWithSecurityCode(newEmail: newEmailTextField.trimText!, securityCode: securityCodeTextField.trimText!, respAction: { _, result in
             self.updateEmailButton.isEnabled = true
             if result.isHttpOK {
                 self.showAlert("BTLocTitleEmailUpdated".localizedBTBaseString, msg: nil, actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
@@ -123,56 +123,56 @@ class UpdateEmailViewController: UIViewController {
     }
 
     private func onCurrentEmailChanged() {
-        if String.regexTestStringWithPattern(value: curEmailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
+        if String.regexTestStringWithPattern(value: curEmailTextField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
             sendCodeButton.isEnabled = resendAvailableTime <= 0
             sendCodeButton.isHidden = false
             tipsLabel.text = nil
 
         } else {
             sendCodeButton.isEnabled = false
-            if !String.isNullOrWhiteSpace(curEmailTextField.text) {
+            if !String.isNullOrWhiteSpace(curEmailTextField.trimText) {
                 tipsLabel.text = "BTLocMsgInvalidEmail".localizedBTBaseString
             }
         }
     }
 
     private func onSecurityCodeChanged() {
-        if String.regexTestStringWithPattern(value: securityCodeTextField.text, pattern: CommonRegexPatterns.PATTERN_VERIFY_CODE) {
+        if String.regexTestStringWithPattern(value: securityCodeTextField.trimText, pattern: CommonRegexPatterns.PATTERN_VERIFY_CODE) {
             newEmailTextField.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(securityCodeCheckImage, true)
         } else {
             setCheckTag(securityCodeCheckImage, false)
             newEmailTextField.isEnabled = false
-            if !String.isNullOrWhiteSpace(securityCodeTextField.text) {
+            if !String.isNullOrWhiteSpace(securityCodeTextField.trimText) {
                 tipsLabel.text = "BTLocMsgEnterSecurityCode".localizedBTBaseString
             }
         }
     }
 
     private func onNewEmailChanged() {
-        if String.regexTestStringWithPattern(value: newEmailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
+        if String.regexTestStringWithPattern(value: newEmailTextField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
             confirmNewEmailTextField.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(confirmNewEmailCheckImage, true)
         } else {
             setCheckTag(confirmNewEmailCheckImage, false)
             confirmNewEmailTextField.isEnabled = false
-            if !String.isNullOrWhiteSpace(newEmailTextField.text) {
+            if !String.isNullOrWhiteSpace(newEmailTextField.trimText) {
                 tipsLabel.text = "BTLocMsgInvalidNewEmail".localizedBTBaseString
             }
         }
     }
 
     private func onConfirmNewEmailChanged() {
-        if newEmailTextField.text == confirmNewEmailTextField.text {
+        if newEmailTextField.trimText == confirmNewEmailTextField.trimText {
             updateEmailButton.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(confirmNewEmailCheckImage, true)
         } else {
             updateEmailButton.isEnabled = false
             setCheckTag(confirmNewEmailCheckImage, false)
-            if !String.isNullOrWhiteSpace(newEmailTextField.text) {
+            if !String.isNullOrWhiteSpace(newEmailTextField.trimText) {
                 tipsLabel.text = "BTLocMsgEmailNotMatch".localizedBTBaseString
             }
         }

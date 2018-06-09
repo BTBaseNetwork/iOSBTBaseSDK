@@ -10,10 +10,10 @@ import UIKit
 
 class ForgetPasswordViewController: UIViewController {
     @IBOutlet var tipsLabel: UILabel!
-    @IBOutlet var accountIdTextField: UITextField!
-    @IBOutlet var emailTextField: UITextField!
-    @IBOutlet var securityCodeTextField: UITextField!
-    @IBOutlet var newPasswordTextField: UITextField!
+    @IBOutlet var accountIdTextField: UITextField! { didSet { accountIdTextField.SetupBTBaseUI() } }
+    @IBOutlet var emailTextField: UITextField! { didSet { emailTextField.SetupBTBaseUI() } }
+    @IBOutlet var securityCodeTextField: UITextField! { didSet { securityCodeTextField.SetupBTBaseUI() } }
+    @IBOutlet var newPasswordTextField: UITextField! { didSet { newPasswordTextField.SetupBTBaseUI() } }
     @IBOutlet var sendCodeButton: UIButton!
     @IBOutlet var resetPasswordButton: UIButton! { didSet { resetPasswordButton.SetupBTBaseUI() } }
     @IBOutlet var accoundIdCheckImage: UIImageView!
@@ -82,7 +82,7 @@ class ForgetPasswordViewController: UIViewController {
         sendCodeButton.isHidden = true
         emailTextField.isEnabled = false
         accountIdTextField.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.sendResetPasswordSecurityCode(accountId: accountIdTextField.text!, email: emailTextField.text!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.sendResetPasswordSecurityCode(accountId: accountIdTextField.trimText!, email: emailTextField.trimText!, respAction: { _, result in
             self.sendCodeButton.isHidden = false
             self.sendCodeButton.isEnabled = !result.isHttpOK
             self.emailTextField.isEnabled = true
@@ -110,14 +110,14 @@ class ForgetPasswordViewController: UIViewController {
             resendAvailableTime -= 1
         } else {
             resendTimer?.invalidate()
-            sendCodeButton.isEnabled = String.regexTestStringWithPattern(value: emailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL)
+            sendCodeButton.isEnabled = String.regexTestStringWithPattern(value: emailTextField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL)
             resendTimer = nil
         }
     }
 
     @IBAction func onClickResetPassword(_: Any) {
         resetPasswordButton.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.resetPasswordWithSecurityCode(accountId: accountIdTextField.text!, newPassword: newPasswordTextField.text!, securityCode: securityCodeTextField.text!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.resetPasswordWithSecurityCode(accountId: accountIdTextField.trimText!, newPassword: newPasswordTextField.trimText!, securityCode: securityCodeTextField.trimText!, respAction: { _, result in
             self.resetPasswordButton.isEnabled = true
             if result.isHttpOK {
                 let actions = [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
@@ -143,7 +143,7 @@ class ForgetPasswordViewController: UIViewController {
     }
 
     private func onAccountIdChanged() {
-        if String.regexTestStringWithPattern(value: accountIdTextField.text, pattern: CommonRegexPatterns.PATTERN_ACCOUNT_ID) {
+        if String.regexTestStringWithPattern(value: accountIdTextField.trimText, pattern: CommonRegexPatterns.PATTERN_ACCOUNT_ID) {
             emailTextField.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(accoundIdCheckImage, true)
@@ -151,49 +151,49 @@ class ForgetPasswordViewController: UIViewController {
         } else {
             emailTextField.isEnabled = false
             setCheckTag(accoundIdCheckImage, false)
-            if !String.isNullOrWhiteSpace(accountIdTextField.text) {
+            if !String.isNullOrWhiteSpace(accountIdTextField.trimText) {
                 tipsLabel.text = "BTLocMsgEnterValidAccountID".localizedBTBaseString
             }
         }
     }
 
     private func onEmailChanged() {
-        if String.regexTestStringWithPattern(value: emailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
+        if String.regexTestStringWithPattern(value: emailTextField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
             sendCodeButton.isEnabled = resendAvailableTime <= 0
             sendCodeButton.isHidden = false
             tipsLabel.text = nil
 
         } else {
             sendCodeButton.isEnabled = false
-            if !String.isNullOrWhiteSpace(emailTextField.text) {
+            if !String.isNullOrWhiteSpace(emailTextField.trimText) {
                 tipsLabel.text = "BTLocMsgInvalidEmail".localizedBTBaseString
             }
         }
     }
 
     private func onSecurityCodeChanged() {
-        if String.regexTestStringWithPattern(value: securityCodeTextField.text, pattern: CommonRegexPatterns.PATTERN_VERIFY_CODE) {
+        if String.regexTestStringWithPattern(value: securityCodeTextField.trimText, pattern: CommonRegexPatterns.PATTERN_VERIFY_CODE) {
             newPasswordTextField.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(codeCheckImage, true)
         } else {
             setCheckTag(codeCheckImage, false)
             newPasswordTextField.isEnabled = false
-            if !String.isNullOrWhiteSpace(securityCodeTextField.text) {
+            if !String.isNullOrWhiteSpace(securityCodeTextField.trimText) {
                 tipsLabel.text = "BTLocMsgEnterSecurityCode".localizedBTBaseString
             }
         }
     }
 
     private func onNewPasswordChanged() {
-        if String.regexTestStringWithPattern(value: newPasswordTextField.text, pattern: CommonRegexPatterns.PATTERN_PASSWORD) {
+        if String.regexTestStringWithPattern(value: newPasswordTextField.trimText, pattern: CommonRegexPatterns.PATTERN_PASSWORD) {
             resetPasswordButton.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(newPasswordCheckImage, true)
         } else {
             resetPasswordButton.isEnabled = false
             setCheckTag(newPasswordCheckImage, false)
-            if !String.isNullOrWhiteSpace(newPasswordTextField.text) {
+            if !String.isNullOrWhiteSpace(newPasswordTextField.trimText) {
                 tipsLabel.text = "BTLocMsgEnterNewValidPassword".localizedBTBaseString
             }
         }

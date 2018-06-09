@@ -90,6 +90,7 @@
 		E75D404D20C518F300BEAF79 /* UIView+RemoveChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403220C518F300BEAF79 /* UIView+RemoveChildView.swift */; };
 		E75D404E20C518F300BEAF79 /* TableViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403320C518F300BEAF79 /* TableViewEx.swift */; };
 		E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */; };
+		E78766C520CB87D900767900 /* UITextField+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78766C420CB87D900767900 /* UITextField+Text.swift */; };
 		E788686820C2F981008E0E8D /* iOSSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E788686620C2F981008E0E8D /* iOSSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E788687320C2FA77008E0E8D /* BTServiceDBContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687220C2FA77008E0E8D /* BTServiceDBContext.swift */; };
 		E788687620C2FDF5008E0E8D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687520C2FDF5008E0E8D /* Models.swift */; };
@@ -234,6 +235,7 @@
 		E76E76A220C58266008F61BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BTBaseLocalized.strings"; sourceTree = "<group>"; };
 		E76E76A320C582F9008F61BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BTBaseLocalized.strings"; sourceTree = "<group>"; };
 		E76E76A420C584D9008F61BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BahamutCommonLocalized.strings"; sourceTree = "<group>"; };
+		E78766C420CB87D900767900 /* UITextField+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Text.swift"; sourceTree = "<group>"; };
 		E788686320C2F981008E0E8D /* BTBaseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BTBaseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E788686620C2F981008E0E8D /* iOSSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSSDK.h; sourceTree = "<group>"; };
 		E788686720C2F981008E0E8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				E738006920C452DC0043A201 /* SignUpViewController.swift */,
 				E738006B20C452EB0043A201 /* ForgetPasswordViewController.swift */,
 				E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */,
+				E78766C420CB87D900767900 /* UITextField+Text.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				E78B406020C6C4930049ED91 /* FileManager+Paths.swift in Sources */,
 				E75D403C20C518F300BEAF79 /* UICollectionViewFlowLayouts.swift in Sources */,
 				E791C88C20C97DD0003E36A1 /* BTBaseConfig.swift in Sources */,
+				E78766C520CB87D900767900 /* UITextField+Text.swift in Sources */,
 				E75D401620C516DF00BEAF79 /* CommonRegexPatterns.swift in Sources */,
 				E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */,
 				E740BC4520C78791001C13F1 /* BTDBContext.swift in Sources */,

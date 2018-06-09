@@ -9,9 +9,9 @@
 import UIKit
 
 class UpdatePasswordViewController: UIViewController {
-    @IBOutlet var curPasswordTextField: UITextField!
+    @IBOutlet var curPasswordTextField: UITextField! { didSet { curPasswordTextField.SetupBTBaseUI() } }
 
-    @IBOutlet var newPasswordTextField: UITextField!
+    @IBOutlet var newPasswordTextField: UITextField! { didSet { newPasswordTextField.SetupBTBaseUI() } }
 
     @IBOutlet var curPasswordCheckImage: UIImageView!
     @IBOutlet var newPasswordCheckImage: UIImageView!
@@ -34,7 +34,7 @@ class UpdatePasswordViewController: UIViewController {
 
     @IBAction func onClickUpdatePassword(_: Any) {
         updatePasswordButton.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.updatePassword(currentPassword: curPasswordTextField.text!, newPassword: newPasswordTextField.text!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.updatePassword(currentPassword: curPasswordTextField.trimText!, newPassword: newPasswordTextField.trimText!, respAction: { _, result in
             if result.isHttpOK {
                 self.showAlert("BTLocTitleUpdatePswSuc".localizedBTBaseString, msg: nil, actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
@@ -49,10 +49,10 @@ class UpdatePasswordViewController: UIViewController {
     @objc private func onTextFieldEditingChanged(sender: Any) {
         if let textField = sender as? UITextField {
             if textField == curPasswordTextField {
-                curPasswordCheckImage.isHidden = !String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_PASSWORD)
+                curPasswordCheckImage.isHidden = !String.regexTestStringWithPattern(value: textField.trimText, pattern: CommonRegexPatterns.PATTERN_PASSWORD)
                 newPasswordTextField.isEnabled = !curPasswordCheckImage.isHidden
             } else if textField == newPasswordTextField {
-                newPasswordCheckImage.isHidden = !String.regexTestStringWithPattern(value: textField.text, pattern: CommonRegexPatterns.PATTERN_PASSWORD)
+                newPasswordCheckImage.isHidden = !String.regexTestStringWithPattern(value: textField.trimText, pattern: CommonRegexPatterns.PATTERN_PASSWORD)
             }
             updatePasswordButton.isEnabled = !newPasswordCheckImage.isHidden && !curPasswordCheckImage.isHidden
         }

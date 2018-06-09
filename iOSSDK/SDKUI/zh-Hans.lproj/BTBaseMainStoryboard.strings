@@ -3,7 +3,7 @@
 "1BR-w0-pTA.placeholder" = "密码";
 
 /* Class = "UITextField"; placeholder = "Username"; ObjectID = "3Py-ly-kAj"; */
-"3Py-ly-kAj.placeholder" = "用户名";
+"3Py-ly-kAj.placeholder" = "用户名 (4-24个字母数字组合)";
 
 /* Class = "UIButton"; normalTitle = "Reset Password"; ObjectID = "3us-nS-bg5"; */
 "3us-nS-bg5.normalTitle" = "重置密码";
@@ -72,7 +72,7 @@
 "T7U-h1-eXZ.text" = "PropertyName";
 
 /* Class = "UIButton"; normalTitle = "Forget Password"; ObjectID = "TlK-Wf-Yk5"; */
-"TlK-Wf-Yk5.normalTitle" = "忘记密码";
+//"TlK-Wf-Yk5.normalTitle" = "忘记密码";
 
 /* Class = "UITextField"; placeholder = "Enter new password..."; ObjectID = "UoQ-od-dCW"; */
 "UoQ-od-dCW.placeholder" = "输入新密码...";
@@ -96,7 +96,7 @@
 "dxU-kl-IMX.title" = "我";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "eTO-RB-gZk"; */
-"eTO-RB-gZk.placeholder" = "密码";
+"eTO-RB-gZk.placeholder" = "密码 (6-20位字母数字符号组合)";
 
 /* Class = "UINavigationItem"; title = "Reset Password"; ObjectID = "fb7-ba-bMS"; */
 "fb7-ba-bMS.title" = "重置密码";
@@ -186,3 +186,17 @@
 
 /* Class = "UILabel"; text = "Exprited On"; ObjectID = "qAM-vX-xTc"; */
 "qAM-vX-xTc.text" = "订阅到期时间:";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-09 10:27:10
+//##################################################################################
+
+/* Class = "UIBarButtonItem"; title = "Reset Password"; ObjectID = "Dn7-CQ-uDC"; */
+//"Dn7-CQ-uDC.title" = "Reset Password";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-09 10:57:51
+//##################################################################################
+
+/* Class = "UIButton"; normalTitle = "Privacy"; ObjectID = "Q8L-Lr-TU4"; */
+"Q8L-Lr-TU4.normalTitle" = "隐私政策";

@@ -11,12 +11,12 @@ import UIKit
 class SignUpViewController: UIViewController {
     @IBOutlet var loadingIndicator: UIActivityIndicatorView! { didSet { loadingIndicator.hidesWhenStopped = true } }
     @IBOutlet var tipsLabel: UILabel!
-    @IBOutlet var usernameTextField: UITextField!
-    @IBOutlet var passwordTextField: UITextField!
-    @IBOutlet var emailTextField: UITextField!
-    @IBOutlet var confirmEmailTextField: UITextField!
+    @IBOutlet var usernameTextField: UITextField! { didSet { usernameTextField.SetupBTBaseUI() } }
+    @IBOutlet var passwordTextField: UITextField! { didSet { passwordTextField.SetupBTBaseUI() } }
+    @IBOutlet var emailTextField: UITextField! { didSet { emailTextField.SetupBTBaseUI() } }
+    @IBOutlet var confirmEmailTextField: UITextField! { didSet { confirmEmailTextField.SetupBTBaseUI() } }
 
-    @IBOutlet var signupButton: UIButton!{ didSet { signupButton.SetupBTBaseUI() } }
+    @IBOutlet var signupButton: UIButton! { didSet { signupButton.SetupBTBaseUI() } }
 
     @IBOutlet var usernameCheckImage: UIImageView!
     @IBOutlet var passwordCheckImage: UIImageView!
@@ -42,6 +42,10 @@ class SignUpViewController: UIViewController {
         tipsLabel.text = nil
     }
 
+    @IBAction func onClickPrivacy(_ sender: Any) {
+        SimpleBrowser.openUrl(self, url: "https://btbase.mobi/privacy.html", title: "BTLocPrivacy".localizedBTBaseString)
+    }
+    
     @IBAction func onClickSignUp(_: Any) {
         loadingIndicator.startAnimating()
         confirmEmailTextField.isEnabled = false
@@ -49,7 +53,7 @@ class SignUpViewController: UIViewController {
         usernameTextField.isEnabled = false
         passwordTextField.isEnabled = false
         signupButton.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.regist(username: usernameTextField.text!, password: passwordTextField.text!, email: emailTextField.text!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.regist(username: usernameTextField.trimText!, password: passwordTextField.trimText!, email: emailTextField.trimText!, respAction: { _, result in
             self.loadingIndicator.stopAnimating()
             self.confirmEmailTextField.isEnabled = true
             self.emailTextField.isEnabled = true
@@ -86,14 +90,14 @@ class SignUpViewController: UIViewController {
     }
 
     private func onInputUserNameChanged() {
-        if String.regexTestStringWithPattern(value: usernameTextField.text, pattern: CommonRegexPatterns.PATTERN_USERNAME) {
+        if String.regexTestStringWithPattern(value: usernameTextField.trimText, pattern: CommonRegexPatterns.PATTERN_USERNAME) {
             passwordTextField.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(usernameCheckImage, true)
         } else {
             setCheckTag(usernameCheckImage, false)
             passwordTextField.isEnabled = false
-            if !String.isNullOrWhiteSpace(usernameTextField.text) {
+            if !String.isNullOrWhiteSpace(usernameTextField.trimText) {
                 tipsLabel.text = "BTLocMsgInvalidUserName".localizedBTBaseString
             }
         }
@@ -101,14 +105,14 @@ class SignUpViewController: UIViewController {
     }
 
     private func onPasswordChanged() {
-        if String.regexTestStringWithPattern(value: passwordTextField.text, pattern: CommonRegexPatterns.PATTERN_PASSWORD) {
+        if String.regexTestStringWithPattern(value: passwordTextField.trimText, pattern: CommonRegexPatterns.PATTERN_PASSWORD) {
             emailTextField.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(passwordCheckImage, true)
         } else {
             setCheckTag(passwordCheckImage, false)
             emailTextField.isEnabled = false
-            if !String.isNullOrWhiteSpace(passwordTextField.text) {
+            if !String.isNullOrWhiteSpace(passwordTextField.trimText) {
                 tipsLabel.text = "BTLocMsgInvalidPassword".localizedBTBaseString
             }
         }
@@ -116,14 +120,14 @@ class SignUpViewController: UIViewController {
     }
 
     private func onEmailChanged() {
-        if String.regexTestStringWithPattern(value: emailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
+        if String.regexTestStringWithPattern(value: emailTextField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL) {
             confirmEmailTextField.isEnabled = true
             tipsLabel.text = nil
             setCheckTag(emailCheckImage, true)
         } else {
             setCheckTag(emailCheckImage, false)
             confirmEmailTextField.isEnabled = false
-            if !String.isNullOrWhiteSpace(emailTextField.text) {
+            if !String.isNullOrWhiteSpace(emailTextField.trimText) {
                 tipsLabel.text = "BTLocMsgNeedEmail".localizedBTBaseString
             }
         }
@@ -131,12 +135,12 @@ class SignUpViewController: UIViewController {
     }
 
     private func onConfirmEmailChanged() {
-        if emailTextField.text == confirmEmailTextField.text {
+        if emailTextField.trimText == confirmEmailTextField.trimText {
             tipsLabel.text = nil
             setCheckTag(confirmEmailCheckImage, true)
         } else {
             setCheckTag(confirmEmailCheckImage, false)
-            if !String.isNullOrWhiteSpace(confirmEmailTextField.text) {
+            if !String.isNullOrWhiteSpace(confirmEmailTextField.trimText) {
                 tipsLabel.text = "BTLocMsgDiffEmail".localizedBTBaseString
             }
         }
@@ -148,9 +152,9 @@ class SignUpViewController: UIViewController {
     }
 
     private func tryEnableSignUpButton() {
-        var valid = String.regexTestStringWithPattern(value: usernameTextField.text, pattern: CommonRegexPatterns.PATTERN_USERNAME)
-        valid = valid && String.regexTestStringWithPattern(value: passwordTextField.text, pattern: CommonRegexPatterns.PATTERN_PASSWORD)
-        valid = valid && String.regexTestStringWithPattern(value: emailTextField.text, pattern: CommonRegexPatterns.PATTERN_EMAIL)
+        var valid = String.regexTestStringWithPattern(value: usernameTextField.trimText, pattern: CommonRegexPatterns.PATTERN_USERNAME)
+        valid = valid && String.regexTestStringWithPattern(value: passwordTextField.trimText, pattern: CommonRegexPatterns.PATTERN_PASSWORD)
+        valid = valid && String.regexTestStringWithPattern(value: emailTextField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL)
         signupButton.isEnabled = valid
     }
 }
