@@ -42,10 +42,11 @@ class SignUpViewController: UIViewController {
         tipsLabel.text = nil
     }
 
-    @IBAction func onClickPrivacy(_ sender: Any) {
-        SimpleBrowser.openUrl(self, url: "https://btbase.mobi/privacy.html", title: "BTLocPrivacy".localizedBTBaseString)
+    @IBAction func onClickPrivacy(_: Any) {
+        let url = "http://applistapi-btbasenetwork.7e14.starter-us-west-2.openshiftapps.com/privacy.html"
+        SimpleBrowser.openUrl(self, url: url, title: "BTLocPrivacy".localizedBTBaseString)
     }
-    
+
     @IBAction func onClickSignUp(_: Any) {
         loadingIndicator.startAnimating()
         confirmEmailTextField.isEnabled = false
@@ -75,8 +76,8 @@ class SignUpViewController: UIViewController {
         })
     }
 
-    @objc private func onTextFieldEditingChanged(sender: Any) {}
-    @objc private func onTextFieldEditingDidBegin(sender: Any) {}
+    @objc private func onTextFieldEditingChanged(sender _: Any) {}
+    @objc private func onTextFieldEditingDidBegin(sender _: Any) {}
     @objc private func onTextFieldEditingDidEnd(sender: Any) {
         if let textField = sender as? UITextField {
             switch textField {

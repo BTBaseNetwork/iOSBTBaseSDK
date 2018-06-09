@@ -157,8 +157,8 @@ extension BTMemberService {
     }
 
     func loadIAPList() {
-        Alamofire.download(self.iapListUrl).responseData(queue: DispatchQueue.utility) { resp in
-            if resp.error == nil, let data = resp.result.value {
+        Alamofire.request(self.iapListUrl).responseJSON { (resp) in
+            if resp.error == nil, let data = resp.data{
                 if let result = try? JSONDecoder().decode(IAPResult.self, from: data), let products = result.products {
                     let productIdentifiers = products.filter { $0.enabled }.map { $0.id! }
                     let idSet = Set<String>(productIdentifiers)

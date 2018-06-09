@@ -160,7 +160,7 @@
 "Y6p-am-YBL.normalTitle" = "订阅";
 
 /* Class = "UILabel"; text = "Price"; ObjectID = "Smf-eb-Khi"; */
-"Smf-eb-Khi.text" = "Price";
+//"Smf-eb-Khi.text" = "Price";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "llB-LM-Tzi"; */
 "llB-LM-Tzi.text" = "Title";

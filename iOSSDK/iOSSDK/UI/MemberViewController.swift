@@ -43,11 +43,9 @@ class MemberProductCell: UITableViewCell {
     static let reuseId = "MemberProductCell"
     
     @IBOutlet var titleLabel: UILabel!
-    
     @IBOutlet var descLabel: UILabel!
-    @IBOutlet var priceLabel: UILabel!
-    @IBOutlet var purchaseButton: UIButton!{
-        didSet{
+    @IBOutlet var purchaseButton: UIButton! {
+        didSet {
             purchaseButton.SetupBTBaseUI()
         }
     }
@@ -58,26 +56,26 @@ class MemberProductCell: UITableViewCell {
                 purchaseButton.isEnabled = false
             } else {
                 titleLabel?.text = product.localizedTitle
-                priceLabel?.text = product.localizedPrice
                 descLabel?.text = product.localizedDescription
+                purchaseButton.setTitle(product.localizedPrice, for: .normal)
                 purchaseButton.isEnabled = true
             }
         }
     }
     
     @IBAction func onClickPurchase(_: Any) {
-        BTServiceContainer.getBTMemberService()?.purchaseMemberProduct(p: product){ suc in
-            
+        BTServiceContainer.getBTMemberService()?.purchaseMemberProduct(p: product) { _ in
         }
     }
 }
 
 class MemberViewController: UIViewController {
-    @IBOutlet weak var signInButton: UIButton!{
-        didSet{
+    @IBOutlet var signInButton: UIButton! {
+        didSet {
             signInButton.SetupBTBaseUI()
         }
     }
+    
     @IBOutlet var tableView: UITableView!
     var products: [SKProduct]! {
         didSet {
@@ -88,10 +86,11 @@ class MemberViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         SetupBTBaseUI()
+        reloadProducts()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        tableView.tableFooterView?.backgroundColor = self.view.backgroundColor
+        tableView.tableFooterView?.backgroundColor = view.backgroundColor
     }
     
     override func viewWillAppear(_: Bool) {
@@ -156,15 +155,23 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func onMemberProductsUpdated(a _: Notification) {
-        products = BTServiceContainer.getBTMemberService()!.products.map { $0 }.sorted(by: { (a, b) -> Bool in
-            a.price.doubleValue < b.price.doubleValue
-        })
+        reloadProducts()
+    }
+    
+    func reloadProducts() {
+        if let pdset = BTServiceContainer.getBTMemberService()?.products {
+            products = pdset.map { $0 }.sorted(by: { (a, b) -> Bool in
+                a.price.doubleValue < b.price.doubleValue
+            })
+        } else {
+            products = []
+        }
     }
     
     func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 100
         }
-        return 64
+        return 96
     }
 }

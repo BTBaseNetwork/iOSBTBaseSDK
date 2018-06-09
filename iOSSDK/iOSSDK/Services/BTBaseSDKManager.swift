@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import SwiftyStoreKit
 public class BTBaseSDKManager {
     private init() {}
     private static var instance = { BTBaseSDKManager() }()
     internal private(set) static var defaultDbContext: BTServiceDBContext!
     public private(set) static var isSDKInited: Bool = false
+    public static var swiftyStoreKitCompleteTransactions: (([Purchase]) -> Void)?
 
     public static func start() {
         if let config = BTBaseConfig() {
@@ -25,9 +27,12 @@ public class BTBaseSDKManager {
                 BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
                 BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
                 BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
-                
+
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+                SwiftyStoreKit.completeTransactions { purchases in
+                    BTBaseSDKManager.swiftyStoreKitCompleteTransactions?(purchases)
+                }
 
                 isSDKInited = true
 
