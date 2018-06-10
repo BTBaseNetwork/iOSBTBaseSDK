@@ -39,6 +39,7 @@ class SignUpViewController: UIViewController {
         passwordTextField.isEnabled = false
         emailTextField.isEnabled = false
         confirmEmailTextField.isEnabled = false
+        signupButton.isEnabled = false
         tipsLabel.text = nil
     }
 

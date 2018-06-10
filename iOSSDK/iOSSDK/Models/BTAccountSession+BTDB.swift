@@ -36,5 +36,9 @@ extension BTAccountSession: BTDBEntityModel {
         entity.hasProperty("password", String.self) { (model: BTAccountSession, value: Any) in
             model.password = value as? String
         }
+        
+        entity.hasProperty("fillPassword", String.self) { (model: BTAccountSession, value: Any) in
+            model.fillPassword = (value as? Bool) ?? false
+        }
     }
 }

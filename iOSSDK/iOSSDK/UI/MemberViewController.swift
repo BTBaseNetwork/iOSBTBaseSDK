@@ -171,7 +171,7 @@ class MemberViewController: UIViewController {
     
     @objc private func onClickTabbarItem(a: Notification) {
         if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
-            if lastClickTabbarDate.timeIntervalSinceNow < 2 {
+            if abs(lastClickTabbarDate.timeIntervalSinceNow) < 1 {
                 fetchIAPList()
             } else {
                 lastClickTabbarDate = Date()

@@ -118,11 +118,12 @@ extension GameWallBannerItemCell: SKStoreProductViewControllerDelegate {
 class GameWallViewController: UIViewController {
     var gamewall: BTGameWall!
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var loadingProgressView: UIProgressView!{
-        didSet{
+    @IBOutlet var loadingProgressView: UIProgressView! {
+        didSet {
             loadingProgressView.isHidden = true
         }
     }
+
     private var loadingTimer: Timer!
     private var loading: Bool {
         get {
@@ -183,9 +184,14 @@ class GameWallViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(onClickTabbarItem(a:)), name: BTBaseHomeController.DidSelectViewController, object: nil)
     }
 
+    var lastClickTabbarDate = Date()
     @objc private func onClickTabbarItem(a: Notification) {
         if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
-            refreshGamewallList()
+            if abs(lastClickTabbarDate.timeIntervalSinceNow) < 1 {
+                refreshGamewallList()
+            } else {
+                lastClickTabbarDate = Date()
+            }
         }
     }
 

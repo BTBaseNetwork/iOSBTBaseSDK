@@ -45,8 +45,35 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         let fields = entity.properties.map { p -> (String, String) in
             return (p.columnName, getColumnDesc(property: p))
         }
-        let sql = SQLiteHelper.createTableSql(tableName: entity.scheme, fields: fields)
-        database.executeStatements(sql)
+        if tableExists() {
+            let sql = "PRAGMA  table_info(\(tableName))"
+            if let result = try? database.executeQuery(sql, values: nil) {
+                var columnNames = [String]()
+                
+                while result.next() {
+                    if let name = result.string(forColumn: "name") {
+                        columnNames.append(name)
+                    }
+                }
+                
+                var newFields = [(String, String)]()
+                
+                for field in fields {
+                    if !columnNames.contains(field.0) {
+                        newFields.append(field)
+                    }
+                }
+                
+                for (columnName, columnDesc) in newFields {
+                    let addColumnSql = "ALTER TABLE \(tableName) ADD COLUMN \(columnName) \(columnDesc)"
+                    database.executeStatements(addColumnSql)
+                    debugLog("New Column(%@) Added To Table(%@)", columnName, tableName)
+                }
+            }
+        } else {
+            let sql = SQLiteHelper.createTableSql(tableName: entity.scheme, fields: fields)
+            database.executeStatements(sql)
+        }
     }
     
     public override func dropTable() {

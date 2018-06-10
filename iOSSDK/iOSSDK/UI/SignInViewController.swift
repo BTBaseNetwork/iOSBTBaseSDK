@@ -20,9 +20,12 @@ class SignInViewController: UIViewController {
 
     @IBOutlet var loginButton: UIButton! { didSet { loginButton.SetupBTBaseUI() } }
 
+    var saltedPassword: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         SetupBTBaseUI()
+
         for textField in [accountTextField, passwordTextField] {
             textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
             textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
@@ -31,8 +34,16 @@ class SignInViewController: UIViewController {
         setCheckTag(accountCheckImage, false)
         setCheckTag(passwordCheckImage, false)
         tipsLabel.text = nil
-        if let status = BTServiceContainer.getBTSessionService()?.localSession.status, status == BTAccountSession.STATUS_LOGOUT_DEFAULT {
-            accountTextField.text = BTServiceContainer.getBTSessionService()?.localSession.accountId
+        loginButton.isEnabled = false
+        if let session = BTServiceContainer.getBTSessionService()?.localSession, session.status == BTAccountSession.STATUS_LOGOUT_DEFAULT {
+            accountTextField.text = session.accountId
+            if session.fillPassword && !String.isNullOrWhiteSpace(session.password) {
+                saltedPassword = session.password
+                passwordTextField.text = "********"
+            } else {
+                saltedPassword = nil
+                passwordTextField.text = nil
+            }
         } else {
             accountTextField.text = nil
             DispatchQueue.main.afterMS(1000) {
@@ -69,12 +80,19 @@ class SignInViewController: UIViewController {
             loginButton.isEnabled = false
             accountTextField.isEnabled = false
             passwordTextField.isEnabled = false
-            BTServiceContainer.getBTSessionService()?.login(userstring: accountTextField.trimText!, password: passwordTextField.trimText!, cachedPassword: false, respAction: { _, result in
+            let loginStr = accountTextField.trimText!
+            let isSalted = !String.isNullOrWhiteSpace(saltedPassword)
+            let psw = isSalted ? saltedPassword! : passwordTextField.trimText!
+            BTServiceContainer.getBTSessionService()?.login(loginStr, psw, passwordSalted: isSalted, autoFillPassword: false, respAction: { _, result in
                 self.loadingIndicator.stopAnimating()
                 self.loginButton.isEnabled = true
                 self.accountTextField.isEnabled = true
                 self.passwordTextField.isEnabled = true
                 if result.isHttpOK {
+                    let auth = BTBaseSDKManager.ClientSharedAuthentication()
+                    auth.accountId = result.content.accountId
+                    auth.saltedPassword = isSalted ? psw : BTServiceConst.generateClientSaltPassword(password: psw)
+                    BTBaseSDKManager.shareAuthentication(auth)
                     self.onClickCancel(sender)
                 } else {
                     if result.isHttpNotFound {
@@ -113,6 +131,7 @@ class SignInViewController: UIViewController {
                     setCheckTag(accountCheckImage, false)
                     loginButton.isEnabled = false
                 }
+                saltedPassword = nil
             }
         }
     }

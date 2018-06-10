@@ -15,6 +15,12 @@ public class BTBaseSDKManager {
     public private(set) static var isSDKInited: Bool = false
     public static var swiftyStoreKitCompleteTransactions: (([Purchase]) -> Void)?
 
+    private static var pasteboard = UIPasteboard(name: UIPasteboardName("mobi.btbase.iossdk"), create: true) {
+        didSet {
+            pasteboard?.setPersistent(true)
+        }
+    }
+
     public static func start() {
         if let config = BTBaseConfig() {
             if let dbname = config.getString(key: "BTBaseDB") {
@@ -61,6 +67,59 @@ public class BTBaseSDKManager {
                 accountService?.setLogout()
                 memberService?.setLogout()
             }
+        }
+    }
+
+    public class ClientSharedAuthentication: Codable {
+        public static func parse(json: String) -> ClientSharedAuthentication? {
+            if let data = json.data(using: .utf8), let obj = try? JSONDecoder().decode(ClientSharedAuthentication.self, from: data) {
+                return obj
+            }
+            return nil
+        }
+
+        public func toJson() -> String? {
+            if let json = try? JSONEncoder().encode(self) {
+                return String(data: json, encoding: .utf8)
+            }
+            return nil
+        }
+
+        public var accountId: String!
+        public var saltedPassword: String!
+    }
+
+    static func shareAuthentication(_ auth: ClientSharedAuthentication) {
+        if let json = auth.toJson() {
+            let item: [String: Any] = ["Authentication": json]
+            BTBaseSDKManager.pasteboard?.addItems([item])
+        }
+    }
+
+    static func getAuthentication() -> ClientSharedAuthentication? {
+        if let items = BTBaseSDKManager.pasteboard?.items {
+            for item in items {
+                if item.keys.contains("Authentication") {
+                    if let json = item["Authentication"] as? String {
+                        return ClientSharedAuthentication.parse(json: json)
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
+    static func tryShowLoginWithSharedAuthenticationAlert(vc: UIViewController) {
+        if let auth = getAuthentication() {
+            let title = "BTLocTitleSharedAuthenticationExists".localizedBTBaseString
+            let msg = "BTLocMsgSharedAuthenticationExists".localizedBTBaseString
+            vc.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, UIAlertAction(title: "BTLocSignIn".localizedBTBaseString, style: .default, handler: { _ in
+                BTServiceContainer.getBTSessionService()?.login(auth.accountId, auth.saltedPassword, passwordSalted: true, autoFillPassword: false, respAction: { _, res in
+                    if res.isHttpOK {
+                    } else {
+                    }
+                })
+            })])
         }
     }
 }

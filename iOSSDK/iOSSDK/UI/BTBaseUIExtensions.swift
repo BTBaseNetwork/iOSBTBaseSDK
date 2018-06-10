@@ -38,15 +38,15 @@ public class BTBaseUIConfigure {
 
     public var ButtonBackgroundColor = BTBaseUIStateColorSet(defaultColor: UIColor(hexString: "73FA79"))
         .add(state: .disabled, color: UIColor.lightGray)
-        .add(state: .highlighted, color: UIColor(hexString: "74FB8A"))
+        .add(state: .highlighted, color: UIColor(hexString: "73FF3F"))
 
     public var ButtonCornerRadius: CGFloat = 8
     public var ButtonContentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     public var ButtonHeight: CGFloat = 42
     public var ButtonTitleFontSize: CGFloat = 16
 
-    public var ButtonTitleColor = BTBaseUIStateColorSet(defaultColor: UIColor.darkGray)
-        .add(state: .highlighted, color: UIColor.lightGray)
+    public var ButtonTitleColor = BTBaseUIStateColorSet(defaultColor: UIColor(hexString: "#404040"))
+        .add(state: .highlighted, color: UIColor(hexString: "#AEAEAE"))
         .add(state: .disabled, color: UIColor.darkGray)
 
     // MARK: UITextField

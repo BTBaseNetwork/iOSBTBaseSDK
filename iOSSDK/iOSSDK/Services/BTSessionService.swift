@@ -64,21 +64,23 @@ public class BTSessionService {
         req.request(profile: clientProfile)
     }
 
-    func login(userstring: String, password: String, cachedPassword: Bool, respAction: LoginAccountRequest.ResponseAction?) {
+    func login(_ userstring: String, _ password: String, passwordSalted: Bool, autoFillPassword: Bool, respAction: LoginAccountRequest.ResponseAction?) {
+        let saltPsw = passwordSalted ? password : BTServiceConst.generateClientSaltPassword(password: password)
         let req = LoginAccountRequest()
         req.userstring = userstring
-        req.password = BTServiceConst.generateClientSaltPassword(password: password)
+        req.password = saltPsw
         req.audience = "BTBaseWebAPI"
         req.response = { request, result in
 
             if result.isHttpOK {
                 let session = BTAccountSession()
                 session.accountId = result.content.accountId
-                session.password = cachedPassword ? password : nil
+                session.password = saltPsw
                 session.session = result.content.session
                 session.sessionToken = result.content.sessionToken
                 session.status = BTAccountSession.STATUS_LOGIN
                 session.token = result.content.token
+                session.fillPassword = autoFillPassword
                 self.dbContext.tableAccountSession.update(model: session, upsert: true)
                 self.localSession = session
                 let sql = SQLiteHelper.updateSql(tableName: self.dbContext.tableAccountSession.tableName, fields: ["status"], query: "accountId != ?")

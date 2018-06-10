@@ -43,7 +43,8 @@ public class BTAccountSession: Codable {
     public var session: String?
     public var sessionToken: String?
     public var token: String?
-    public var password: String?
+    public var password: String? // Salted password
+    public var fillPassword: Bool = false // Auto fill password in sign in password field
 
     public func IsSessionLogined() -> Bool { return status == BTAccountSession.STATUS_LOGIN }
 }
