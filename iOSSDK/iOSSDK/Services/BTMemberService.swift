@@ -19,6 +19,8 @@ public class BTMemberProfile {
     }
 }
 
+let BTMemberPurchaseEvent = 0
+
 public class BTMemberService {
     public class MemberProduct: Hashable {
         public var hashValue: Int {
@@ -43,6 +45,8 @@ public class BTMemberService {
     }
 
     public static let onLocalMemberProfileUpdated = Notification.Name("BTMemberService_onLocalMemberProfileUpdated")
+
+    public static let onPurchaseEvent = Notification.Name("BTMemberService_onPurchaseEvent")
 
     private var config: BTBaseConfig!
     private var host = "http://localhost:6000"
@@ -106,6 +110,13 @@ extension BTMemberService {
                 res.content.members.forEach({ m in
                     self.dbContext.tableMember.update(model: m, upsert: true)
                 })
+
+                if let accountId = self.localProfile?.accountId, accountId == res.content.accountId {
+                    let profile = BTMemberProfile()
+                    profile.accountId = accountId
+                    profile.members = res.content.members ?? []
+                    self.localProfile = profile
+                }
             }
         }
         let clientProfile = BTAPIClientProfile(host: host)
@@ -149,17 +160,24 @@ extension BTMemberService {
         var transaction: SKPaymentTransaction
         var service: BTMemberService
 
-        let v = AppleReceiptValidator(service: .production, sharedSecret: nil)
-
         init(service: BTMemberService, transaction: SKPaymentTransaction) {
             self.service = service
             self.transaction = transaction
         }
 
         func validate(receiptData receipt: Data, completion: @escaping (VerifyReceiptResult) -> Void) {
-            let receiptDataStr = receipt.base64EncodedString()
+            let receiptStr = receipt.base64EncodedString()
 
-            self.RechargeMember(productId: transaction.payment.productIdentifier, channel: BTServiceConst.CHANNEL_APP_STORE, unityReceiptData: receiptDataStr, sandBox: false) { _, res in
+            let order = BTIAPOrder()
+            order.receipt = receiptStr
+            order.productId = transaction.payment.productIdentifier
+            order.store = BTServiceConst.CHANNEL_APP_STORE
+            order.transactionId = transaction.transactionIdentifier!
+            order.date = transaction.transactionDate
+            order.quantity = transaction.payment.quantity
+            order.state = BTIAPOrder.STATE_PAY_SUC
+
+            self.RechargeMember(productId: transaction.payment.productIdentifier, channel: BTServiceConst.CHANNEL_APP_STORE, receipt: receiptStr, sandBox: false) { _, res in
                 if res.isHttpOK {
                     completion(.success(receipt: ReceiptInfo()))
                 } else {
@@ -168,10 +186,10 @@ extension BTMemberService {
             }
         }
 
-        func RechargeMember(productId: String, channel: String, unityReceiptData: String, sandBox: Bool, respAction: RechargeMemberRequest.ResponseAction?) {
+        func RechargeMember(productId: String, channel: String, receipt: String, sandBox: Bool, respAction: RechargeMemberRequest.ResponseAction?) {
             let req = RechargeMemberRequest()
             req.productId = productId
-            req.receiptData = unityReceiptData
+            req.receiptData = receipt
             req.channel = channel
             req.sandBox = sandBox
             req.response = respAction

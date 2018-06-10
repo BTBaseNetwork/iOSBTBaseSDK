@@ -30,6 +30,7 @@ BTLocMemberTypeNoSubscription = "No Subscription";
 BTLocMemberTypePremium = "Premium";
 BTLocMemberTypeAdvance = "Advanced";
 BTLocMemberExpiredDateFormat = "MM/dd/yyyy";
+BTLocMemberExpiredDateOverFormat = "MM/dd/yyyy(Expired)";
 BTLocMsgNoAccountMatchEmail = "Email Of The Account Not Match";
 BTLocMsgAccountEmailNotMatch = "Email Of The Account Not Match";
 BTLocMsgCheckNetwork = "Please Check Your Network";

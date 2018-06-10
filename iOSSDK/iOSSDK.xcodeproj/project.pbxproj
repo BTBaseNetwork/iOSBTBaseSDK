@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8179EF76D881D6FCAA8998EC /* Pods_BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */; };
+		E71794E220CD469C0054178E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E120CD469C0054178E /* GameKit.framework */; };
+		E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E320CD46A90054178E /* StoreKit.framework */; };
 		E724679C20C691DF003641C0 /* BTBaseLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E76E76A020C58246008F61BA /* BTBaseLocalized.strings */; };
 		E724679D20C691F5003641C0 /* BTBaseSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
 		E724679E20C691F5003641C0 /* BTBaseSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E754A25D20C3A9D5006F36EB /* BTBaseSDKUI.bundle */; };
@@ -145,6 +147,8 @@
 		65D6C8E0EA77D734511F995D /* Pods-BTBaseSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTBaseSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BTBaseSDK/Pods-BTBaseSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		7CFCC91E1A04E91302F6FB02 /* Pods-iOSSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSSDK/Pods-iOSSDK.release.xcconfig"; sourceTree = "<group>"; };
 		D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E71794E120CD469C0054178E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		E71794E320CD46A90054178E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E7241B8F20C907D300DFB70A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BTBaseMainStoryboard.strings"; sourceTree = "<group>"; };
 		E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseSDKManager.swift; sourceTree = "<group>"; };
 		E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseUIExtensions.swift; sourceTree = "<group>"; };
@@ -271,8 +275,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71794E220CD469C0054178E /* GameKit.framework in Frameworks */,
 				E73E6AA820C55E54000A4B2E /* BTBaseSDK.framework in Frameworks */,
 				E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */,
+				E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +309,8 @@
 		9DB69D6EC2B9B4572DB70441 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E71794E320CD46A90054178E /* StoreKit.framework */,
+				E71794E120CD469C0054178E /* GameKit.framework */,
 				4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */,
 				D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */,
 			);
@@ -647,6 +655,14 @@
 					};
 					E754A30F20C3EC6B006F36EB = {
 						CreatedOnToolsVersion = 9.3.1;
+						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					E788686220C2F981008E0E8D = {
 						CreatedOnToolsVersion = 9.3.1;
@@ -977,7 +993,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.iossdkui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -999,7 +1015,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.iossdkui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;

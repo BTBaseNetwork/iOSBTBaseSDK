@@ -62,10 +62,21 @@ public class BTMember: Codable {
     public var expiredDateTs: Double = 0
 }
 
-public class BTMemberOrderReceipt: Codable {
+public class BTIAPOrder: Codable {
+    public static let STATE_INIT = 0
+    public static let STATE_PAY_SUC = 1
+    public static let STATE_VERIFY_SUC = 2
+    public static let STATE_VERIFY_FAILED = 3
+
     public var transactionId: String = ""
+    public var productId: String = ""
     public var store: String?
-    public var payload: String?
+    public var receipt: String?
+    public var locPrice: String?
+    public var date: Date?
+    public var quantity: Int = 1
+    public var state: Int = 0
+    public var verifyMsg: String?
 }
 
 public class BTGameWallItem: Codable {

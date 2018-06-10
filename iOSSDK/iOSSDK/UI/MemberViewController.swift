@@ -12,6 +12,8 @@ import UIKit
 
 class MemberCardCell: UITableViewCell {
     static let reuseId = "MemberCardCell"
+    let expiredDateLabelNormalColor = UIColor.white
+    let expiredDateLabelAlertColor = UIColor.red
     
     @IBOutlet var memberTypeLabel: UILabel!
     
@@ -25,17 +27,19 @@ class MemberCardCell: UITableViewCell {
             case BTMember.MEMBER_TYPE_ADVANCED: memberTypeLabel.text = "BTLocMemberTypeAdvance".localizedBTBaseString
             default: break
             }
+            let formatter = DateFormatter()
+            formatter.locale = Locale.current
             if member.expiredDateTs > Date().timeIntervalSince1970 {
-                let formatter = DateFormatter()
                 formatter.dateFormat = "BTLocMemberExpiredDateFormat".localizedBTBaseString
-                formatter.locale = Locale.current
-                expiredOnDateLabel.text = formatter.string(from: Date(timeIntervalSince1970: member.expiredDateTs))
             } else {
-                expiredOnDateLabel.text = "BTLocMemberOutOfDate".localizedBTBaseString
+                formatter.dateFormat = "BTLocMemberExpiredDateOverFormat".localizedBTBaseString
             }
+            expiredOnDateLabel.text = formatter.string(from: Date(timeIntervalSince1970: member.expiredDateTs))
+            expiredOnDateLabel.textColor = member.expiredDateTs > Date().addDays(3).timeIntervalSince1970 ? expiredDateLabelNormalColor : expiredDateLabelAlertColor
         } else {
             memberTypeLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
             expiredOnDateLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
+            expiredOnDateLabel.textColor = expiredDateLabelNormalColor
         }
     }
 }
@@ -148,7 +152,9 @@ class MemberViewController: UIViewController {
     }
     
     override func viewWillAppear(_: Bool) {
-        tableView.reloadData()
+        if products == nil || products.count == 0 {
+            reloadProducts()
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProfileUpdated(a:)), name: BTMemberService.onLocalMemberProfileUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProductsUpdated(a:)), name: BTMemberService.onMemberProductsUpdated, object: nil)
     }
