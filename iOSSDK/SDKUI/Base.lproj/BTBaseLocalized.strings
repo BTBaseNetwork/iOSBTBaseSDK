@@ -105,3 +105,5 @@ BTLocUpdatePassword = "Update Password";
 BTLocUsername = "User Name";
 BTLocUsernameForm = "User Name (4-24 Characters)";
 BTLocPlayNow = "Play Now";
+BTLocAvailableMemberProduct = "Available Subscription";
+BTLocMemberProductNotOnSale = "Closed Purchase";

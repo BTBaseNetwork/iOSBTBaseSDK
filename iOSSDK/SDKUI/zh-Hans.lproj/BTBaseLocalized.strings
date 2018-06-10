@@ -105,3 +105,5 @@ BTLocUpdatePassword = "更换密码";
 BTLocUsername = "用户名";
 BTLocUsernameForm = "用户名 (4-24位数字字母下划线)";
 BTLocPlayNow = "马上去玩";
+BTLocAvailableMemberProduct = "请选择要订阅的商品";
+BTLocMemberProductNotOnSale = "未开放购买";

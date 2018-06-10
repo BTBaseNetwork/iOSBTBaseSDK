@@ -39,11 +39,12 @@ public class BTGameWall {
         return nil
     }
 
-    func refreshGameWallList() {
+    func refreshGameWallList(completion: (() -> Void)? = nil) {
         Alamofire.download(self.configJsonUrl, to: self.destination).response { response in
             if response.error == nil, let _ = response.destinationURL?.path {
                 self.loadCachedGamewallConfig()
             }
+            completion?()
         }
     }
 

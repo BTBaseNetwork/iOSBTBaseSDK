@@ -18,7 +18,11 @@ class AccountEditableItemCell: UITableViewCell {
     static let reuseId = "AccountEditableItemCell"
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var valueLabel: UILabel!
-    @IBOutlet var editableTagImage: UIImageView!
+    @IBOutlet var editableTagImage: UIImageView! {
+        didSet {
+            editableTagImage.tintColor = UIColor.lightGray
+        }
+    }
 }
 
 class AccountViewController: UIViewController {

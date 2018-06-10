@@ -9,7 +9,7 @@
 "3us-nS-bg5.normalTitle" = "重置密碼";
 
 /* Class = "UITabBarItem"; title = "Member"; ObjectID = "5vg-A8-YKe"; */
-"5vg-A8-YKe.title" = "高級會員";
+"5vg-A8-YKe.title" = "會員";
 
 /* Class = "UIButton"; normalTitle = "Sign In"; ObjectID = "5zn-I6-BCQ"; */
 "5zn-I6-BCQ.normalTitle" = "登錄";
@@ -27,7 +27,7 @@
 "CEG-IR-uTk.normalTitle" = "註冊";
 
 /* Class = "UINavigationItem"; title = "Member"; ObjectID = "CTf-S7-82e"; */
-"CTf-S7-82e.title" = "高級會員";
+"CTf-S7-82e.title" = "訂閱會員服務";
 
 /* Class = "UITextField"; placeholder = "Confirm Email"; ObjectID = "ENj-Q3-nC9"; */
 "ENj-Q3-nC9.placeholder" = "確認郵箱";
@@ -154,7 +154,7 @@
 "PQk-0h-Dzm.text" = "註銷這台設備";
 
 /* Class = "UILabel"; text = "Product Desc"; ObjectID = "1H9-6b-dNd"; */
-"1H9-6b-dNd.text" = "Product Desc";
+//"1H9-6b-dNd.text" = "Product Desc";
 
 /* Class = "UIButton"; normalTitle = "Purchase"; ObjectID = "Y6p-am-YBL"; */
 "Y6p-am-YBL.normalTitle" = "訂閱";
@@ -207,3 +207,10 @@
 
 /* Class = "UILabel"; text = "No Subscription Available"; ObjectID = "bZm-fO-gzT"; */
 "bZm-fO-gzT.text" = "暫時沒有可訂閱的會員增值服務";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-10 10:46:50
+//##################################################################################
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "yOV-gu-agh"; */
+"yOV-gu-agh.text" = "Label";

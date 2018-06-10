@@ -118,7 +118,39 @@ extension GameWallBannerItemCell: SKStoreProductViewControllerDelegate {
 class GameWallViewController: UIViewController {
     var gamewall: BTGameWall!
     @IBOutlet var tableView: UITableView!
-    
+    @IBOutlet var loadingProgressView: UIProgressView!{
+        didSet{
+            loadingProgressView.isHidden = true
+        }
+    }
+    private var loadingTimer: Timer!
+    private var loading: Bool {
+        get {
+            return !loadingProgressView.isHidden
+        }
+        set {
+            if loadingProgressView.isHidden == newValue {
+                loadingProgressView.isHidden = !newValue
+                if newValue {
+                    loadingProgressView.progress = 0
+                    loadingTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
+                } else {
+                    loadingTimer?.invalidate()
+                    loadingTimer = nil
+                }
+            }
+        }
+    }
+
+    @objc private func loadingTimerTick(t _: Timer) {
+        if let pv = loadingProgressView {
+            pv.progress += 0.1
+            if pv.progress >= 1 {
+                pv.progress = 0
+            }
+        }
+    }
+
     @IBAction func onClickClose(_: Any) {
         BTBaseHomeEntry.closeHomeController()
     }
@@ -133,7 +165,16 @@ class GameWallViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         NotificationCenter.default.addObserver(self, selector: #selector(onGameWallListUpdated(a:)), name: BTGameWall.onGameWallListUpdated, object: nil)
-        gamewall.refreshGameWallList()
+        refreshGamewallList()
+    }
+
+    func refreshGamewallList() {
+        if !loading {
+            loading = true
+            gamewall.refreshGameWallList {
+                self.loading = false
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -144,7 +185,7 @@ class GameWallViewController: UIViewController {
 
     @objc private func onClickTabbarItem(a: Notification) {
         if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
-            gamewall.refreshGameWallList()
+            refreshGamewallList()
         }
     }
 
@@ -158,6 +199,7 @@ class GameWallViewController: UIViewController {
     }
 
     deinit {
+        loading = false
         debugLog("Deinited:\(self.description)")
     }
 }

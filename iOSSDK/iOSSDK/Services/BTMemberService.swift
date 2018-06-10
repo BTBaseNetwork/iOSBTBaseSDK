@@ -118,7 +118,10 @@ extension BTMemberService {
     }
 }
 
-let kBTRefreshMemberProductsState = "kBTRefreshMemberProductsState"
+let kBTRefreshMemberProductsStateKey = "kBTRefreshMemberProductsState"
+let BTRefreshMemberProductsStateStart = 0
+let BTRefreshMemberProductsStateFetched = 1
+let BTRefreshMemberProductsStateFailed = 2
 
 extension BTMemberService {
     public static let onMemberProductsUpdated = Notification.Name("BTMemberService_onMemberProductsUpdated")
@@ -200,14 +203,19 @@ extension BTMemberService {
     }
 
     func fetchIAPList() {
+        self.postRefreshState(state: BTRefreshMemberProductsStateStart)
         Alamofire.download(self.iapListUrl, to: BTMemberService.cachedIAPListDownloadDestination).response { resp in
             if resp.error == nil, let _ = resp.destinationURL?.path {
                 if self.loadCachedIAPList() {
                     return
                 }
             }
-            NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsState: false])
+            self.postRefreshState(state: BTRefreshMemberProductsStateFailed)
         }
+    }
+
+    private func postRefreshState(state: Int) {
+        NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsStateKey: state])
     }
 
     func purchaseMemberProduct(p: SKProduct, completion: @escaping (Bool) -> Void) {
@@ -232,10 +240,10 @@ extension BTMemberService {
                     })
                     return MemberProduct(product: p, enabled: iap!.enabled)
                 }
+                self.postRefreshState(state: BTRefreshMemberProductsStateFetched)
                 self.products = Set<MemberProduct>(arr)
-                NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsState: true])
             } else {
-                NotificationCenter.default.postWithMainQueue(name: BTMemberService.onRefreshProductsEvent, object: self, userInfo: [kBTRefreshMemberProductsState: false])
+                self.postRefreshState(state: BTRefreshMemberProductsStateFailed)
             }
         }
     }

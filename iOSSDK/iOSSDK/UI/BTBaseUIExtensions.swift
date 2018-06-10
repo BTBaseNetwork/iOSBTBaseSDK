@@ -52,25 +52,23 @@ public class BTBaseUIConfigure {
     // MARK: UITextField
 
     public var TextFieldHeight: CGFloat = 42
-    public var TextFieldBorderColor = UIColor.lightGray
     public var TextFieldBorderWidth: CGFloat = 1
     public var TextFieldCornerRadius: CGFloat = 6
+    public var TextFieldBorderColor = BTBaseUIStateColorSet(defaultColor: UIColor.lightGray)
+        .add(state: .disabled, color: UIColor.lightGray.withAlphaComponent(0.6))
 
-    public var TextFieldBackgroundColor = BTBaseUIStateColorSet(defaultColor: UIColor.white.withAlphaComponent(0.1))
-        .add(state: .disabled, color: UIColor.darkGray.withAlphaComponent(0.1))
+    public var TextFieldBackgroundColor = BTBaseUIStateColorSet(defaultColor: UIColor.black.withAlphaComponent(0.1))
+        .add(state: .disabled, color: UIColor.darkGray.withAlphaComponent(0.3))
 
     public var TextFieldTextColor = BTBaseUIStateColorSet(defaultColor: UIColor(hexString: "#eeeeee"))
-        .add(state: .disabled, color: UIColor(hexString: "#666666"))
+        .add(state: .disabled, color: UIColor(hexString: "#111111"))
 
     public var TextFieldPlaceHolderColor = BTBaseUIStateColorSet(defaultColor: UIColor(hexString: "#bbbbbb"))
-        .add(state: .disabled, color: UIColor(hexString: "#aaaaaa"))
-    // public var TextFieldBackgroundColor = UIColor.white.withAlphaComponent(0.1)
-    // public var TextFieldTextColor = UIColor(hexString: "#eeeeee")
-    // public var TextFieldPlaceHolderColor = UIColor(hexString: "#bbbbbb")
+        .add(state: .disabled, color: UIColor(hexString: "#888888"))
 
     // MARK: UIViewController
 
-    public var ViewControllerViewColor = UIColor.darkGray // UIColor(hexString: "#7D8080")
+    public var ViewControllerViewColor = UIColor(hexString: "#3a3a3a")
 }
 
 var BTBaseUIConfig = BTBaseUIConfigure()
@@ -177,7 +175,7 @@ extension UITextField {
             let height = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1, constant: BTBaseUIConfig.TextFieldHeight)
             addConstraint(height)
         }
-        layer.borderColor = BTBaseUIConfig.TextFieldBorderColor.cgColor
+        layer.borderColor = BTBaseUIConfig.TextFieldBorderColor.colorOf(state: .normal).cgColor
         layer.borderWidth = BTBaseUIConfig.TextFieldBorderWidth
         layer.cornerRadius = BTBaseUIConfig.TextFieldCornerRadius
         backgroundColor = BTBaseUIConfig.TextFieldBackgroundColor.colorOf(state: .normal)
@@ -190,6 +188,7 @@ extension UITextField {
                 textField.backgroundColor = BTBaseUIConfig.TextFieldBackgroundColor.colorOf(state: state)
                 textField.textColor = BTBaseUIConfig.TextFieldTextColor.colorOf(state: state)
                 textField.setPlaceholderTextColor(color: BTBaseUIConfig.TextFieldPlaceHolderColor.colorOf(state: state))
+                textField.layer.borderColor = BTBaseUIConfig.TextFieldBorderColor.colorOf(state: state).cgColor
             }
         }
     }

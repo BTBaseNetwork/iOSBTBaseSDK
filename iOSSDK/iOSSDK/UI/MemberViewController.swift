@@ -44,8 +44,9 @@ class MemberProductCell: UITableViewCell {
     static let reuseId = "MemberProductCell"
     var purchaseButtonObserve: Any?
     
+    @IBOutlet var priceLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descLabel: UILabel!
+    // @IBOutlet var descLabel: UILabel!
     @IBOutlet var purchaseButton: UIButton! {
         didSet {
             purchaseButton.SetupBTBaseUI()
@@ -58,8 +59,9 @@ class MemberProductCell: UITableViewCell {
                 purchaseButton.isEnabled = false
             } else {
                 titleLabel?.text = product.product.localizedTitle
-                descLabel?.text = product.product.localizedDescription
-                purchaseButton.setTitle(product.product.localizedPrice, for: .normal)
+                priceLabel?.text = product.enabled ? product.product.localizedPrice : "BTLocMemberProductNotOnSale".localizedBTBaseString
+                // descLabel?.text = product.product.localizedDescription
+                // purchaseButton.setTitle(product.product.localizedPrice, for: .normal)
                 purchaseButton.isEnabled = product.enabled
             }
         }
@@ -94,6 +96,42 @@ class MemberViewController: UIViewController {
         }
     }
     
+    @IBOutlet var loadingProgressView: UIProgressView! {
+        didSet {
+            loadingProgressView.isHidden = true
+        }
+    }
+    
+    private var loadingTimer: Timer!
+    private var loading: Bool {
+        get {
+            return loadingProgressView.isHidden
+        }
+        set {
+            if loadingProgressView.isHidden == newValue {
+                loadingProgressView.isHidden = !newValue
+                if newValue {
+                    loadingProgressView.progress = 0
+                    loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
+                } else {
+                    loadingTimer?.invalidate()
+                    loadingTimer = nil
+                }
+            }
+        }
+    }
+    
+    @objc private func loadingTimerTick(t _: Timer) {
+        if let pv = loadingProgressView {
+            pv.progress += 0.1
+            if pv.progress >= 1 {
+                pv.progress = 0
+            }
+        }
+    }
+    
+    var onRefreshProductsEventObserver: NSObjectProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         SetupBTBaseUI()
@@ -102,6 +140,11 @@ class MemberViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.tableFooterView?.backgroundColor = view.backgroundColor
+        onRefreshProductsEventObserver = NotificationCenter.default.addObserver(forName: BTMemberService.onRefreshProductsEvent, object: nil, queue: .main) { a in
+            if let state = a.userInfo?[kBTRefreshMemberProductsStateKey] as? Int {
+                self.loading = (state == BTRefreshMemberProductsStateStart)
+            }
+        }
     }
     
     override func viewWillAppear(_: Bool) {
@@ -124,10 +167,20 @@ class MemberViewController: UIViewController {
         tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
     
+    var lastClickTabbarDate = Date()
+    
     @objc private func onClickTabbarItem(a: Notification) {
         if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
-            BTServiceContainer.getBTMemberService()?.fetchIAPList()
+            if lastClickTabbarDate.timeIntervalSinceNow < 2 {
+                fetchIAPList()
+            } else {
+                lastClickTabbarDate = Date()
+            }
         }
+    }
+    
+    private func fetchIAPList() {
+        BTServiceContainer.getBTMemberService()?.fetchIAPList()
     }
     
     @IBAction func onClickSignIn(_: Any) {
@@ -135,6 +188,11 @@ class MemberViewController: UIViewController {
     }
     
     deinit {
+        loading = false
+        if let o = onRefreshProductsEventObserver {
+            NotificationCenter.default.removeObserver(o)
+            onRefreshProductsEventObserver = nil
+        }
         debugLog("Deinited:\(self.description)")
     }
 }
@@ -192,9 +250,26 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             return 100
         } else if indexPath.section == 1 {
-            return 86
+            return 64
         } else {
             return 64
+        }
+    }
+    
+    func tableView(_: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 16
+        }
+        return 0
+    }
+    
+    func tableView(_: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0 {
+            let view = UIView()
+            view.backgroundColor = UIColor.clear
+            return view
+        } else {
+            return nil
         }
     }
 }
