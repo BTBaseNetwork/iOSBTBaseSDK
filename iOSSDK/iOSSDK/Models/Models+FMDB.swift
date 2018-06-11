@@ -132,7 +132,7 @@ extension BTMember: BTServiceDBModel {
 }
 
 
-public protocol BTServiceDBModel {
+protocol BTServiceDBModel {
     func tableName() -> String
     func fieldDescs() -> [(field: String, fieldDesc: String)]
     func insertFieldsValues() -> [(field: String, value: Any)]

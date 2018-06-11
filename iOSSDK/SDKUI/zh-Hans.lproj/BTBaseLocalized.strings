@@ -1,5 +1,5 @@
 BTLocAccountId = "账号";
-BTLocBluetimeService = "Bluetime Service";
+BTLocGameServiceName = "Bluetime Service";
 BTLocCancel = "取消";
 BTLocClearCache = "清理缓存";
 BTLocConfirmEmail = "确定邮箱";
@@ -108,3 +108,8 @@ BTLocUsernameForm = "用户名 (4-24位数字字母下划线)";
 BTLocPlayNow = "马上去玩";
 BTLocAvailableMemberProduct = "请选择要订阅的商品";
 BTLocMemberProductNotOnSale = "未开放购买";
+BTLocOrderStatePaid = "已支付";
+BTLocOrderStateVerifyFailed = "未通过验证";
+BTLocOrderStateCompleted = "已完成";
+BTLocOrderStateVerifyNetworkError = "需要验证";
+BTLocOrderStateUnknow = "未知状态";

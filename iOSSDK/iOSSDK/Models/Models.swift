@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public class BTAccount: Codable {
+class BTAccount: Codable {
     public var accountId: String = BTServiceConst.ACCOUNT_ID_UNLOGIN
     public var accountTypes: String?
     public var userName: String?
@@ -17,7 +17,7 @@ public class BTAccount: Codable {
     public var signDateTs: Double = 0
 }
 
-public class BTAppLink: Codable {
+class BTAppLink: Codable {
     public var url: String!
     public var androidPackageId: String!
     public var iOSUrlScheme: String!
@@ -25,7 +25,7 @@ public class BTAppLink: Codable {
     public var iOSPackageId: String!
 }
 
-public class BTDeviceInstalledApp: Codable {
+class BTDeviceInstalledApp: Codable {
     public var uniqueId: String?
     public var channel: String?
     public var bundleId: String?
@@ -33,7 +33,7 @@ public class BTDeviceInstalledApp: Codable {
     public var launchDateTs: Double = 0
 }
 
-public class BTAccountSession: Codable {
+class BTAccountSession: Codable {
     public static let STATUS_LOGOUT = 0
     public static let STATUS_LOGIN = 1
     public static let STATUS_LOGOUT_DEFAULT = 2
@@ -49,7 +49,7 @@ public class BTAccountSession: Codable {
     public func IsSessionLogined() -> Bool { return status == BTAccountSession.STATUS_LOGIN }
 }
 
-public class BTMember: Codable {
+class BTMember: Codable {
     public static let MEMBER_TYPE_LOGOUT = -1
     public static let MEMBER_TYPE_FREE = 0
     public static let MEMBER_TYPE_RESERVED = 1
@@ -62,24 +62,27 @@ public class BTMember: Codable {
     public var expiredDateTs: Double = 0
 }
 
-public class BTIAPOrder: Codable {
+class BTIAPOrder: Codable {
     public static let STATE_INIT = 0
     public static let STATE_PAY_SUC = 1
     public static let STATE_VERIFY_SUC = 2
     public static let STATE_VERIFY_FAILED = 3
+    public static let STATE_VERIFY_SERVER_NETWORK_ERROR = 4
 
     public var transactionId: String = ""
     public var productId: String = ""
+    public var locTitle: String?
     public var store: String?
     public var receipt: String?
     public var locPrice: String?
     public var date: Date?
     public var quantity: Int = 1
     public var state: Int = 0
+    public var verifyCode: Int = 0
     public var verifyMsg: String?
 }
 
-public class BTGameWallItem: Codable {
+class BTGameWallItem: Codable {
     public enum Label: Int {
         case None = 0
         case New = 1
@@ -114,7 +117,7 @@ public class BTGameWallItem: Codable {
     }
 }
 
-public class BTGameWallConfig: Codable {
+class BTGameWallConfig: Codable {
     public var configVersion = 0
     public var items: [BTGameWallItem]!
 }

@@ -1,5 +1,5 @@
 BTLocAccountId = "賬號";
-BTLocBluetimeService = "Bluetime Service";
+BTLocGameServiceName = "Bluetime Service";
 BTLocCancel = "取消";
 BTLocClearCache = "清理緩存";
 BTLocConfirmEmail = "確定郵箱";
@@ -108,3 +108,8 @@ BTLocUsernameForm = "用戶名 (4-24位數字字母下劃線)";
 BTLocPlayNow = "馬上去玩";
 BTLocAvailableMemberProduct = "請選擇要訂閱的商品";
 BTLocMemberProductNotOnSale = "未開放購買";
+BTLocOrderStatePaid = "已支付";
+BTLocOrderStateVerifyFailed = "未通過驗證";
+BTLocOrderStateCompleted = "已完成";
+BTLocOrderStateVerifyNetworkError = "需要驗證";
+BTLocOrderStateUnknow = "未知狀態";

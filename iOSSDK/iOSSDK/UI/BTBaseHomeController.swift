@@ -65,10 +65,10 @@ extension Notification.Name {
     static let BTBaseHomeEntryClosed = Notification.Name("BTBaseHomeEntryClosed")
 }
 
-public class BTBaseHomeEntry {
+class BTBaseHomeEntry {
     private static var homeController: BTBaseHomeController?
     private static var IQKeyboardManagerEnabledOutOfSDK = false
-    public static func getEntryViewController() -> UIViewController {
+    static func getEntryViewController() -> UIViewController {
         if homeController != nil {
             return homeController!
         }
@@ -80,7 +80,7 @@ public class BTBaseHomeEntry {
         return homeController!
     }
 
-    public static func closeHomeController() {
+    static func closeHomeController() {
         homeController?.dismiss(animated: true) {
             IQKeyboardManager.shared.enable = IQKeyboardManagerEnabledOutOfSDK
             homeController = nil

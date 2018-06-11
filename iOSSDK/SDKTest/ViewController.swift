@@ -27,6 +27,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func OnClickHome(_: Any) {
-        present(BTBaseHomeEntry.getEntryViewController(), animated: true, completion: nil)
+        BTBaseSDKManager.openHome(self)
     }
 }

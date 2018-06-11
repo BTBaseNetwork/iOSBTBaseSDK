@@ -107,6 +107,10 @@
 		E78B406220C6CA060049ED91 /* btbase.plist in Resources */ = {isa = PBXBuildFile; fileRef = E78B406120C6CA060049ED91 /* btbase.plist */; };
 		E791C88C20C97DD0003E36A1 /* BTBaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */; };
 		E791C88E20C9897F003E36A1 /* DispatchQueue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */; };
+		E79CC63220CDFE29003DAB73 /* BTIAPOrder+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63120CDFE29003DAB73 /* BTIAPOrder+BTDB.swift */; };
+		E79CC63420CE12E4003DAB73 /* BTBaseSDKManager+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63320CE12E4003DAB73 /* BTBaseSDKManager+UI.swift */; };
+		E79CC63620CE286D003DAB73 /* OrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63520CE286D003DAB73 /* OrderListViewController.swift */; };
+		E79CC63820CE3B18003DAB73 /* BTIAPOrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63720CE3B18003DAB73 /* BTIAPOrderManager.swift */; };
 		E7C105B820C628EA001BFB11 /* Models+FMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105B720C628EA001BFB11 /* Models+FMDB.swift */; };
 		E7C105BA20C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105B920C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift */; };
 		E7C105BC20C62FE5001BFB11 /* BTServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */; };
@@ -256,6 +260,10 @@
 		E78B406120C6CA060049ED91 /* btbase.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = btbase.plist; sourceTree = "<group>"; };
 		E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseConfig.swift; sourceTree = "<group>"; };
 		E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extensions.swift"; sourceTree = "<group>"; };
+		E79CC63120CDFE29003DAB73 /* BTIAPOrder+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTIAPOrder+BTDB.swift"; sourceTree = "<group>"; };
+		E79CC63320CE12E4003DAB73 /* BTBaseSDKManager+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTBaseSDKManager+UI.swift"; sourceTree = "<group>"; };
+		E79CC63520CE286D003DAB73 /* OrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListViewController.swift; sourceTree = "<group>"; };
+		E79CC63720CE3B18003DAB73 /* BTIAPOrderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTIAPOrderManager.swift; sourceTree = "<group>"; };
 		E7C105B720C628EA001BFB11 /* Models+FMDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+FMDB.swift"; sourceTree = "<group>"; };
 		E7C105B920C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTAPIClientProfile+DeviceInfo.swift"; sourceTree = "<group>"; };
 		E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTServiceInfo.swift; sourceTree = "<group>"; };
@@ -371,6 +379,7 @@
 		E754A25820C3A88D006F36EB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E79CC63320CE12E4003DAB73 /* BTBaseSDKManager+UI.swift */,
 				E754A32A20C3F1C0006F36EB /* BTBaseHomeController.swift */,
 				E754A2F020C3EB55006F36EB /* BTBaseSDKBundleExtensions.swift */,
 				E788687A20C30390008E0E8D /* GameWallViewController.swift */,
@@ -384,6 +393,7 @@
 				E738006B20C452EB0043A201 /* ForgetPasswordViewController.swift */,
 				E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */,
 				E78766C420CB87D900767900 /* UITextField+Text.swift */,
+				E79CC63520CE286D003DAB73 /* OrderListViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -543,6 +553,7 @@
 				E788688020C30429008E0E8D /* BTSessionService.swift */,
 				E788688220C30435008E0E8D /* BTAccountService.swift */,
 				E788688420C3043E008E0E8D /* BTMemberService.swift */,
+				E79CC63720CE3B18003DAB73 /* BTIAPOrderManager.swift */,
 				E754A2A420C3CFEA006F36EB /* BTGameWall.swift */,
 				E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */,
 				E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */,
@@ -561,6 +572,7 @@
 				E740BC3D20C77F81001C13F1 /* BTAccount+BTDB.swift */,
 				E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */,
 				E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */,
+				E79CC63120CDFE29003DAB73 /* BTIAPOrder+BTDB.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -844,6 +856,7 @@
 				E75D404D20C518F300BEAF79 /* UIView+RemoveChildView.swift in Sources */,
 				E7C105BA20C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift in Sources */,
 				E75D403D20C518F300BEAF79 /* UIImagePicker+SourceAlert.swift in Sources */,
+				E79CC63420CE12E4003DAB73 /* BTBaseSDKManager+UI.swift in Sources */,
 				E738006A20C452DC0043A201 /* SignUpViewController.swift in Sources */,
 				E754A1EE20C39411006F36EB /* BTAccountAPI.swift in Sources */,
 				E740BC4C20C78C73001C13F1 /* SQLiteTableSet.swift in Sources */,
@@ -861,6 +874,7 @@
 				E72467A020C69A92003641C0 /* BTBaseSDKManager.swift in Sources */,
 				E7C105B820C628EA001BFB11 /* Models+FMDB.swift in Sources */,
 				E740BC4820C78888001C13F1 /* SQLiteDbContext.swift in Sources */,
+				E79CC63620CE286D003DAB73 /* OrderListViewController.swift in Sources */,
 				E75D401420C4C56F00BEAF79 /* BTAPIResult.swift in Sources */,
 				E754A29120C3C077006F36EB /* MF_Base64Additions.m in Sources */,
 				E788688120C30429008E0E8D /* BTSessionService.swift in Sources */,
@@ -876,6 +890,7 @@
 				E788687B20C30390008E0E8D /* GameWallViewController.swift in Sources */,
 				E754A29220C3C077006F36EB /* CommonExtension.swift in Sources */,
 				E7C105BC20C62FE5001BFB11 /* BTServiceInfo.swift in Sources */,
+				E79CC63820CE3B18003DAB73 /* BTIAPOrderManager.swift in Sources */,
 				E754A1F220C396BA006F36EB /* BTSessionAPI.swift in Sources */,
 				E754A29920C3C077006F36EB /* NormalDistribution.swift in Sources */,
 				E75D404620C518F300BEAF79 /* LockScreenHelper.swift in Sources */,
@@ -908,6 +923,7 @@
 				E754A29D20C3C077006F36EB /* UserSetting.swift in Sources */,
 				E754A29320C3C077006F36EB /* CommonValueCast.swift in Sources */,
 				E75D404E20C518F300BEAF79 /* TableViewEx.swift in Sources */,
+				E79CC63220CDFE29003DAB73 /* BTIAPOrder+BTDB.swift in Sources */,
 				E788687820C3017D008E0E8D /* BTServiceConst.swift in Sources */,
 				E75D404020C518F300BEAF79 /* Integer+FriendlyString.swift in Sources */,
 				E75D404A20C518F300BEAF79 /* KeyboardAdjustHelper.swift in Sources */,

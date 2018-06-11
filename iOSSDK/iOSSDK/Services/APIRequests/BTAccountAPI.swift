@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class RegistAccountResult: Codable {
+class RegistAccountResult: Codable {
     public var accountId: String!
     public var userName: String!
 }
 
-public class RegistAccountRequest: BTAPIRequest<RegistAccountResult> {
+class RegistAccountRequest: BTAPIRequest<RegistAccountResult> {
     override init() {
         super.init()
         method = .post
@@ -36,14 +36,14 @@ public class RegistAccountRequest: BTAPIRequest<RegistAccountResult> {
     }
 }
 
-public class GetAccountProfileRequest: BTAPIRequest<BTAccount> {
+class GetAccountProfileRequest: BTAPIRequest<BTAccount> {
     override init() {
         super.init()
         api = "api/v1/Accounts/Profile"
     }
 }
 
-public class CheckUsernameExistsRequest: BTAPIRequestEmptyContent {
+class CheckUsernameExistsRequest: BTAPIRequestEmptyContent {
     var username: String! {
         didSet {
             api = "api/v1/Accounts/Username/" + username
@@ -51,7 +51,7 @@ public class CheckUsernameExistsRequest: BTAPIRequestEmptyContent {
     }
 }
 
-public class UpdatePasswordRequest: BTAPIRequestEmptyContent {
+class UpdatePasswordRequest: BTAPIRequestEmptyContent {
     override init() {
         super.init()
         method = .post
@@ -69,7 +69,7 @@ public class UpdatePasswordRequest: BTAPIRequestEmptyContent {
     }
 }
 
-public class UpdateNickRequest: BTAPIRequestEmptyContent {
+class UpdateNickRequest: BTAPIRequestEmptyContent {
     override init() {
         super.init()
         method = .post
@@ -82,7 +82,7 @@ public class UpdateNickRequest: BTAPIRequestEmptyContent {
     }
 }
 
-public class SendCodeForUpdateEmailRequest: BTAPIRequestEmptyContent {
+class SendCodeForUpdateEmailRequest: BTAPIRequestEmptyContent {
     override init() {
         super.init()
         method = .post
@@ -95,7 +95,7 @@ public class SendCodeForUpdateEmailRequest: BTAPIRequestEmptyContent {
     }
 }
 
-public class UpdateEmailRequest: BTAPIRequestEmptyContent {
+class UpdateEmailRequest: BTAPIRequestEmptyContent {
     override init() {
         super.init()
         method = .post
@@ -113,7 +113,7 @@ public class UpdateEmailRequest: BTAPIRequestEmptyContent {
     }
 }
 
-public class SendCodeForResetPasswordRequest: BTAPIRequestEmptyContent {
+class SendCodeForResetPasswordRequest: BTAPIRequestEmptyContent {
     override init() {
         super.init()
         method = .post
@@ -131,7 +131,7 @@ public class SendCodeForResetPasswordRequest: BTAPIRequestEmptyContent {
     }
 }
 
-public class ResetPasswordRequest: BTAPIRequestEmptyContent {
+class ResetPasswordRequest: BTAPIRequestEmptyContent {
     override init() {
         super.init()
         method = .post

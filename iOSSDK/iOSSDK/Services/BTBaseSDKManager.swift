@@ -28,7 +28,10 @@ public class BTBaseSDKManager {
                 let dbContext = BTServiceDBContext(dbpath: dbPath)
                 dbContext.open()
                 BTBaseSDKManager.defaultDbContext = dbContext
-
+                BTBaseSDKManager.defaultDbContext.ensureDatabase()
+                
+                BTIAPOrderManager.initManager(dbContext: dbContext)
+                
                 BTServiceContainer.useBTGameWall(config)
                 BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
                 BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
@@ -70,23 +73,23 @@ public class BTBaseSDKManager {
         }
     }
 
-    public class ClientSharedAuthentication: Codable {
-        public static func parse(json: String) -> ClientSharedAuthentication? {
+    class ClientSharedAuthentication: Codable {
+        static func parse(json: String) -> ClientSharedAuthentication? {
             if let data = json.data(using: .utf8), let obj = try? JSONDecoder().decode(ClientSharedAuthentication.self, from: data) {
                 return obj
             }
             return nil
         }
 
-        public func toJson() -> String? {
+        func toJson() -> String? {
             if let json = try? JSONEncoder().encode(self) {
                 return String(data: json, encoding: .utf8)
             }
             return nil
         }
 
-        public var accountId: String!
-        public var saltedPassword: String!
+        var accountId: String!
+        var saltedPassword: String!
     }
 
     static func shareAuthentication(_ auth: ClientSharedAuthentication) {
@@ -107,19 +110,5 @@ public class BTBaseSDKManager {
             }
         }
         return nil
-    }
-
-    static func tryShowLoginWithSharedAuthenticationAlert(vc: UIViewController) {
-        if let auth = getAuthentication() {
-            let title = "BTLocTitleSharedAuthenticationExists".localizedBTBaseString
-            let msg = "BTLocMsgSharedAuthenticationExists".localizedBTBaseString
-            vc.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, UIAlertAction(title: "BTLocSignIn".localizedBTBaseString, style: .default, handler: { _ in
-                BTServiceContainer.getBTSessionService()?.login(auth.accountId, auth.saltedPassword, passwordSalted: true, autoFillPassword: false, respAction: { _, res in
-                    if res.isHttpOK {
-                    } else {
-                    }
-                })
-            })])
-        }
     }
 }

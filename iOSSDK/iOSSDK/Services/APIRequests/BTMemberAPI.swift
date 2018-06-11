@@ -8,19 +8,19 @@
 
 import Foundation
 
-public class GetBTMemberProfileResult: Codable {
+class GetBTMemberProfileResult: Codable {
     public var accountId: String!
     public var members: [BTMember]!
 }
 
-public class GetBTMemberProfileRequest: BTAPIRequest<GetBTMemberProfileResult> {
+class GetBTMemberProfileRequest: BTAPIRequest<GetBTMemberProfileResult> {
     override init() {
         super.init()
         api = "api/v1/Members/Profile"
     }
 }
 
-public class RechargeMemberRequest: BTAPIRequestEmptyContent {
+class RechargeMemberRequest: BTAPIRequestEmptyContent {
     override init() {
         super.init()
         method = .post

@@ -8,7 +8,7 @@
 
 import FMDB
 import Foundation
-public class BTSessionService {
+class BTSessionService {
     public static let onSessionUpdated = NSNotification.Name("BTSessionService_onSessionUpdated")
     public static let onSessionUnauthorized = NSNotification.Name("BTSessionService_onSessionUnauthorized")
     fileprivate var config: BTBaseConfig!
@@ -26,15 +26,10 @@ public class BTSessionService {
     func configure(config: BTBaseConfig, db: BTServiceDBContext) {
         self.config = config
         self.host = config.getString(key: "BTSessionServiceHost")!
-        self.initDB(db: db)
+        self.dbContext = db
         self.loadCachedSession()
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.onRequestUnauthorized(a:)), name: Notification.Name.BTAPIRequestUnauthorized, object: nil)
-    }
-
-    private func initDB(db: BTServiceDBContext) {
-        self.dbContext = db
-        self.dbContext.tableAccountSession.createTable()
     }
 
     @objc private func onRequestUnauthorized(a _: Notification) {
@@ -143,7 +138,7 @@ extension BTServiceContainer {
     }
 }
 
-public extension BTAPIClientProfile {
+extension BTAPIClientProfile {
     @discardableResult
     public func useAuthorizationToken(token: String) -> BTAPIClientProfile {
         useHeader("Authorization", "Bearer \(token)")

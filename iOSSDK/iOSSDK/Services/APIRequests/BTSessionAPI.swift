@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class CheckDeviceAccountActivedResult: Codable {
+class CheckDeviceAccountActivedResult: Codable {
     public var accountId: String!
     public var userName: String!
     public var nick: String!
 }
 
-public class CheckDeviceAccountActivedRequest: BTAPIRequest<CheckDeviceAccountActivedResult> {
+class CheckDeviceAccountActivedRequest: BTAPIRequest<CheckDeviceAccountActivedResult> {
     override init() {
         super.init()
         api = "api/v1/Sessions/DeviceAccount"
@@ -27,7 +27,7 @@ public class CheckDeviceAccountActivedRequest: BTAPIRequest<CheckDeviceAccountAc
     }
 }
 
-public class LoginAccountResult: Codable {
+class LoginAccountResult: Codable {
     public var accountId: String!
     public var session: String!
     public var token: String!
@@ -35,7 +35,7 @@ public class LoginAccountResult: Codable {
     public var kickedDevices: [String]!
 }
 
-public class LoginAccountRequest: BTAPIRequest<LoginAccountResult> {
+class LoginAccountRequest: BTAPIRequest<LoginAccountResult> {
     override init() {
         super.init()
         method = .post
@@ -58,12 +58,12 @@ public class LoginAccountRequest: BTAPIRequest<LoginAccountResult> {
     }
 }
 
-public class RefreshTokenResult: Codable {
+class RefreshTokenResult: Codable {
     public var accountId: String!
     public var token: String!
 }
 
-public class RefreshTokenRequest: BTAPIRequest<RefreshTokenResult> {
+class RefreshTokenRequest: BTAPIRequest<RefreshTokenResult> {
     override init() {
         super.init()
         method = .post
@@ -76,7 +76,7 @@ public class RefreshTokenRequest: BTAPIRequest<RefreshTokenResult> {
     }
 }
 
-public class LogoutDeviceRequest: BTAPIRequest<Int> {
+class LogoutDeviceRequest: BTAPIRequest<Int> {
     override init() {
         super.init()
         method = .delete

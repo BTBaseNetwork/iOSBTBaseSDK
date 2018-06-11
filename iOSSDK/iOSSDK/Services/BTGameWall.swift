@@ -9,7 +9,7 @@
 import Alamofire
 import Foundation
 
-public class BTGameWall {
+class BTGameWall {
     public static let onGameWallListUpdated = Notification.Name("BTGameWall_onGameWallListUpdated")
 
     fileprivate var configJsonUrl = "http://localhost/gamewall.json"

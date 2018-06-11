@@ -11,7 +11,7 @@ import Foundation
 import StoreKit
 import SwiftyStoreKit
 
-public class BTMemberProfile {
+class BTMemberProfile {
     public var accountId = BTServiceConst.ACCOUNT_ID_UNLOGIN
     public var members = [BTMember]()
     public var preferredMember: BTMember? {
@@ -19,9 +19,12 @@ public class BTMemberProfile {
     }
 }
 
-let BTMemberPurchaseEvent = 0
+let kBTMemberPurchaseEvent = "kBTMemberPurchaseEvent"
+let BTMemberPurchaseEventStartValidate = 0
+let BTMemberPurchaseEventValidateSuccess = 0
+let BTMemberPurchaseEventValidateFailed = 0
 
-public class BTMemberService {
+class BTMemberService {
     public class MemberProduct: Hashable {
         public var hashValue: Int {
             return self.product.hashValue
@@ -82,7 +85,7 @@ public class BTMemberService {
     func configure(config: BTBaseConfig, db: BTServiceDBContext) {
         self.config = config
         self.host = config.getString(key: "BTMemberServiceHost")!
-        self.initDB(db: db)
+        self.dbContext = db
         self.loadCachedIAPList()
         self.fetchIAPList()
     }
@@ -98,11 +101,6 @@ extension BTMemberService {
         self.localProfile = profile
     }
 
-    private func initDB(db: BTServiceDBContext) {
-        self.dbContext = db
-        self.dbContext.tableMember.createTable()
-    }
-
     func fetchMemberProfile() {
         let req = GetBTMemberProfileRequest()
         req.response = { _, res in
@@ -110,7 +108,6 @@ extension BTMemberService {
                 res.content.members.forEach({ m in
                     self.dbContext.tableMember.update(model: m, upsert: true)
                 })
-
                 if let accountId = self.localProfile?.accountId, accountId == res.content.accountId {
                     let profile = BTMemberProfile()
                     profile.accountId = accountId
@@ -168,21 +165,63 @@ extension BTMemberService {
         func validate(receiptData receipt: Data, completion: @escaping (VerifyReceiptResult) -> Void) {
             let receiptStr = receipt.base64EncodedString()
 
-            let order = BTIAPOrder()
-            order.receipt = receiptStr
-            order.productId = transaction.payment.productIdentifier
-            order.store = BTServiceConst.CHANNEL_APP_STORE
-            order.transactionId = transaction.transactionIdentifier!
-            order.date = transaction.transactionDate
-            order.quantity = transaction.payment.quantity
-            order.state = BTIAPOrder.STATE_PAY_SUC
-
-            self.RechargeMember(productId: transaction.payment.productIdentifier, channel: BTServiceConst.CHANNEL_APP_STORE, receipt: receiptStr, sandBox: false) { _, res in
-                if res.isHttpOK {
-                    completion(.success(receipt: ReceiptInfo()))
-                } else {
-                    completion(.error(error: ReceiptError.jsonDecodeError(string: res.error.msg)))
+            let parameters = [
+                self.service.dbContext.tableIAPOrder.tableName,
+                "transactionId",
+                transaction.transactionIdentifier!
+            ]
+            var order: BTIAPOrder!
+            if let first = self.service.dbContext.tableIAPOrder.query(sql: "SELECT * FROM ? WHERE ?=?", parameters: parameters).first {
+                order = first
+            } else {
+                order = BTIAPOrder()
+                order.receipt = receiptStr
+                order.productId = self.transaction.payment.productIdentifier
+                order.store = BTServiceConst.CHANNEL_APP_STORE
+                order.transactionId = self.transaction.transactionIdentifier!
+                order.date = self.transaction.transactionDate
+                order.quantity = self.transaction.payment.quantity
+                order.state = BTIAPOrder.STATE_PAY_SUC
+                for p in self.service.products {
+                    if p.productId == order.locPrice {
+                        order.locPrice = p.product.localizedPrice
+                        order.locTitle = p.product.localizedTitle
+                        break
+                    }
                 }
+
+                self.service.dbContext.tableIAPOrder.add(model: order)
+            }
+
+            var rinfo = ReceiptInfo()
+            rinfo["product_id"] = NSString(string: order.productId)
+            rinfo["quantity"] = NSString(string: "\(order.quantity)")
+            rinfo["transaction_id"] = NSString(string: "\(order.transactionId)")
+
+            if order.state == BTIAPOrder.STATE_PAY_SUC || order.state == BTIAPOrder.STATE_VERIFY_SERVER_NETWORK_ERROR {
+                self.RechargeMember(productId: self.transaction.payment.productIdentifier, channel: BTServiceConst.CHANNEL_APP_STORE, receipt: receiptStr, sandBox: false) { _, res in
+                    if res.isHttpOK {
+                        order.state = BTIAPOrder.STATE_VERIFY_SUC
+                        order.verifyCode = 200
+                        order.verifyMsg = res.msg
+                        self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
+                        completion(.success(receipt: rinfo))
+                    } else if let code = res.error?.code {
+                        order.verifyCode = code
+                        order.verifyMsg = res.error?.msg
+                        self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
+                        completion(.error(error: ReceiptError.receiptInvalid(receipt: rinfo, status: ReceiptStatus.receiptCouldNotBeAuthenticated)))
+                    } else {
+                        order.state = BTIAPOrder.STATE_VERIFY_SERVER_NETWORK_ERROR
+                        self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
+                        let err = NSError(domain: "Network Error", code: 500, userInfo: nil)
+                        completion(.error(error: ReceiptError.networkError(error: err)))
+                    }
+                }
+            } else if order.state == BTIAPOrder.STATE_VERIFY_SUC {
+                completion(.success(receipt: rinfo))
+            } else {
+                completion(.error(error: ReceiptError.receiptInvalid(receipt: rinfo, status: ReceiptStatus.receiptCouldNotBeAuthenticated)))
             }
         }
 
@@ -201,10 +240,13 @@ extension BTMemberService {
 
     func verifyTransactionAndRechargeMember(_ transaction: SKPaymentTransaction) {
         let validator = BTMemberValidator(service: self, transaction: transaction)
+        NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [:])
         SwiftyStoreKit.verifyReceipt(using: validator) { r in
             switch r {
-            case .error(error: _): break
-            case .success(receipt: _): self.fetchMemberProfile()
+            case .error(error: _):
+                NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [:])
+            case .success(receipt: _):
+                NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [:])
             }
         }
     }

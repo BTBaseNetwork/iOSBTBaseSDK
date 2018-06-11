@@ -12,7 +12,7 @@ import Foundation
 let kBTRegistedAccountId = "kBTRegistedAccountId"
 let kBTRegistedUsername = "kBTRegistedUsername"
 
-public class BTAccountService {
+class BTAccountService {
     public static let onLocalAccountUpdated = Notification.Name("BTAccountService_onLocalAccountUpdated")
     public static let onNewAccountRegisted = Notification.Name("BTAccountService_onNewAccountRegisted")
 
@@ -29,12 +29,7 @@ public class BTAccountService {
     func configure(config: BTBaseConfig, db: BTServiceDBContext) {
         self.config = config
         self.host = config.getString(key: "BTAccountServiceHost")!
-        self.initDB(db: db)
-    }
-
-    private func initDB(db: BTServiceDBContext) {
         self.dbContext = db
-        self.dbContext.tableAccount.createTable()
     }
 
     func loadLocalAccount(accountId: String) {

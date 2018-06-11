@@ -214,3 +214,28 @@
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "yOV-gu-agh"; */
 "yOV-gu-agh.text" = "Label";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-11 13:28:51
+//##################################################################################
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "9qE-9Y-ckF"; */
+"9qE-9Y-ckF.text" = "Date";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "KGM-rs-V7o"; */
+"KGM-rs-V7o.text" = "Status";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "Ph6-Tx-9z7"; */
+"Ph6-Tx-9z7.title" = "Back";
+
+/* Class = "UINavigationItem"; title = "Orders"; ObjectID = "DIR-nq-Mfe"; */
+"DIR-nq-Mfe.title" = "Orders";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "lrN-iZ-ZbN"; */
+"lrN-iZ-ZbN.text" = "Title";
+
+/* Class = "UILabel"; text = "Price"; ObjectID = "5mO-fu-gdD"; */
+"5mO-fu-gdD.text" = "Price";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "fNG-Am-rNv"; */
+"fNG-Am-rNv.title" = "Item";

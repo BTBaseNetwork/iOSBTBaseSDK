@@ -9,7 +9,7 @@
 import Alamofire
 import Foundation
 
-public class BTAPIClientProfile {
+class BTAPIClientProfile {
     var host = "http://localhost/"
     var defaultHeaders = [String: String]()
 

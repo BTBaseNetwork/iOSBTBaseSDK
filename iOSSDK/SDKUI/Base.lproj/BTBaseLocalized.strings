@@ -1,5 +1,5 @@
 BTLocAccountId = "Account ID";
-BTLocBluetimeService = "Bluetime Service";
+BTLocGameServiceName = "Bluetime Service";
 BTLocCancel = "Cancel";
 BTLocClearCache = "Clear Cache";
 BTLocConfirmEmail = "Confirm Email";
@@ -108,3 +108,8 @@ BTLocUsernameForm = "User Name (4-24 Characters)";
 BTLocPlayNow = "Play Now";
 BTLocAvailableMemberProduct = "Available Subscription";
 BTLocMemberProductNotOnSale = "Closed Purchase";
+BTLocOrderStatePaid = "Paid";
+BTLocOrderStateVerifyFailed = "Verify Failed";
+BTLocOrderStateCompleted = "Completed";
+BTLocOrderStateVerifyNetworkError = "Need Verify";
+BTLocOrderStateUnknow = "Unknow";

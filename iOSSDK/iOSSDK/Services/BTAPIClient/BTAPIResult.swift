@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class BTAPIResultError: Codable {
+class BTAPIResultError: Codable {
     public var code: Int = 0
     public var msg: String!
     public var msgWithoutSpaces: String! {
@@ -19,7 +19,7 @@ public class BTAPIResultError: Codable {
     }
 }
 
-public class BTAPIResult<T>: Codable where T: Codable {
+class BTAPIResult<T>: Codable where T: Codable {
     public var code: Int = 0
     public var msg: String!
     public var content: T!
@@ -32,7 +32,7 @@ public class BTAPIResult<T>: Codable where T: Codable {
     }
 }
 
-public extension BTAPIResult {
+extension BTAPIResult {
     public var isHttpOK: Bool {
         return code == 200
     }

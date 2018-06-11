@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public class BTServiceContainer {
+class BTServiceContainer {
     private static var services = [String: Any]()
 
     public static func addService(name: String, service: Any) {

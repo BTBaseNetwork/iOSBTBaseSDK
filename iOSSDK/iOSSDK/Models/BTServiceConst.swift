@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public class BTServiceConst {
+class BTServiceConst {
     public static let BT_WEB_API_AUDIENCE = "BTBaseWebAPI"
     /// Platform Id
     public static let PLATFORM_UNKNOW = 0
