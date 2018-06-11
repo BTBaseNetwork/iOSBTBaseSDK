@@ -44,6 +44,7 @@ class GameWallBannerItemCell: UITableViewCell {
             itemIcon.tintColor = BTBaseUIConfig.GlobalTintColor
             itemIcon.sd_setImage(with: itemIconUrl, placeholderImage: GameWallBannerItemCell.iconPlaceholder)
             gameTitle.text = gameWallItem.getLocalizedGameName()
+            playVideoButton.isHidden = String.isNullOrWhiteSpace(gameWallItem.videoUrl)
             for i in 0 ..< starImages.count {
                 if Float(i) < gameWallItem.stars {
                     starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(1)
@@ -163,7 +164,7 @@ class GameWallViewController: UIViewController {
     }
 
     @IBAction func onClickRefresh(_: Any) {
-        refreshGamewallList()
+        refreshGamewallList(force: true)
     }
 
     @IBAction func onClickClose(_: Any) {
@@ -182,10 +183,10 @@ class GameWallViewController: UIViewController {
         refreshGamewallList()
     }
 
-    func refreshGamewallList() {
+    func refreshGamewallList(force: Bool = false) {
         if !loading {
             loading = true
-            gamewall.refreshGameWallList {
+            gamewall.refreshGameWallList(force: force) {
                 self.loading = false
             }
         }
@@ -202,7 +203,7 @@ class GameWallViewController: UIViewController {
     @objc private func onClickTabbarItem(a: Notification) {
         if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
             if abs(lastClickTabbarDate.timeIntervalSinceNow) < 1 {
-                refreshGamewallList()
+                refreshGamewallList(force: true)
             } else {
                 lastClickTabbarDate = Date()
             }

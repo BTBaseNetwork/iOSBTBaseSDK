@@ -42,7 +42,9 @@ class BTAccountSession: Codable {
     public var status: Int = BTAccountSession.STATUS_LOGOUT
     public var session: String?
     public var sessionToken: String?
+    public var sTokenExpires: Date?
     public var token: String?
+    public var tokenExpires: Date?
     public var password: String? // Salted password
     public var fillPassword: Bool = false // Auto fill password in sign in password field
 

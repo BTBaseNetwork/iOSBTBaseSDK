@@ -39,7 +39,17 @@ class BTGameWall {
         return nil
     }
 
-    func refreshGameWallList(completion: (() -> Void)? = nil) {
+    func refreshGameWallList(force: Bool, completion: (() -> Void)? = nil) {
+        if !force, let attrs = try? FileManager.default.attributesOfItem(atPath: BTGameWall.cachedConfigJsonPathUrl.path) {
+            let date = (attrs[FileAttributeKey.modificationDate]) ?? (attrs[FileAttributeKey.creationDate])
+            if let d = date as? Date {
+                if d.addDays(1).timeIntervalSince1970 > Date().timeIntervalSince1970 {
+                    completion?()
+                    return
+                }
+            }
+        }
+
         Alamofire.download(self.configJsonUrl, to: self.destination).response { response in
             if response.error == nil, let _ = response.destinationURL?.path {
                 self.loadCachedGamewallConfig()

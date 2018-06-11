@@ -12,12 +12,13 @@ import UIKit
 
 class MemberCardCell: UITableViewCell {
     static let reuseId = "MemberCardCell"
-    let expiredDateLabelNormalColor = UIColor.white
-    let expiredDateLabelAlertColor = UIColor.red
+    let memberNormalColor = UIColor.white
+    let memberTintColor = BTBaseUIConfig.GlobalTintColor
+    let memberAlertColor = UIColor.red
     
     @IBOutlet var memberTypeLabel: UILabel!
     
-    @IBOutlet var expiredOnDateLabel: UILabel!
+    @IBOutlet var expiresDateLabel: UILabel!
     
     func refresh() {
         let service = BTServiceContainer.getBTMemberService()!
@@ -34,12 +35,14 @@ class MemberCardCell: UITableViewCell {
             } else {
                 formatter.dateFormat = "BTLocMemberExpiredDateOverFormat".localizedBTBaseString
             }
-            expiredOnDateLabel.text = formatter.string(from: Date(timeIntervalSince1970: member.expiredDateTs))
-            expiredOnDateLabel.textColor = member.expiredDateTs > Date().addDays(3).timeIntervalSince1970 ? expiredDateLabelNormalColor : expiredDateLabelAlertColor
+            expiresDateLabel.text = formatter.string(from: Date(timeIntervalSince1970: member.expiredDateTs))
+            expiresDateLabel.textColor = member.expiredDateTs > Date().addDays(3).timeIntervalSince1970 ? memberTintColor : memberAlertColor
+            memberTypeLabel.textColor = memberTintColor
         } else {
             memberTypeLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
-            expiredOnDateLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
-            expiredOnDateLabel.textColor = expiredDateLabelNormalColor
+            expiresDateLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
+            expiresDateLabel.textColor = memberNormalColor
+            memberTypeLabel.textColor = memberNormalColor
         }
     }
 }
@@ -50,7 +53,6 @@ class MemberProductCell: UITableViewCell {
     
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
-    // @IBOutlet var descLabel: UILabel!
     @IBOutlet var purchaseButton: UIButton! {
         didSet {
             purchaseButton.SetupBTBaseUI()
@@ -64,20 +66,15 @@ class MemberProductCell: UITableViewCell {
             } else {
                 titleLabel?.text = product.product.localizedTitle
                 priceLabel?.text = product.enabled ? product.product.localizedPrice : "BTLocMemberProductNotOnSale".localizedBTBaseString
-                // descLabel?.text = product.product.localizedDescription
-                // purchaseButton.setTitle(product.product.localizedPrice, for: .normal)
                 purchaseButton.isEnabled = product.enabled
             }
         }
     }
     
-    weak var rootController: UIViewController!
+    weak var rootController: MemberViewController!
     
     @IBAction func onClickPurchase(_: Any) {
-        let hud = rootController.showActivityHud()
-        BTServiceContainer.getBTMemberService()?.purchaseMemberProduct(p: product.product) { _ in
-            hud.hide(animated: true)
-        }
+        rootController?.purchase(p: product.product)
     }
     
     deinit {
@@ -93,6 +90,7 @@ class MemberViewController: UIViewController {
         }
     }
     
+    @IBOutlet var orderListButton: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
     var products: [BTMemberService.MemberProduct]! {
         didSet {
@@ -109,7 +107,7 @@ class MemberViewController: UIViewController {
     private var loadingTimer: Timer!
     private var loading: Bool {
         get {
-            return loadingProgressView?.isHidden ?? false
+            return !(loadingProgressView?.isHidden ?? true)
         }
         set {
             if let _ = loadingProgressView {
@@ -155,6 +153,36 @@ class MemberViewController: UIViewController {
         }
     }
     
+    var purchaseObserver: NSObjectProtocol!
+    func purchase(p: SKProduct) {
+        let hud = showActivityHud()
+        purchaseObserver = NotificationCenter.default.addObserver(forName: BTMemberService.onPurchaseEvent, object: nil, queue: .main) { a in
+            if let event = a.userInfo?[kBTMemberPurchaseEvent] as? Int {
+                switch event {
+                case BTMemberPurchaseEventValidateFailed, BTMemberPurchaseEventValidateSuccess:
+                    hud.hide(animated: true)
+                    if let ob = self.purchaseObserver {
+                        NotificationCenter.default.removeObserver(ob)
+                        self.purchaseObserver = nil
+                        if event == BTMemberPurchaseEventValidateSuccess {
+                            let title = "BTLocTitleSubscribeMemberSuc".localizedBTBaseString
+                            let msg = "BTLocMsgSubscribeMemberSuc".localizedBTBaseString
+                            self.showAlert(title, msg: msg)
+                        } else {
+                            let title = "BTLocTitleSubscribeMemberFail".localizedBTBaseString
+                            let msg = "BTLocMsgSubscribeMemberFail".localizedBTBaseString
+                            self.showAlert(title, msg: msg)
+                        }
+                    }
+                default: break
+                }
+            }
+        }
+        
+        BTServiceContainer.getBTMemberService()?.purchaseMemberProduct(p: p) { _ in
+        }
+    }
+    
     override func viewWillAppear(_: Bool) {
         if products == nil || products.count == 0 {
             reloadProducts()
@@ -172,7 +200,7 @@ class MemberViewController: UIViewController {
     }
     
     @objc func onMemberProfileUpdated(a _: Notification) {
-        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        tableView.reloadData()
     }
     
     var lastClickTabbarDate = Date()
@@ -200,6 +228,9 @@ class MemberViewController: UIViewController {
     deinit {
         loadingTimer?.invalidate()
         loadingTimer = nil
+        if let ob = self.purchaseObserver {
+            NotificationCenter.default.removeObserver(ob)
+        }
         NotificationCenter.default.removeObserver(self)
         debugLog("Deinited:\(self.description)")
     }
@@ -209,9 +240,11 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
         if BTServiceContainer.getBTSessionService()!.isSessionLogined {
             signInButton.isHidden = true
+            orderListButton.isEnabled = true
             return 3
         }
         signInButton.isHidden = false
+        orderListButton.isEnabled = false
         return 0
     }
     

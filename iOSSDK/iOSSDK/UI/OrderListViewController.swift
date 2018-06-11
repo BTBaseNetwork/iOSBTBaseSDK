@@ -15,13 +15,15 @@ class OrderListCell: UITableViewCell {
     @IBOutlet var priceLabel: UILabel!
     @IBOutlet var verifyButton: UIButton!
     
+    weak var rootController: OrderListViewController?
+    
     var order: BTIAPOrder! {
         didSet {
             if order == nil {
                 return
             }
             titleLabel.text = order?.locTitle
-            dateLabel.text = order?.date?.toLocalDateString()
+            dateLabel.text = order?.date?.toLocalDateTimeSimpleString()
             priceLabel.text = order?.locPrice
             var locState = "BTLocOrderStateUnknow"
             verifyButton.isHidden = true
@@ -38,7 +40,33 @@ class OrderListCell: UITableViewCell {
         }
     }
     
+    var observer: NSObjectProtocol!
     @IBAction func onClickVerify(_ sender: Any) {
+        if let o = order {
+            verifyButton.isEnabled = false
+            let hud = rootController?.showActivityHud()
+            observer = NotificationCenter.default.addObserver(forName: BTMemberService.onPurchaseEvent, object: nil, queue: .main) { a in
+                if let event = a.userInfo?[kBTMemberPurchaseEvent] as? Int {
+                    if event == BTMemberPurchaseEventValidateFailed || event == BTMemberPurchaseEventValidateSuccess {
+                        hud?.hide(animated: true)
+                        if let ob = self.observer {
+                            NotificationCenter.default.removeObserver(ob)
+                            self.observer = nil
+                            self.verifyButton?.isEnabled = true
+                            self.rootController?.loadOrders()
+                        }
+                    }
+                }
+            }
+            BTServiceContainer.getBTMemberService()?.verifyTransactionAndRechargeMember(order: o)
+        }
+    }
+    
+    deinit {
+        if let ob = self.observer {
+            NotificationCenter.default.removeObserver(ob)
+        }
+        debugLog("Deinited:\(self.description)")
     }
 }
 
@@ -65,7 +93,9 @@ class OrderListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func loadOrders() {
-        orders = BTIAPOrderManager.instance.getAllOrders()
+        orders = BTIAPOrderManager.instance.getAllOrders().sorted(by: { (a, b) -> Bool in
+            a.date!.timeIntervalSince1970 > b.date!.timeIntervalSince1970
+        })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -79,6 +109,7 @@ class OrderListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OrderListCell.reuseId, for: indexPath) as! OrderListCell
         cell.order = orders[indexPath.row]
+        cell.rootController = self
         return cell
     }
     

@@ -132,7 +132,7 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         let priKvs = priProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }
         let queryFieldsSql = priKvs.map { $0.column }.map { "\($0)=?" }.joined(separator: " ")
         let querySql = SQLiteHelper.selectSql(tableName: entity.scheme, query: queryFieldsSql)
-        let priValues = priKvs.map { $0.value }
+        let priValues = priKvs.map { $0.value! }
         if let _: T = query(sql: querySql, parameters: priValues).first {
             let notpriProperties: [BTDBEntity.Property<T>] = entity.getNotPrimaryKey()
             let notPriKvs = notpriProperties.map { (column: $0.columnName, value: $0.accessor.getValue(model)) }

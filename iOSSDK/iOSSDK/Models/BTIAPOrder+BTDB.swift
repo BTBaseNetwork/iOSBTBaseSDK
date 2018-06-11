@@ -15,7 +15,7 @@ extension BTIAPOrder: BTDBEntityModel {
     public static func onBuildBTDBEntity(entity: BTDBEntity.Builder) {
         entity.hasProperty("transactionId", String.self) { (model: BTIAPOrder, value: Any) in
             model.transactionId = value as! String
-        }.hasPrimaryKey()
+        }.hasPrimaryKey().length(valueLength: 128).notNull()
         
         entity.hasProperty("productId", String.self) { (model: BTIAPOrder, value: Any) in
             model.productId = value as! String
@@ -41,7 +41,7 @@ extension BTIAPOrder: BTDBEntityModel {
             model.quantity = (value as? Int) ?? 1
         }
         
-        entity.hasProperty("state", String.self) { (model: BTIAPOrder, value: Any) in
+        entity.hasProperty("state", Int.self) { (model: BTIAPOrder, value: Any) in
             model.state = (value as? Int) ?? 1
         }
         entity.hasProperty("verifyCode", Int.self) { (model: BTIAPOrder, value: Any) in

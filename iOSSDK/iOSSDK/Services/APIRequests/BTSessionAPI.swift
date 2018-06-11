@@ -31,7 +31,9 @@ class LoginAccountResult: Codable {
     public var accountId: String!
     public var session: String!
     public var token: String!
+    public var tokenExpires: Double!
     public var sessionToken: String!
+    public var sessionTokenExpires: Double!
     public var kickedDevices: [String]!
 }
 
@@ -61,6 +63,7 @@ class LoginAccountRequest: BTAPIRequest<LoginAccountResult> {
 class RefreshTokenResult: Codable {
     public var accountId: String!
     public var token: String!
+    public var expires: Double!
 }
 
 class RefreshTokenRequest: BTAPIRequest<RefreshTokenResult> {

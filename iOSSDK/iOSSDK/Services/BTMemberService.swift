@@ -154,36 +154,48 @@ extension BTMemberService {
     }
 
     class BTMemberValidator: ReceiptValidator {
-        var transaction: SKPaymentTransaction
         var service: BTMemberService
+        var transactionId: String!
+        var productId: String!
+        var transactionDate: Date!
+        var quantity: Int = 0
 
-        init(service: BTMemberService, transaction: SKPaymentTransaction) {
+        init(service: BTMemberService, iapOrder order: BTIAPOrder) {
             self.service = service
-            self.transaction = transaction
+            self.transactionId = order.transactionId
+            self.productId = order.productId
+            self.transactionDate = order.date
+            self.quantity = order.quantity
+        }
+
+        init(service: BTMemberService, transaction t: SKPaymentTransaction) {
+            self.service = service
+            self.transactionId = t.transactionIdentifier
+            self.productId = t.payment.productIdentifier
+            self.transactionDate = t.transactionDate
+            self.quantity = t.payment.quantity
         }
 
         func validate(receiptData receipt: Data, completion: @escaping (VerifyReceiptResult) -> Void) {
             let receiptStr = receipt.base64EncodedString()
 
-            let parameters = [
-                self.service.dbContext.tableIAPOrder.tableName,
-                "transactionId",
-                transaction.transactionIdentifier!
-            ]
+            let parameters = [transactionId!]
+            let tbName = self.service.dbContext.tableIAPOrder.tableName
+            let field = "transactionId"
             var order: BTIAPOrder!
-            if let first = self.service.dbContext.tableIAPOrder.query(sql: "SELECT * FROM ? WHERE ?=?", parameters: parameters).first {
+            if let first = self.service.dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(tbName) WHERE \(field)=?", parameters: parameters).first {
                 order = first
             } else {
                 order = BTIAPOrder()
                 order.receipt = receiptStr
-                order.productId = self.transaction.payment.productIdentifier
+                order.productId = productId // self.transaction.payment.productIdentifier
                 order.store = BTServiceConst.CHANNEL_APP_STORE
-                order.transactionId = self.transaction.transactionIdentifier!
-                order.date = self.transaction.transactionDate
-                order.quantity = self.transaction.payment.quantity
+                order.transactionId = self.transactionId // self.transaction.transactionIdentifier!
+                order.date = self.transactionDate ?? Date()
+                order.quantity = quantity
                 order.state = BTIAPOrder.STATE_PAY_SUC
                 for p in self.service.products {
-                    if p.productId == order.locPrice {
+                    if p.productId == order.productId {
                         order.locPrice = p.product.localizedPrice
                         order.locTitle = p.product.localizedTitle
                         break
@@ -199,7 +211,7 @@ extension BTMemberService {
             rinfo["transaction_id"] = NSString(string: "\(order.transactionId)")
 
             if order.state == BTIAPOrder.STATE_PAY_SUC || order.state == BTIAPOrder.STATE_VERIFY_SERVER_NETWORK_ERROR {
-                self.RechargeMember(productId: self.transaction.payment.productIdentifier, channel: BTServiceConst.CHANNEL_APP_STORE, receipt: receiptStr, sandBox: false) { _, res in
+                self.RechargeMember(productId: self.productId, channel: BTServiceConst.CHANNEL_APP_STORE, receipt: receiptStr, sandBox: false) { _, res in
                     if res.isHttpOK {
                         order.state = BTIAPOrder.STATE_VERIFY_SUC
                         order.verifyCode = 200
@@ -238,15 +250,25 @@ extension BTMemberService {
         }
     }
 
-    func verifyTransactionAndRechargeMember(_ transaction: SKPaymentTransaction) {
+    private func verifyTransactionAndRechargeMember(_ transaction: SKPaymentTransaction) {
         let validator = BTMemberValidator(service: self, transaction: transaction)
-        NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [:])
+        verifyTransactionAndRechargeMember(validator: validator)
+    }
+
+    func verifyTransactionAndRechargeMember(order: BTIAPOrder) {
+        let validator = BTMemberValidator(service: self, iapOrder: order)
+        verifyTransactionAndRechargeMember(validator: validator)
+    }
+
+    private func verifyTransactionAndRechargeMember(validator: BTMemberValidator) {
+        NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [kBTMemberPurchaseEvent: BTMemberPurchaseEventStartValidate])
         SwiftyStoreKit.verifyReceipt(using: validator) { r in
             switch r {
             case .error(error: _):
-                NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [:])
+                NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [kBTMemberPurchaseEvent: BTMemberPurchaseEventValidateFailed])
             case .success(receipt: _):
-                NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [:])
+                self.fetchMemberProfile()
+                NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [kBTMemberPurchaseEvent: BTMemberPurchaseEventValidateSuccess])
             }
         }
     }
@@ -264,6 +286,7 @@ extension BTMemberService {
 
     func fetchIAPList() {
         self.postRefreshState(state: BTRefreshMemberProductsStateStart)
+
         Alamofire.download(self.iapListUrl, to: BTMemberService.cachedIAPListDownloadDestination).response { resp in
             if resp.error == nil, let _ = resp.destinationURL?.path {
                 if self.loadCachedIAPList() {

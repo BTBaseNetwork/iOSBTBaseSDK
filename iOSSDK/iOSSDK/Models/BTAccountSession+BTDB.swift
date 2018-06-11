@@ -25,12 +25,20 @@ extension BTAccountSession: BTDBEntityModel {
             model.sessionToken = value as? String
         }
         
+        entity.hasProperty("sTokenExpires", Date.self) { (model: BTAccountSession, value: Any) in
+            model.sTokenExpires = (value as? Date) ?? Date(timeIntervalSince1970: 0)
+        }
+        
         entity.hasProperty("status", Int.self) { (model: BTAccountSession, value: Any) in
             model.status = value as! Int
         }
         
         entity.hasProperty("token", String.self) { (model: BTAccountSession, value: Any) in
             model.token = value as? String
+        }
+        
+        entity.hasProperty("tokenExpires", Date.self) { (model: BTAccountSession, value: Any) in
+            model.tokenExpires = (value as? Date) ?? Date(timeIntervalSince1970: 0)
         }
         
         entity.hasProperty("password", String.self) { (model: BTAccountSession, value: Any) in

@@ -44,8 +44,23 @@ class BTSessionService {
         let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status >= ?"), parameters: [BTAccountSession.STATUS_LOGIN])
         if let session = resultSet.first {
             self.localSession = session
+            self.checkAndRefreshToken()
         } else {
             self.localSession = BTAccountSession()
+        }
+    }
+
+    func checkAndRefreshToken() {
+        if self.localSession.IsSessionLogined() {
+            if self.localSession.sTokenExpires == nil || self.localSession.sTokenExpires!.timeIntervalSince1970 < Date().timeIntervalSince1970 {
+                self.login(self.localSession.accountId, self.localSession.password!, passwordSalted: true, autoFillPassword: false) { _, res in
+                    if !res.isHttpOK {
+                        NotificationCenter.default.postWithMainQueue(name: BTSessionService.onSessionUnauthorized, object: self)
+                    }
+                }
+            } else if self.localSession.tokenExpires == nil || self.localSession.tokenExpires!.timeIntervalSince1970 < Date().timeIntervalSince1970 {
+                self.refreshToken()
+            }
         }
     }
 
@@ -73,8 +88,10 @@ class BTSessionService {
                 session.password = saltPsw
                 session.session = result.content.session
                 session.sessionToken = result.content.sessionToken
+                session.sTokenExpires = DateHelper.dateOfUnixTimeSpan(result.content.sessionTokenExpires)
                 session.status = BTAccountSession.STATUS_LOGIN
                 session.token = result.content.token
+                session.tokenExpires = DateHelper.dateOfUnixTimeSpan(result.content.tokenExpires)
                 session.fillPassword = autoFillPassword
                 self.dbContext.tableAccountSession.update(model: session, upsert: true)
                 self.localSession = session
@@ -97,7 +114,8 @@ class BTSessionService {
         req.audience = "BTBaseWebAPI"
         req.response = { _, result in
             if result.isHttpOK {
-                self.localSession.sessionToken = result.content.token
+                self.localSession.token = result.content.token
+                self.localSession.tokenExpires = DateHelper.dateOfUnixTimeSpan(result.content.expires)
                 self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
             }
         }

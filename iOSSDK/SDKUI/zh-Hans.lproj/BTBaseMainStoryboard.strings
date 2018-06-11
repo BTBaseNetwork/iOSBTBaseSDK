@@ -176,7 +176,7 @@
 "ZWK-e5-8XG.normalTitle" = "请登录";
 
 /* Class = "UILabel"; text = "Member"; ObjectID = "k0C-Ql-6VQ"; */
-"k0C-Ql-6VQ.text" = "会员类型";
+"k0C-Ql-6VQ.text" = "会员类型:";
 
 /* Class = "UILabel"; text = "MemberType"; ObjectID = "Wve-LN-h9g"; */
 "Wve-LN-h9g.text" = "MemberType";
