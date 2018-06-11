@@ -106,7 +106,7 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.row == 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: AccountEditableItemCell.reuseId, for: indexPath) as! AccountEditableItemCell
             cell.nameLabel.text = "BTLocPassword".localizedBTBaseString
-            cell.valueLabel.text = "****"
+            cell.valueLabel.text = "********"
             return cell
         }
 

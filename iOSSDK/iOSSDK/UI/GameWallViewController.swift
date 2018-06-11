@@ -124,20 +124,30 @@ class GameWallViewController: UIViewController {
         }
     }
 
+    @IBOutlet var refreshButton: UIButton! {
+        didSet {
+            refreshButton.SetupBTBaseUI()
+        }
+    }
+
     private var loadingTimer: Timer!
     private var loading: Bool {
         get {
             return !loadingProgressView.isHidden
         }
         set {
-            if loadingProgressView.isHidden == newValue {
-                loadingProgressView.isHidden = !newValue
-                if newValue {
-                    loadingProgressView.progress = 0
-                    loadingTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
-                } else {
-                    loadingTimer?.invalidate()
-                    loadingTimer = nil
+            if let _ = loadingProgressView {
+                if loadingProgressView.isHidden == newValue {
+                    loadingProgressView.isHidden = !newValue
+                    if newValue {
+                        refreshButton?.isHidden = true
+                        loadingProgressView.progress = 0
+                        loadingTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
+                    } else {
+                        refreshButton?.isHidden = (gamewall?.gameItemCount ?? 0) > 0
+                        loadingTimer?.invalidate()
+                        loadingTimer = nil
+                    }
                 }
             }
         }
@@ -150,6 +160,10 @@ class GameWallViewController: UIViewController {
                 pv.progress = 0
             }
         }
+    }
+
+    @IBAction func onClickRefresh(_: Any) {
+        refreshGamewallList()
     }
 
     @IBAction func onClickClose(_: Any) {
@@ -165,7 +179,6 @@ class GameWallViewController: UIViewController {
         tableView.tableFooterView?.backgroundColor = view.backgroundColor
         tableView.delegate = self
         tableView.dataSource = self
-        NotificationCenter.default.addObserver(self, selector: #selector(onGameWallListUpdated(a:)), name: BTGameWall.onGameWallListUpdated, object: nil)
         refreshGamewallList()
     }
 
@@ -178,10 +191,11 @@ class GameWallViewController: UIViewController {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(onGameWallListUpdated(a:)), name: BTGameWall.onGameWallListUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onClickTabbarItem(a:)), name: BTBaseHomeController.DidSelectViewController, object: nil)
+        tableView.reloadData()
     }
 
     var lastClickTabbarDate = Date()
@@ -205,7 +219,8 @@ class GameWallViewController: UIViewController {
     }
 
     deinit {
-        loading = false
+        loadingTimer?.invalidate()
+        loadingTimer = nil
         debugLog("Deinited:\(self.description)")
     }
 }
@@ -216,7 +231,8 @@ extension GameWallViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return gamewall?.gameItemCount ?? 0
+        let cnt = gamewall?.gameItemCount ?? 0
+        return cnt
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

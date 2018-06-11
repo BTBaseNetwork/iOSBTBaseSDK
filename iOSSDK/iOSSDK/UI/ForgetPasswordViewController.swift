@@ -198,4 +198,7 @@ class ForgetPasswordViewController: UIViewController {
             }
         }
     }
+    deinit {
+        debugLog("Deinited:\(self.description)")
+    }
 }

@@ -52,6 +52,7 @@ class OrderListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SetupBTBaseUI()
         tableView.tableFooterView = UIView()
         tableView.tableFooterView?.backgroundColor = UIColor.clear
         tableView.delegate = self

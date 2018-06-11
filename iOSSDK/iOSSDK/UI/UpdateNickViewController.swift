@@ -10,7 +10,7 @@ import UIKit
 
 class UpdateNickViewController: UIViewController {
     @IBOutlet var updateNickButton: UIButton! { didSet { updateNickButton.SetupBTBaseUI() } }
-    @IBOutlet var newNickTextField: UITextField!{ didSet { newNickTextField.SetupBTBaseUI() } }
+    @IBOutlet var newNickTextField: UITextField! { didSet { newNickTextField.SetupBTBaseUI() } }
 
     @IBOutlet var newNickCheckImage: UIImageView!
     override func viewDidLoad() {
@@ -56,5 +56,9 @@ class UpdateNickViewController: UIViewController {
     }
 
     @objc private func onTextFieldEditingDidEnd(sender: Any) {
+    }
+    
+    deinit {
+        debugLog("Deinited:\(self.description)")
     }
 }

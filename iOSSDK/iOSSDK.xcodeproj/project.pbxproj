@@ -11,7 +11,6 @@
 		E71794E220CD469C0054178E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E120CD469C0054178E /* GameKit.framework */; };
 		E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E320CD46A90054178E /* StoreKit.framework */; };
 		E724679C20C691DF003641C0 /* BTBaseLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E76E76A020C58246008F61BA /* BTBaseLocalized.strings */; };
-		E724679D20C691F5003641C0 /* BTBaseSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
 		E724679E20C691F5003641C0 /* BTBaseSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E754A25D20C3A9D5006F36EB /* BTBaseSDKUI.bundle */; };
 		E72467A020C69A92003641C0 /* BTBaseSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */; };
 		E726F56320CAB6DE00F4C875 /* BTBaseUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */; };
@@ -21,8 +20,6 @@
 		E738006820C452D00043A201 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006720C452D00043A201 /* SignInViewController.swift */; };
 		E738006A20C452DC0043A201 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006920C452DC0043A201 /* SignUpViewController.swift */; };
 		E738006C20C452EB0043A201 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006B20C452EB0043A201 /* ForgetPasswordViewController.swift */; };
-		E73E6AA820C55E54000A4B2E /* BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
-		E73E6AA920C55E54000A4B2E /* BTBaseSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E740BC3E20C77F81001C13F1 /* BTAccount+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC3D20C77F81001C13F1 /* BTAccount+BTDB.swift */; };
 		E740BC4120C786C6001C13F1 /* BTDBEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4020C786C6001C13F1 /* BTDBEntity.swift */; };
 		E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4220C7871E001C13F1 /* BTDBTableSet.swift */; };
@@ -109,6 +106,8 @@
 		E79CC63420CE12E4003DAB73 /* BTBaseSDKManager+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63320CE12E4003DAB73 /* BTBaseSDKManager+UI.swift */; };
 		E79CC63620CE286D003DAB73 /* OrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63520CE286D003DAB73 /* OrderListViewController.swift */; };
 		E79CC63820CE3B18003DAB73 /* BTIAPOrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63720CE3B18003DAB73 /* BTIAPOrderManager.swift */; };
+		E79CC63920CE590E003DAB73 /* BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
+		E79CC63A20CE590E003DAB73 /* BTBaseSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E7C105B820C628EA001BFB11 /* Models+FMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105B720C628EA001BFB11 /* Models+FMDB.swift */; };
 		E7C105BA20C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105B920C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift */; };
 		E7C105BC20C62FE5001BFB11 /* BTServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */; };
@@ -117,7 +116,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E73E6AAA20C55E54000A4B2E /* PBXContainerItemProxy */ = {
+		E79CC63B20CE590E003DAB73 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E788685A20C2F981008E0E8D /* Project object */;
 			proxyType = 1;
@@ -127,13 +126,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E73E6AAC20C55E54000A4B2E /* Embed Frameworks */ = {
+		E79CC63D20CE590E003DAB73 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E73E6AA920C55E54000A4B2E /* BTBaseSDK.framework in Embed Frameworks */,
+				E79CC63A20CE590E003DAB73 /* BTBaseSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,20 +269,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E754A25A20C3A9D5006F36EB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E754A30D20C3EC6B006F36EB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E71794E220CD469C0054178E /* GameKit.framework in Frameworks */,
-				E73E6AA820C55E54000A4B2E /* BTBaseSDK.framework in Frameworks */,
 				E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */,
+				E79CC63920CE590E003DAB73 /* BTBaseSDK.framework in Frameworks */,
 				E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,10 +588,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E754A26020C3A9D5006F36EB /* Build configuration list for PBXNativeTarget "BTBaseSDKUI" */;
 			buildPhases = (
-				E754A25920C3A9D5006F36EB /* Sources */,
-				E754A25A20C3A9D5006F36EB /* Frameworks */,
 				E754A25B20C3A9D5006F36EB /* Resources */,
-				E75B5E1420C8F4C0005BE4FB /* ShellScript */,
+				E75B5E1420C8F4C0005BE4FB /* AutoGenStrings */,
+				E79CC63E20CE5C70003DAB73 /* DeleteBinaryFilesInBundle */,
 			);
 			buildRules = (
 			);
@@ -619,12 +610,12 @@
 				E754A30D20C3EC6B006F36EB /* Frameworks */,
 				E754A30E20C3EC6B006F36EB /* Resources */,
 				2F598599A1D196E63CC7510A /* [CP] Embed Pods Frameworks */,
-				E73E6AAC20C55E54000A4B2E /* Embed Frameworks */,
+				E79CC63D20CE590E003DAB73 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E73E6AAB20C55E54000A4B2E /* PBXTargetDependency */,
+				E79CC63C20CE590E003DAB73 /* PBXTargetDependency */,
 			);
 			name = SDKTest;
 			productName = SDKTest;
@@ -718,7 +709,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E724679D20C691F5003641C0 /* BTBaseSDK.framework in Resources */,
 				E724679E20C691F5003641C0 /* BTBaseSDKUI.bundle in Resources */,
 				E754A31D20C3EC6C006F36EB /* LaunchScreen.storyboard in Resources */,
 				E78B406220C6CA060049ED91 /* btbase.plist in Resources */,
@@ -767,18 +757,33 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E75B5E1420C8F4C0005BE4FB /* ShellScript */ = {
+		E75B5E1420C8F4C0005BE4FB /* AutoGenStrings */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = AutoGenStrings;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "python ${SRCROOT}/SDKUI/AutoGenStrings.py ${SRCROOT}/SDKUI";
+		};
+		E79CC63E20CE5C70003DAB73 /* DeleteBinaryFilesInBundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = DeleteBinaryFilesInBundle;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -f ${BUILT_PRODUCTS_DIR}/${TARGET_NAME}.bundle/${TARGET_NAME}";
 		};
 		F52D72D6A16C312E868E95F3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -819,13 +824,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E754A25920C3A9D5006F36EB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E754A30C20C3EC6B006F36EB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -930,10 +928,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E73E6AAB20C55E54000A4B2E /* PBXTargetDependency */ = {
+		E79CC63C20CE590E003DAB73 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E788686220C2F981008E0E8D /* BTBaseSDK */;
-			targetProxy = E73E6AAA20C55E54000A4B2E /* PBXContainerItemProxy */;
+			targetProxy = E79CC63B20CE590E003DAB73 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -993,9 +991,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = NO;
-				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SDKUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -1004,8 +1004,11 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.iossdkui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_SWIFT_SYMBOLS = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -1014,10 +1017,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = NO;
-				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SDKUI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -1026,8 +1030,11 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.iossdkui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_SWIFT_SYMBOLS = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -1040,6 +1047,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 2BW6TGDJAV;
 				INFOPLIST_FILE = SDKTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1063,7 +1071,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = SDKTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1204,13 +1214,15 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2BW6TGDJAV;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				INFOPLIST_FILE = iOSSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1221,6 +1233,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.iossdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
 				SWIFT_OBJC_BRIDGING_HEADER = iOSSDK/iOSSDK.h;
@@ -1236,13 +1249,15 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2BW6TGDJAV;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = iOSSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1253,6 +1268,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.iossdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
 				SWIFT_OBJC_BRIDGING_HEADER = iOSSDK/iOSSDK.h;

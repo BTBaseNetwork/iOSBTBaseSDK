@@ -109,17 +109,19 @@ class MemberViewController: UIViewController {
     private var loadingTimer: Timer!
     private var loading: Bool {
         get {
-            return loadingProgressView.isHidden
+            return loadingProgressView?.isHidden ?? false
         }
         set {
-            if loadingProgressView.isHidden == newValue {
-                loadingProgressView.isHidden = !newValue
-                if newValue {
-                    loadingProgressView.progress = 0
-                    loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
-                } else {
-                    loadingTimer?.invalidate()
-                    loadingTimer = nil
+            if let _ = loadingProgressView {
+                if loadingProgressView.isHidden == newValue {
+                    loadingProgressView.isHidden = !newValue
+                    if newValue {
+                        loadingProgressView.progress = 0
+                        loadingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
+                    } else {
+                        loadingTimer?.invalidate()
+                        loadingTimer = nil
+                    }
                 }
             }
         }
@@ -134,8 +136,6 @@ class MemberViewController: UIViewController {
         }
     }
     
-    var onRefreshProductsEventObserver: NSObjectProtocol!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         SetupBTBaseUI()
@@ -144,8 +144,12 @@ class MemberViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.tableFooterView?.backgroundColor = view.backgroundColor
-        onRefreshProductsEventObserver = NotificationCenter.default.addObserver(forName: BTMemberService.onRefreshProductsEvent, object: nil, queue: .main) { a in
-            if let state = a.userInfo?[kBTRefreshMemberProductsStateKey] as? Int {
+        NotificationCenter.default.addObserver(self, selector: #selector(onRefreshProductsEvent(a:)), name: BTMemberService.onRefreshProductsEvent, object: nil)
+    }
+    
+    @objc private func onRefreshProductsEvent(a: Notification) {
+        if let state = a.userInfo?[kBTRefreshMemberProductsStateKey] as? Int {
+            DispatchQueue.main.async {
                 self.loading = (state == BTRefreshMemberProductsStateStart)
             }
         }
@@ -157,16 +161,14 @@ class MemberViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProfileUpdated(a:)), name: BTMemberService.onLocalMemberProfileUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProductsUpdated(a:)), name: BTMemberService.onMemberProductsUpdated, object: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(onClickTabbarItem(a:)), name: BTBaseHomeController.DidSelectViewController, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self, name: BTBaseHomeController.DidSelectViewController, object: nil)
+        NotificationCenter.default.removeObserver(self, name: BTMemberService.onMemberProductsUpdated, object: nil)
+        NotificationCenter.default.removeObserver(self, name: BTMemberService.onLocalMemberProfileUpdated, object: nil)
     }
     
     @objc func onMemberProfileUpdated(a _: Notification) {
@@ -186,7 +188,9 @@ class MemberViewController: UIViewController {
     }
     
     private func fetchIAPList() {
-        BTServiceContainer.getBTMemberService()?.fetchIAPList()
+        if !loading {
+            BTServiceContainer.getBTMemberService()?.fetchIAPList()
+        }
     }
     
     @IBAction func onClickSignIn(_: Any) {
@@ -194,11 +198,9 @@ class MemberViewController: UIViewController {
     }
     
     deinit {
-        loading = false
-        if let o = onRefreshProductsEventObserver {
-            NotificationCenter.default.removeObserver(o)
-            onRefreshProductsEventObserver = nil
-        }
+        loadingTimer?.invalidate()
+        loadingTimer = nil
+        NotificationCenter.default.removeObserver(self)
         debugLog("Deinited:\(self.description)")
     }
 }
@@ -249,6 +251,7 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
             })
         } else {
             products = []
+            fetchIAPList()
         }
     }
     

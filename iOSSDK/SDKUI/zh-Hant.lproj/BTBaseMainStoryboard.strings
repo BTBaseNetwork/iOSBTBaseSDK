@@ -226,10 +226,10 @@
 "KGM-rs-V7o.text" = "Status";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "Ph6-Tx-9z7"; */
-"Ph6-Tx-9z7.title" = "Back";
+"Ph6-Tx-9z7.title" = "返回";
 
 /* Class = "UINavigationItem"; title = "Orders"; ObjectID = "DIR-nq-Mfe"; */
-"DIR-nq-Mfe.title" = "Orders";
+"DIR-nq-Mfe.title" = "訂單";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "lrN-iZ-ZbN"; */
 "lrN-iZ-ZbN.text" = "Title";
@@ -245,4 +245,11 @@
 //##################################################################################
 
 /* Class = "UIButton"; normalTitle = "Verify"; ObjectID = "lrX-eA-1Ek"; */
-"lrX-eA-1Ek.normalTitle" = "Verify";
+"lrX-eA-1Ek.normalTitle" = "認證";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-11 16:08:37
+//##################################################################################
+
+/* Class = "UIButton"; normalTitle = "Refresh"; ObjectID = "3Jx-y7-ZST"; */
+"3Jx-y7-ZST.normalTitle" = "刷新";

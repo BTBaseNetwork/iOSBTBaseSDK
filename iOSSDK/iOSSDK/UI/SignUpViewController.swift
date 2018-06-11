@@ -159,4 +159,8 @@ class SignUpViewController: UIViewController {
         valid = valid && String.regexTestStringWithPattern(value: emailTextField.trimText, pattern: CommonRegexPatterns.PATTERN_EMAIL)
         signupButton.isEnabled = valid
     }
+    
+    deinit {
+        debugLog("Deinited:\(self.description)")
+    }
 }

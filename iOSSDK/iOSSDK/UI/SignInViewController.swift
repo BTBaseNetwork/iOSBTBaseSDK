@@ -150,4 +150,8 @@ class SignInViewController: UIViewController {
     private func setCheckTag(_ check: UIView, _ visible: Bool) {
         check.isHidden = !visible
     }
+    
+    deinit {
+        debugLog("Deinited:\(self.description)")
+    }
 }

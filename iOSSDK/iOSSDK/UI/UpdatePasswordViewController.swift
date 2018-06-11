@@ -63,4 +63,8 @@ class UpdatePasswordViewController: UIViewController {
 
     @objc private func onTextFieldEditingDidEnd(sender: Any) {
     }
+    
+    deinit {
+        debugLog("Deinited:\(self.description)")
+    }
 }
