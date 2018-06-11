@@ -32,7 +32,6 @@
 		E740BC4C20C78C73001C13F1 /* SQLiteTableSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */; };
 		E740BC4E20C7B93C001C13F1 /* BTAccountSession+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */; };
 		E740BC5020C7BA32001C13F1 /* BTMember+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */; };
-		E754A1DC20C37EFB006F36EB /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = E754A1DB20C37EFB006F36EB /* Podfile */; };
 		E754A1EB20C389DD006F36EB /* BTAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1EA20C389DD006F36EB /* BTAPIClient.swift */; };
 		E754A1EE20C39411006F36EB /* BTAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1ED20C39411006F36EB /* BTAccountAPI.swift */; };
 		E754A1F020C3957D006F36EB /* BTMemberAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1EF20C3957D006F36EB /* BTMemberAPI.swift */; };
@@ -64,7 +63,6 @@
 		E754A31D20C3EC6C006F36EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E754A31B20C3EC6C006F36EB /* LaunchScreen.storyboard */; };
 		E754A32B20C3F1C0006F36EB /* BTBaseHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A32A20C3F1C0006F36EB /* BTBaseHomeController.swift */; };
 		E75B5E1020C8E627005BE4FB /* BahamutCommonLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E754A27620C3C077006F36EB /* BahamutCommonLocalized.strings */; };
-		E75B5E1220C8F468005BE4FB /* AutoGenStrings.py in Resources */ = {isa = PBXBuildFile; fileRef = E75B5E1120C8F467005BE4FB /* AutoGenStrings.py */; };
 		E75B5E1520C8F558005BE4FB /* BTBaseMainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E75B5E1720C8F558005BE4FB /* BTBaseMainStoryboard.storyboard */; };
 		E75D401020C4B01700BEAF79 /* BTServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */; };
 		E75D401220C4C54900BEAF79 /* BTAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D401120C4C54900BEAF79 /* BTAPIRequest.swift */; };
@@ -733,8 +731,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E754A1DC20C37EFB006F36EB /* Podfile in Resources */,
-				E75B5E1220C8F468005BE4FB /* AutoGenStrings.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

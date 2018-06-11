@@ -239,3 +239,10 @@
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "fNG-Am-rNv"; */
 "fNG-Am-rNv.title" = "Item";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-11 13:41:28
+//##################################################################################
+
+/* Class = "UIButton"; normalTitle = "Verify"; ObjectID = "lrX-eA-1Ek"; */
+"lrX-eA-1Ek.normalTitle" = "Verify";
