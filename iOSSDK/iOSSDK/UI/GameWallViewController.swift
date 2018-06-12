@@ -11,6 +11,8 @@ import SDWebImage
 import StoreKit
 import UIKit
 
+fileprivate let GameWallBannerItemRowHeight: CGFloat = 76
+
 class GameWallBannerItemCell: UITableViewCell {
     static let reuseId = "GameWallBannerItemCell"
 
@@ -244,6 +246,6 @@ extension GameWallViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
-        return 76
+        return GameWallBannerItemRowHeight
     }
 }

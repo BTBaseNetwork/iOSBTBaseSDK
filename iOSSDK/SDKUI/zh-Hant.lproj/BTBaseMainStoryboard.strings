@@ -253,3 +253,10 @@
 
 /* Class = "UIButton"; normalTitle = "Refresh"; ObjectID = "3Jx-y7-ZST"; */
 "3Jx-y7-ZST.normalTitle" = "刷新";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-12 14:04:40
+//##################################################################################
+
+/* Class = "UILabel"; text = "Premium Member Play The Games In Game Wall Without Advertising"; ObjectID = "cGU-W6-xl0"; */
+"cGU-W6-xl0.text" = "高級會員可以免廣告暢玩遊戲牆裡展示的所有遊戲";

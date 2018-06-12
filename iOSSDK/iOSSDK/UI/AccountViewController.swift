@@ -8,6 +8,9 @@
 
 import UIKit
 
+fileprivate let DetailAccountItemRowHeight: CGFloat = 64
+fileprivate let SignAccountItemRowHeight: CGFloat = 56
+
 class AccountDisplayItemCell: UITableViewCell {
     static let reuseId = "AccountDisplayItemCell"
     @IBOutlet var nameLabel: UILabel!
@@ -141,9 +144,9 @@ extension AccountViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section > 0 {
-            return 56
+            return SignAccountItemRowHeight
         } else {
-            return 64
+            return DetailAccountItemRowHeight
         }
     }
 }

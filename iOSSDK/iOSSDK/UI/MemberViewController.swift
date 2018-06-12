@@ -10,6 +10,11 @@ import MBProgressHUD
 import StoreKit
 import UIKit
 
+fileprivate let MemberCardRowHeight: CGFloat = 168
+fileprivate let MemberProductRowHeight: CGFloat = 64
+fileprivate let NoMemberTipsRowHeight: CGFloat = 64
+fileprivate let MemberCardFooterHeight: CGFloat = 16
+
 class MemberCardCell: UITableViewCell {
     static let reuseId = "MemberCardCell"
     let memberNormalColor = UIColor.white
@@ -290,17 +295,17 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 100
+            return MemberCardRowHeight
         } else if indexPath.section == 1 {
-            return 64
+            return MemberProductRowHeight
         } else {
-            return 64
+            return NoMemberTipsRowHeight
         }
     }
     
     func tableView(_: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 16
+            return MemberCardFooterHeight
         }
         return 0
     }

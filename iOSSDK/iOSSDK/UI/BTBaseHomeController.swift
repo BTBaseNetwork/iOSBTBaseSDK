@@ -40,10 +40,18 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
                     return true
                 }
             }
-            performSegue(withIdentifier: "SignIn", sender: nil)
+            showSignIn()
             return false
         }
         return true
+    }
+
+    func showSignIn() {
+        if let sessionService = BTServiceContainer.getBTSessionService() {
+            if !sessionService.isSessionLogined {
+                performSegue(withIdentifier: "SignIn", sender: nil)
+            }
+        }
     }
 
     func tabBarController(_: UITabBarController, didSelect viewController: UIViewController) {
@@ -68,7 +76,7 @@ extension Notification.Name {
 class BTBaseHomeEntry {
     private static var homeController: BTBaseHomeController?
     private static var IQKeyboardManagerEnabledOutOfSDK = false
-    static func getEntryViewController() -> UIViewController {
+    static func getEntryViewController() -> BTBaseHomeController {
         if homeController != nil {
             return homeController!
         }

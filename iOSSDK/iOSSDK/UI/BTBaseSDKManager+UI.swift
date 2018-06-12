@@ -11,20 +11,32 @@ public extension BTBaseSDKManager {
     public var GameServiceName: String { return "BTLocGameServiceName".localizedBTBaseString }
 
     static func tryShowLoginWithSharedAuthenticationAlert(vc: UIViewController) {
-        if let auth = getAuthentication() {
+        if let auth = getAuthentication(), let accountId = auth.accountId {
             let title = "BTLocTitleSharedAuthenticationExists".localizedBTBaseString
-            let msg = "BTLocMsgSharedAuthenticationExists".localizedBTBaseString
-            vc.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, UIAlertAction(title: "BTLocSignIn".localizedBTBaseString, style: .default, handler: { _ in
+            let msg = String(format: "BTLocMsgSharedAuthenticationExists".localizedBTBaseString, accountId)
+            vc.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, UIAlertAction(title: "BTLocQuickSignIn".localizedBTBaseString, style: .default, handler: { _ in
                 BTServiceContainer.getBTSessionService()?.login(auth.accountId, auth.saltedPassword, passwordSalted: true, autoFillPassword: false, respAction: { _, res in
                     if res.isHttpOK {
+                        openHome(vc)
                     } else {
+                        openHome(vc, completion: { home in
+                            home.showSignIn()
+                        })
                     }
                 })
             })])
         }
     }
 
-    public static func openHome(_ vc: UIViewController, completion: (() -> Void)? = nil) {
-        vc.present(BTBaseHomeEntry.getEntryViewController(), animated: true, completion: completion)
+    public static func openHome(_ vc: UIViewController) {
+        openHome(vc) { _ in
+        }
+    }
+
+    private static func openHome(_ vc: UIViewController, completion: @escaping (BTBaseHomeController) -> Void) {
+        let homeVC = BTBaseHomeEntry.getEntryViewController()
+        vc.present(homeVC, animated: true) {
+            completion(homeVC)
+        }
     }
 }
