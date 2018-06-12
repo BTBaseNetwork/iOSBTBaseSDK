@@ -72,10 +72,10 @@ class UpdateEmailViewController: UIViewController {
                 self.showAlert("BTLocTitleCodeSended".localizedBTBaseString, msg: "BTLocMsgCodeSended".localizedBTBaseString, actions: [ok])
             } else if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
-            } else if let msg = result.error.msgWithoutSpaces {
-                self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
+            } else if let err = result.error {
+                self.tipsLabel.text = ("BTLocMsg\(err.msgWithoutSpaces)").localizedBTBaseString
             } else {
-                self.tipsLabel.text = "BTLocMsgUnknow".localizedBTBaseString
+                self.tipsLabel.text = "BTLocMsgUnknowErr".localizedBTBaseString
             }
         })
     }
@@ -99,7 +99,8 @@ class UpdateEmailViewController: UIViewController {
                     self.navigationController?.popViewController(animated: true)
                 })])
             } else {
-                self.showAlert("BTLocTitleUpdateEmailErr".localizedBTBaseString, msg: ("BTLocMsg\(result.error.msgWithoutSpaces ?? "UnknowErr")").localizedBTBaseString)
+                let msg = result.error != nil ? result.error.msgWithoutSpaces : "UnknowErr"
+                self.showAlert("BTLocTitleUpdateEmailErr".localizedBTBaseString, msg: ("BTLocMsg\(msg)").localizedBTBaseString)
             }
         })
     }
@@ -181,7 +182,7 @@ class UpdateEmailViewController: UIViewController {
     private func setCheckTag(_ check: UIView, _ visible: Bool) {
         check.isHidden = !visible
     }
-    
+
     deinit {
         debugLog("Deinited:\(self.description)")
     }

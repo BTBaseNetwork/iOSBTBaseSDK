@@ -37,7 +37,8 @@ class UpdateNickViewController: UIViewController {
             } else {
                 self.newNickTextField.isEnabled = true
                 self.updateNickButton.isEnabled = true
-                self.showAlert("BTLocTitleUpdateNickErr".localizedBTBaseString, msg: "BTLocMsg\(result.error.msgWithoutSpaces)".localizedBTBaseString)
+                let msg = result.error != nil ? result.error.msgWithoutSpaces : "UnknowErr"
+                self.showAlert("BTLocTitleUpdateNickErr".localizedBTBaseString, msg: "BTLocMsg\(msg)".localizedBTBaseString)
             }
         })
     }

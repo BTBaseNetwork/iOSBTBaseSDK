@@ -41,7 +41,8 @@ class UpdatePasswordViewController: UIViewController {
                 })])
             } else {
                 self.updatePasswordButton.isEnabled = true
-                self.showAlert("BTLocTitleUpdatePswErr".localizedBTBaseString, msg: "BTLocMsg\(result.error.msgWithoutSpaces)".localizedBTBaseString)
+                let msg = result.error != nil ? result.error.msgWithoutSpaces : "UnknowErr"
+                self.showAlert("BTLocTitleUpdatePswErr".localizedBTBaseString, msg: "BTLocMsg\(msg)".localizedBTBaseString)
             }
         })
     }

@@ -10,7 +10,7 @@ import FMDB
 import Foundation
 class BTSessionService {
     public static let onSessionUpdated = NSNotification.Name("BTSessionService_onSessionUpdated")
-    public static let onSessionUnauthorized = NSNotification.Name("BTSessionService_onSessionUnauthorized")
+    public static let onSessionInvalid = NSNotification.Name("BTSessionService_onSessionInvalid")
     fileprivate var config: BTBaseConfig!
     private var host: String = "http://localhost/"
     private(set) var localSession: BTAccountSession! {
@@ -28,12 +28,14 @@ class BTSessionService {
         self.host = config.getString(key: "BTSessionServiceHost")!
         self.dbContext = db
         self.loadCachedSession()
-
         NotificationCenter.default.addObserver(self, selector: #selector(self.onRequestUnauthorized(a:)), name: Notification.Name.BTAPIRequestUnauthorized, object: nil)
     }
 
-    @objc private func onRequestUnauthorized(a _: Notification) {
-        NotificationCenter.default.postWithMainQueue(name: BTSessionService.onSessionUnauthorized, object: self)
+    @objc private func onRequestUnauthorized(a: Notification) {
+        #if DEBUG
+        debugLog("Token Is Unauthorized, Request: %@", "\(a.object ?? "Unknow")")
+        #endif
+        self.checkAndRefreshToken()
     }
 
     deinit {
@@ -41,7 +43,7 @@ class BTSessionService {
     }
 
     private func loadCachedSession() {
-        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status >= ?"), parameters: [BTAccountSession.STATUS_LOGIN])
+        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status == ? Or Status == ?"), parameters: [BTAccountSession.STATUS_LOGIN,BTAccountSession.STATUS_LOGOUT])
         if let session = resultSet.first {
             self.localSession = session
             self.checkAndRefreshToken()
@@ -50,15 +52,22 @@ class BTSessionService {
         }
     }
 
-    func checkAndRefreshToken() {
+    private func checkAndRefreshToken() {
         if self.localSession.IsSessionLogined() {
             if self.localSession.sTokenExpires == nil || self.localSession.sTokenExpires!.timeIntervalSince1970 < Date().timeIntervalSince1970 {
+                debugLog("Session Token Is Expired, Relogin...")
                 self.login(self.localSession.accountId, self.localSession.password!, passwordSalted: true, autoFillPassword: false) { _, res in
-                    if !res.isHttpOK {
-                        NotificationCenter.default.postWithMainQueue(name: BTSessionService.onSessionUnauthorized, object: self)
+                    if res.isHttpOK {
+                        #if DEBUG
+                        debugLog("Session Token Refreshed, New Token Expires:%@", self.localSession.sTokenExpires?.toLocalDateTimeString() ?? "Unknow")
+                        #endif
+                    } else {
+                        debugLog("Relogin Failed:%@", res.error?.msg ?? "Unknow Reason")
+                        self.setSessionInvalid()
                     }
                 }
-            } else if self.localSession.tokenExpires == nil || self.localSession.tokenExpires!.timeIntervalSince1970 < Date().timeIntervalSince1970 {
+            } else if self.localSession.tokenExpires == nil || self.localSession.tokenExpires!.timeIntervalSince1970 < Date().addDays(3).timeIntervalSince1970 {
+                debugLog("Token Is Nearly Expired, Refreshing...")
                 self.refreshToken()
             }
         }
@@ -97,6 +106,10 @@ class BTSessionService {
                 self.localSession = session
                 let sql = SQLiteHelper.updateSql(tableName: self.dbContext.tableAccountSession.tableName, fields: ["status"], query: "accountId != ?")
                 self.dbContext.tableAccountSession.executeUpdateSql(sql: sql, parameters: [BTAccountSession.STATUS_LOGOUT, session.accountId])
+                #if DEBUG
+                debugLog("Login Success, Session Token Expires:%@", self.localSession.sTokenExpires?.toLocalDateTimeString() ?? "Unknow")
+                debugLog("Login Success, Token Expires:%@", self.localSession.tokenExpires?.toLocalDateTimeString() ?? "Unknow")
+                #endif
             }
 
             DispatchQueue.main.async {
@@ -109,7 +122,7 @@ class BTSessionService {
         req.request(profile: clientProfile)
     }
 
-    func refreshToken() {
+    private func refreshToken() {
         let req = RefreshTokenRequest()
         req.audience = "BTBaseWebAPI"
         req.response = { _, result in
@@ -117,11 +130,25 @@ class BTSessionService {
                 self.localSession.token = result.content.token
                 self.localSession.tokenExpires = DateHelper.dateOfUnixTimeSpan(result.content.expires)
                 self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+                #if DEBUG
+                debugLog("Token Refreshed, New Token Expires:%@", self.localSession.tokenExpires?.toLocalDateTimeString() ?? "Unknow")
+                #endif
+            } else if result.isHttpNotFound || result.isHttpForbidden {
+                debugLog("Refresh Token Failed:%@", result.error?.msg ?? "Unknow Reason")
+                self.setSessionInvalid()
             }
         }
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useDeviceInfos().useAccountId().useAuthorizationSessionServerToken().useSessionKey()
         req.request(profile: clientProfile)
+    }
+
+    private func setSessionInvalid() {
+        if self.localSession.IsSessionLogined() {
+            debugLog("Session Is Setted To Invalid")
+            self.logoutClient()
+            NotificationCenter.default.postWithMainQueue(name: BTSessionService.onSessionInvalid, object: self)
+        }
     }
 
     func logoutDevice() {
@@ -147,8 +174,8 @@ class BTSessionService {
 extension BTServiceContainer {
     public static func useBTSessionService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
         let service = BTSessionService()
-        service.configure(config: config, db: dbContext)
         addService(name: "BTSessionService", service: service)
+        service.configure(config: config, db: dbContext)
     }
 
     public static func getBTSessionService() -> BTSessionService? {

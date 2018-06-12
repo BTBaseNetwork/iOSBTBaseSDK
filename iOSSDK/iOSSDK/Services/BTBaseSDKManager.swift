@@ -29,14 +29,15 @@ public class BTBaseSDKManager {
                 dbContext.open()
                 BTBaseSDKManager.defaultDbContext = dbContext
                 BTBaseSDKManager.defaultDbContext.ensureDatabase()
-                
+
                 BTIAPOrderManager.initManager(dbContext: dbContext)
-                
+
                 BTServiceContainer.useBTGameWall(config)
                 BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
                 BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
                 BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
 
+                NotificationCenter.default.addObserver(instance, selector: #selector(onSessionInvalid(a:)), name: BTSessionService.onSessionInvalid, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
                 SwiftyStoreKit.completeTransactions { purchases in
@@ -56,7 +57,11 @@ public class BTBaseSDKManager {
     @objc private func applicationWillTerminate(a: Notification) {
         BTBaseSDKManager.defaultDbContext?.close()
     }
-
+    
+    @objc private func onSessionInvalid(a: Notification) {
+        
+    }
+    
     @objc private func onSessionUpdated(a: Notification) {
         if let sessionService = BTServiceContainer.getBTSessionService(), let accountId = sessionService.localSession?.accountId {
             let accountService = BTServiceContainer.getBTAccountService()

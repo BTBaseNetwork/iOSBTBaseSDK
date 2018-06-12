@@ -171,8 +171,8 @@ class BTAccountService {
 extension BTServiceContainer {
     public static func useBTAccountService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
         let service = BTAccountService()
-        service.configure(config: config, db: dbContext)
         addService(name: "BTAccountService", service: service)
+        service.configure(config: config, db: dbContext)
     }
 
     public static func getBTAccountService() -> BTAccountService? {

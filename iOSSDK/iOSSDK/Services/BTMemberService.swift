@@ -352,8 +352,8 @@ class BTMemberPaymentTransactionObserver: NSObject, SKPaymentTransactionObserver
 extension BTServiceContainer {
     public static func useBTMemberService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
         let service = BTMemberService()
-        service.configure(config: config, db: dbContext)
         addService(name: "BTMemberService", service: service)
+        service.configure(config: config, db: dbContext)
     }
 
     public static func getBTMemberService() -> BTMemberService? {

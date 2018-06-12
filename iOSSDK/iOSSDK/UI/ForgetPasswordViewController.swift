@@ -97,8 +97,8 @@ class ForgetPasswordViewController: UIViewController {
                 self.showAlert("BTLocTitleCodeSended".localizedBTBaseString, msg: "BTLocMsgCodeSended".localizedBTBaseString, actions: [ok])
             } else if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
-            } else if let msg = result.error.msgWithoutSpaces {
-                self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
+            } else if let err = result.error {
+                self.tipsLabel.text = ("BTLocMsg\(err.msgWithoutSpaces)").localizedBTBaseString
             } else {
                 self.tipsLabel.text = "BTLocMsgUnknow".localizedBTBaseString
             }
@@ -126,8 +126,8 @@ class ForgetPasswordViewController: UIViewController {
                 self.showAlert("BTLocTitlePasswordReseted".localizedBTBaseString, msg: "BTLocMsgPasswordResetedAndRelogin".localizedBTBaseString, actions: actions)
             } else if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
-            } else if let msg = result.error?.msgWithoutSpaces {
-                self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
+            } else if let err = result.error {
+                self.tipsLabel.text = ("BTLocMsg\(err.msgWithoutSpaces)").localizedBTBaseString
             } else {
                 self.tipsLabel.text = "BTLocMsgUnknow".localizedBTBaseString
             }

@@ -11,11 +11,14 @@ import Foundation
 class BTAPIResultError: Codable {
     public var code: Int = 0
     public var msg: String!
-    public var msgWithoutSpaces: String! {
+}
+
+extension BTAPIResultError {
+    public var msgWithoutSpaces: String {
         if let m = msg {
             return m.replacingOccurrences(of: " ", with: "")
         }
-        return msg
+        return msg ?? "UnknowErr"
     }
 }
 

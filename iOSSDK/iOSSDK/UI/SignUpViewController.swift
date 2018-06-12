@@ -68,8 +68,8 @@ class SignUpViewController: UIViewController {
                 self.showAlert("BTLocTitleRegistSuc".localizedBTBaseString, msg: String(format: "BTLocMsgYourAccountId_X".localizedBTBaseString, result.content.accountId), actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
                 })])
-            } else if let msg = result.error.msgWithoutSpaces {
-                self.tipsLabel.text = ("BTLocMsg\(msg)").localizedBTBaseString
+            } else if let err = result.error {
+                self.tipsLabel.text = ("BTLocMsg\(err.msgWithoutSpaces)").localizedBTBaseString
             } else {
                 self.tipsLabel.text = "BTLocMsgUnknow".localizedBTBaseString
             }
