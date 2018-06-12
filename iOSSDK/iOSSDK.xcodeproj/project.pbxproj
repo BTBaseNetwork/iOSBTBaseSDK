@@ -6,6 +6,20 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		E707E01E20CFCB89007E4C7A /* PublishBTBaseSDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E707E01F20CFCB89007E4C7A /* Build configuration list for PBXAggregateTarget "PublishBTBaseSDK" */;
+			buildPhases = (
+				E707E02220CFCC09007E4C7A /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = PublishBTBaseSDK;
+			productName = MergeBTBaseSDK;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		8179EF76D881D6FCAA8998EC /* Pods_BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */; };
 		E71794E220CD469C0054178E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E120CD469C0054178E /* GameKit.framework */; };
@@ -88,7 +102,7 @@
 		E75D404E20C518F300BEAF79 /* TableViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403320C518F300BEAF79 /* TableViewEx.swift */; };
 		E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */; };
 		E78766C520CB87D900767900 /* UITextField+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78766C420CB87D900767900 /* UITextField+Text.swift */; };
-		E788686820C2F981008E0E8D /* iOSSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E788686620C2F981008E0E8D /* iOSSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E788686820C2F981008E0E8D /* iOSSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E788686620C2F981008E0E8D /* iOSSDK.h */; };
 		E788687320C2FA77008E0E8D /* BTServiceDBContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687220C2FA77008E0E8D /* BTServiceDBContext.swift */; };
 		E788687620C2FDF5008E0E8D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687520C2FDF5008E0E8D /* Models.swift */; };
 		E788687820C3017D008E0E8D /* BTServiceConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687720C3017D008E0E8D /* BTServiceConst.swift */; };
@@ -651,6 +665,9 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = btbase;
 				TargetAttributes = {
+					E707E01E20CFCB89007E4C7A = {
+						CreatedOnToolsVersion = 9.3.1;
+					};
 					E754A25C20C3A9D5006F36EB = {
 						CreatedOnToolsVersion = 9.3.1;
 					};
@@ -689,6 +706,7 @@
 				E788686220C2F981008E0E8D /* BTBaseSDK */,
 				E754A25C20C3A9D5006F36EB /* BTBaseSDKUI */,
 				E754A30F20C3EC6B006F36EB /* SDKTest */,
+				E707E01E20CFCB89007E4C7A /* PublishBTBaseSDK */,
 			);
 		};
 /* End PBXProject section */
@@ -756,6 +774,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E707E02220CFCC09007E4C7A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n#要build的target名\nTARGET_NAME=\"BTBaseSDK\"\n#要拷贝的bundle资源\nBUNDLE_TARGET_NAME=\"BTBaseSDKUI\"\nif [[ $1 ]]\nthen\nTARGET_NAME=$1\nfi\nUNIVERSAL_OUTPUT_FOLDER=\"${SRCROOT}/Release/\"\n\n#创建输出目录，并删除之前发布的文件\nmkdir -p \"${UNIVERSAL_OUTPUT_FOLDER}\"\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}/${TARGET_NAME}.framework\"\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}/${BTBaseSDKUI}.bundle\"\n\n#分别编译模拟器和真机的Framework\n#xcodebuild -scheme \"${TARGET_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean archive\n#xcodebuild -scheme \"${TARGET_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphonesimulator BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean archive\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"BTBaseSDK\" -sdk iphonesimulator clean build\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"BTBaseSDK\" -sdk iphoneos clean build\n\n#拷贝framework到univer目录\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${TARGET_NAME}.framework\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#拷贝bundle到univer目录\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${BUNDLE_TARGET_NAME}.bundle\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#合并framework，输出最终的framework到build目录\nlipo -create -output \"${UNIVERSAL_OUTPUT_FOLDER}/${TARGET_NAME}.framework/${TARGET_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${TARGET_NAME}.framework/${TARGET_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${TARGET_NAME}.framework/${TARGET_NAME}\"\n\n#删除编译之后生成的无关的配置文件\ndir_path=\"${UNIVERSAL_OUTPUT_FOLDER}/${TARGET_NAME}.framework/\"\nfor file in ls $dir_path\ndo\nif [[ ${file} =~ \".xcconfig\" ]]\nthen\nrm -f \"${dir_path}/${file}\"\nfi\ndone\n#判断build文件夹是否存在，存在则删除\nif [ -d \"${SRCROOT}/build\" ]\nthen\nrm -rf \"${SRCROOT}/build\"\nfi\nrm -rf \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos\"\n#打开合并后的文件夹\nopen \"${UNIVERSAL_OUTPUT_FOLDER}\"\n";
 		};
 		E75B5E1420C8F4C0005BE4FB /* AutoGenStrings */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -987,6 +1018,26 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E707E02020CFCB89007E4C7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E707E02120CFCB89007E4C7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		E754A26120C3A9D5006F36EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1237,6 +1288,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
 				SWIFT_OBJC_BRIDGING_HEADER = iOSSDK/iOSSDK.h;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME).h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1272,6 +1324,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
 				SWIFT_OBJC_BRIDGING_HEADER = iOSSDK/iOSSDK.h;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME).h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1280,6 +1333,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E707E01F20CFCB89007E4C7A /* Build configuration list for PBXAggregateTarget "PublishBTBaseSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E707E02020CFCB89007E4C7A /* Debug */,
+				E707E02120CFCB89007E4C7A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E754A26020C3A9D5006F36EB /* Build configuration list for PBXNativeTarget "BTBaseSDKUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

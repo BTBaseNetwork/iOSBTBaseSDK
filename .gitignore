@@ -4,6 +4,8 @@
 
 #custom files
 *.DS_Store
+*/Products/
+*/Release/
 
 ## Build generated
 build/
