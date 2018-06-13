@@ -1,5 +1,5 @@
 //
-//  BTBaseSDKManager.swift
+//  BTBaseSDK.swift
 //  BTBaseSDK
 //
 //  Created by Alex Chow on 2018/6/5.
@@ -8,27 +8,34 @@
 
 import Foundation
 import SwiftyStoreKit
-public class BTBaseSDKManager {
-    private init() {}
-    private static var instance = { BTBaseSDKManager() }()
-    internal private(set) static var defaultDbContext: BTServiceDBContext!
-    public private(set) static var isSDKInited: Bool = false
-    public static var swiftyStoreKitCompleteTransactions: (([Purchase]) -> Void)?
 
+public protocol SwiftyStoreKitCompleteDelegate {
+    func swiftStoreKitTransactionsComplete(_: [Purchase])
+}
+
+// class need inherit from NSObject with public for objective-c
+// public method or property open for objective-c need attribute @objc
+public class BTBaseSDK: NSObject {
+    private static var instance = { BTBaseSDK() }()
+    internal private(set) static var defaultDbContext: BTServiceDBContext!
     private static var pasteboard = UIPasteboard(name: UIPasteboardName("mobi.btbase.iossdk"), create: true) {
         didSet {
             pasteboard?.setPersistent(true)
         }
     }
 
-    public static func start() {
+    @objc public private(set) static var isSDKInited: Bool = false
+
+    public static var swiftyStoreKitCompleteDelegate: SwiftyStoreKitCompleteDelegate?
+
+    @objc public class func start() {
         if let config = BTBaseConfig() {
             if let dbname = config.getString(key: "BTBaseDB") {
                 let dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
                 let dbContext = BTServiceDBContext(dbpath: dbPath)
                 dbContext.open()
-                BTBaseSDKManager.defaultDbContext = dbContext
-                BTBaseSDKManager.defaultDbContext.ensureDatabase()
+                BTBaseSDK.defaultDbContext = dbContext
+                BTBaseSDK.defaultDbContext.ensureDatabase()
 
                 BTIAPOrderManager.initManager(dbContext: dbContext)
 
@@ -41,7 +48,7 @@ public class BTBaseSDKManager {
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
                 SwiftyStoreKit.completeTransactions { purchases in
-                    BTBaseSDKManager.swiftyStoreKitCompleteTransactions?(purchases)
+                    BTBaseSDK.swiftyStoreKitCompleteDelegate?.swiftStoreKitTransactionsComplete(purchases)
                 }
 
                 isSDKInited = true
@@ -55,13 +62,12 @@ public class BTBaseSDKManager {
     }
 
     @objc private func applicationWillTerminate(a: Notification) {
-        BTBaseSDKManager.defaultDbContext?.close()
+        BTBaseSDK.defaultDbContext?.close()
     }
-    
+
     @objc private func onSessionInvalid(a: Notification) {
-        
     }
-    
+
     @objc private func onSessionUpdated(a: Notification) {
         if let sessionService = BTServiceContainer.getBTSessionService(), let accountId = sessionService.localSession?.accountId {
             let accountService = BTServiceContainer.getBTAccountService()
@@ -100,12 +106,12 @@ public class BTBaseSDKManager {
     static func shareAuthentication(_ auth: ClientSharedAuthentication) {
         if let json = auth.toJson() {
             let item: [String: Any] = ["Authentication": json]
-            BTBaseSDKManager.pasteboard?.addItems([item])
+            BTBaseSDK.pasteboard?.addItems([item])
         }
     }
 
     static func getAuthentication() -> ClientSharedAuthentication? {
-        if let items = BTBaseSDKManager.pasteboard?.items {
+        if let items = BTBaseSDK.pasteboard?.items {
             for item in items {
                 if item.keys.contains("Authentication") {
                     if let json = item["Authentication"] as? String {

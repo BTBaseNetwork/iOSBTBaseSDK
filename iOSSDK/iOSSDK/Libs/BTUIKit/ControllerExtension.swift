@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: NoStatusBarViewController
 
-open class NoStatusBarViewController: UIViewController {
+class NoStatusBarViewController: UIViewController {
     open override var prefersStatusBarHidden: Bool {
         return true
     }

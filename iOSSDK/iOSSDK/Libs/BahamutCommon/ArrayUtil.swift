@@ -89,7 +89,7 @@ public extension Array {
     }
 }
 
-open class ArrayUtil {
+public class ArrayUtil {
     open static func groupWithLatinLetter<T: AnyObject>(_ items: [T], orderBy: (T) -> String) -> [(latinLetter: String, items: [T])] {
         var dict = [String: NSMutableArray]()
         for index in 0 ... 25 {

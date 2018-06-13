@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 public class BTBaseUIStateColorSet {
     private var colorSet = [UInt: UIColor]()
     private var defaultColor: UIColor

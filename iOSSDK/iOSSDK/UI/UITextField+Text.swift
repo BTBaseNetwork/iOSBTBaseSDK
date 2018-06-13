@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 extension UITextField{
     var trimText:String?{
         return self.text?.trim()

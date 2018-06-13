@@ -21,12 +21,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		8179EF76D881D6FCAA8998EC /* Pods_BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */; };
+		5A93CF53D5F242064F83D032 /* Pods_CommonRefs_SDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77735F9E990812F44F23C0F8 /* Pods_CommonRefs_SDKTest.framework */; };
+		A05B03ED0726B3E2E9E9D611 /* Pods_CommonRefs_BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CB63127DCB56ED891BDE40E /* Pods_CommonRefs_BTBaseSDK.framework */; };
 		E71794E220CD469C0054178E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E120CD469C0054178E /* GameKit.framework */; };
 		E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E320CD46A90054178E /* StoreKit.framework */; };
 		E724679C20C691DF003641C0 /* BTBaseLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E76E76A020C58246008F61BA /* BTBaseLocalized.strings */; };
 		E724679E20C691F5003641C0 /* BTBaseSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E754A25D20C3A9D5006F36EB /* BTBaseSDKUI.bundle */; };
-		E72467A020C69A92003641C0 /* BTBaseSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */; };
+		E72467A020C69A92003641C0 /* BTBaseSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = E724679F20C69A92003641C0 /* BTBaseSDK.swift */; };
 		E726F56320CAB6DE00F4C875 /* BTBaseUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */; };
 		E738006220C44DAF0043A201 /* UpdateEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006120C44DAF0043A201 /* UpdateEmailViewController.swift */; };
 		E738006420C44DC20043A201 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E738006320C44DC20043A201 /* UpdatePasswordViewController.swift */; };
@@ -49,10 +50,7 @@
 		E754A1F220C396BA006F36EB /* BTSessionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1F120C396BA006F36EB /* BTSessionAPI.swift */; };
 		E754A26320C3AA10006F36EB /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E754A1F320C39925006F36EB /* Media.xcassets */; };
 		E754A28A20C3C077006F36EB /* ArrayUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27120C3C077006F36EB /* ArrayUtil.swift */; };
-		E754A28B20C3C077006F36EB /* BahamutCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = E754A27220C3C077006F36EB /* BahamutCommon.h */; };
 		E754A28C20C3C077006F36EB /* BahamutCommonLocalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27320C3C077006F36EB /* BahamutCommonLocalized.swift */; };
-		E754A29020C3C077006F36EB /* MF_Base64Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = E754A27920C3C077006F36EB /* MF_Base64Additions.h */; };
-		E754A29120C3C077006F36EB /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = E754A27A20C3C077006F36EB /* MF_Base64Additions.m */; };
 		E754A29220C3C077006F36EB /* CommonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27B20C3C077006F36EB /* CommonExtension.swift */; };
 		E754A29320C3C077006F36EB /* CommonValueCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27C20C3C077006F36EB /* CommonValueCast.swift */; };
 		E754A29420C3C077006F36EB /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A27D20C3C077006F36EB /* DateHelper.swift */; };
@@ -81,8 +79,6 @@
 		E75D401620C516DF00BEAF79 /* CommonRegexPatterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D401520C516DF00BEAF79 /* CommonRegexPatterns.swift */; };
 		E75D403420C518F300BEAF79 /* BahamutTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D401720C518F200BEAF79 /* BahamutTextView.swift */; };
 		E75D403720C518F300BEAF79 /* UIAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D401B20C518F200BEAF79 /* UIAnimationHelper.swift */; };
-		E75D403820C518F300BEAF79 /* UIView+Boom.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D401C20C518F200BEAF79 /* UIView+Boom.h */; };
-		E75D403920C518F300BEAF79 /* UIView+Boom.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D401D20C518F200BEAF79 /* UIView+Boom.m */; };
 		E75D403A20C518F300BEAF79 /* MailHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D401E20C518F200BEAF79 /* MailHelper.swift */; };
 		E75D403C20C518F300BEAF79 /* UICollectionViewFlowLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D402020C518F200BEAF79 /* UICollectionViewFlowLayouts.swift */; };
 		E75D403D20C518F300BEAF79 /* UIImagePicker+SourceAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D402120C518F200BEAF79 /* UIImagePicker+SourceAlert.swift */; };
@@ -102,7 +98,6 @@
 		E75D404E20C518F300BEAF79 /* TableViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403320C518F300BEAF79 /* TableViewEx.swift */; };
 		E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */; };
 		E78766C520CB87D900767900 /* UITextField+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78766C420CB87D900767900 /* UITextField+Text.swift */; };
-		E788686820C2F981008E0E8D /* iOSSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E788686620C2F981008E0E8D /* iOSSDK.h */; };
 		E788687320C2FA77008E0E8D /* BTServiceDBContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687220C2FA77008E0E8D /* BTServiceDBContext.swift */; };
 		E788687620C2FDF5008E0E8D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687520C2FDF5008E0E8D /* Models.swift */; };
 		E788687820C3017D008E0E8D /* BTServiceConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687720C3017D008E0E8D /* BTServiceConst.swift */; };
@@ -117,7 +112,7 @@
 		E791C88C20C97DD0003E36A1 /* BTBaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */; };
 		E791C88E20C9897F003E36A1 /* DispatchQueue+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */; };
 		E79CC63220CDFE29003DAB73 /* BTIAPOrder+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63120CDFE29003DAB73 /* BTIAPOrder+BTDB.swift */; };
-		E79CC63420CE12E4003DAB73 /* BTBaseSDKManager+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63320CE12E4003DAB73 /* BTBaseSDKManager+UI.swift */; };
+		E79CC63420CE12E4003DAB73 /* BTBaseSDK+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63320CE12E4003DAB73 /* BTBaseSDK+UI.swift */; };
 		E79CC63620CE286D003DAB73 /* OrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63520CE286D003DAB73 /* OrderListViewController.swift */; };
 		E79CC63820CE3B18003DAB73 /* BTIAPOrderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79CC63720CE3B18003DAB73 /* BTIAPOrderManager.swift */; };
 		E79CC63920CE590E003DAB73 /* BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
@@ -155,17 +150,23 @@
 
 /* Begin PBXFileReference section */
 		048F9DC096F966E62392A9CF /* Pods-BTBaseSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTBaseSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-BTBaseSDK/Pods-BTBaseSDK.release.xcconfig"; sourceTree = "<group>"; };
+		0CB63127DCB56ED891BDE40E /* Pods_CommonRefs_BTBaseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CommonRefs_BTBaseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		197259A5692423664D182705 /* Pods-SDKTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest.debug.xcconfig"; sourceTree = "<group>"; };
 		1B5974EA4A52598493238C54 /* Pods-iOSSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSSDK/Pods-iOSSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		2FB0535F3FCE5E3A32A20923 /* Pods-CommonRefs-SDKTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonRefs-SDKTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommonRefs-SDKTest/Pods-CommonRefs-SDKTest.debug.xcconfig"; sourceTree = "<group>"; };
 		4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BTBaseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53897C866EC3FFA935A74BFD /* Pods-CommonRefs-SDKTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonRefs-SDKTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommonRefs-SDKTest/Pods-CommonRefs-SDKTest.release.xcconfig"; sourceTree = "<group>"; };
 		62FF0676A78305323D1BB70A /* Pods-SDKTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest.release.xcconfig"; sourceTree = "<group>"; };
 		65D6C8E0EA77D734511F995D /* Pods-BTBaseSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTBaseSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BTBaseSDK/Pods-BTBaseSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		77735F9E990812F44F23C0F8 /* Pods_CommonRefs_SDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CommonRefs_SDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CFCC91E1A04E91302F6FB02 /* Pods-iOSSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSSDK/Pods-iOSSDK.release.xcconfig"; sourceTree = "<group>"; };
+		80F68CCD03805BF1B668E7DC /* Pods-CommonRefs-BTBaseSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonRefs-BTBaseSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommonRefs-BTBaseSDK/Pods-CommonRefs-BTBaseSDK.release.xcconfig"; sourceTree = "<group>"; };
+		83CEC7254562D2F5FE0D2373 /* Pods-CommonRefs-BTBaseSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonRefs-BTBaseSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommonRefs-BTBaseSDK/Pods-CommonRefs-BTBaseSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E71794E120CD469C0054178E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E71794E320CD46A90054178E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E7241B8F20C907D300DFB70A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BTBaseMainStoryboard.strings"; sourceTree = "<group>"; };
-		E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseSDKManager.swift; sourceTree = "<group>"; };
+		E724679F20C69A92003641C0 /* BTBaseSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseSDK.swift; sourceTree = "<group>"; };
 		E726F56220CAB6DE00F4C875 /* BTBaseUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseUIExtensions.swift; sourceTree = "<group>"; };
 		E738006120C44DAF0043A201 /* UpdateEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEmailViewController.swift; sourceTree = "<group>"; };
 		E738006320C44DC20043A201 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
@@ -191,11 +192,8 @@
 		E754A25D20C3A9D5006F36EB /* BTBaseSDKUI.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BTBaseSDKUI.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		E754A25F20C3A9D5006F36EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E754A27120C3C077006F36EB /* ArrayUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayUtil.swift; sourceTree = "<group>"; };
-		E754A27220C3C077006F36EB /* BahamutCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BahamutCommon.h; sourceTree = "<group>"; };
 		E754A27320C3C077006F36EB /* BahamutCommonLocalized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutCommonLocalized.swift; sourceTree = "<group>"; };
 		E754A27720C3C077006F36EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/BahamutCommonLocalized.strings; sourceTree = "<group>"; };
-		E754A27920C3C077006F36EB /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
-		E754A27A20C3C077006F36EB /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
 		E754A27B20C3C077006F36EB /* CommonExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonExtension.swift; sourceTree = "<group>"; };
 		E754A27C20C3C077006F36EB /* CommonValueCast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonValueCast.swift; sourceTree = "<group>"; };
 		E754A27D20C3C077006F36EB /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
@@ -231,8 +229,6 @@
 		E75D401520C516DF00BEAF79 /* CommonRegexPatterns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonRegexPatterns.swift; sourceTree = "<group>"; };
 		E75D401720C518F200BEAF79 /* BahamutTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BahamutTextView.swift; sourceTree = "<group>"; };
 		E75D401B20C518F200BEAF79 /* UIAnimationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAnimationHelper.swift; sourceTree = "<group>"; };
-		E75D401C20C518F200BEAF79 /* UIView+Boom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Boom.h"; sourceTree = "<group>"; };
-		E75D401D20C518F200BEAF79 /* UIView+Boom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Boom.m"; sourceTree = "<group>"; };
 		E75D401E20C518F200BEAF79 /* MailHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailHelper.swift; sourceTree = "<group>"; };
 		E75D402020C518F200BEAF79 /* UICollectionViewFlowLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewFlowLayouts.swift; sourceTree = "<group>"; };
 		E75D402120C518F200BEAF79 /* UIImagePicker+SourceAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImagePicker+SourceAlert.swift"; sourceTree = "<group>"; };
@@ -256,7 +252,6 @@
 		E76E76A420C584D9008F61BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BahamutCommonLocalized.strings"; sourceTree = "<group>"; };
 		E78766C420CB87D900767900 /* UITextField+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Text.swift"; sourceTree = "<group>"; };
 		E788686320C2F981008E0E8D /* BTBaseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BTBaseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E788686620C2F981008E0E8D /* iOSSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSSDK.h; sourceTree = "<group>"; };
 		E788686720C2F981008E0E8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E788687220C2FA77008E0E8D /* BTServiceDBContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTServiceDBContext.swift; sourceTree = "<group>"; };
 		E788687520C2FDF5008E0E8D /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -272,7 +267,7 @@
 		E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseConfig.swift; sourceTree = "<group>"; };
 		E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extensions.swift"; sourceTree = "<group>"; };
 		E79CC63120CDFE29003DAB73 /* BTIAPOrder+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTIAPOrder+BTDB.swift"; sourceTree = "<group>"; };
-		E79CC63320CE12E4003DAB73 /* BTBaseSDKManager+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTBaseSDKManager+UI.swift"; sourceTree = "<group>"; };
+		E79CC63320CE12E4003DAB73 /* BTBaseSDK+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTBaseSDK+UI.swift"; sourceTree = "<group>"; };
 		E79CC63520CE286D003DAB73 /* OrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListViewController.swift; sourceTree = "<group>"; };
 		E79CC63720CE3B18003DAB73 /* BTIAPOrderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTIAPOrderManager.swift; sourceTree = "<group>"; };
 		E7C105B720C628EA001BFB11 /* Models+FMDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+FMDB.swift"; sourceTree = "<group>"; };
@@ -283,6 +278,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B8339DC519FE9493D89082E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E754A30D20C3EC6B006F36EB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -291,6 +293,7 @@
 				E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */,
 				E79CC63920CE590E003DAB73 /* BTBaseSDK.framework in Frameworks */,
 				E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */,
+				5A93CF53D5F242064F83D032 /* Pods_CommonRefs_SDKTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +301,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8179EF76D881D6FCAA8998EC /* Pods_BTBaseSDK.framework in Frameworks */,
+				A05B03ED0726B3E2E9E9D611 /* Pods_CommonRefs_BTBaseSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +317,10 @@
 				62FF0676A78305323D1BB70A /* Pods-SDKTest.release.xcconfig */,
 				65D6C8E0EA77D734511F995D /* Pods-BTBaseSDK.debug.xcconfig */,
 				048F9DC096F966E62392A9CF /* Pods-BTBaseSDK.release.xcconfig */,
+				83CEC7254562D2F5FE0D2373 /* Pods-CommonRefs-BTBaseSDK.debug.xcconfig */,
+				80F68CCD03805BF1B668E7DC /* Pods-CommonRefs-BTBaseSDK.release.xcconfig */,
+				2FB0535F3FCE5E3A32A20923 /* Pods-CommonRefs-SDKTest.debug.xcconfig */,
+				53897C866EC3FFA935A74BFD /* Pods-CommonRefs-SDKTest.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -325,6 +332,8 @@
 				E71794E120CD469C0054178E /* GameKit.framework */,
 				4531C44A13261D44B8638835 /* Pods_BTBaseSDK.framework */,
 				D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */,
+				0CB63127DCB56ED891BDE40E /* Pods_CommonRefs_BTBaseSDK.framework */,
+				77735F9E990812F44F23C0F8 /* Pods_CommonRefs_SDKTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -383,7 +392,7 @@
 		E754A25820C3A88D006F36EB /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E79CC63320CE12E4003DAB73 /* BTBaseSDKManager+UI.swift */,
+				E79CC63320CE12E4003DAB73 /* BTBaseSDK+UI.swift */,
 				E754A32A20C3F1C0006F36EB /* BTBaseHomeController.swift */,
 				E754A2F020C3EB55006F36EB /* BTBaseSDKBundleExtensions.swift */,
 				E788687A20C30390008E0E8D /* GameWallViewController.swift */,
@@ -418,11 +427,12 @@
 			isa = PBXGroup;
 			children = (
 				E754A27120C3C077006F36EB /* ArrayUtil.swift */,
-				E754A27220C3C077006F36EB /* BahamutCommon.h */,
+				E75D402420C518F200BEAF79 /* Integer+FriendlyString.swift */,
 				E754A27320C3C077006F36EB /* BahamutCommonLocalized.swift */,
 				E754A27620C3C077006F36EB /* BahamutCommonLocalized.strings */,
-				E754A27820C3C077006F36EB /* Base64 */,
 				E754A27B20C3C077006F36EB /* CommonExtension.swift */,
+				E78B405F20C6C4930049ED91 /* FileManager+Paths.swift */,
+				E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */,
 				E754A27C20C3C077006F36EB /* CommonValueCast.swift */,
 				E754A27D20C3C077006F36EB /* DateHelper.swift */,
 				E754A27F20C3C077006F36EB /* GameCenterHelper.swift */,
@@ -441,24 +451,14 @@
 			path = BahamutCommon;
 			sourceTree = "<group>";
 		};
-		E754A27820C3C077006F36EB /* Base64 */ = {
-			isa = PBXGroup;
-			children = (
-				E754A27920C3C077006F36EB /* MF_Base64Additions.h */,
-				E754A27A20C3C077006F36EB /* MF_Base64Additions.m */,
-			);
-			path = Base64;
-			sourceTree = "<group>";
-		};
 		E754A2A920C3E042006F36EB /* BTUIKit */ = {
 			isa = PBXGroup;
 			children = (
-				E75D401A20C518F200BEAF79 /* Animation */,
+				E75D401B20C518F200BEAF79 /* UIAnimationHelper.swift */,
 				E75D401720C518F200BEAF79 /* BahamutTextView.swift */,
 				E75D402B20C518F300BEAF79 /* ControllerExtension.swift */,
 				E75D402C20C518F300BEAF79 /* DynamicColor */,
 				E75D402920C518F300BEAF79 /* ImageUtil.swift */,
-				E75D402420C518F200BEAF79 /* Integer+FriendlyString.swift */,
 				E75D402F20C518F300BEAF79 /* KeyboardAdjustHelper.swift */,
 				E75D402A20C518F300BEAF79 /* LockScreenHelper.swift */,
 				E75D401E20C518F200BEAF79 /* MailHelper.swift */,
@@ -472,8 +472,6 @@
 				E75D402120C518F200BEAF79 /* UIImagePicker+SourceAlert.swift */,
 				E75D403220C518F300BEAF79 /* UIView+RemoveChildView.swift */,
 				E7C105BD20C63649001BFB11 /* UIDeviceExtensions.swift */,
-				E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */,
-				E78B405F20C6C4930049ED91 /* FileManager+Paths.swift */,
 			);
 			path = BTUIKit;
 			sourceTree = "<group>";
@@ -490,16 +488,6 @@
 				E78B406120C6CA060049ED91 /* btbase.plist */,
 			);
 			path = SDKTest;
-			sourceTree = "<group>";
-		};
-		E75D401A20C518F200BEAF79 /* Animation */ = {
-			isa = PBXGroup;
-			children = (
-				E75D401B20C518F200BEAF79 /* UIAnimationHelper.swift */,
-				E75D401C20C518F200BEAF79 /* UIView+Boom.h */,
-				E75D401D20C518F200BEAF79 /* UIView+Boom.m */,
-			);
-			path = Animation;
 			sourceTree = "<group>";
 		};
 		E75D402C20C518F300BEAF79 /* DynamicColor */ = {
@@ -542,7 +530,6 @@
 				E740BC3F20C786A7001C13F1 /* BTDBEntiryFramework */,
 				E788687120C2FA34008E0E8D /* Services */,
 				E754A25820C3A88D006F36EB /* UI */,
-				E788686620C2F981008E0E8D /* iOSSDK.h */,
 				E788686720C2F981008E0E8D /* Info.plist */,
 			);
 			path = iOSSDK;
@@ -560,7 +547,7 @@
 				E79CC63720CE3B18003DAB73 /* BTIAPOrderManager.swift */,
 				E754A2A420C3CFEA006F36EB /* BTGameWall.swift */,
 				E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */,
-				E724679F20C69A92003641C0 /* BTBaseSDKManager.swift */,
+				E724679F20C69A92003641C0 /* BTBaseSDK.swift */,
 				E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */,
 			);
 			path = Services;
@@ -588,10 +575,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E75D403820C518F300BEAF79 /* UIView+Boom.h in Headers */,
-				E754A28B20C3C077006F36EB /* BahamutCommon.h in Headers */,
-				E754A29020C3C077006F36EB /* MF_Base64Additions.h in Headers */,
-				E788686820C2F981008E0E8D /* iOSSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +588,7 @@
 				E754A25B20C3A9D5006F36EB /* Resources */,
 				E75B5E1420C8F4C0005BE4FB /* AutoGenStrings */,
 				E79CC63E20CE5C70003DAB73 /* DeleteBinaryFilesInBundle */,
+				B8339DC519FE9493D89082E1 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -751,7 +735,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-CommonRefs-SDKTest/Pods-CommonRefs-SDKTest-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
@@ -772,7 +756,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CommonRefs-SDKTest/Pods-CommonRefs-SDKTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E707E02220CFCC09007E4C7A /* ShellScript */ = {
@@ -786,7 +770,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n#要build的target名\nTARGET_NAME=\"BTBaseSDK\"\n#要拷贝的bundle资源\nBUNDLE_TARGET_NAME=\"BTBaseSDKUI\"\nif [[ $1 ]]\nthen\nTARGET_NAME=$1\nfi\nUNIVERSAL_OUTPUT_FOLDER=\"${SRCROOT}/Release/\"\n\n#创建输出目录，并删除之前发布的文件\nmkdir -p \"${UNIVERSAL_OUTPUT_FOLDER}\"\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}/${TARGET_NAME}.framework\"\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}/${BTBaseSDKUI}.bundle\"\n\n#分别编译模拟器和真机的Framework\n#xcodebuild -scheme \"${TARGET_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean archive\n#xcodebuild -scheme \"${TARGET_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphonesimulator BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean archive\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"BTBaseSDK\" -sdk iphonesimulator clean build\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"BTBaseSDK\" -sdk iphoneos clean build\n\n#拷贝framework到univer目录\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${TARGET_NAME}.framework\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#拷贝bundle到univer目录\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${BUNDLE_TARGET_NAME}.bundle\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#合并framework，输出最终的framework到build目录\nlipo -create -output \"${UNIVERSAL_OUTPUT_FOLDER}/${TARGET_NAME}.framework/${TARGET_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${TARGET_NAME}.framework/${TARGET_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${TARGET_NAME}.framework/${TARGET_NAME}\"\n\n#删除编译之后生成的无关的配置文件\ndir_path=\"${UNIVERSAL_OUTPUT_FOLDER}/${TARGET_NAME}.framework/\"\nfor file in ls $dir_path\ndo\nif [[ ${file} =~ \".xcconfig\" ]]\nthen\nrm -f \"${dir_path}/${file}\"\nfi\ndone\n#判断build文件夹是否存在，存在则删除\nif [ -d \"${SRCROOT}/build\" ]\nthen\nrm -rf \"${SRCROOT}/build\"\nfi\nrm -rf \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos\"\n#打开合并后的文件夹\nopen \"${UNIVERSAL_OUTPUT_FOLDER}\"\n";
+			shellScript = "#!/bin/sh\n#要build的target名\nTARGET_NAME='BTBaseSDK'\n\n#要合并的framework\nMERGE_FRAMEWORKS=(\n\"${TARGET_NAME}.framework\"\n'MobilePlayer/MobilePlayer.framework'\n'SwiftyStoreKit/SwiftyStoreKit.framework'\n'MBProgressHUD/MBProgressHUD.framework'\n'SDWebImage/SDWebImage.framework'\n'Alamofire/Alamofire.framework'\n'FMDB/FMDB.framework'\n'IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework'\n)\n\n#要拷贝的资源\nCOPY_TARGETS=(\n'BTBaseSDKUI.bundle'\n'MobilePlayer/MobilePlayer.bundle'\n)\n\nif [[ $1 ]]\nthen\nTARGET_NAME=$1\nfi\nUNIVERSAL_OUTPUT_FOLDER=\"${SRCROOT}/Release/\"\n\n#创建输出目录，并删除之前发布的文件\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}/\"\nmkdir -p \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#分别编译模拟器和真机的Framework\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"${TARGET_NAME}\" -sdk iphonesimulator build\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"${TARGET_NAME}\" -sdk iphoneos build\n\n# 循环合并frameworks\nfor item in ${MERGE_FRAMEWORKS[@]};do\n\n#删除路径里的文件夹\nfwk_name=${item##*/}\n#删除路径里的.framework\nbin_name=${fwk_name%*.framework}\n\necho ${fwk_name}\necho ${bin_name}\n\n#拷贝framework到output目录\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#合并framework，输出最终的framework到build目录\ntarget_path=\"${UNIVERSAL_OUTPUT_FOLDER}${fwk_name}/${bin_name}\"\nfile0=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${item}/${bin_name}\"\nfile1=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}/${bin_name}\"\n\nlipo -create -output \"${target_path}\" \"${file0}\" \"${file1}\"\ndone\n\n\n#拷贝资源到output目录\nfor item in ${COPY_TARGETS[@]};do\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\ndone\n# 合并frameworks完成\n\n#删除编译之后生成的无关的配置文件\ndir_path=\"${UNIVERSAL_OUTPUT_FOLDER}${TARGET_NAME}.framework/\"\nfor file in ls $dir_path\ndo\nif [[ ${file} =~ \".xcconfig\" ]]\nthen\nrm -f \"${dir_path}/${file}\"\nfi\ndone\n#判断build文件夹是否存在，存在则删除\nif [ -d \"${SRCROOT}/build\" ]\nthen\nrm -rf \"${SRCROOT}/build\"\nfi\n#rm -rf \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos\"\n#打开合并后的文件夹\nopen \"${UNIVERSAL_OUTPUT_FOLDER}\"\n";
 		};
 		E75B5E1420C8F4C0005BE4FB /* AutoGenStrings */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -827,7 +811,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BTBaseSDK-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-CommonRefs-BTBaseSDK-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -845,7 +829,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SDKTest-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-CommonRefs-SDKTest-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -876,12 +860,11 @@
 				E791C88E20C9897F003E36A1 /* DispatchQueue+Extensions.swift in Sources */,
 				E75D404B20C518F300BEAF79 /* PaddingLabel.swift in Sources */,
 				E738006620C44DCF0043A201 /* UpdateNickViewController.swift in Sources */,
-				E75D403920C518F300BEAF79 /* UIView+Boom.m in Sources */,
 				E738006220C44DAF0043A201 /* UpdateEmailViewController.swift in Sources */,
 				E75D404D20C518F300BEAF79 /* UIView+RemoveChildView.swift in Sources */,
 				E7C105BA20C62ECB001BFB11 /* BTAPIClientProfile+DeviceInfo.swift in Sources */,
 				E75D403D20C518F300BEAF79 /* UIImagePicker+SourceAlert.swift in Sources */,
-				E79CC63420CE12E4003DAB73 /* BTBaseSDKManager+UI.swift in Sources */,
+				E79CC63420CE12E4003DAB73 /* BTBaseSDK+UI.swift in Sources */,
 				E738006A20C452DC0043A201 /* SignUpViewController.swift in Sources */,
 				E754A1EE20C39411006F36EB /* BTAccountAPI.swift in Sources */,
 				E740BC4C20C78C73001C13F1 /* SQLiteTableSet.swift in Sources */,
@@ -896,12 +879,11 @@
 				E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */,
 				E740BC4520C78791001C13F1 /* BTDBContext.swift in Sources */,
 				E754A29820C3C077006F36EB /* NetworkReachability.swift in Sources */,
-				E72467A020C69A92003641C0 /* BTBaseSDKManager.swift in Sources */,
+				E72467A020C69A92003641C0 /* BTBaseSDK.swift in Sources */,
 				E7C105B820C628EA001BFB11 /* Models+FMDB.swift in Sources */,
 				E740BC4820C78888001C13F1 /* SQLiteDbContext.swift in Sources */,
 				E79CC63620CE286D003DAB73 /* OrderListViewController.swift in Sources */,
 				E75D401420C4C56F00BEAF79 /* BTAPIResult.swift in Sources */,
-				E754A29120C3C077006F36EB /* MF_Base64Additions.m in Sources */,
 				E788688120C30429008E0E8D /* BTSessionService.swift in Sources */,
 				E738006C20C452EB0043A201 /* ForgetPasswordViewController.swift in Sources */,
 				E75D401220C4C54900BEAF79 /* BTAPIRequest.swift in Sources */,
@@ -1092,7 +1074,7 @@
 		};
 		E754A32020C3EC6C006F36EB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 197259A5692423664D182705 /* Pods-SDKTest.debug.xcconfig */;
+			baseConfigurationReference = 2FB0535F3FCE5E3A32A20923 /* Pods-CommonRefs-SDKTest.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1116,7 +1098,7 @@
 		};
 		E754A32120C3EC6C006F36EB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62FF0676A78305323D1BB70A /* Pods-SDKTest.release.xcconfig */;
+			baseConfigurationReference = 53897C866EC3FFA935A74BFD /* Pods-CommonRefs-SDKTest.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1261,8 +1243,9 @@
 		};
 		E788686C20C2F981008E0E8D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65D6C8E0EA77D734511F995D /* Pods-BTBaseSDK.debug.xcconfig */;
+			baseConfigurationReference = 83CEC7254562D2F5FE0D2373 /* Pods-CommonRefs-BTBaseSDK.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1287,8 +1270,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
-				SWIFT_OBJC_BRIDGING_HEADER = iOSSDK/iOSSDK.h;
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME).h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1297,8 +1280,9 @@
 		};
 		E788686D20C2F981008E0E8D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 048F9DC096F966E62392A9CF /* Pods-BTBaseSDK.release.xcconfig */;
+			baseConfigurationReference = 80F68CCD03805BF1B668E7DC /* Pods-CommonRefs-BTBaseSDK.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1323,8 +1307,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
-				SWIFT_OBJC_BRIDGING_HEADER = iOSSDK/iOSSDK.h;
-				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME).h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

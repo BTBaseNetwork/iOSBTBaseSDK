@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class DateHelper {
+public class DateHelper {
     open static var UnixTimeSpanTotalMilliseconds: Int64 {
         return Int64(unixTimeSpan * 1000)
     }
@@ -59,53 +59,53 @@ open class DateHelper {
         return formatter
     }()
 
-    open class func toDateString(_ date: Date) -> String {
+    public class func toDateString(_ date: Date) -> String {
         return dateFomatter.string(from: date)
     }
 
-    open class func toAccurateDateTimeString(_ date: Date) -> String {
+    public class func toAccurateDateTimeString(_ date: Date) -> String {
         return accurateDateTimeFomatter.string(from: date)
     }
 
-    open class func toDateTimeString(_ date: Date) -> String {
+    public class func toDateTimeString(_ date: Date) -> String {
         return dateTimeFomatter.string(from: date)
     }
 
-    open class func stringToAccurateDate(_ accurateDateString: String!) -> Date! {
+    public class func stringToAccurateDate(_ accurateDateString: String!) -> Date! {
         if let d = accurateDateString {
             return accurateDateTimeFomatter.date(from: d)
         }
         return nil
     }
 
-    open class func stringToDateTime(_ date: String!) -> Date! {
+    public class func stringToDateTime(_ date: String!) -> Date! {
         if let d = date {
             return dateTimeFomatter.date(from: d)
         }
         return nil
     }
 
-    open class func stringToDate(_ date: String!) -> Date! {
+    public class func stringToDate(_ date: String!) -> Date! {
         if let d = date {
             return dateFomatter.date(from: d)
         }
         return nil
     }
 
-    open class func toLocalDateTimeSimpleString(_ date: Date) -> String {
+    public class func toLocalDateTimeSimpleString(_ date: Date) -> String {
         return localDateTimeSimpleFomatter.string(from: date)
     }
 
-    open class func toLocalDateTimeString(_ date: Date) -> String {
+    public class func toLocalDateTimeString(_ date: Date) -> String {
         return localDateTimeFomatter.string(from: date)
     }
 
-    open class func toLocalDateString(_ date: Date) -> String {
+    public class func toLocalDateString(_ date: Date) -> String {
         return localDateFomatter.string(from: date)
     }
 
     static let monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    open class func daysOfMonth(_ year: Int, month: Int) -> Int {
+    public class func daysOfMonth(_ year: Int, month: Int) -> Int {
         let monthIndex = month > 0 ? month - 1 : 0
         if monthIndex == 1 {
             return monthDays[monthIndex] + (isLeapYear(year) ? 1 : 0)
@@ -113,7 +113,7 @@ open class DateHelper {
         return monthDays[monthIndex]
     }
 
-    open class func isLeapYear(_ year: Int) -> Bool {
+    public class func isLeapYear(_ year: Int) -> Bool {
         if (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 {
             return true
         } else {

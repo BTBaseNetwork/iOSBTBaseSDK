@@ -68,10 +68,6 @@ extension UIAlertController {
     }
 }
 
-typealias HudHiddenCompletedHandler = () -> Void
-
-var hudCompletionHandler = [MBProgressHUD: HudHiddenCompletedHandler]()
-
 extension MBProgressHUD {
     func hideAsync(_ animated: Bool) {
         DispatchQueue.main.async { () -> Void in
@@ -80,25 +76,33 @@ extension MBProgressHUD {
     }
 }
 
-extension UIViewController: MBProgressHUDDelegate {
-    public func hudWasHidden(_ hud: MBProgressHUD) {
+typealias HudHiddenCompletedHandler = () -> Void
+fileprivate var hudDelegatesHolder = [MBProgressHUD: MBProgHUDDelegate]()
+fileprivate class MBProgHUDDelegate: NSObject, MBProgressHUDDelegate {
+    var handler: HudHiddenCompletedHandler?
+
+    func hudWasHidden(_ hud: MBProgressHUD) {
         DispatchQueue.main.async(execute: { () -> Void in
             hud.removeFromSuperview()
-            if let handler = hudCompletionHandler.removeValue(forKey: hud) {
-                handler()
+            if let dg = hudDelegatesHolder.removeValue(forKey: hud) {
+                dg.handler?()
             }
         })
     }
+}
 
+extension UIViewController {
     func showActivityHud(_ completionHandler: HudHiddenCompletedHandler! = nil) -> MBProgressHUD {
         return showActivityHudWithMessage("", message: "", completionHandler: completionHandler)
     }
 
-    func showActivityHudWithMessage(_ title: String!, message: String!, async: Bool = true, completionHandler _: HudHiddenCompletedHandler! = nil) -> MBProgressHUD {
+    func showActivityHudWithMessage(_ title: String!, message: String!, async: Bool = true, completionHandler handler: HudHiddenCompletedHandler! = nil) -> MBProgressHUD {
         let vc = UIApplication.currentShowingViewController
         let vcView = vc.view ?? vc.navigationController?.view
         let HUD = MBProgressHUD(view: vcView!)
-        HUD.delegate = vc
+        let dg = MBProgHUDDelegate()
+        dg.handler = handler
+        HUD.delegate = dg
         HUD.label.text = title
         HUD.detailsLabel.text = message
         HUD.removeFromSuperViewOnHide = true
@@ -112,6 +116,7 @@ extension UIViewController: MBProgressHUDDelegate {
             vcView!.addSubview(HUD)
             HUD.show(animated: true)
         }
+        hudDelegatesHolder[HUD] = dg
         return HUD
     }
 
@@ -124,10 +129,13 @@ extension UIViewController: MBProgressHUDDelegate {
             hud.mode = MBProgressHUDMode.text
             hud.label.text = msg
             hud.margin = 10
-            hud.delegate = vc
-            if let handler = completionHandler {
-                hudCompletionHandler[hud] = handler
-            }
+
+            let dg = MBProgHUDDelegate()
+            dg.handler = completionHandler
+            hud.delegate = dg
+
+            hudDelegatesHolder[hud] = dg
+
             hud.removeFromSuperViewOnHide = true
             hud.show(animated: true)
             hud.hide(animated: true, afterDelay: 2)
@@ -153,12 +161,15 @@ extension UIViewController: MBProgressHUDDelegate {
         // Set custom view mode
         hud.mode = MBProgressHUDMode.customView
 
-        hud.delegate = vc
+        let dg = MBProgHUDDelegate()
+        dg.handler = completionHandler
+        hud.delegate = dg
+
+        hudDelegatesHolder[hud] = dg
+
         hud.label.text = msg
         hud.isSquare = true
-        if let handler = completionHandler {
-            hudCompletionHandler[hud] = handler
-        }
+
         hud.show(animated: true)
         hud.hide(animated: true, afterDelay: 2)
     }

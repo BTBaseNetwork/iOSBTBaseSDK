@@ -9,7 +9,19 @@
 import QuartzCore
 import UIKit
 
-extension UIView: CAAnimationDelegate {
+typealias AnimationCompletedHandler = () -> Void
+
+fileprivate class UIViewCAAnimationDelegate: NSObject, CAAnimationDelegate {
+    var handler: AnimationCompletedHandler?
+
+    public func animationDidStop(_: CAAnimation, finished _: Bool) {
+        if let dg = UIAnimationHelper.instance.animationCompleted.remove(self) {
+            dg.handler?()
+        }
+    }
+}
+
+extension UIView {
     func startFlash(_ duration: TimeInterval = 0.8) {
         UIAnimationHelper.flashView(self, duration: duration)
     }
@@ -25,18 +37,10 @@ extension UIView: CAAnimationDelegate {
     func animationMaxToMin(_ duration: Double = 0.2, maxScale: CGFloat = 1.1, repeatCount: Float = 0, completion: AnimationCompletedHandler! = nil) {
         UIAnimationHelper.animationMaxToMin(self, duration: duration, maxScale: maxScale, repeatCount: repeatCount, completion: completion)
     }
-
-    public func animationDidStop(_: CAAnimation, finished _: Bool) {
-        if let handler = UIAnimationHelper.instance.animationCompleted.removeValue(forKey: self) {
-            handler()
-        }
-    }
 }
 
-typealias AnimationCompletedHandler = () -> Void
-
 class UIAnimationHelper {
-    fileprivate var animationCompleted = [UIView: AnimationCompletedHandler]()
+    fileprivate var animationCompleted = Set<UIViewCAAnimationDelegate>()
     fileprivate static let instance = UIAnimationHelper()
 
     static func animationPageCurlView(_ view: UIView, duration: TimeInterval, completion: AnimationCompletedHandler! = nil) {
@@ -149,10 +153,10 @@ class UIAnimationHelper {
     }
 
     static func playAnimation(_ view: UIView, animation: CAAnimation, key: String? = nil, completion: AnimationCompletedHandler! = nil) {
-        animation.delegate = view
-        if let handler = completion {
-            UIAnimationHelper.instance.animationCompleted[view] = handler
-        }
+        let dg = UIViewCAAnimationDelegate()
+        dg.handler = completion
+        UIAnimationHelper.instance.animationCompleted.insert(dg)
+        animation.delegate = dg
         view.layer.add(animation, forKey: key)
     }
 

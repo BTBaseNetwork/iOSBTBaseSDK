@@ -1,5 +1,5 @@
 //
-//  BTBaseSDKManager+UI.swift
+//  BTBaseSDK+UI.swift
 //  BTBaseSDK
 //
 //  Created by Alex Chow on 2018/6/11.
@@ -7,8 +7,10 @@
 //
 
 import Foundation
-public extension BTBaseSDKManager {
-    public var GameServiceName: String { return "BTLocGameServiceName".localizedBTBaseString }
+import UIKit
+
+public extension BTBaseSDK {
+    @objc public var GameServiceName: String { return "BTLocGameServiceName".localizedBTBaseString }
 
     static func tryShowLoginWithSharedAuthenticationAlert(vc: UIViewController) {
         if let auth = getAuthentication(), let accountId = auth.accountId {
@@ -28,7 +30,7 @@ public extension BTBaseSDKManager {
         }
     }
 
-    public static func openHome(_ vc: UIViewController) {
+    @objc public static func openHome(_ vc: UIViewController) {
         openHome(vc) { _ in
         }
     }

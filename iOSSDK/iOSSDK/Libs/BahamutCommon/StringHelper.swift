@@ -33,7 +33,7 @@ extension String {
     }
 }
 
-open class StringHelper {
+public class StringHelper {
     open static let httpUrlPattern = "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
 
     open static func IntToLetter(_ letterIndex: Int) -> Character {

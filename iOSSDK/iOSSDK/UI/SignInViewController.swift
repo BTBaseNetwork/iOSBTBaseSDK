@@ -89,10 +89,10 @@ class SignInViewController: UIViewController {
                 self.accountTextField.isEnabled = true
                 self.passwordTextField.isEnabled = true
                 if result.isHttpOK {
-                    let auth = BTBaseSDKManager.ClientSharedAuthentication()
+                    let auth = BTBaseSDK.ClientSharedAuthentication()
                     auth.accountId = result.content.accountId
                     auth.saltedPassword = isSalted ? psw : BTServiceConst.generateClientSaltPassword(password: psw)
-                    BTBaseSDKManager.shareAuthentication(auth)
+                    BTBaseSDK.shareAuthentication(auth)
                     self.onClickCancel(sender)
                 } else {
                     if result.isHttpNotFound {
