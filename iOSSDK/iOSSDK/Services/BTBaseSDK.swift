@@ -6,6 +6,16 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
+/*
+ OC项目调用swift类需要满足以下条件
+ 1. Swift必须继承NSObject,需要公开的方法或属性需要加@objc
+ 2.OC项目需要在Build Setting里设置 Defines Modules 为 YES
+ 3.OC项目需要在Build Setting里设置 Objective-C Generated Interface Header Name 为 $(SWIFT_MODULE_NAME)-Swift.h
+ 4.OC项目需要在Build Setting里设置 Product Module Name 为 $(SWIFT_MODULE_NAME)
+ 
+ 参考:https://www.jianshu.com/p/b0a38b4ba5b9
+ */
+
 import Foundation
 import SwiftyStoreKit
 
@@ -13,8 +23,6 @@ public protocol SwiftyStoreKitCompleteDelegate {
     func swiftStoreKitTransactionsComplete(_: [Purchase])
 }
 
-// class need inherit from NSObject with public for objective-c
-// public method or property open for objective-c need attribute @objc
 public class BTBaseSDK: NSObject {
     private static var instance = { BTBaseSDK() }()
     internal private(set) static var defaultDbContext: BTServiceDBContext!

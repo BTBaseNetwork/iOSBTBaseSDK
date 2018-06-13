@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		5A93CF53D5F242064F83D032 /* Pods_CommonRefs_SDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77735F9E990812F44F23C0F8 /* Pods_CommonRefs_SDKTest.framework */; };
 		A05B03ED0726B3E2E9E9D611 /* Pods_CommonRefs_BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CB63127DCB56ED891BDE40E /* Pods_CommonRefs_BTBaseSDK.framework */; };
+		E716644E20D0C1FF00973200 /* BTBaseSDK+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */; };
 		E71794E220CD469C0054178E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E120CD469C0054178E /* GameKit.framework */; };
 		E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E320CD46A90054178E /* StoreKit.framework */; };
 		E724679C20C691DF003641C0 /* BTBaseLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E76E76A020C58246008F61BA /* BTBaseLocalized.strings */; };
@@ -163,6 +164,8 @@
 		80F68CCD03805BF1B668E7DC /* Pods-CommonRefs-BTBaseSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonRefs-BTBaseSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommonRefs-BTBaseSDK/Pods-CommonRefs-BTBaseSDK.release.xcconfig"; sourceTree = "<group>"; };
 		83CEC7254562D2F5FE0D2373 /* Pods-CommonRefs-BTBaseSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonRefs-BTBaseSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommonRefs-BTBaseSDK/Pods-CommonRefs-BTBaseSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E716644A20D0BB1500973200 /* UnityAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAppController.h; sourceTree = "<group>"; };
+		E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BTBaseSDK+Unity.m"; sourceTree = "<group>"; };
 		E71794E120CD469C0054178E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E71794E320CD46A90054178E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E7241B8F20C907D300DFB70A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BTBaseMainStoryboard.strings"; sourceTree = "<group>"; };
@@ -338,6 +341,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E716644720D0B9ED00973200 /* SDK+Unity */ = {
+			isa = PBXGroup;
+			children = (
+				E716644A20D0BB1500973200 /* UnityAppController.h */,
+				E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */,
+			);
+			path = "SDK+Unity";
+			sourceTree = "<group>";
+		};
 		E740BC3F20C786A7001C13F1 /* BTDBEntiryFramework */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +517,7 @@
 				E754A1DB20C37EFB006F36EB /* Podfile */,
 				E788686520C2F981008E0E8D /* iOSSDK */,
 				E754A25E20C3A9D5006F36EB /* SDKUI */,
+				E716644720D0B9ED00973200 /* SDK+Unity */,
 				E754A31120C3EC6B006F36EB /* SDKTest */,
 				E788686420C2F981008E0E8D /* Products */,
 				9014ED23A3FE64373C69320B /* Pods */,
@@ -875,6 +888,7 @@
 				E75D403C20C518F300BEAF79 /* UICollectionViewFlowLayouts.swift in Sources */,
 				E791C88C20C97DD0003E36A1 /* BTBaseConfig.swift in Sources */,
 				E78766C520CB87D900767900 /* UITextField+Text.swift in Sources */,
+				E716644E20D0C1FF00973200 /* BTBaseSDK+Unity.m in Sources */,
 				E75D401620C516DF00BEAF79 /* CommonRegexPatterns.swift in Sources */,
 				E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */,
 				E740BC4520C78791001C13F1 /* BTDBContext.swift in Sources */,
