@@ -12,8 +12,8 @@ import UIKit
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        if !BTBaseSDKManager.isSDKInited {
-            BTBaseSDKManager.start()
+        if !BTBaseSDK.isSDKInited {
+            BTBaseSDK.start()
         }
     }
 
@@ -27,6 +27,6 @@ class ViewController: UIViewController {
     }
 
     @IBAction func OnClickHome(_: Any) {
-        BTBaseSDKManager.openHome(self)
+        BTBaseSDK.openHome(self)
     }
 }

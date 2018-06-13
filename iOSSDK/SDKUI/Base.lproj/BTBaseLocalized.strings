@@ -120,3 +120,4 @@ BTLocOrderStateCompleted = "Completed";
 BTLocOrderStateVerifyNetworkError = "Need Verify";
 BTLocOrderStateUnknow = "Unknow";
 BTLocQuickSignIn = "Quick Login";
+BTLocSubscribeMemberTips = "Premium Members Can Play Games In The Game Wall Without Advertising";

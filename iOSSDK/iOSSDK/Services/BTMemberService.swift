@@ -53,15 +53,15 @@ class BTMemberService {
 
     private var config: BTBaseConfig!
     private var host = "http://localhost:6000"
-    private var iapListUrl: String { return self.config.getString(key: "BTMemberIAPListUrl")! }
-    static var cachedIAPListJsonPathUrl: URL {
+    private var memberConfigUrl: String { return self.config.getString(key: "BTMemberConfigUrl")! }
+    static var cachedMemberConfigJsonPathUrl: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsURL.appendingPathComponent("BTMemberIAPList.json")
+        let fileURL = documentsURL.appendingPathComponent("BTMemberMemberConfig.json")
         return fileURL
     }
 
-    static let cachedIAPListDownloadDestination: DownloadRequest.DownloadFileDestination = { _, _ in
-        (cachedIAPListJsonPathUrl, [.removePreviousFile, .createIntermediateDirectories])
+    static let cachedMemberConfigDownloadDestination: DownloadRequest.DownloadFileDestination = { _, _ in
+        (cachedMemberConfigJsonPathUrl, [.removePreviousFile, .createIntermediateDirectories])
     }
     private var dbContext: BTServiceDBContext!
     private var paymentTransactionObserver: BTMemberPaymentTransactionObserver!
@@ -69,6 +69,12 @@ class BTMemberService {
     fileprivate(set) var products: Set<MemberProduct>! {
         didSet {
             NotificationCenter.default.postWithMainQueue(name: BTMemberService.onMemberProductsUpdated, object: self)
+        }
+    }
+
+    fileprivate(set) var messages = [String]() {
+        didSet {
+            NotificationCenter.default.postWithMainQueue(name: BTMemberService.onMemberMessagesUpdated, object: self)
         }
     }
 
@@ -86,8 +92,8 @@ class BTMemberService {
         self.config = config
         self.host = config.getString(key: "BTMemberServiceHost")!
         self.dbContext = db
-        self.loadCachedIAPList()
-        self.fetchIAPList()
+        self.loadCachedMemberConfig()
+        self.fetchMemberConfig()
     }
 }
 
@@ -132,6 +138,7 @@ let BTRefreshMemberProductsStateFetched = 1
 let BTRefreshMemberProductsStateFailed = 2
 
 extension BTMemberService {
+    public static let onMemberMessagesUpdated = Notification.Name("BTMemberService_onMemberMessagesUpdated")
     public static let onMemberProductsUpdated = Notification.Name("BTMemberService_onMemberProductsUpdated")
     public static let onRefreshProductsEvent = Notification.Name("BTMemberService_onRefreshProductsEvent")
 
@@ -140,7 +147,8 @@ extension BTMemberService {
         var enabled = false
     }
 
-    fileprivate class IAPResult: Codable {
+    fileprivate class MemberConfig: Codable {
+        var messages: [String]!
         var products: [IAPInfo]!
     }
 
@@ -274,9 +282,9 @@ extension BTMemberService {
     }
 
     @discardableResult
-    func loadCachedIAPList() -> Bool {
-        if let json = try? String(contentsOfFile: BTMemberService.cachedIAPListJsonPathUrl.path), let data = json.data(using: String.Encoding.utf8) {
-            if let configModel = try? JSONDecoder().decode(IAPResult.self, from: data) {
+    func loadCachedMemberConfig() -> Bool {
+        if let json = try? String(contentsOfFile: BTMemberService.cachedMemberConfigJsonPathUrl.path), let data = json.data(using: String.Encoding.utf8) {
+            if let configModel = try? JSONDecoder().decode(MemberConfig.self, from: data) {
                 self.retrieveProductsInfo(configModel.products)
                 return true
             }
@@ -284,12 +292,12 @@ extension BTMemberService {
         return false
     }
 
-    func fetchIAPList() {
+    func fetchMemberConfig() {
         self.postRefreshState(state: BTRefreshMemberProductsStateStart)
 
-        Alamofire.download(self.iapListUrl, to: BTMemberService.cachedIAPListDownloadDestination).response { resp in
+        Alamofire.download(self.memberConfigUrl, to: BTMemberService.cachedMemberConfigDownloadDestination).response { resp in
             if resp.error == nil, let _ = resp.destinationURL?.path {
-                if self.loadCachedIAPList() {
+                if self.loadCachedMemberConfig() {
                     return
                 }
             }

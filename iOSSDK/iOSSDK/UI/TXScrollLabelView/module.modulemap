@@ -1,0 +1,5 @@
+module TXScrollLabelView [system] {
+    header "TXScrollLabelView.h"
+    header "UIView+TXFrame.h"
+    export *
+}

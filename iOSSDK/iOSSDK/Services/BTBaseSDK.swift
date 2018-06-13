@@ -12,16 +12,20 @@
  2.OC项目需要在Build Setting里设置 Defines Modules 为 YES
  3.OC项目需要在Build Setting里设置 Objective-C Generated Interface Header Name 为 $(SWIFT_MODULE_NAME)-Swift.h
  4.OC项目需要在Build Setting里设置 Product Module Name 为 $(SWIFT_MODULE_NAME)
- 
+
  参考:https://www.jianshu.com/p/b0a38b4ba5b9
  */
 
 import Foundation
 import SwiftyStoreKit
 
+// MARK: SwiftyStoreKitCompleteDelegate
+
 public protocol SwiftyStoreKitCompleteDelegate {
     func swiftStoreKitTransactionsComplete(_: [Purchase])
 }
+
+// MARK: BTBaseSDK
 
 public class BTBaseSDK: NSObject {
     private static var instance = { BTBaseSDK() }()
@@ -71,6 +75,14 @@ public class BTBaseSDK: NSObject {
 
     @objc private func applicationWillTerminate(a: Notification) {
         BTBaseSDK.defaultDbContext?.close()
+    }
+}
+
+// MARK: Session
+
+public extension BTBaseSDK {
+    @objc public static var isLogined: Bool {
+        return BTServiceContainer.getBTSessionService()?.isSessionLogined ?? false
     }
 
     @objc private func onSessionInvalid(a: Notification) {
@@ -131,3 +143,15 @@ public class BTBaseSDK: NSObject {
         return nil
     }
 }
+
+// MARK: Member
+
+public extension BTBaseSDK {
+    @objc public static var isInMemberSubscription: Bool {
+        if let member = BTServiceContainer.getBTMemberService()?.localProfile?.preferredMember {
+            return member.expiredDateTs > Date().timeIntervalSince1970
+        }
+        return false
+    }
+}
+

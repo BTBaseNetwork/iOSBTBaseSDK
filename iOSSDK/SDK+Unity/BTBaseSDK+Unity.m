@@ -27,3 +27,24 @@ void _btbaseSDK_OpenHome(){
 BOOL _btbaseSDK_IsSDKInited(){
     return BTBaseSDK.isSDKInited;
 }
+
+BOOL _btbaseSDK_IsInMemberSubscription(){
+    return BTBaseSDK.isInMemberSubscription;
+}
+
+BOOL _btbaseSDK_IsLogined(){
+    return BTBaseSDK.isLogined;
+}
+
+void _btbaseSDK_TryQuickLogin(){
+    UIViewController* vc = _btbaseGetUnityViewController();
+    [BTBaseSDK tryShowLoginWithSharedAuthenticationAlertWithVc:vc];
+}
+
+void _btbaseSDK_StartListenNotifications(){
+    [BTBaseSDK startListenBTBaseNotifications];
+}
+
+void _btbaseSDK_StopListenNotifications(){
+    [BTBaseSDK stopListenBTBaseNotifications];
+}

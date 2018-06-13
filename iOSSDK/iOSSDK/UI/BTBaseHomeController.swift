@@ -71,6 +71,7 @@ import IQKeyboardManagerSwift
 
 extension Notification.Name {
     static let BTBaseHomeEntryClosed = Notification.Name("BTBaseHomeEntryClosed")
+    static let BTBaseHomeEntryDidShown = Notification.Name("BTBaseHomeEntryDidShown")
 }
 
 class BTBaseHomeEntry {
@@ -86,6 +87,14 @@ class BTBaseHomeEntry {
         IQKeyboardManager.shared.enable = true
         homeController = board.instantiateViewController(withIdentifier: "BTBaseHomeController") as? BTBaseHomeController
         return homeController!
+    }
+
+    static func openHome(_ vc: UIViewController, completion: @escaping (BTBaseHomeController) -> Void) {
+        let homeVC = BTBaseHomeEntry.getEntryViewController()
+        vc.present(homeVC, animated: true) {
+            completion(homeVC)
+            NotificationCenter.default.post(Notification(name: .BTBaseHomeEntryDidShown))
+        }
     }
 
     static func closeHomeController() {

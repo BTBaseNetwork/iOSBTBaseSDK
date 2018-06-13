@@ -12,7 +12,7 @@ import UIKit
 public extension BTBaseSDK {
     @objc public var GameServiceName: String { return "BTLocGameServiceName".localizedBTBaseString }
 
-    static func tryShowLoginWithSharedAuthenticationAlert(vc: UIViewController) {
+    @objc public static func tryShowLoginWithSharedAuthenticationAlert(vc: UIViewController) {
         if let auth = getAuthentication(), let accountId = auth.accountId {
             let title = "BTLocTitleSharedAuthenticationExists".localizedBTBaseString
             let msg = String(format: "BTLocMsgSharedAuthenticationExists".localizedBTBaseString, accountId)
@@ -31,14 +31,10 @@ public extension BTBaseSDK {
     }
 
     @objc public static func openHome(_ vc: UIViewController) {
-        openHome(vc) { _ in
-        }
+        openHome(vc) { _ in }
     }
 
     private static func openHome(_ vc: UIViewController, completion: @escaping (BTBaseHomeController) -> Void) {
-        let homeVC = BTBaseHomeEntry.getEntryViewController()
-        vc.present(homeVC, animated: true) {
-            completion(homeVC)
-        }
+        BTBaseHomeEntry.openHome(vc,completion: completion)
     }
 }

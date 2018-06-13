@@ -120,3 +120,4 @@ BTLocOrderStateCompleted = "已完成";
 BTLocOrderStateVerifyNetworkError = "需要驗證";
 BTLocOrderStateUnknow = "未知狀態";
 BTLocQuickSignIn = "快速登錄";
+BTLocSubscribeMemberTips = "高級會員可以免廣告暢玩遊戲牆裡展示的所有遊戲";

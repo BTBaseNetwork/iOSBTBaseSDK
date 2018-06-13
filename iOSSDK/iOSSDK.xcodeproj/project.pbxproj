@@ -97,7 +97,6 @@
 		E75D404C20C518F300BEAF79 /* ShareHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403120C518F300BEAF79 /* ShareHelper.swift */; };
 		E75D404D20C518F300BEAF79 /* UIView+RemoveChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403220C518F300BEAF79 /* UIView+RemoveChildView.swift */; };
 		E75D404E20C518F300BEAF79 /* TableViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403320C518F300BEAF79 /* TableViewEx.swift */; };
-		E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */; };
 		E78766C520CB87D900767900 /* UITextField+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78766C420CB87D900767900 /* UITextField+Text.swift */; };
 		E788687320C2FA77008E0E8D /* BTServiceDBContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687220C2FA77008E0E8D /* BTServiceDBContext.swift */; };
 		E788687620C2FDF5008E0E8D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687520C2FDF5008E0E8D /* Models.swift */; };
@@ -123,6 +122,11 @@
 		E7C105BC20C62FE5001BFB11 /* BTServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */; };
 		E7C105BE20C63649001BFB11 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BD20C63649001BFB11 /* UIDeviceExtensions.swift */; };
 		E7C105C020C6389E001BFB11 /* LocaleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */; };
+		E7E5CD5920D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CD5820D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift */; };
+		E7E5CD6120D0FF8F00FEB232 /* TXScrollLabelView.h in Headers */ = {isa = PBXBuildFile; fileRef = E7E5CD5D20D0FF8F00FEB232 /* TXScrollLabelView.h */; };
+		E7E5CD6220D0FF8F00FEB232 /* TXScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CD5E20D0FF8F00FEB232 /* TXScrollLabelView.m */; };
+		E7E5CD6320D0FF8F00FEB232 /* UIView+TXFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */; };
+		E7E5CD6420D0FF8F00FEB232 /* UIView+TXFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CD6020D0FF8F00FEB232 /* UIView+TXFrame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,7 +168,6 @@
 		80F68CCD03805BF1B668E7DC /* Pods-CommonRefs-BTBaseSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonRefs-BTBaseSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommonRefs-BTBaseSDK/Pods-CommonRefs-BTBaseSDK.release.xcconfig"; sourceTree = "<group>"; };
 		83CEC7254562D2F5FE0D2373 /* Pods-CommonRefs-BTBaseSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonRefs-BTBaseSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommonRefs-BTBaseSDK/Pods-CommonRefs-BTBaseSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		D43C41BC1966FFE0308B117A /* Pods_SDKTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E716644A20D0BB1500973200 /* UnityAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityAppController.h; sourceTree = "<group>"; };
 		E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BTBaseSDK+Unity.m"; sourceTree = "<group>"; };
 		E71794E120CD469C0054178E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E71794E320CD46A90054178E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -278,6 +281,12 @@
 		E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTServiceInfo.swift; sourceTree = "<group>"; };
 		E7C105BD20C63649001BFB11 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 		E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleExtensions.swift; sourceTree = "<group>"; };
+		E7E5CD5820D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTBaseSDK+UnityMessageReceiver.swift"; sourceTree = "<group>"; };
+		E7E5CD5D20D0FF8F00FEB232 /* TXScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXScrollLabelView.h; sourceTree = "<group>"; };
+		E7E5CD5E20D0FF8F00FEB232 /* TXScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXScrollLabelView.m; sourceTree = "<group>"; };
+		E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TXFrame.h"; sourceTree = "<group>"; };
+		E7E5CD6020D0FF8F00FEB232 /* UIView+TXFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TXFrame.m"; sourceTree = "<group>"; };
+		E7E5CD6520D0FFB700FEB232 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,7 +302,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E71794E220CD469C0054178E /* GameKit.framework in Frameworks */,
-				E762E757F4FCD43FB92D28ED /* Pods_SDKTest.framework in Frameworks */,
 				E79CC63920CE590E003DAB73 /* BTBaseSDK.framework in Frameworks */,
 				E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */,
 				5A93CF53D5F242064F83D032 /* Pods_CommonRefs_SDKTest.framework in Frameworks */,
@@ -344,8 +352,8 @@
 		E716644720D0B9ED00973200 /* SDK+Unity */ = {
 			isa = PBXGroup;
 			children = (
-				E716644A20D0BB1500973200 /* UnityAppController.h */,
 				E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */,
+				E7E5CD5820D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift */,
 			);
 			path = "SDK+Unity";
 			sourceTree = "<group>";
@@ -404,6 +412,7 @@
 		E754A25820C3A88D006F36EB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E7E5CD5C20D0FF8F00FEB232 /* TXScrollLabelView */,
 				E79CC63320CE12E4003DAB73 /* BTBaseSDK+UI.swift */,
 				E754A32A20C3F1C0006F36EB /* BTBaseHomeController.swift */,
 				E754A2F020C3EB55006F36EB /* BTBaseSDKBundleExtensions.swift */,
@@ -581,6 +590,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		E7E5CD5C20D0FF8F00FEB232 /* TXScrollLabelView */ = {
+			isa = PBXGroup;
+			children = (
+				E7E5CD5D20D0FF8F00FEB232 /* TXScrollLabelView.h */,
+				E7E5CD5E20D0FF8F00FEB232 /* TXScrollLabelView.m */,
+				E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */,
+				E7E5CD6020D0FF8F00FEB232 /* UIView+TXFrame.m */,
+				E7E5CD6520D0FFB700FEB232 /* module.modulemap */,
+			);
+			path = TXScrollLabelView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -588,6 +609,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7E5CD6120D0FF8F00FEB232 /* TXScrollLabelView.h in Headers */,
+				E7E5CD6320D0FF8F00FEB232 /* UIView+TXFrame.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -933,9 +956,11 @@
 				E754A29A20C3C077006F36EB /* RegexUtil.swift in Sources */,
 				E740BC5020C7BA32001C13F1 /* BTMember+BTDB.swift in Sources */,
 				E788688320C30435008E0E8D /* BTAccountService.swift in Sources */,
+				E7E5CD5920D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift in Sources */,
 				E7C105C020C6389E001BFB11 /* LocaleExtensions.swift in Sources */,
 				E75D404520C518F300BEAF79 /* ImageUtil.swift in Sources */,
 				E738006820C452D00043A201 /* SignInViewController.swift in Sources */,
+				E7E5CD6220D0FF8F00FEB232 /* TXScrollLabelView.m in Sources */,
 				E75D404720C518F300BEAF79 /* ControllerExtension.swift in Sources */,
 				E7C105BE20C63649001BFB11 /* UIDeviceExtensions.swift in Sources */,
 				E75D401020C4B01700BEAF79 /* BTServiceContainer.swift in Sources */,
@@ -948,6 +973,7 @@
 				E788687820C3017D008E0E8D /* BTServiceConst.swift in Sources */,
 				E75D404020C518F300BEAF79 /* Integer+FriendlyString.swift in Sources */,
 				E75D404A20C518F300BEAF79 /* KeyboardAdjustHelper.swift in Sources */,
+				E7E5CD6420D0FF8F00FEB232 /* UIView+TXFrame.m in Sources */,
 				E738006420C44DC20043A201 /* UpdatePasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1283,7 +1309,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon ${SRCROOT}/iOSSDK/UI/TXScrollLabelView";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1320,7 +1346,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon";
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon ${SRCROOT}/iOSSDK/UI/TXScrollLabelView";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_VERSION = 4.0;

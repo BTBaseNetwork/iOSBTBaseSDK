@@ -259,4 +259,11 @@
 //##################################################################################
 
 /* Class = "UILabel"; text = "Premium Member Play The Games In Game Wall Without Advertising"; ObjectID = "cGU-W6-xl0"; */
-"cGU-W6-xl0.text" = "高级会员可以免广告畅玩游戏墙里展示的所有游戏";
+//"cGU-W6-xl0.text" = "高级会员可以免广告畅玩游戏墙里展示的所有游戏";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-13 14:32:15
+//##################################################################################
+
+/* Class = "UILabel"; text = "Premium Members Can Play Games In The Game Wall Without Advertising"; ObjectID = "mpw-T3-kXd"; */
+//"mpw-T3-kXd.text" = "高级会员可以免广告畅玩游戏墙里展示的所有游戏";

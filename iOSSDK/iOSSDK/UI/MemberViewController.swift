@@ -8,12 +8,15 @@
 
 import MBProgressHUD
 import StoreKit
+import TXScrollLabelView
 import UIKit
 
-fileprivate let MemberCardRowHeight: CGFloat = 168
+fileprivate let MemberCardRowHeight: CGFloat = 100
 fileprivate let MemberProductRowHeight: CGFloat = 64
 fileprivate let NoMemberTipsRowHeight: CGFloat = 64
 fileprivate let MemberCardFooterHeight: CGFloat = 16
+fileprivate let MemberTipsScrollingDuration: TimeInterval = 0.3
+fileprivate let MemberExpiresAlertDays: Int = 3
 
 class MemberCardCell: UITableViewCell {
     static let reuseId = "MemberCardCell"
@@ -41,7 +44,7 @@ class MemberCardCell: UITableViewCell {
                 formatter.dateFormat = "BTLocMemberExpiredDateOverFormat".localizedBTBaseString
             }
             expiresDateLabel.text = formatter.string(from: Date(timeIntervalSince1970: member.expiredDateTs))
-            expiresDateLabel.textColor = member.expiredDateTs > Date().addDays(3).timeIntervalSince1970 ? memberTintColor : memberAlertColor
+            expiresDateLabel.textColor = member.expiredDateTs > Date().addDays(MemberExpiresAlertDays).timeIntervalSince1970 ? memberTintColor : memberAlertColor
             memberTypeLabel.textColor = memberTintColor
         } else {
             memberTypeLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
@@ -92,6 +95,22 @@ class MemberViewController: UIViewController {
     @IBOutlet var signInButton: UIButton! {
         didSet {
             signInButton.SetupBTBaseUI()
+        }
+    }
+    
+    var memberTipsLabel: TXScrollLabelView!
+    @IBOutlet var memberTipsView: UIView! {
+        didSet {
+            memberTipsView.layoutIfNeeded()
+            let msg = "BTLocSubscribeMemberTips".localizedBTBaseString
+            
+            memberTipsLabel = TXScrollLabelView(title: msg, type: .leftRight, velocity: MemberTipsScrollingDuration, options: .curveEaseIn, inset: UIEdgeInsets.zero)
+            
+            memberTipsLabel.frame = memberTipsView.bounds
+            memberTipsLabel.scrollTitleColor = BTBaseUIConfig.GlobalTintColor
+            memberTipsLabel.backgroundColor = UIColor.clear
+            
+            memberTipsView.addSubview(memberTipsLabel)
         }
     }
     
@@ -195,6 +214,7 @@ class MemberViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProfileUpdated(a:)), name: BTMemberService.onLocalMemberProfileUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProductsUpdated(a:)), name: BTMemberService.onMemberProductsUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onClickTabbarItem(a:)), name: BTBaseHomeController.DidSelectViewController, object: nil)
+        memberTipsLabel?.beginScrolling()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -202,6 +222,7 @@ class MemberViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: BTBaseHomeController.DidSelectViewController, object: nil)
         NotificationCenter.default.removeObserver(self, name: BTMemberService.onMemberProductsUpdated, object: nil)
         NotificationCenter.default.removeObserver(self, name: BTMemberService.onLocalMemberProfileUpdated, object: nil)
+        memberTipsLabel?.pauseScrolling()
     }
     
     @objc func onMemberProfileUpdated(a _: Notification) {
@@ -222,7 +243,7 @@ class MemberViewController: UIViewController {
     
     private func fetchIAPList() {
         if !loading {
-            BTServiceContainer.getBTMemberService()?.fetchIAPList()
+            BTServiceContainer.getBTMemberService()?.fetchMemberConfig()
         }
     }
     
