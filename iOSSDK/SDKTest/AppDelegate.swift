@@ -7,13 +7,15 @@
 //
 
 import UIKit
-
+import BTBaseSDK
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        BTBaseSDK.start()
+        BTBaseSDK.setupSDKUI()
         return true
     }
 
