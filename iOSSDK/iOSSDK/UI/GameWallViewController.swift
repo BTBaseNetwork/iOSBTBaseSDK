@@ -75,7 +75,13 @@ class GameWallBannerItemCell: UITableViewCell {
         let gameName = gameWallItem.getLocalizedGameName()
         let title = String(format: "BTLocTitleOpenGameXOrOpenStore".localizedBTBaseString, gameName)
         let msg = String(format: "BTLocMsgOpenGameXOrOpenStore".localizedBTBaseString, gameName)
+        #if DEBUG
+        BTBaseSDK.shareAuthentication()
+        #endif
         let ok = UIAlertAction(title: "BTLocPlayNow".localizedBTBaseString, style: .default) { _ in
+            #if RELEASE
+            BTBaseSDK.shareAuthentication()
+            #endif
             self.playGame()
         }
         rootController?.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, ok])

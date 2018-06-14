@@ -87,11 +87,13 @@ class BTAccountService {
         req.request(profile: clientProfile)
     }
 
-    func updatePassword(currentPassword: String, newPassword: String, respAction: UpdatePasswordRequest.ResponseAction?) {
+    func updatePassword(currentPassword: String, newPassword: String, respAction: @escaping (_: BTAPIResult<EmptyContent>, _ newSaltedPassword: String) -> Void) {
         let req = UpdatePasswordRequest()
         req.newPassword = BTServiceConst.generateClientSaltPassword(password: newPassword)
         req.password = BTServiceConst.generateClientSaltPassword(password: currentPassword)
-        req.response = respAction
+        req.response = { _, res in
+            respAction(res, req.newPassword)
+        }
         req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()

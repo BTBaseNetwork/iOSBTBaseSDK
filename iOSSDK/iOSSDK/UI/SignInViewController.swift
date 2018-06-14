@@ -46,9 +46,7 @@ class SignInViewController: UIViewController {
             }
         } else {
             accountTextField.text = nil
-            DispatchQueue.main.afterMS(1000) {
-                self.performSegue(withIdentifier: "SignUp", sender: self)
-            }
+            performSegue(withIdentifier: "SignUp", sender: self)
         }
     }
 
@@ -89,10 +87,6 @@ class SignInViewController: UIViewController {
                 self.accountTextField.isEnabled = true
                 self.passwordTextField.isEnabled = true
                 if result.isHttpOK {
-                    let auth = BTBaseSDK.ClientSharedAuthentication()
-                    auth.accountId = result.content.accountId
-                    auth.saltedPassword = isSalted ? psw : BTServiceConst.generateClientSaltPassword(password: psw)
-                    BTBaseSDK.shareAuthentication(auth)
                     self.onClickCancel(sender)
                 } else {
                     if result.isHttpNotFound {
@@ -150,7 +144,7 @@ class SignInViewController: UIViewController {
     private func setCheckTag(_ check: UIView, _ visible: Bool) {
         check.isHidden = !visible
     }
-    
+
     deinit {
         debugLog("Deinited:\(self.description)")
     }

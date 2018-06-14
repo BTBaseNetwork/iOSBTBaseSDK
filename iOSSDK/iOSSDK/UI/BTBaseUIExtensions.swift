@@ -136,12 +136,14 @@ extension UIButton {
         contentEdgeInsets = BTBaseUIConfig.ButtonContentInsets
         backgroundColor = BTBaseUIConfig.ButtonBackgroundColor.colorOf(state: .normal)
         layer.cornerRadius = BTBaseUIConfig.ButtonCornerRadius
-        if let height = (constraints.first { $0.firstAttribute == NSLayoutAttribute.height }) {
-            height.constant = BTBaseUIConfig.ButtonHeight
-        } else {
-            let height = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1, constant: BTBaseUIConfig.ButtonHeight)
-            addConstraint(height)
+
+        for constr in (constraints.filter { $0.firstAttribute == .height }) {
+            removeConstraint(constr)
         }
+
+        let height = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1, constant: BTBaseUIConfig.ButtonHeight)
+        addConstraint(height)
+
         setTitleColor(BTBaseUIConfig.ButtonTitleColor.colorOf(state: .normal), for: .normal)
         setTitleColor(BTBaseUIConfig.ButtonTitleColor.colorOf(state: .highlighted), for: .highlighted)
         setTitleColor(BTBaseUIConfig.ButtonTitleColor.colorOf(state: .disabled), for: .disabled)
@@ -156,6 +158,8 @@ extension UIButton {
                 btn.backgroundColor = BTBaseUIConfig.ButtonBackgroundColor.colorOf(state: state)
             }
         }
+
+        updateConstraints()
     }
 
     @objc private func onButtonPressed(sender: UIButton) {

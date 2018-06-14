@@ -34,8 +34,9 @@ class UpdatePasswordViewController: UIViewController {
 
     @IBAction func onClickUpdatePassword(_: Any) {
         updatePasswordButton.isEnabled = false
-        BTServiceContainer.getBTAccountService()?.updatePassword(currentPassword: curPasswordTextField.trimText!, newPassword: newPasswordTextField.trimText!, respAction: { _, result in
+        BTServiceContainer.getBTAccountService()?.updatePassword(currentPassword: curPasswordTextField.trimText!, newPassword: newPasswordTextField.trimText!, respAction: { result, newSaltedPassword in
             if result.isHttpOK {
+                BTServiceContainer.getBTSessionService()?.updateNewPassword(newSaltedPassword)
                 self.showAlert("BTLocTitleUpdatePswSuc".localizedBTBaseString, msg: nil, actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
                 })])
@@ -64,7 +65,7 @@ class UpdatePasswordViewController: UIViewController {
 
     @objc private func onTextFieldEditingDidEnd(sender: Any) {
     }
-    
+
     deinit {
         debugLog("Deinited:\(self.description)")
     }

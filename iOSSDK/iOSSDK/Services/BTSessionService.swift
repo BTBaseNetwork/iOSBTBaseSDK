@@ -43,7 +43,7 @@ class BTSessionService {
     }
 
     private func loadCachedSession() {
-        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status == ? Or Status == ?"), parameters: [BTAccountSession.STATUS_LOGIN,BTAccountSession.STATUS_LOGOUT])
+        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status == ? Or Status == ?"), parameters: [BTAccountSession.STATUS_LOGIN, BTAccountSession.STATUS_LOGOUT])
         if let session = resultSet.first {
             self.localSession = session
             self.checkAndRefreshToken()
@@ -120,6 +120,13 @@ class BTSessionService {
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useDeviceInfos().useLang().useClientId()
         req.request(profile: clientProfile)
+    }
+
+    func updateNewPassword(_ newSaltedPassword: String) {
+        if self.isSessionLogined {
+            self.localSession.password = newSaltedPassword
+            self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+        }
     }
 
     private func refreshToken() {

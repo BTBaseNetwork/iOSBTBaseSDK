@@ -17,6 +17,7 @@ UIViewController* _btbaseGetUnityViewController(){
 
 void _btbaseSDK_Start(){
     [BTBaseSDK start];
+    [BTBaseSDK setupSDKUI];
 }
 
 void _btbaseSDK_OpenHome(){

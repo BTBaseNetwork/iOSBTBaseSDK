@@ -12,22 +12,43 @@ import UIKit
 public extension BTBaseSDK {
     @objc public var GameServiceName: String { return "BTLocGameServiceName".localizedBTBaseString }
 
+    @objc public static func setupSDKUI() {
+        BahamutCommonLocalizedBundle = Bundle.iOSBTBaseSDKUI!
+    }
+
     @objc public static func tryShowLoginWithSharedAuthenticationAlert(vc: UIViewController) {
-        if let auth = getAuthentication(), let accountId = auth.accountId {
-            let title = "BTLocTitleSharedAuthenticationExists".localizedBTBaseString
-            let msg = String(format: "BTLocMsgSharedAuthenticationExists".localizedBTBaseString, accountId)
-            vc.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, UIAlertAction(title: "BTLocQuickSignIn".localizedBTBaseString, style: .default, handler: { _ in
-                BTServiceContainer.getBTSessionService()?.login(auth.accountId, auth.saltedPassword, passwordSalted: true, autoFillPassword: false, respAction: { _, res in
-                    if res.isHttpOK {
-                        openHome(vc)
-                    } else {
-                        openHome(vc, completion: { home in
-                            home.showSignIn()
-                        })
-                    }
-                })
-            })])
+        debugLog("tryShowLoginWithSharedAuthenticationAlert")
+        if let auth = getAuthentication(), let _ = auth.accountId {
+            debugLog("Quick Login Account Exists:", auth.accountId)
+            easyQuickLogin(vc, auth)
+            // askQuickLogin(vc: vc)
+        } else {
+            debugLog("No Quick Login Account")
         }
+    }
+
+    private static func easyQuickLogin(_ vc: UIViewController, _ auth: ClientSharedAuthentication) {
+        BTServiceContainer.getBTSessionService()?.login(auth.accountId, auth.password, passwordSalted: true, autoFillPassword: false, respAction: { _, res in
+            if res.isHttpOK {
+                debugLog("Account:%@ Logined", auth.accountId)
+            }
+        })
+    }
+
+    private static func askQuickLogin(_ vc: UIViewController, _ auth: ClientSharedAuthentication) {
+        let title = "BTLocTitleSharedAuthenticationExists".localizedBTBaseString
+        let msg = String(format: "BTLocMsgSharedAuthenticationExists".localizedBTBaseString, auth.accountId)
+        vc.showAlert(title, msg: msg, actions: [ALERT_ACTION_CANCEL, UIAlertAction(title: "BTLocQuickSignIn".localizedBTBaseString, style: .default, handler: { _ in
+            BTServiceContainer.getBTSessionService()?.login(auth.accountId, auth.password, passwordSalted: true, autoFillPassword: false, respAction: { _, res in
+                if res.isHttpOK {
+                    openHome(vc)
+                } else {
+                    openHome(vc, completion: { home in
+                        home.showSignIn()
+                    })
+                }
+            })
+        })])
     }
 
     @objc public static func openHome(_ vc: UIViewController) {
@@ -35,6 +56,6 @@ public extension BTBaseSDK {
     }
 
     private static func openHome(_ vc: UIViewController, completion: @escaping (BTBaseHomeController) -> Void) {
-        BTBaseHomeEntry.openHome(vc,completion: completion)
+        BTBaseHomeEntry.openHome(vc, completion: completion)
     }
 }

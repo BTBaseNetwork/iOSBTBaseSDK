@@ -103,16 +103,11 @@ class MemberViewController: UIViewController {
         didSet {
             memberTipsView.layoutIfNeeded()
             let msg = "BTLocSubscribeMemberTips".localizedBTBaseString
-            
-            memberTipsLabel = TXScrollLabelView(title: msg, type: .leftRight, velocity: MemberTipsScrollingDuration, options: .curveEaseIn, inset: UIEdgeInsets.zero)
-            
-            memberTipsLabel.frame = memberTipsView.bounds
-            memberTipsLabel.scrollTitleColor = BTBaseUIConfig.GlobalTintColor
-            memberTipsLabel.backgroundColor = UIColor.clear
-            
-            memberTipsView.addSubview(memberTipsLabel)
+            startScrollMessages(msgs: [msg])
         }
     }
+    
+    
     
     @IBOutlet var orderListButton: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
@@ -169,6 +164,19 @@ class MemberViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(onRefreshProductsEvent(a:)), name: BTMemberService.onRefreshProductsEvent, object: nil)
     }
     
+    func startScrollMessages(msgs: [String]) {
+        memberTipsLabel?.endScrolling()
+        memberTipsLabel?.removeFromSuperview()
+        
+        memberTipsLabel = TXScrollLabelView(textArray: msgs, type: .leftRight, velocity: MemberTipsScrollingDuration, options: .curveEaseIn, inset: UIEdgeInsets.zero)
+        
+        memberTipsLabel.frame = memberTipsView.bounds
+        memberTipsLabel.scrollTitleColor = BTBaseUIConfig.GlobalTintColor
+        memberTipsLabel.backgroundColor = UIColor.clear
+        
+        memberTipsView.addSubview(memberTipsLabel)
+    }
+    
     @objc private func onRefreshProductsEvent(a: Notification) {
         if let state = a.userInfo?[kBTRefreshMemberProductsStateKey] as? Int {
             DispatchQueue.main.async {
@@ -208,10 +216,12 @@ class MemberViewController: UIViewController {
     }
     
     override func viewWillAppear(_: Bool) {
+        tableView.reloadData()
         if products == nil || products.count == 0 {
             reloadProducts()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProfileUpdated(a:)), name: BTMemberService.onLocalMemberProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onMemberMessagesUpdated(a:)), name: BTMemberService.onMemberMessagesUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onMemberProductsUpdated(a:)), name: BTMemberService.onMemberProductsUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onClickTabbarItem(a:)), name: BTBaseHomeController.DidSelectViewController, object: nil)
         memberTipsLabel?.beginScrolling()
@@ -221,8 +231,15 @@ class MemberViewController: UIViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: BTBaseHomeController.DidSelectViewController, object: nil)
         NotificationCenter.default.removeObserver(self, name: BTMemberService.onMemberProductsUpdated, object: nil)
+        NotificationCenter.default.removeObserver(self, name: BTMemberService.onMemberMessagesUpdated, object: nil)
         NotificationCenter.default.removeObserver(self, name: BTMemberService.onLocalMemberProfileUpdated, object: nil)
         memberTipsLabel?.pauseScrolling()
+    }
+    
+    @objc func onMemberMessagesUpdated(a _: Notification) {
+        if let msgs = BTServiceContainer.getBTMemberService()?.messages {
+            startScrollMessages(msgs: msgs)
+        }
     }
     
     @objc func onMemberProfileUpdated(a _: Notification) {

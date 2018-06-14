@@ -16,6 +16,7 @@
  参考:https://www.jianshu.com/p/b0a38b4ba5b9
  */
 
+import CommonCrypto
 import Foundation
 import SwiftyStoreKit
 
@@ -30,11 +31,10 @@ public protocol SwiftyStoreKitCompleteDelegate {
 public class BTBaseSDK: NSObject {
     private static var instance = { BTBaseSDK() }()
     internal private(set) static var defaultDbContext: BTServiceDBContext!
-    private static var pasteboard = UIPasteboard(name: UIPasteboardName("mobi.btbase.iossdk"), create: true) {
-        didSet {
-            pasteboard?.setPersistent(true)
-        }
-    }
+    private static var pasteboard: UIPasteboard? = {
+        UIPasteboard(name: UIPasteboardName("mobi.btbase.iossdk"), create: true)
+        // UIPasteboard.general
+    }()
 
     @objc public private(set) static var isSDKInited: Bool = false
 
@@ -97,6 +97,7 @@ public extension BTBaseSDK {
                 memberService?.loadLocalProfile(accountId: accountId)
                 accountService?.fetchProfile()
                 memberService?.fetchMemberProfile()
+                BTBaseSDK.clearSharedAuthentication()
             } else {
                 accountService?.setLogout()
                 memberService?.setLogout()
@@ -120,24 +121,32 @@ public extension BTBaseSDK {
         }
 
         var accountId: String!
-        var saltedPassword: String!
+        var password: String!
     }
 
-    static func shareAuthentication(_ auth: ClientSharedAuthentication) {
-        if let json = auth.toJson() {
-            let item: [String: Any] = ["Authentication": json]
-            BTBaseSDK.pasteboard?.addItems([item])
+    static func shareAuthentication() {
+        if let session = BTServiceContainer.getBTSessionService()?.localSession, session.IsSessionLogined(), let psw = session.password {
+            let auth = BTBaseSDK.ClientSharedAuthentication()
+            auth.accountId = session.accountId
+            auth.password = psw
+
+            if let json = auth.toJson() {
+                BTBaseSDK.pasteboard?.string = "Authentication:\(json)"
+            }
+        }
+    }
+
+    static func clearSharedAuthentication() {
+        if BTBaseSDK.pasteboard?.string?.hasBegin("Authentication:") ?? false {
+            BTBaseSDK.pasteboard?.string = ""
         }
     }
 
     static func getAuthentication() -> ClientSharedAuthentication? {
-        if let items = BTBaseSDK.pasteboard?.items {
-            for item in items {
-                if item.keys.contains("Authentication") {
-                    if let json = item["Authentication"] as? String {
-                        return ClientSharedAuthentication.parse(json: json)
-                    }
-                }
+        if let content = BTBaseSDK.pasteboard?.string, content.hasBegin("Authentication:") {
+            let json = content.replacingOccurrences(of: "Authentication:", with: "")
+            if let auth = ClientSharedAuthentication.parse(json: json) {
+                return auth
             }
         }
         return nil
@@ -154,4 +163,3 @@ public extension BTBaseSDK {
         return false
     }
 }
-

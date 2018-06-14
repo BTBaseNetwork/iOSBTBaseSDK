@@ -1227,7 +1227,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LFc-6h-ruy">
-                                <rect key="frame" x="0.0" y="96" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="522"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MemberCardCell" rowHeight="100" id="JyT-XL-eLz" customClass="MemberCardCell" customModule="BTBaseSDK">
@@ -1374,8 +1374,9 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWK-e5-8XG">
-                                <rect key="frame" x="147" y="414" width="81" height="30"/>
-                                <state key="normal" title="Sign In First"/>
+                                <rect key="frame" x="159" y="340" width="57" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <state key="normal" title="Sign In"/>
                                 <connections>
                                     <action selector="onClickSignIn:" destination="Pgh-2U-2Te" eventType="touchUpInside" id="EUB-zp-C9K"/>
                                 </connections>
@@ -1386,17 +1387,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ZWK-e5-8XG" firstAttribute="centerX" secondItem="0Nw-8w-Qvy" secondAttribute="centerX" id="940-uq-ieu"/>
                             <constraint firstItem="b5Q-NX-End" firstAttribute="width" secondItem="0Nw-8w-Qvy" secondAttribute="width" id="CUr-Rn-P78"/>
                             <constraint firstItem="RQx-0v-8c5" firstAttribute="centerX" secondItem="0Nw-8w-Qvy" secondAttribute="centerX" id="Cud-Di-IUj"/>
                             <constraint firstItem="LFc-6h-ruy" firstAttribute="centerX" secondItem="0Nw-8w-Qvy" secondAttribute="centerX" id="IJh-WH-Uvv"/>
+                            <constraint firstItem="ZWK-e5-8XG" firstAttribute="centerY" secondItem="LFc-6h-ruy" secondAttribute="centerY" id="Onp-5W-8ev"/>
                             <constraint firstItem="b5Q-NX-End" firstAttribute="top" secondItem="yG4-SZ-4Ok" secondAttribute="bottom" id="UVR-Bl-aHu"/>
                             <constraint firstItem="LFc-6h-ruy" firstAttribute="width" secondItem="0Nw-8w-Qvy" secondAttribute="width" id="WYp-EV-UkY"/>
                             <constraint firstItem="LFc-6h-ruy" firstAttribute="top" secondItem="RQx-0v-8c5" secondAttribute="bottom" id="Y68-5d-9QF"/>
-                            <constraint firstItem="ZWK-e5-8XG" firstAttribute="centerY" secondItem="LFc-6h-ruy" secondAttribute="centerY" id="e7i-yT-YCO"/>
                             <constraint firstItem="b5Q-NX-End" firstAttribute="centerX" secondItem="0Nw-8w-Qvy" secondAttribute="centerX" id="gdF-YL-fac"/>
                             <constraint firstItem="RQx-0v-8c5" firstAttribute="width" secondItem="0Nw-8w-Qvy" secondAttribute="width" id="jsK-Xl-rXB"/>
-                            <constraint firstItem="ZWK-e5-8XG" firstAttribute="centerX" secondItem="LFc-6h-ruy" secondAttribute="centerX" id="jtr-LR-vDd"/>
-                            <constraint firstItem="LFc-6h-ruy" firstAttribute="height" secondItem="0Nw-8w-Qvy" secondAttribute="height" id="lv5-AW-zFe"/>
+                            <constraint firstItem="BQe-CR-rhE" firstAttribute="top" secondItem="LFc-6h-ruy" secondAttribute="bottom" id="vxP-ag-vLU"/>
                             <constraint firstItem="RQx-0v-8c5" firstAttribute="top" secondItem="yG4-SZ-4Ok" secondAttribute="bottom" id="xaZ-AZ-TD7"/>
                         </constraints>
                     </view>

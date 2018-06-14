@@ -111,13 +111,13 @@ extension BTMemberService {
         let req = GetBTMemberProfileRequest()
         req.response = { _, res in
             if res.isHttpOK {
-                res.content.members.forEach({ m in
+                res.content?.members?.forEach({ m in
                     self.dbContext.tableMember.update(model: m, upsert: true)
                 })
                 if let accountId = self.localProfile?.accountId, accountId == res.content.accountId {
                     let profile = BTMemberProfile()
                     profile.accountId = accountId
-                    profile.members = res.content.members ?? []
+                    profile.members = res.content?.members ?? []
                     self.localProfile = profile
                 }
             }
@@ -137,20 +137,20 @@ let BTRefreshMemberProductsStateStart = 0
 let BTRefreshMemberProductsStateFetched = 1
 let BTRefreshMemberProductsStateFailed = 2
 
+fileprivate class IAPInfo: Codable {
+    var id: String!
+    var enabled = false
+}
+
+fileprivate class MemberConfig: Codable {
+    var locMessages: [String: [String]]!
+    var products: [IAPInfo]!
+}
+
 extension BTMemberService {
     public static let onMemberMessagesUpdated = Notification.Name("BTMemberService_onMemberMessagesUpdated")
     public static let onMemberProductsUpdated = Notification.Name("BTMemberService_onMemberProductsUpdated")
     public static let onRefreshProductsEvent = Notification.Name("BTMemberService_onRefreshProductsEvent")
-
-    fileprivate class IAPInfo: Codable {
-        var id: String!
-        var enabled = false
-    }
-
-    fileprivate class MemberConfig: Codable {
-        var messages: [String]!
-        var products: [IAPInfo]!
-    }
 
     func paymentQueue(_: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
@@ -286,6 +286,13 @@ extension BTMemberService {
         if let json = try? String(contentsOfFile: BTMemberService.cachedMemberConfigJsonPathUrl.path), let data = json.data(using: String.Encoding.utf8) {
             if let configModel = try? JSONDecoder().decode(MemberConfig.self, from: data) {
                 self.retrieveProductsInfo(configModel.products)
+                if let msgdict = configModel.locMessages {
+                    if let msgs = msgdict[Locale.preferredLangCodeUnderlined], msgs.count > 0 {
+                        self.messages = msgs
+                    } else if let msgs = msgdict["default"], msgs.count > 0 {
+                        self.messages = msgs
+                    }
+                }
                 return true
             }
         }

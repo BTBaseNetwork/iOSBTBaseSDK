@@ -82,7 +82,6 @@ class BTBaseHomeEntry {
             return homeController!
         }
         let board = UIStoryboard(name: "BTBaseMainStoryboard", bundle: Bundle.iOSBTBaseSDKUI)
-        BahamutCommonLocalizedBundle = Bundle.iOSBTBaseSDKUI!
         BTBaseHomeEntry.IQKeyboardManagerEnabledOutOfSDK = IQKeyboardManager.shared.enable
         IQKeyboardManager.shared.enable = true
         homeController = board.instantiateViewController(withIdentifier: "BTBaseHomeController") as? BTBaseHomeController
