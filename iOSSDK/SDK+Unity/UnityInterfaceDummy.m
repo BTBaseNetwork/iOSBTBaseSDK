@@ -11,11 +11,9 @@
 
 // Fake Implementation For Compile Test
 
+void    UnityPause(int pause){ }
 
-UIViewController*       UnityGetGLViewController(){
-    return nil;
-}
-
-void    UnityPause(int pause){
-    
-}
+UIViewController*       UnityGetGLViewController(){ return nil; }
+UIView*                 UnityGetGLView(){ return nil; }
+UIWindow*               UnityGetMainWindow(){ return nil; }
+enum ScreenOrientation  UnityCurrentOrientation(){ return orientationUnknown;}
