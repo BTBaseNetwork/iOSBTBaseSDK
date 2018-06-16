@@ -8,16 +8,29 @@
 
 #import <Foundation/Foundation.h>
 #import <BTBaseSDK/BTBaseSDK-Swift.h>
+#import "UnityInterface.h"
+#import "BTBaseSDK+UnityMessageReceiver.h"
+
+BOOL pauseUnityOnBTHomeShown = true;
 
 UIViewController* _btbaseGetUnityViewController(){
-    NSObject* app = UIApplication.sharedApplication.delegate;
-    UIViewController* vc = [app valueForKey:@"_rootController"];
-    return vc;
+    return UnityGetGLViewController();
 }
 
 void _btbaseSDK_Start(){
     [BTBaseSDK start];
     [BTBaseSDK setupSDKUI];
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"BTBaseHomeEntryDidShown" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        if (pauseUnityOnBTHomeShown) {
+            UnityPause(1);
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"BTBaseHomeEntryClosed" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        if (pauseUnityOnBTHomeShown) {
+            UnityPause(0);
+        }
+    }];
 }
 
 void _btbaseSDK_OpenHome(){
@@ -48,4 +61,9 @@ void _btbaseSDK_StartListenNotifications(){
 
 void _btbaseSDK_StopListenNotifications(){
     [BTBaseSDK stopListenBTBaseNotifications];
+}
+
+void _btbaseSDK_SetPauseUnityOnBTHomeShown(BOOL enabled)
+{
+    pauseUnityOnBTHomeShown = enabled;
 }

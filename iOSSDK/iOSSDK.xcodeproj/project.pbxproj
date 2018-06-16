@@ -11,7 +11,8 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = E707E01F20CFCB89007E4C7A /* Build configuration list for PBXAggregateTarget "PublishBTBaseSDK" */;
 			buildPhases = (
-				E707E02220CFCC09007E4C7A /* ShellScript */,
+				E707E02220CFCC09007E4C7A /* Script-CompileAndCopyFrameworks */,
+				E783769020D4901100170BD4 /* Script-CopySDK+Unity */,
 			);
 			dependencies = (
 			);
@@ -23,7 +24,6 @@
 /* Begin PBXBuildFile section */
 		5A93CF53D5F242064F83D032 /* Pods_CommonRefs_SDKTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77735F9E990812F44F23C0F8 /* Pods_CommonRefs_SDKTest.framework */; };
 		A05B03ED0726B3E2E9E9D611 /* Pods_CommonRefs_BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CB63127DCB56ED891BDE40E /* Pods_CommonRefs_BTBaseSDK.framework */; };
-		E716644E20D0C1FF00973200 /* BTBaseSDK+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */; };
 		E71794E220CD469C0054178E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E120CD469C0054178E /* GameKit.framework */; };
 		E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E320CD46A90054178E /* StoreKit.framework */; };
 		E724679C20C691DF003641C0 /* BTBaseLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E76E76A020C58246008F61BA /* BTBaseLocalized.strings */; };
@@ -97,6 +97,13 @@
 		E75D404C20C518F300BEAF79 /* ShareHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403120C518F300BEAF79 /* ShareHelper.swift */; };
 		E75D404D20C518F300BEAF79 /* UIView+RemoveChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403220C518F300BEAF79 /* UIView+RemoveChildView.swift */; };
 		E75D404E20C518F300BEAF79 /* TableViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403320C518F300BEAF79 /* TableViewEx.swift */; };
+		E7773FF720D42E060071EBF8 /* BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
+		E7773FF820D42E3E0071EBF8 /* BTBaseSDK+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */; };
+		E7773FFA20D42E440071EBF8 /* UnityInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = E7773F8A20D425BD0071EBF8 /* UnityInterface.h */; };
+		E7773FFB20D42E440071EBF8 /* UnityForwardDecls.h in Headers */ = {isa = PBXBuildFile; fileRef = E7773F8D20D425CE0071EBF8 /* UnityForwardDecls.h */; };
+		E7773FFC20D42E440071EBF8 /* UnityRendering.h in Headers */ = {isa = PBXBuildFile; fileRef = E7773F8C20D425CE0071EBF8 /* UnityRendering.h */; };
+		E783768C20D4884D00170BD4 /* BTBaseSDK+UnityMessageReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = E783768920D484C500170BD4 /* BTBaseSDK+UnityMessageReceiver.m */; };
+		E783768F20D48AB200170BD4 /* UnityInterfaceDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E783768D20D48AAC00170BD4 /* UnityInterfaceDummy.m */; };
 		E78766C520CB87D900767900 /* UITextField+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78766C420CB87D900767900 /* UITextField+Text.swift */; };
 		E788687320C2FA77008E0E8D /* BTServiceDBContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687220C2FA77008E0E8D /* BTServiceDBContext.swift */; };
 		E788687620C2FDF5008E0E8D /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E788687520C2FDF5008E0E8D /* Models.swift */; };
@@ -122,7 +129,6 @@
 		E7C105BC20C62FE5001BFB11 /* BTServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */; };
 		E7C105BE20C63649001BFB11 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BD20C63649001BFB11 /* UIDeviceExtensions.swift */; };
 		E7C105C020C6389E001BFB11 /* LocaleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */; };
-		E7E5CD5920D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CD5820D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift */; };
 		E7E5CD6120D0FF8F00FEB232 /* TXScrollLabelView.h in Headers */ = {isa = PBXBuildFile; fileRef = E7E5CD5D20D0FF8F00FEB232 /* TXScrollLabelView.h */; };
 		E7E5CD6220D0FF8F00FEB232 /* TXScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CD5E20D0FF8F00FEB232 /* TXScrollLabelView.m */; };
 		E7E5CD6320D0FF8F00FEB232 /* UIView+TXFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */; };
@@ -256,6 +262,13 @@
 		E76E76A220C58266008F61BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BTBaseLocalized.strings"; sourceTree = "<group>"; };
 		E76E76A320C582F9008F61BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BTBaseLocalized.strings"; sourceTree = "<group>"; };
 		E76E76A420C584D9008F61BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BahamutCommonLocalized.strings"; sourceTree = "<group>"; };
+		E7773F8A20D425BD0071EBF8 /* UnityInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityInterface.h; sourceTree = "<group>"; };
+		E7773F8C20D425CE0071EBF8 /* UnityRendering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityRendering.h; sourceTree = "<group>"; };
+		E7773F8D20D425CE0071EBF8 /* UnityForwardDecls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnityForwardDecls.h; sourceTree = "<group>"; };
+		E7773FF520D42DA70071EBF8 /* TestSDKUnity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestSDKUnity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E783768920D484C500170BD4 /* BTBaseSDK+UnityMessageReceiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BTBaseSDK+UnityMessageReceiver.m"; sourceTree = "<group>"; };
+		E783768B20D4852400170BD4 /* BTBaseSDK+UnityMessageReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BTBaseSDK+UnityMessageReceiver.h"; sourceTree = "<group>"; };
+		E783768D20D48AAC00170BD4 /* UnityInterfaceDummy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnityInterfaceDummy.m; sourceTree = "<group>"; };
 		E78766C420CB87D900767900 /* UITextField+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Text.swift"; sourceTree = "<group>"; };
 		E788686320C2F981008E0E8D /* BTBaseSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BTBaseSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E788686720C2F981008E0E8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -281,7 +294,6 @@
 		E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTServiceInfo.swift; sourceTree = "<group>"; };
 		E7C105BD20C63649001BFB11 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 		E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleExtensions.swift; sourceTree = "<group>"; };
-		E7E5CD5820D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTBaseSDK+UnityMessageReceiver.swift"; sourceTree = "<group>"; };
 		E7E5CD5D20D0FF8F00FEB232 /* TXScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXScrollLabelView.h; sourceTree = "<group>"; };
 		E7E5CD5E20D0FF8F00FEB232 /* TXScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXScrollLabelView.m; sourceTree = "<group>"; };
 		E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TXFrame.h"; sourceTree = "<group>"; };
@@ -305,6 +317,14 @@
 				E79CC63920CE590E003DAB73 /* BTBaseSDK.framework in Frameworks */,
 				E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */,
 				5A93CF53D5F242064F83D032 /* Pods_CommonRefs_SDKTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7773FEC20D42DA70071EBF8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7773FF720D42E060071EBF8 /* BTBaseSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,8 +372,13 @@
 		E716644720D0B9ED00973200 /* SDK+Unity */ = {
 			isa = PBXGroup;
 			children = (
+				E7773F8A20D425BD0071EBF8 /* UnityInterface.h */,
+				E783768D20D48AAC00170BD4 /* UnityInterfaceDummy.m */,
+				E7773F8D20D425CE0071EBF8 /* UnityForwardDecls.h */,
+				E7773F8C20D425CE0071EBF8 /* UnityRendering.h */,
 				E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */,
-				E7E5CD5820D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift */,
+				E783768920D484C500170BD4 /* BTBaseSDK+UnityMessageReceiver.m */,
+				E783768B20D4852400170BD4 /* BTBaseSDK+UnityMessageReceiver.h */,
 			);
 			path = "SDK+Unity";
 			sourceTree = "<group>";
@@ -540,6 +565,7 @@
 				E788686320C2F981008E0E8D /* BTBaseSDK.framework */,
 				E754A25D20C3A9D5006F36EB /* BTBaseSDKUI.bundle */,
 				E754A31020C3EC6B006F36EB /* SDKTest.app */,
+				E7773FF520D42DA70071EBF8 /* TestSDKUnity.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -605,6 +631,16 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		E7773FEE20D42DA70071EBF8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7773FFC20D42E440071EBF8 /* UnityRendering.h in Headers */,
+				E7773FFB20D42E440071EBF8 /* UnityForwardDecls.h in Headers */,
+				E7773FFA20D42E440071EBF8 /* UnityInterface.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E788686020C2F981008E0E8D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -655,6 +691,25 @@
 			productName = SDKTest;
 			productReference = E754A31020C3EC6B006F36EB /* SDKTest.app */;
 			productType = "com.apple.product-type.application";
+		};
+		E7773F9220D42DA70071EBF8 /* TestSDKUnity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7773FF220D42DA70071EBF8 /* Build configuration list for PBXNativeTarget "TestSDKUnity" */;
+			buildPhases = (
+				E7773F9320D42DA70071EBF8 /* [CP] Check Pods Manifest.lock */,
+				E7773F9420D42DA70071EBF8 /* Sources */,
+				E7773FEC20D42DA70071EBF8 /* Frameworks */,
+				E7773FEE20D42DA70071EBF8 /* Headers */,
+				E7773FF120D42DA70071EBF8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TestSDKUnity;
+			productName = iOSSDK;
+			productReference = E7773FF520D42DA70071EBF8 /* TestSDKUnity.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		E788686220C2F981008E0E8D /* BTBaseSDK */ = {
 			isa = PBXNativeTarget;
@@ -726,6 +781,7 @@
 				E788686220C2F981008E0E8D /* BTBaseSDK */,
 				E754A25C20C3A9D5006F36EB /* BTBaseSDKUI */,
 				E754A30F20C3EC6B006F36EB /* SDKTest */,
+				E7773F9220D42DA70071EBF8 /* TestSDKUnity */,
 				E707E01E20CFCB89007E4C7A /* PublishBTBaseSDK */,
 			);
 		};
@@ -752,6 +808,13 @@
 				E78B406220C6CA060049ED91 /* btbase.plist in Resources */,
 				E754A31A20C3EC6C006F36EB /* Assets.xcassets in Resources */,
 				E754A31820C3EC6B006F36EB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7773FF120D42DA70071EBF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -795,13 +858,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CommonRefs-SDKTest/Pods-CommonRefs-SDKTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E707E02220CFCC09007E4C7A /* ShellScript */ = {
+		E707E02220CFCC09007E4C7A /* Script-CompileAndCopyFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Script-CompileAndCopyFrameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -821,6 +885,38 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "python ${SRCROOT}/SDKUI/AutoGenStrings.py ${SRCROOT}/SDKUI";
+		};
+		E7773F9320D42DA70071EBF8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CommonRefs-BTBaseSDK-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E783769020D4901100170BD4 /* Script-CopySDK+Unity */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Script-CopySDK+Unity";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INPUT_FILES=\"${SRCROOT}/SDK+Unity\"\nUNIVERSAL_OUTPUT_FOLDER=\"${SRCROOT}/Release/\"\nIGNORE_FILES=(\n'UnityInterface.h'\n'UnityInterfaceDummy.m'\n'UnityForwardDecls.h'\n'UnityRendering.h'\n)\n\n#移除旧文件\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}BTBase+Unity\"\n\n#拷贝Unity Wrapper到output目录\ncp -R \"${INPUT_FILES}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#改名\nmv \"${UNIVERSAL_OUTPUT_FOLDER}SDK+Unity\" \"${UNIVERSAL_OUTPUT_FOLDER}BTBase+Unity\"\n\n#移除不必要文件\nfor item in ${IGNORE_FILES[@]};do\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}BTBase+Unity/${item}\"\ndone";
 		};
 		E79CC63E20CE5C70003DAB73 /* DeleteBinaryFilesInBundle */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -884,6 +980,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E7773F9420D42DA70071EBF8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7773FF820D42E3E0071EBF8 /* BTBaseSDK+Unity.m in Sources */,
+				E783768F20D48AB200170BD4 /* UnityInterfaceDummy.m in Sources */,
+				E783768C20D4884D00170BD4 /* BTBaseSDK+UnityMessageReceiver.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E788685E20C2F981008E0E8D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -911,7 +1017,6 @@
 				E75D403C20C518F300BEAF79 /* UICollectionViewFlowLayouts.swift in Sources */,
 				E791C88C20C97DD0003E36A1 /* BTBaseConfig.swift in Sources */,
 				E78766C520CB87D900767900 /* UITextField+Text.swift in Sources */,
-				E716644E20D0C1FF00973200 /* BTBaseSDK+Unity.m in Sources */,
 				E75D401620C516DF00BEAF79 /* CommonRegexPatterns.swift in Sources */,
 				E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */,
 				E740BC4520C78791001C13F1 /* BTDBContext.swift in Sources */,
@@ -956,7 +1061,6 @@
 				E754A29A20C3C077006F36EB /* RegexUtil.swift in Sources */,
 				E740BC5020C7BA32001C13F1 /* BTMember+BTDB.swift in Sources */,
 				E788688320C30435008E0E8D /* BTAccountService.swift in Sources */,
-				E7E5CD5920D0E9E600FEB232 /* BTBaseSDK+UnityMessageReceiver.swift in Sources */,
 				E7C105C020C6389E001BFB11 /* LocaleExtensions.swift in Sources */,
 				E75D404520C518F300BEAF79 /* ImageUtil.swift in Sources */,
 				E738006820C452D00043A201 /* SignInViewController.swift in Sources */,
@@ -1156,6 +1260,79 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.SDKTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E7773FF320D42DA70071EBF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83CEC7254562D2F5FE0D2373 /* Pods-CommonRefs-BTBaseSDK.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "mobi.btbase.sdk-unity";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon ${SRCROOT}/iOSSDK/UI/TXScrollLabelView";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E7773FF420D42DA70071EBF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80F68CCD03805BF1B668E7DC /* Pods-CommonRefs-BTBaseSDK.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2BW6TGDJAV;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "mobi.btbase.sdk-unity";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon ${SRCROOT}/iOSSDK/UI/TXScrollLabelView";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1380,6 +1557,15 @@
 			buildConfigurations = (
 				E754A32020C3EC6C006F36EB /* Debug */,
 				E754A32120C3EC6C006F36EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7773FF220D42DA70071EBF8 /* Build configuration list for PBXNativeTarget "TestSDKUnity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7773FF320D42DA70071EBF8 /* Debug */,
+				E7773FF420D42DA70071EBF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
