@@ -88,7 +88,7 @@ class GameWallBannerItemCell: UITableViewCell {
     }
 
     func playGame() {
-        if gameWallItem.appLink.iOSAppId == BTBaseSDK.config.appStoreID {
+        if let appId = BTBaseSDK.config.appStoreID, appId == gameWallItem.appLink.iOSAppId {
             BTBaseHomeEntry.closeHomeController()
             return
         }

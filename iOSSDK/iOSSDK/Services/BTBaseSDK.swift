@@ -38,7 +38,7 @@ public class BTBaseSDK: NSObject {
 
     @objc public private(set) static var isSDKInited: Bool = false
     
-    @objc public private(set) static var config: BTBaseConfig!
+    public private(set) static var config: BTBaseConfig!
 
     public static var swiftyStoreKitCompleteDelegate: SwiftyStoreKitCompleteDelegate?
 

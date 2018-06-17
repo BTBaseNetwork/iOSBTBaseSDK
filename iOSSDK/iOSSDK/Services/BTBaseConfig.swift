@@ -52,7 +52,7 @@ public class BTBaseConfig {
 }
 
 extension BTBaseConfig{
-    public var appStoreID:String{
+    public var appStoreID:String?{
         return getString(key: "AppStoreID")
     }
 }
