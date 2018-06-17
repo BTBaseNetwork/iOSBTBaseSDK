@@ -88,6 +88,10 @@ class GameWallBannerItemCell: UITableViewCell {
     }
 
     func playGame() {
+        if gameWallItem.appLink.iOSAppId == BTBaseSDK.config.appStoreID {
+            BTBaseHomeEntry.closeHomeController()
+            return
+        }
         let url = URL(string: gameWallItem.appLink.iOSUrlScheme)!
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(url, options: [:]) { suc in

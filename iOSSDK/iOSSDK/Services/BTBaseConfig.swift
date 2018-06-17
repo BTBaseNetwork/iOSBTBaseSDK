@@ -50,3 +50,9 @@ public class BTBaseConfig {
         return config?[key] as? URL
     }
 }
+
+extension BTBaseConfig{
+    public var appStoreID:String{
+        return getString(key: "AppStoreID")
+    }
+}

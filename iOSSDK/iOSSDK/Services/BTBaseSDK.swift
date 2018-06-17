@@ -37,11 +37,14 @@ public class BTBaseSDK: NSObject {
     }()
 
     @objc public private(set) static var isSDKInited: Bool = false
+    
+    @objc public private(set) static var config: BTBaseConfig!
 
     public static var swiftyStoreKitCompleteDelegate: SwiftyStoreKitCompleteDelegate?
 
     @objc public class func start() {
         if let config = BTBaseConfig() {
+            BTBaseSDK.config = config
             if let dbname = config.getString(key: "BTBaseDB") {
                 let dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
                 let dbContext = BTServiceDBContext(dbpath: dbPath)
