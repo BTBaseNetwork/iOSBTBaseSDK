@@ -46,10 +46,13 @@ class BTAccountService {
         req.email = email
         req.password = BTServiceConst.generateClientSaltPassword(password: password)
         req.username = username
-        req.response = { _, res in
+        req.response = { request, res in
             if res.isHttpOK {
                 let uinfo: [String: Any] = [kBTRegistedUsername: res.content.userName, kBTRegistedAccountId: res.content.accountId]
                 NotificationCenter.default.postWithMainQueue(name: BTAccountService.onNewAccountRegisted, object: self, userInfo: uinfo)
+            }
+            DispatchQueue.main.async {
+                respAction?(request, res)
             }
         }
         let clientProfile = BTAPIClientProfile(host: host)
@@ -108,9 +111,10 @@ class BTAccountService {
                 self.localAccount.nick = newNick
                 self.dbContext.tableAccount.update(model: self.localAccount, upsert: true)
             }
-            respAction?(request, res)
+            DispatchQueue.main.async {
+                respAction?(request, res)
+            }
         }
-        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)
@@ -135,9 +139,10 @@ class BTAccountService {
                 self.localAccount.email = "\(newEmail.first!)***@\(newEmail.split("@")[1])"
                 self.dbContext.tableAccount.update(model: self.localAccount, upsert: true)
             }
-            respAction?(request, res)
+            DispatchQueue.main.async {
+                respAction?(request, res)
+            }
         }
-        req.queue = DispatchQueue.main
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useAccountId().useAuthorizationAPIToken()
         req.request(profile: clientProfile)

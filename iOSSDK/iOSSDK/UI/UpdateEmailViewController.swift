@@ -180,6 +180,9 @@ class UpdateEmailViewController: UIViewController {
     }
 
     private func setCheckTag(_ check: UIView, _ visible: Bool) {
+        if let img = check as? UIImageView{
+            img.tintColor = BTBaseUIConfig.GlobalTintColor
+        }
         check.isHidden = !visible
     }
 
