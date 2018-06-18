@@ -50,21 +50,12 @@ class SignInViewController: UIViewController {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        NotificationCenter.default.removeObserver(self, name: BTAccountService.onNewAccountRegisted, object: nil)
-    }
-
-    @objc func onNewAccountRegisted(a: Notification) {
-        if let username = a.userInfo?[kBTRegistedUsername] as? String {
-            accountTextField.text = username
-        }
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        if segue.identifier == "SignUp" {
-            NotificationCenter.default.addObserver(self, selector: #selector(onNewAccountRegisted(a:)), name: BTAccountService.onNewAccountRegisted, object: nil)
+        if segue.identifier == "SignUp",let svc = segue.destination as? SignUpViewController {
+            svc.onSignUpComplete = { username,accountId in
+                self.accountTextField.text = username
+            }
         }
     }
 

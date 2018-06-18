@@ -22,6 +22,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet var passwordCheckImage: UIImageView!
     @IBOutlet var emailCheckImage: UIImageView!
     @IBOutlet var confirmEmailCheckImage: UIImageView!
+    
+    var onSignUpComplete:((_ username:String,_ accountId:String)->Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +67,11 @@ class SignUpViewController: UIViewController {
             if result.isServerError {
                 self.tipsLabel.text = "BTLocMsgServerErr".localizedBTBaseString
             } else if result.isHttpOK {
+                self.onSignUpComplete?(result.content.userName,result.content.accountId)
+                
                 self.showAlert("BTLocTitleRegistSuc".localizedBTBaseString, msg: String(format: "BTLocMsgYourAccountId_X".localizedBTBaseString, result.content.accountId), actions: [UIAlertAction(title: "BTLocOK".localizedBTBaseString, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
+                    self.onSignUpComplete = nil
                 })])
             } else if let err = result.error {
                 self.tipsLabel.text = ("BTLocMsg\(err.msgWithoutSpaces)").localizedBTBaseString
