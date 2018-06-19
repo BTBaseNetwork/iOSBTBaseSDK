@@ -76,6 +76,7 @@ BTLogMsgLoginTooOften = "登录超过今天次数限制，请尝试重置密码"
 BTLogMsgSendCodeTooOften = "申请验证码超过今日限制次数";
 BTLocMsgSubscribeMemberSuc = "你的会员订阅已经续期";
 BTLocMsgSubscribeMemberFail = "进入订单列表可以查看到详细信息";
+BTLocMsgPurchaseCancelOrFail = "取消购买或失败";
 BTLocMsgSharedAuthenticationExists = "你在本设备的其他游戏登录了账号:%@，你可以直接快速登录，如要登录其他账户，请点击取消。";
 BTLocNeedSignIn = "未登录";
 BTLocNewPassword = "新密码";

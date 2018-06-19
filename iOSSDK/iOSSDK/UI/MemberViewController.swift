@@ -200,7 +200,8 @@ class MemberViewController: UIViewController {
                             self.showAlert(title, msg: msg)
                         } else if event == BTMemberPurchaseEventPurchaseFailed {
                             let title = "BTLocTitleSubscribeMemberFail".localizedBTBaseString
-                            self.showAlert(title, msg: nil)
+                            let msg = "BTLocMsgPurchaseCancelOrFail".localizedBTBaseString
+                            self.showAlert(title, msg: msg)
                         } else {
                             let title = "BTLocTitleSubscribeMemberFail".localizedBTBaseString
                             let msg = "BTLocMsgSubscribeMemberFail".localizedBTBaseString

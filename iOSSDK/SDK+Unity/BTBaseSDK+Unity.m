@@ -6,10 +6,33 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <BTBaseSDK/BTBaseSDK-Swift.h>
 #import "UnityInterface.h"
 #import "BTBaseSDK+UnityMessageReceiver.h"
+
+@implementation UIViewController(BTBaseSDK)
+- (UIViewController *)topViewController {
+    UIViewController *resultVC;
+    resultVC = [self _topViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
+    while (resultVC.presentedViewController) {
+        resultVC = [self _topViewController:resultVC.presentedViewController];
+    }
+    return resultVC;
+}
+
+- (UIViewController *)_topViewController:(UIViewController *)vc {
+    if ([vc isKindOfClass:[UINavigationController class]]) {
+        return [self _topViewController:[(UINavigationController *)vc topViewController]];
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        return [self _topViewController:[(UITabBarController *)vc selectedViewController]];
+    } else {
+        return vc;
+    }
+    return nil;
+}
+@end
 
 BOOL pauseUnityOnBTHomeShown = true;
 
@@ -35,7 +58,9 @@ void _btbaseSDK_Start(){
 
 void _btbaseSDK_OpenHome(){
     UIViewController* vc = _btbaseGetUnityViewController();
-    [BTBaseSDK openHome:vc];
+    if (vc.topViewController == vc) {
+        [BTBaseSDK openHome:vc];
+    }
 }
 
 BOOL _btbaseSDK_IsSDKInited(){

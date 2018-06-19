@@ -76,6 +76,7 @@ BTLogMsgLoginTooOften = "超過今天的登錄次數限制，請嘗試重置密�
 BTLogMsgSendCodeTooOften = "申請驗證碼超過今日限制次數";
 BTLocMsgSubscribeMemberSuc = "你的會員訂閱已經續期";
 BTLocMsgSubscribeMemberFail = "進入訂單列出可以查看詳細信息";
+BTLocMsgPurchaseCancelOrFail = "取消購買或失敗";
 BTLocMsgSharedAuthenticationExists = "你在本設備的其他遊戲登錄了賬號:%@，你可以直接快速登錄，如要登錄其他賬戶，請點擊取消。";
 BTLocNeedSignIn = "未登錄";
 BTLocNewPassword = "新密碼";

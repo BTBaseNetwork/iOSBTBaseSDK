@@ -76,6 +76,7 @@ BTLogMsgLoginTooOften = "Over Today's Limitations, Try Reset Password.";
 BTLogMsgSendCodeTooOften = "Over Today's Limitations, Please Try Reset Password.";
 BTLocMsgSubscribeMemberSuc = "Your Member Subscription Has Been Renewed";
 BTLocMsgSubscribeMemberFail = "Check The Order List For More Details";
+BTLocMsgPurchaseCancelOrFail = "Purchase Is Canceled Or Failed";
 BTLocMsgSharedAuthenticationExists = "Account:%@ Already Login With Another App. If You Want To Sign In Another Account, Click Cancel";
 BTLocNeedSignIn = "Need Sign In";
 BTLocNewPassword = "New Password";
