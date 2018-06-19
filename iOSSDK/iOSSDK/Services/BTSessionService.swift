@@ -43,7 +43,7 @@ class BTSessionService {
     }
 
     private func loadCachedSession() {
-        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status == ? Or Status == ?"), parameters: [BTAccountSession.STATUS_LOGIN, BTAccountSession.STATUS_LOGOUT])
+        let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status == ? Or Status == ?"), parameters: [BTAccountSession.STATUS_LOGIN, BTAccountSession.STATUS_LOGOUT_DEFAULT]).sorted { $0.status < $1.status }
         if let session = resultSet.first {
             self.localSession = session
             self.checkAndRefreshToken()

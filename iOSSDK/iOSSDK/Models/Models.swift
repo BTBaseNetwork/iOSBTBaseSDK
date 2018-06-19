@@ -72,6 +72,7 @@ class BTIAPOrder: Codable {
     public static let STATE_VERIFY_SERVER_NETWORK_ERROR = 4
 
     public var transactionId: String = ""
+    public var accountId: String = ""
     public var productId: String = ""
     public var locTitle: String?
     public var store: String?

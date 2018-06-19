@@ -93,9 +93,11 @@ class OrderListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func loadOrders() {
-        orders = BTIAPOrderManager.instance.getAllOrders().sorted(by: { (a, b) -> Bool in
-            a.date!.timeIntervalSince1970 > b.date!.timeIntervalSince1970
-        })
+        if let aId = BTServiceContainer.getBTSessionService()?.localSession?.accountId {
+            orders = BTIAPOrderManager.instance.getAllOrders(accountId: aId).sorted(by: { (a, b) -> Bool in
+                a.date!.timeIntervalSince1970 > b.date!.timeIntervalSince1970
+            })
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

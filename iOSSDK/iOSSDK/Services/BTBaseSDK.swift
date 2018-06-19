@@ -37,7 +37,7 @@ public class BTBaseSDK: NSObject {
     }()
 
     @objc public private(set) static var isSDKInited: Bool = false
-    
+
     public private(set) static var config: BTBaseConfig!
 
     public static var swiftyStoreKitCompleteDelegate: SwiftyStoreKitCompleteDelegate?
@@ -54,11 +54,11 @@ public class BTBaseSDK: NSObject {
 
                 BTIAPOrderManager.initManager(dbContext: dbContext)
 
-                BTServiceContainer.useBTGameWall(config)
+                BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
                 BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
                 BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
-                BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
-
+                BTServiceContainer.useBTGameWall(config)
+                
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionInvalid(a:)), name: BTSessionService.onSessionInvalid, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)

@@ -17,6 +17,10 @@ extension BTIAPOrder: BTDBEntityModel {
             model.transactionId = value as! String
         }.hasPrimaryKey().length(valueLength: 128).notNull()
         
+        entity.hasProperty("accountId", String.self) { (model: BTIAPOrder, value: Any) in
+            model.accountId = value as! String
+        }
+        
         entity.hasProperty("productId", String.self) { (model: BTIAPOrder, value: Any) in
             model.productId = value as! String
         }

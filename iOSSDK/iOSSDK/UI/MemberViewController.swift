@@ -107,8 +107,6 @@ class MemberViewController: UIViewController {
         }
     }
     
-    
-    
     @IBOutlet var orderListButton: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
     var products: [BTMemberService.MemberProduct]! {
@@ -191,7 +189,7 @@ class MemberViewController: UIViewController {
         purchaseObserver = NotificationCenter.default.addObserver(forName: BTMemberService.onPurchaseEvent, object: nil, queue: .main) { a in
             if let event = a.userInfo?[kBTMemberPurchaseEvent] as? Int {
                 switch event {
-                case BTMemberPurchaseEventValidateFailed, BTMemberPurchaseEventValidateSuccess:
+                case BTMemberPurchaseEventValidateFailed, BTMemberPurchaseEventValidateSuccess, BTMemberPurchaseEventPurchaseFailed:
                     hud.hide(animated: true)
                     if let ob = self.purchaseObserver {
                         NotificationCenter.default.removeObserver(ob)
@@ -200,6 +198,9 @@ class MemberViewController: UIViewController {
                             let title = "BTLocTitleSubscribeMemberSuc".localizedBTBaseString
                             let msg = "BTLocMsgSubscribeMemberSuc".localizedBTBaseString
                             self.showAlert(title, msg: msg)
+                        } else if event == BTMemberPurchaseEventPurchaseFailed {
+                            let title = "BTLocTitleSubscribeMemberFail".localizedBTBaseString
+                            self.showAlert(title, msg: nil)
                         } else {
                             let title = "BTLocTitleSubscribeMemberFail".localizedBTBaseString
                             let msg = "BTLocMsgSubscribeMemberFail".localizedBTBaseString

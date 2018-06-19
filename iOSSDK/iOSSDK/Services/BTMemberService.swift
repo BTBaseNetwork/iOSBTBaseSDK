@@ -21,8 +21,9 @@ class BTMemberProfile {
 
 let kBTMemberPurchaseEvent = "kBTMemberPurchaseEvent"
 let BTMemberPurchaseEventStartValidate = 0
-let BTMemberPurchaseEventValidateSuccess = 0
-let BTMemberPurchaseEventValidateFailed = 0
+let BTMemberPurchaseEventPurchaseFailed = 1
+let BTMemberPurchaseEventValidateSuccess = 2
+let BTMemberPurchaseEventValidateFailed = 3
 
 class BTMemberService {
     public class MemberProduct: Hashable {
@@ -156,7 +157,8 @@ extension BTMemberService {
         for transaction in transactions {
             switch transaction.transactionState {
             case .purchased, .restored: self.verifyTransactionAndRechargeMember(transaction)
-            case .deferred, .failed, .purchasing: break
+            case .failed: NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [kBTMemberPurchaseEvent: BTMemberPurchaseEventPurchaseFailed])
+            case .deferred, .purchasing: break
             }
         }
     }
@@ -196,6 +198,7 @@ extension BTMemberService {
             } else {
                 order = BTIAPOrder()
                 order.receipt = receiptStr
+                order.accountId = self.service.localProfile.accountId
                 order.productId = productId // self.transaction.payment.productIdentifier
                 order.store = BTServiceConst.CHANNEL_APP_STORE
                 order.transactionId = self.transactionId // self.transaction.transactionIdentifier!
