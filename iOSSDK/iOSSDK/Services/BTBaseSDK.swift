@@ -31,10 +31,10 @@ public protocol SwiftyStoreKitCompleteDelegate {
 public class BTBaseSDK: NSObject {
     private static var instance = { BTBaseSDK() }()
     internal private(set) static var defaultDbContext: BTServiceDBContext!
-    private static var pasteboard: UIPasteboard? = {
-        UIPasteboard(name: UIPasteboardName("mobi.btbase.iossdk"), create: true)
-        // UIPasteboard.general
-    }()
+    private static var pasteboard: UIPasteboard? {
+        // UIPasteboard(name: UIPasteboardName("mobi.btbase.iossdk"), create: true)
+        return UIPasteboard.general
+    }
 
     @objc public private(set) static var isSDKInited: Bool = false
 
@@ -54,11 +54,13 @@ public class BTBaseSDK: NSObject {
 
                 BTIAPOrderManager.initManager(dbContext: dbContext)
 
-                BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
-                BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
+                // Account Service Must Init First
                 BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
+
+                BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
+                BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
                 BTServiceContainer.useBTGameWall(config)
-                
+
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionInvalid(a:)), name: BTSessionService.onSessionInvalid, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
                 NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
@@ -132,14 +134,19 @@ public extension BTBaseSDK {
             let auth = BTBaseSDK.ClientSharedAuthentication()
             auth.accountId = session.accountId
             auth.password = psw
-
-            if let json = auth.toJson() {
-                BTBaseSDK.pasteboard?.string = "Authentication:\(json)"
+            #if DEBUG
+            NSLog("shareAuthentication")
+            #endif
+            if let json = auth.toJson(), let base64 = json.base64String {
+                BTBaseSDK.pasteboard?.string = "Authentication:\(base64)"
             }
         }
     }
 
     static func clearSharedAuthentication() {
+        #if DEBUG
+        NSLog("clearSharedAuthentication")
+        #endif
         if BTBaseSDK.pasteboard?.string?.hasBegin("Authentication:") ?? false {
             BTBaseSDK.pasteboard?.string = ""
         }
@@ -147,8 +154,8 @@ public extension BTBaseSDK {
 
     static func getAuthentication() -> ClientSharedAuthentication? {
         if let content = BTBaseSDK.pasteboard?.string, content.hasBegin("Authentication:") {
-            let json = content.replacingOccurrences(of: "Authentication:", with: "")
-            if let auth = ClientSharedAuthentication.parse(json: json) {
+            let base64 = content.replacingOccurrences(of: "Authentication:", with: "")
+            if let json = base64.valueOfBase64String, let auth = ClientSharedAuthentication.parse(json: json) {
                 return auth
             }
         }
