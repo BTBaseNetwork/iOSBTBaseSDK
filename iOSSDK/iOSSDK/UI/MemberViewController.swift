@@ -318,6 +318,14 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            let pd = products[indexPath.row]
+            self.showAlert(pd.product.localizedTitle, msg: pd.product.localizedDescription)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     @objc func onMemberProductsUpdated(a _: Notification) {
         reloadProducts()
     }

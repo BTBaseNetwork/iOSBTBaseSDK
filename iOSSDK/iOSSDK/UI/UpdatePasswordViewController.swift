@@ -27,6 +27,8 @@ class UpdatePasswordViewController: UIViewController {
         }
         curPasswordCheckImage.isHidden = true
         newPasswordCheckImage.isHidden = true
+        curPasswordCheckImage.tintColor = BTBaseUIConfig.GlobalTintColor
+        newPasswordCheckImage.tintColor = BTBaseUIConfig.GlobalTintColor
         updatePasswordButton.isEnabled = false
         curPasswordTextField.isEnabled = true
         newPasswordTextField.isEnabled = false

@@ -22,6 +22,7 @@ class UpdateNickViewController: UIViewController {
             textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
         }
         newNickCheckImage.isHidden = true
+        newNickCheckImage.tintColor = BTBaseUIConfig.GlobalTintColor
         updateNickButton.isEnabled = false
         newNickTextField.isEnabled = true
     }
@@ -44,12 +45,12 @@ class UpdateNickViewController: UIViewController {
     }
 
     @objc private func onTextFieldEditingChanged(sender: Any) {
-        if String.isNullOrWhiteSpace(newNickTextField.trimText) {
-            newNickCheckImage.isHidden = true
-            updateNickButton.isEnabled = false
-        } else {
+        if String.regexTestStringWithPattern(value: newNickTextField.trimText, pattern: CommonRegexPatterns.PATTERN_CHINESE_NICK) {
             newNickCheckImage.isHidden = false
             updateNickButton.isEnabled = true
+        } else {
+            newNickCheckImage.isHidden = true
+            updateNickButton.isEnabled = false
         }
     }
 
@@ -58,7 +59,7 @@ class UpdateNickViewController: UIViewController {
 
     @objc private func onTextFieldEditingDidEnd(sender: Any) {
     }
-    
+
     deinit {
         debugLog("Deinited:\(self.description)")
     }

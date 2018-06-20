@@ -129,6 +129,7 @@
 		E7C105BC20C62FE5001BFB11 /* BTServiceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */; };
 		E7C105BE20C63649001BFB11 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BD20C63649001BFB11 /* UIDeviceExtensions.swift */; };
 		E7C105C020C6389E001BFB11 /* LocaleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */; };
+		E7DDA55420DA7F66006995C0 /* String+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDA55320DA7F66006995C0 /* String+Base64.swift */; };
 		E7E5CD6120D0FF8F00FEB232 /* TXScrollLabelView.h in Headers */ = {isa = PBXBuildFile; fileRef = E7E5CD5D20D0FF8F00FEB232 /* TXScrollLabelView.h */; };
 		E7E5CD6220D0FF8F00FEB232 /* TXScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CD5E20D0FF8F00FEB232 /* TXScrollLabelView.m */; };
 		E7E5CD6320D0FF8F00FEB232 /* UIView+TXFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */; };
@@ -294,6 +295,7 @@
 		E7C105BB20C62FE5001BFB11 /* BTServiceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTServiceInfo.swift; sourceTree = "<group>"; };
 		E7C105BD20C63649001BFB11 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 		E7C105BF20C6389E001BFB11 /* LocaleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleExtensions.swift; sourceTree = "<group>"; };
+		E7DDA55320DA7F66006995C0 /* String+Base64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Base64.swift"; sourceTree = "<group>"; };
 		E7E5CD5D20D0FF8F00FEB232 /* TXScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TXScrollLabelView.h; sourceTree = "<group>"; };
 		E7E5CD5E20D0FF8F00FEB232 /* TXScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TXScrollLabelView.m; sourceTree = "<group>"; };
 		E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TXFrame.h"; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				E754A2A320C3C4CC006F36EB /* module.modulemap */,
 				E75D401520C516DF00BEAF79 /* CommonRegexPatterns.swift */,
 				E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */,
+				E7DDA55320DA7F66006995C0 /* String+Base64.swift */,
 			);
 			path = BahamutCommon;
 			sourceTree = "<group>";
@@ -1057,6 +1060,7 @@
 				E788687F20C303BA008E0E8D /* AccountViewController.swift in Sources */,
 				E754A29520C3C077006F36EB /* GameCenterHelper.swift in Sources */,
 				E788687620C2FDF5008E0E8D /* Models.swift in Sources */,
+				E7DDA55420DA7F66006995C0 /* String+Base64.swift in Sources */,
 				E740BC4120C786C6001C13F1 /* BTDBEntity.swift in Sources */,
 				E754A29A20C3C077006F36EB /* RegexUtil.swift in Sources */,
 				E740BC5020C7BA32001C13F1 /* BTMember+BTDB.swift in Sources */,
