@@ -43,38 +43,42 @@ public class BTBaseSDK: NSObject {
     public static var swiftyStoreKitCompleteDelegate: SwiftyStoreKitCompleteDelegate?
 
     @objc public class func start() {
-        if let config = BTBaseConfig() {
-            BTBaseSDK.config = config
-            if let dbname = config.getString(key: "BTBaseDB") {
-                let dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
-                let dbContext = BTServiceDBContext(dbpath: dbPath)
-                dbContext.open()
-                BTBaseSDK.defaultDbContext = dbContext
-                BTBaseSDK.defaultDbContext.ensureDatabase()
-
-                BTIAPOrderManager.initManager(dbContext: dbContext)
-
-                // Account Service Must Init First
-                BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
-
-                BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
-                BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
-                BTServiceContainer.useBTGameWall(config)
-
-                NotificationCenter.default.addObserver(instance, selector: #selector(onSessionInvalid(a:)), name: BTSessionService.onSessionInvalid, object: nil)
-                NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
-                NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
-                SwiftyStoreKit.completeTransactions { purchases in
-                    BTBaseSDK.swiftyStoreKitCompleteDelegate?.swiftStoreKitTransactionsComplete(purchases)
-                }
-
-                isSDKInited = true
-
-            } else {
-                debugLog("Couldn't initialize BTBaseSDK: lost BTBaseDB")
-            }
+        if let filePath = Bundle.main.path(forResource: "btbase", ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
+            start(config: config)
         } else {
             debugLog("Couldn't initialize BTBaseSDK: lost btbase.plist")
+        }
+    }
+
+    @objc public class func start(config: BTBaseConfig) {
+        BTBaseSDK.config = config
+        if let dbname = config.getString(key: "BTBaseDB") {
+            let dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
+            let dbContext = BTServiceDBContext(dbpath: dbPath)
+            dbContext.open()
+            BTBaseSDK.defaultDbContext = dbContext
+            BTBaseSDK.defaultDbContext.ensureDatabase()
+
+            BTIAPOrderManager.initManager(dbContext: dbContext)
+
+            // Account Service Must Init First
+            BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
+
+            BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
+            BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
+            BTServiceContainer.useBTGameWall(config)
+
+            NotificationCenter.default.addObserver(instance, selector: #selector(onSessionInvalid(a:)), name: BTSessionService.onSessionInvalid, object: nil)
+            NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
+            NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+            SwiftyStoreKit.completeTransactions { purchases in
+                BTBaseSDK.swiftyStoreKitCompleteDelegate?.swiftStoreKitTransactionsComplete(purchases)
+            }
+
+            isSDKInited = true
+
+        } else {
+            debugLog("Couldn't initialize BTBaseSDK: lost BTBaseDB")
         }
     }
 

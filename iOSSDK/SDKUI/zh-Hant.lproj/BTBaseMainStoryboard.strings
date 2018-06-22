@@ -267,3 +267,13 @@
 
 /* Class = "UILabel"; text = "Premium Members Can Play Games In The Game Wall Without Advertising"; ObjectID = "mpw-T3-kXd"; */
 //"mpw-T3-kXd.text" = "高級會員可以免廣告暢玩遊戲牆裡展示的所有遊戲";
+
+//##################################################################################
+//#           AutoGenStrings            2018-06-22 13:20:52
+//##################################################################################
+
+/* Class = "UILabel"; text = "Account"; ObjectID = "uBq-xI-710"; */
+"uBq-xI-710.text" = "賬號:";
+
+/* Class = "UILabel"; text = "Guest"; ObjectID = "Q8t-uE-XhP"; */
+"Q8t-uE-XhP.text" = "Guest";

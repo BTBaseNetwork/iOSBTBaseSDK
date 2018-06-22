@@ -23,4 +23,8 @@ class BTIAPOrderManager {
     func getAllOrders(accountId:String) -> [BTIAPOrder] {
         return dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(dbContext.tableIAPOrder.tableName) WHERE accountId=?", parameters: [accountId]).map { $0 }
     }
+    
+    func getAllOrders() -> [BTIAPOrder] {
+        return dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(dbContext.tableIAPOrder.tableName)", parameters: nil).map { $0 }
+    }
 }

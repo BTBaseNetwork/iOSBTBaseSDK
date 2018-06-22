@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppStoreID</key>
+	<string>1396330070</string>
+	<key>BTBaseDB</key>
+	<string>btbase.db</string>
+	<key>BTSessionServiceHost</key>
+	<string>http://192.168.1.168:62001/</string>
+	<key>BTAccountServiceHost</key>
+	<string>http://192.168.1.168:60001/</string>
+	<key>BTMemberServiceHost</key>
+	<string>http://192.168.1.168:60001/</string>
+	<key>BTGameWallConfigUrl</key>
+	<string>https://raw.githubusercontent.com/BTBaseNetwork/Resources/master/config/gamewall_config_01.json</string>
+	<key>BTMemberConfigUrl</key>
+	<string>https://raw.githubusercontent.com/BTBaseNetwork/Resources/master/config/member_config_appstore_1396330070.json</string>
+</dict>
+</plist>

@@ -9,6 +9,7 @@
 import UIKit
 class OrderListCell: UITableViewCell {
     static let reuseId = "OrderListCell"
+    @IBOutlet var accountLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var statusLabel: UILabel!
@@ -37,6 +38,7 @@ class OrderListCell: UITableViewCell {
             default: break
             }
             statusLabel.text = locState.localizedBTBaseString
+            accountLabel.text = order.accountId == BTServiceConst.ACCOUNT_ID_UNLOGIN ? "BTLocGuest".localizedBTBaseString : order.accountId
         }
     }
     
@@ -93,11 +95,9 @@ class OrderListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func loadOrders() {
-        if let aId = BTServiceContainer.getBTSessionService()?.localSession?.accountId {
-            orders = BTIAPOrderManager.instance.getAllOrders(accountId: aId).sorted(by: { (a, b) -> Bool in
-                a.date!.timeIntervalSince1970 > b.date!.timeIntervalSince1970
-            })
-        }
+        orders = BTIAPOrderManager.instance.getAllOrders().sorted(by: { (a, b) -> Bool in
+            a.date!.timeIntervalSince1970 > b.date!.timeIntervalSince1970
+        })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -116,6 +116,6 @@ class OrderListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72
+        return 96
     }
 }

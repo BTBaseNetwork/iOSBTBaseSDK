@@ -6,17 +6,25 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
-import UIKit
 import BTBaseSDK
+import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        BTBaseSDK.start()
-        BTBaseSDK.setupSDKUI()
-        return true
+        
+        //let btbaseConfigFile = "btbase"
+        let btbaseConfigFile = "btbase_dev"
+        
+        if let filePath = Bundle.main.path(forResource: btbaseConfigFile, ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
+            BTBaseSDK.start(config: config)
+            BTBaseSDK.setupSDKUI()
+            return true
+        }else{
+            return false
+        }
     }
 
     func applicationWillResignActive(_: UIApplication) {

@@ -18,11 +18,15 @@ fileprivate let MemberCardFooterHeight: CGFloat = 16
 fileprivate let MemberTipsScrollingDuration: TimeInterval = 0.3
 fileprivate let MemberExpiresAlertDays: Int = 3
 
+let guestModeEnabled = true
+
 class MemberCardCell: UITableViewCell {
     static let reuseId = "MemberCardCell"
     let memberNormalColor = UIColor.white
     let memberTintColor = BTBaseUIConfig.GlobalTintColor
     let memberAlertColor = UIColor.red
+    
+    weak var rootViewController: MemberViewController!
     
     @IBOutlet var memberTypeLabel: UILabel!
     
@@ -30,12 +34,27 @@ class MemberCardCell: UITableViewCell {
     
     func refresh() {
         let service = BTServiceContainer.getBTMemberService()!
-        if let member = service.localProfile.preferredMember {
+        let member = service.localProfile.members.first
+        let isGuestMode = rootViewController.isGuest
+        refreshViews(member: member, guest: isGuestMode)
+    }
+    
+    func refreshViews(member: BTMember!, guest isGuest: Bool) {
+        if member != nil {
+            var memberTypeName = ""
             switch member.memberType {
-            case BTMember.MEMBER_TYPE_PREMIUM: memberTypeLabel.text = "BTLocMemberTypePremium".localizedBTBaseString
-            case BTMember.MEMBER_TYPE_ADVANCED: memberTypeLabel.text = "BTLocMemberTypeAdvance".localizedBTBaseString
+            case BTMember.MEMBER_TYPE_PREMIUM: memberTypeName = "BTLocMemberTypePremium".localizedBTBaseString
+            case BTMember.MEMBER_TYPE_ADVANCED: memberTypeName = "BTLocMemberTypeAdvance".localizedBTBaseString
             default: break
             }
+            
+            if isGuest {
+                let locStr = "BTLocGuest".localizedBTBaseString
+                memberTypeLabel.text = "\(memberTypeName)(\(locStr))"
+            } else {
+                memberTypeLabel.text = memberTypeName
+            }
+            
             let formatter = DateFormatter()
             formatter.locale = Locale.current
             if member.expiredDateTs > Date().timeIntervalSince1970 {
@@ -47,7 +66,7 @@ class MemberCardCell: UITableViewCell {
             expiresDateLabel.textColor = member.expiredDateTs > Date().addDays(MemberExpiresAlertDays).timeIntervalSince1970 ? memberTintColor : memberAlertColor
             memberTypeLabel.textColor = memberTintColor
         } else {
-            memberTypeLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
+            memberTypeLabel.text = isGuest ? "BTLocGuestMode".localizedBTBaseString : "BTLocMemberTypeNoSubscription".localizedBTBaseString
             expiresDateLabel.text = "BTLocMemberTypeNoSubscription".localizedBTBaseString
             expiresDateLabel.textColor = memberNormalColor
             memberTypeLabel.textColor = memberNormalColor
@@ -142,6 +161,9 @@ class MemberViewController: UIViewController {
         }
     }
     
+    fileprivate(set) var isLogined = false
+    fileprivate(set) var isGuest = false
+    
     @objc private func loadingTimerTick(t _: Timer) {
         if let pv = loadingProgressView {
             pv.progress += 0.1
@@ -185,6 +207,30 @@ class MemberViewController: UIViewController {
     
     var purchaseObserver: NSObjectProtocol!
     func purchase(p: SKProduct) {
+        if isGuest {
+            showConfirmGuestPurchaseMember(p: p)
+        } else {
+            purchaseMember(p: p)
+        }
+    }
+    
+    func showConfirmGuestPurchaseMember(p: SKProduct) {
+        let title = "BTLocTitleGuestPurchaseLimit".localizedBTBaseString
+        let msg = "BTLocMsgGuestPurchaseLimit".localizedBTBaseString
+        
+        let signIn = UIAlertAction(title: "BTLocSignIn".localizedBTBaseString, style: .default) { _ in
+            self.onClickSignIn(self.signInButton)
+        }
+        
+        let guestPurchase = UIAlertAction(title: "BTLocForceGuestPurchase".localizedBTBaseString, style: .default) { _ in
+            self.purchaseMember(p: p)
+        }
+        
+        self.showAlert(title, msg: msg, actions: [signIn,guestPurchase,ALERT_ACTION_CANCEL])
+        
+    }
+    
+    private func purchaseMember(p: SKProduct) {
         let hud = showActivityHud()
         purchaseObserver = NotificationCenter.default.addObserver(forName: BTMemberService.onPurchaseEvent, object: nil, queue: .main) { a in
             if let event = a.userInfo?[kBTMemberPurchaseEvent] as? Int {
@@ -283,14 +329,23 @@ class MemberViewController: UIViewController {
 
 extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
-        if BTServiceContainer.getBTSessionService()!.isSessionLogined {
+        isLogined = BTServiceContainer.getBTSessionService()!.isSessionLogined
+        if guestModeEnabled {
+            isGuest = !isLogined
             signInButton.isHidden = true
             orderListButton.isEnabled = true
             return 3
+        } else {
+            isGuest = false
+            if isLogined {
+                signInButton.isHidden = true
+                orderListButton.isEnabled = true
+                return 3
+            }
+            signInButton.isHidden = false
+            orderListButton.isEnabled = false
+            return 0
         }
-        signInButton.isHidden = false
-        orderListButton.isEnabled = false
-        return 0
     }
     
     func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -306,6 +361,7 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MemberCardCell.reuseId, for: indexPath) as! MemberCardCell
+            cell.rootViewController = self
             cell.refresh()
             return cell
         } else if indexPath.section == 1 {
@@ -321,7 +377,7 @@ extension MemberViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             let pd = products[indexPath.row]
-            self.showAlert(pd.product.localizedTitle, msg: pd.product.localizedDescription)
+            showAlert(pd.product.localizedTitle, msg: pd.product.localizedDescription)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -87,9 +87,9 @@ class BTIAPOrder: Codable {
 
 class BTGameWallItem: Codable {
     public enum Label: Int {
-        case None = 0
-        case New = 1
-        case Hot = 2
+        case none = 0
+        case new = 1
+        case hot = 2
     }
 
     public static let VIDEO_TYPE_UNSPECIFIC = 0
@@ -117,6 +117,14 @@ class BTGameWallItem: Codable {
 
     func getLocalizedGameName() -> String {
         return getLocalizedString(key: "gameName", defaultValue: gameName) ?? "Unknow Game"
+    }
+    
+    public var hasHotLabel:Bool{
+        return labels & Label.hot.rawValue != 0
+    }
+    
+    public var hasNewLabel:Bool{
+        return labels & Label.new.rawValue != 0
     }
 }
 

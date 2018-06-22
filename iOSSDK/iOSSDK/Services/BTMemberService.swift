@@ -95,10 +95,20 @@ class BTMemberService {
         self.dbContext = db
         self.loadCachedMemberConfig()
         self.fetchMemberConfig()
+        self.setUnloginProfile()
     }
 }
 
 extension BTMemberService {
+    fileprivate func setUnloginProfile() {
+        let profile = BTMemberProfile()
+        profile.accountId = BTServiceConst.ACCOUNT_ID_UNLOGIN
+        if let gmember = getGuestMemberProfile() {
+            profile.members = [gmember]
+        }
+        self.localProfile = profile
+    }
+
     func loadLocalProfile(accountId: String) {
         let profile = BTMemberProfile()
         profile.accountId = accountId
@@ -129,7 +139,7 @@ extension BTMemberService {
     }
 
     func setLogout() {
-        self.localProfile = BTMemberProfile()
+        self.setUnloginProfile()
     }
 }
 
@@ -216,6 +226,55 @@ extension BTMemberService {
                 self.service.dbContext.tableIAPOrder.add(model: order)
             }
 
+            // Guest Mode Purchase
+            if order.accountId == BTServiceConst.ACCOUNT_ID_UNLOGIN {
+                let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: nil)
+                appleValidator.validate(receiptData: receipt) { r in
+                    switch r {
+                    case .error(error: let err):
+                        order.state = BTIAPOrder.STATE_VERIFY_FAILED
+                        order.verifyCode = 400
+                        order.verifyMsg = err.localizedDescription
+                    case .success(receipt: _):
+                        var gmember: BTMember! = self.service.getGuestMemberProfile()
+                        if nil == gmember {
+                            gmember = BTMember()
+                            gmember.accountId = order.accountId
+                        }
+
+                        let memberIapIdPattern = "^[0-9a-zA-Z-_.]+\\.iap.member\\.[0-9]\\.[0-9]+$"
+                        if String.regexTestStringWithPattern(value: order.productId, pattern: memberIapIdPattern) {
+                            let productInfos = order.productId.split(".")
+
+                            let memberTypeStr = productInfos[productInfos.count - 2]
+                            let timeStr = productInfos.last!
+                            let time = Double(timeStr)!
+                            let memberType = Int(memberTypeStr)!
+
+                            if gmember.expiredDateTs > Date().timeIntervalSince1970 {
+                                gmember.expiredDateTs += time
+                            } else {
+                                gmember.expiredDateTs = Date().timeIntervalSince1970 + time
+                            }
+
+                            gmember.memberType = memberType
+                            self.service.dbContext.tableMember.update(model: gmember, upsert: true)
+                            order.state = BTIAPOrder.STATE_VERIFY_SUC
+                            order.verifyCode = 200
+                        } else {
+                            order.state = BTIAPOrder.STATE_VERIFY_FAILED
+                            order.verifyCode = 400
+                            order.verifyMsg = "Unmatched Product Id"
+                        }
+                        self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
+                    }
+                    completion(r)
+                }
+
+                return
+            }
+
+            // Logined Member Purchase
             var rinfo = ReceiptInfo()
             rinfo["product_id"] = NSString(string: order.productId)
             rinfo["quantity"] = NSString(string: "\(order.quantity)")
@@ -230,6 +289,7 @@ extension BTMemberService {
                         self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
                         completion(.success(receipt: rinfo))
                     } else if let code = res.error?.code {
+                        order.state = BTIAPOrder.STATE_VERIFY_FAILED
                         order.verifyCode = code
                         order.verifyMsg = res.error?.msg
                         self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
@@ -278,7 +338,12 @@ extension BTMemberService {
             case .error(error: _):
                 NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [kBTMemberPurchaseEvent: BTMemberPurchaseEventValidateFailed])
             case .success(receipt: _):
-                self.fetchMemberProfile()
+                if self.localProfile.accountId == BTServiceConst.ACCOUNT_ID_UNLOGIN {
+                    self.setUnloginProfile()
+                } else {
+                    self.fetchMemberProfile()
+                }
+
                 NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [kBTMemberPurchaseEvent: BTMemberPurchaseEventValidateSuccess])
             }
         }
@@ -347,6 +412,14 @@ extension BTMemberService {
                 self.postRefreshState(state: BTRefreshMemberProductsStateFailed)
             }
         }
+    }
+}
+
+extension BTMemberService {
+    fileprivate func getGuestMemberProfile() -> BTMember? {
+        let sql = SQLiteHelper.selectSql(tableName: dbContext.tableMember.tableName, query: "accountId=?")
+        let resultSet = dbContext.tableMember.query(sql: sql, parameters: [BTServiceConst.ACCOUNT_ID_UNLOGIN])
+        return resultSet.first
     }
 }
 

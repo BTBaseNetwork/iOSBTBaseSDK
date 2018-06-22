@@ -7,18 +7,14 @@
 //
 
 import Foundation
-public class BTBaseConfig {
+public class BTBaseConfig:NSObject {
     var config: NSDictionary!
     
-    convenience init?() {
-        if let filePath = Bundle.main.path(forResource: "btbase", ofType: "plist") {
-            self.init(filePath: filePath)
-        } else {
-            return nil
-        }
+    override init() {
+        super.init()
     }
     
-    init?(filePath: String) {
+    public init?(filePath: String) {
         if let dict = NSDictionary(contentsOfFile: filePath) {
             config = dict
         } else {
