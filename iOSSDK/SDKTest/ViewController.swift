@@ -10,16 +10,35 @@ import BTBaseSDK
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet var devButton: UIButton!
+    @IBOutlet var productionButton: UIButton!
+
+    @IBOutlet var homeButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        homeButton.isHidden = true
     }
 
-    var firstAppear = true
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if firstAppear {
-            OnClickHome(self)
-            firstAppear = false
+    @IBAction func onClickProduction(_ sender: Any) {
+        let btbaseConfigFile = "btbase"
+        if let filePath = Bundle.main.path(forResource: btbaseConfigFile, ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
+            BTBaseSDK.start(config: config)
+            BTBaseSDK.setupSDKUI()
+            homeButton.isHidden = false
+            devButton.isHidden = true
+            productionButton.isEnabled = false
+        }
+    }
+
+    @IBAction func onClickDev(_ sender: Any) {
+        let btbaseConfigFile = "btbase_dev"
+        if let filePath = Bundle.main.path(forResource: btbaseConfigFile, ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
+            BTBaseSDK.start(config: config)
+            BTBaseSDK.setupSDKUI()
+            homeButton.isHidden = false
+            devButton.isEnabled = false
+            productionButton.isHidden = true
         }
     }
 

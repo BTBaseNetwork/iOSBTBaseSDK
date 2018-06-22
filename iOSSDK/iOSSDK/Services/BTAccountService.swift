@@ -17,7 +17,6 @@ class BTAccountService {
     public static let onNewAccountRegisted = Notification.Name("BTAccountService_onNewAccountRegisted")
 
     private var host = "http://localhost:6000/"
-    private var dbContext: BTServiceDBContext!
     private var config: BTBaseConfig!
 
     var localAccount: BTAccount! {
@@ -26,14 +25,15 @@ class BTAccountService {
         }
     }
 
-    func configure(config: BTBaseConfig, db: BTServiceDBContext) {
+    func configure(config: BTBaseConfig) {
         self.config = config
         self.host = config.getString(key: "BTAccountServiceHost")!
-        self.dbContext = db
     }
 
     func loadLocalAccount(accountId: String) {
+        let dbContext = BTBaseSDK.getDbContext()
         let resultSet = dbContext.tableAccount.query(sql: SQLiteHelper.selectSql(tableName: "BTAccount", query: "AccountId = ?"), parameters: [accountId])
+        dbContext.close()
         if let account = resultSet.first {
             self.localAccount = account
         } else {
@@ -72,7 +72,9 @@ class BTAccountService {
                 account.nick = result.content.nick
                 account.signDateTs = result.content.signDateTs
                 account.userName = result.content.userName
-                self.dbContext.tableAccount.update(model: account, upsert: true)
+                let dbContext = BTBaseSDK.getDbContext()
+                dbContext.tableAccount.update(model: account, upsert: true)
+                dbContext.close()
                 self.localAccount = account
             }
         }
@@ -109,7 +111,9 @@ class BTAccountService {
         req.response = { request, res in
             if res.isHttpOK {
                 self.localAccount.nick = newNick
-                self.dbContext.tableAccount.update(model: self.localAccount, upsert: true)
+                let dbContext = BTBaseSDK.getDbContext()
+                dbContext.tableAccount.update(model: self.localAccount, upsert: true)
+                dbContext.close()
             }
             DispatchQueue.main.async {
                 respAction?(request, res)
@@ -137,7 +141,9 @@ class BTAccountService {
         req.response = { request, res in
             if res.isHttpOK {
                 self.localAccount.email = "\(newEmail.first!)***@\(newEmail.split("@")[1])"
-                self.dbContext.tableAccount.update(model: self.localAccount, upsert: true)
+                let dbContext = BTBaseSDK.getDbContext()
+                dbContext.tableAccount.update(model: self.localAccount, upsert: true)
+                dbContext.close()
             }
             DispatchQueue.main.async {
                 respAction?(request, res)
@@ -176,10 +182,10 @@ class BTAccountService {
 }
 
 extension BTServiceContainer {
-    public static func useBTAccountService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
+    public static func useBTAccountService(_ config: BTBaseConfig) {
         let service = BTAccountService()
         addService(name: "BTAccountService", service: service)
-        service.configure(config: config, db: dbContext)
+        service.configure(config: config)
     }
 
     public static func getBTAccountService() -> BTAccountService? {

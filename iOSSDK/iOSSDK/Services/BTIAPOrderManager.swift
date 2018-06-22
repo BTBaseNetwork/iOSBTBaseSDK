@@ -12,19 +12,22 @@ class BTIAPOrderManager {
         BTIAPOrderManager()
     }()
     
-    var dbContext: BTServiceDBContext!
-    
-    static func initManager(dbContext: BTServiceDBContext) {
-        instance.dbContext = dbContext
+    static func initManager() {
     }
     
     private init() {}
     
-    func getAllOrders(accountId:String) -> [BTIAPOrder] {
-        return dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(dbContext.tableIAPOrder.tableName) WHERE accountId=?", parameters: [accountId]).map { $0 }
+    func getAllOrders(accountId: String) -> [BTIAPOrder] {
+        let dbContext = BTBaseSDK.getDbContext()
+        let res = dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(dbContext.tableIAPOrder.tableName) WHERE accountId=?", parameters: [accountId]).map { $0 }
+        dbContext.close()
+        return res
     }
     
     func getAllOrders() -> [BTIAPOrder] {
-        return dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(dbContext.tableIAPOrder.tableName)", parameters: nil).map { $0 }
+        let dbContext = BTBaseSDK.getDbContext()
+        let res = dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(dbContext.tableIAPOrder.tableName)", parameters: nil).map { $0 }
+        dbContext.close()
+        return res
     }
 }

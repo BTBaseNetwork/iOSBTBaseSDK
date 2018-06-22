@@ -21,12 +21,9 @@ class BTSessionService {
 
     var isSessionLogined: Bool { return self.localSession?.IsSessionLogined() ?? false }
 
-    var dbContext: BTServiceDBContext!
-
-    func configure(config: BTBaseConfig, db: BTServiceDBContext) {
+    func configure(config: BTBaseConfig) {
         self.config = config
         self.host = config.getString(key: "BTSessionServiceHost")!
-        self.dbContext = db
         self.loadCachedSession()
         NotificationCenter.default.addObserver(self, selector: #selector(self.onRequestUnauthorized(a:)), name: Notification.Name.BTAPIRequestUnauthorized, object: nil)
     }
@@ -43,7 +40,9 @@ class BTSessionService {
     }
 
     private func loadCachedSession() {
+        let dbContext = BTBaseSDK.getDbContext()
         let resultSet = dbContext.tableAccountSession.query(sql: SQLiteHelper.selectSql(tableName: dbContext.tableAccountSession.tableName, query: "Status == ? Or Status == ?"), parameters: [BTAccountSession.STATUS_LOGIN, BTAccountSession.STATUS_LOGOUT_DEFAULT]).sorted { $0.status < $1.status }
+        dbContext.close()
         if let session = resultSet.first {
             self.localSession = session
             self.checkAndRefreshToken()
@@ -102,10 +101,12 @@ class BTSessionService {
                 session.token = result.content.token
                 session.tokenExpires = DateHelper.dateOfUnixTimeSpan(result.content.tokenExpires)
                 session.fillPassword = autoFillPassword
-                self.dbContext.tableAccountSession.update(model: session, upsert: true)
+                let dbContext = BTBaseSDK.getDbContext()
+                dbContext.tableAccountSession.update(model: session, upsert: true)
+                let sql = SQLiteHelper.updateSql(tableName: dbContext.tableAccountSession.tableName, fields: ["status"], query: "accountId != ?")
+                dbContext.tableAccountSession.executeUpdateSql(sql: sql, parameters: [BTAccountSession.STATUS_LOGOUT, session.accountId])
+                dbContext.close()
                 self.localSession = session
-                let sql = SQLiteHelper.updateSql(tableName: self.dbContext.tableAccountSession.tableName, fields: ["status"], query: "accountId != ?")
-                self.dbContext.tableAccountSession.executeUpdateSql(sql: sql, parameters: [BTAccountSession.STATUS_LOGOUT, session.accountId])
                 #if DEBUG
                 debugLog("Login Success, Session Token Expires:%@", self.localSession.sTokenExpires?.toLocalDateTimeString() ?? "Unknow")
                 debugLog("Login Success, Token Expires:%@", self.localSession.tokenExpires?.toLocalDateTimeString() ?? "Unknow")
@@ -125,7 +126,9 @@ class BTSessionService {
     func updateNewPassword(_ newSaltedPassword: String) {
         if self.isSessionLogined {
             self.localSession.password = newSaltedPassword
-            self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+            let dbContext = BTBaseSDK.getDbContext()
+            dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+            dbContext.close()
         }
     }
 
@@ -136,7 +139,9 @@ class BTSessionService {
             if result.isHttpOK {
                 self.localSession.token = result.content.token
                 self.localSession.tokenExpires = DateHelper.dateOfUnixTimeSpan(result.content.expires)
-                self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+                let dbContext = BTBaseSDK.getDbContext()
+                dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+                dbContext.close()
                 #if DEBUG
                 debugLog("Token Refreshed, New Token Expires:%@", self.localSession.tokenExpires?.toLocalDateTimeString() ?? "Unknow")
                 #endif
@@ -173,16 +178,18 @@ class BTSessionService {
     func logoutClient() {
         self.localSession.status = BTAccountSession.STATUS_LOGOUT_DEFAULT
         let s = self.localSession
-        self.dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+        let dbContext = BTBaseSDK.getDbContext()
+        dbContext.tableAccountSession.update(model: self.localSession, upsert: false)
+        dbContext.close()
         self.localSession = s
     }
 }
 
 extension BTServiceContainer {
-    public static func useBTSessionService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
+    public static func useBTSessionService(_ config: BTBaseConfig) {
         let service = BTSessionService()
         addService(name: "BTSessionService", service: service)
-        service.configure(config: config, db: dbContext)
+        service.configure(config: config)
     }
 
     public static func getBTSessionService() -> BTSessionService? {

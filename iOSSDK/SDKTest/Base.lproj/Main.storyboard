@@ -28,13 +28,36 @@
                                     <action selector="OnClickHome:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EHE-do-HOe"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1is-rB-nfi">
+                                <rect key="frame" x="142" y="133" width="91" height="30"/>
+                                <state key="normal" title="Development"/>
+                                <connections>
+                                    <action selector="onClickDev:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ycF-JT-NSB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJN-ke-tlL">
+                                <rect key="frame" x="150" y="199" width="75" height="30"/>
+                                <state key="normal" title="Production"/>
+                                <connections>
+                                    <action selector="onClickProduction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i3O-zx-8ua"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="dJN-ke-tlL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JKW-GU-zrH"/>
+                            <constraint firstItem="zob-q8-zKk" firstAttribute="top" secondItem="dJN-ke-tlL" secondAttribute="bottom" constant="89.5" id="Mp8-Tb-Iw8"/>
                             <constraint firstItem="zob-q8-zKk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RvD-fF-fgN"/>
                             <constraint firstItem="zob-q8-zKk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tc3-Cl-xRk"/>
+                            <constraint firstItem="1is-rB-nfi" firstAttribute="centerX" secondItem="dJN-ke-tlL" secondAttribute="centerX" id="XGx-OO-gZq"/>
+                            <constraint firstItem="dJN-ke-tlL" firstAttribute="top" secondItem="1is-rB-nfi" secondAttribute="bottom" constant="36" id="ls1-L1-OFS"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="devButton" destination="1is-rB-nfi" id="AWJ-Hq-rVJ"/>
+                        <outlet property="homeButton" destination="zob-q8-zKk" id="V9x-QS-TmU"/>
+                        <outlet property="productionButton" destination="dJN-ke-tlL" id="lSS-w2-9ZP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

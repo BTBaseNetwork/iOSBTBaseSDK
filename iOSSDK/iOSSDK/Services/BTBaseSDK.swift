@@ -30,7 +30,6 @@ public protocol SwiftyStoreKitCompleteDelegate {
 
 public class BTBaseSDK: NSObject {
     private static var instance = { BTBaseSDK() }()
-    internal private(set) static var defaultDbContext: BTServiceDBContext!
     private static var pasteboard: UIPasteboard? {
         // UIPasteboard(name: UIPasteboardName("mobi.btbase.iossdk"), create: true)
         return UIPasteboard.general
@@ -41,6 +40,14 @@ public class BTBaseSDK: NSObject {
     public private(set) static var config: BTBaseConfig!
 
     public static var swiftyStoreKitCompleteDelegate: SwiftyStoreKitCompleteDelegate?
+    
+    private static var dbPath:String!
+    
+    static func getDbContext()->BTServiceDBContext {
+        let dbContext = BTServiceDBContext(dbpath: dbPath)
+        dbContext.open()
+        return dbContext
+    }
 
     @objc public class func start() {
         if let filePath = Bundle.main.path(forResource: "btbase", ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
@@ -53,19 +60,19 @@ public class BTBaseSDK: NSObject {
     @objc public class func start(config: BTBaseConfig) {
         BTBaseSDK.config = config
         if let dbname = config.getString(key: "BTBaseDB") {
-            let dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
-            let dbContext = BTServiceDBContext(dbpath: dbPath)
-            dbContext.open()
-            BTBaseSDK.defaultDbContext = dbContext
-            BTBaseSDK.defaultDbContext.ensureDatabase()
-
-            BTIAPOrderManager.initManager(dbContext: dbContext)
+            dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
+            
+            let db = getDbContext()
+            db.ensureDatabase()
+            db.close()
+            
+            BTIAPOrderManager.initManager()
 
             // Account Service Must Init First
-            BTServiceContainer.useBTAccountService(config, dbContext: dbContext)
+            BTServiceContainer.useBTAccountService(config)
 
-            BTServiceContainer.useBTMemberService(config, dbContext: dbContext)
-            BTServiceContainer.useBTSessionService(config, dbContext: dbContext)
+            BTServiceContainer.useBTMemberService(config)
+            BTServiceContainer.useBTSessionService(config)
             BTServiceContainer.useBTGameWall(config)
 
             NotificationCenter.default.addObserver(instance, selector: #selector(onSessionInvalid(a:)), name: BTSessionService.onSessionInvalid, object: nil)
@@ -83,7 +90,7 @@ public class BTBaseSDK: NSObject {
     }
 
     @objc private func applicationWillTerminate(a: Notification) {
-        BTBaseSDK.defaultDbContext?.close()
+        
     }
 }
 

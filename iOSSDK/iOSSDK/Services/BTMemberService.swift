@@ -64,7 +64,7 @@ class BTMemberService {
     static let cachedMemberConfigDownloadDestination: DownloadRequest.DownloadFileDestination = { _, _ in
         (cachedMemberConfigJsonPathUrl, [.removePreviousFile, .createIntermediateDirectories])
     }
-    private var dbContext: BTServiceDBContext!
+    
     private var paymentTransactionObserver: BTMemberPaymentTransactionObserver!
     fileprivate(set) var productIdentifiers: Set<String>!
     fileprivate(set) var products: Set<MemberProduct>! {
@@ -89,10 +89,9 @@ class BTMemberService {
         }
     }
 
-    func configure(config: BTBaseConfig, db: BTServiceDBContext) {
+    func configure(config: BTBaseConfig) {
         self.config = config
         self.host = config.getString(key: "BTMemberServiceHost")!
-        self.dbContext = db
         self.loadCachedMemberConfig()
         self.fetchMemberConfig()
         self.setUnloginProfile()
@@ -112,9 +111,11 @@ extension BTMemberService {
     func loadLocalProfile(accountId: String) {
         let profile = BTMemberProfile()
         profile.accountId = accountId
+        let dbContext = BTBaseSDK.getDbContext()
         if let table = dbContext.tableMember {
             profile.members = table.query(sql: SQLiteHelper.selectSql(tableName: table.tableName, query: "accountId=?"), parameters: [accountId])
         }
+        dbContext.close()
         self.localProfile = profile
     }
 
@@ -122,9 +123,11 @@ extension BTMemberService {
         let req = GetBTMemberProfileRequest()
         req.response = { _, res in
             if res.isHttpOK {
+                let dbContext = BTBaseSDK.getDbContext()
                 res.content?.members?.forEach({ m in
-                    self.dbContext.tableMember.update(model: m, upsert: true)
+                    dbContext.tableMember.update(model: m, upsert: true)
                 })
+                dbContext.close()
                 if let accountId = self.localProfile?.accountId, accountId == res.content.accountId {
                     let profile = BTMemberProfile()
                     profile.accountId = accountId
@@ -200,10 +203,11 @@ extension BTMemberService {
             let receiptStr = receipt.base64EncodedString()
 
             let parameters = [transactionId!]
-            let tbName = self.service.dbContext.tableIAPOrder.tableName
+            let dbContext = BTBaseSDK.getDbContext()
+            let tbName = dbContext.tableIAPOrder.tableName
             let field = "transactionId"
             var order: BTIAPOrder!
-            if let first = self.service.dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(tbName) WHERE \(field)=?", parameters: parameters).first {
+            if let first = dbContext.tableIAPOrder.query(sql: "SELECT * FROM \(tbName) WHERE \(field)=?", parameters: parameters).first {
                 order = first
             } else {
                 order = BTIAPOrder()
@@ -223,13 +227,15 @@ extension BTMemberService {
                     }
                 }
 
-                self.service.dbContext.tableIAPOrder.add(model: order)
+                dbContext.tableIAPOrder.add(model: order)
             }
+            dbContext.close()
 
             // Guest Mode Purchase
             if order.accountId == BTServiceConst.ACCOUNT_ID_UNLOGIN {
                 let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: nil)
                 appleValidator.validate(receiptData: receipt) { r in
+                    let dbContext = BTBaseSDK.getDbContext()
                     switch r {
                     case .error(error: let err):
                         order.state = BTIAPOrder.STATE_VERIFY_FAILED
@@ -258,7 +264,7 @@ extension BTMemberService {
                             }
 
                             gmember.memberType = memberType
-                            self.service.dbContext.tableMember.update(model: gmember, upsert: true)
+                            dbContext.tableMember.update(model: gmember, upsert: true)
                             order.state = BTIAPOrder.STATE_VERIFY_SUC
                             order.verifyCode = 200
                         } else {
@@ -266,8 +272,9 @@ extension BTMemberService {
                             order.verifyCode = 400
                             order.verifyMsg = "Unmatched Product Id"
                         }
-                        self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
+                        dbContext.tableIAPOrder.update(model: order, upsert: false)
                     }
+                    dbContext.close()
                     completion(r)
                 }
 
@@ -282,24 +289,27 @@ extension BTMemberService {
 
             if order.state == BTIAPOrder.STATE_PAY_SUC || order.state == BTIAPOrder.STATE_VERIFY_SERVER_NETWORK_ERROR {
                 self.RechargeMember(productId: self.productId, channel: BTServiceConst.CHANNEL_APP_STORE, receipt: receiptStr, sandBox: false) { _, res in
+                    let dbContext = BTBaseSDK.getDbContext()
                     if res.isHttpOK {
                         order.state = BTIAPOrder.STATE_VERIFY_SUC
                         order.verifyCode = 200
                         order.verifyMsg = res.msg
-                        self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
+                        dbContext.tableIAPOrder.update(model: order, upsert: false)
                         completion(.success(receipt: rinfo))
                     } else if let code = res.error?.code {
                         order.state = BTIAPOrder.STATE_VERIFY_FAILED
                         order.verifyCode = code
                         order.verifyMsg = res.error?.msg
-                        self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
+                        dbContext.tableIAPOrder.update(model: order, upsert: false)
                         completion(.error(error: ReceiptError.receiptInvalid(receipt: rinfo, status: ReceiptStatus.receiptCouldNotBeAuthenticated)))
                     } else {
                         order.state = BTIAPOrder.STATE_VERIFY_SERVER_NETWORK_ERROR
-                        self.service.dbContext.tableIAPOrder.update(model: order, upsert: false)
+                        dbContext.tableIAPOrder.update(model: order, upsert: false)
                         let err = NSError(domain: "Network Error", code: 500, userInfo: nil)
                         completion(.error(error: ReceiptError.networkError(error: err)))
                     }
+                    dbContext.close()
+                    
                 }
             } else if order.state == BTIAPOrder.STATE_VERIFY_SUC {
                 completion(.success(receipt: rinfo))
@@ -417,9 +427,11 @@ extension BTMemberService {
 
 extension BTMemberService {
     fileprivate func getGuestMemberProfile() -> BTMember? {
+        let dbContext = BTBaseSDK.getDbContext()
         let sql = SQLiteHelper.selectSql(tableName: dbContext.tableMember.tableName, query: "accountId=?")
-        let resultSet = dbContext.tableMember.query(sql: sql, parameters: [BTServiceConst.ACCOUNT_ID_UNLOGIN])
-        return resultSet.first
+        let result = dbContext.tableMember.query(sql: sql, parameters: [BTServiceConst.ACCOUNT_ID_UNLOGIN]).first
+        dbContext.close()
+        return result
     }
 }
 
@@ -441,10 +453,10 @@ class BTMemberPaymentTransactionObserver: NSObject, SKPaymentTransactionObserver
 }
 
 extension BTServiceContainer {
-    public static func useBTMemberService(_ config: BTBaseConfig, dbContext: BTServiceDBContext) {
+    public static func useBTMemberService(_ config: BTBaseConfig) {
         let service = BTMemberService()
         addService(name: "BTMemberService", service: service)
-        service.configure(config: config, db: dbContext)
+        service.configure(config: config)
     }
 
     public static func getBTMemberService() -> BTMemberService? {

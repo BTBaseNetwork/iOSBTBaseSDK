@@ -14,17 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        //let btbaseConfigFile = "btbase"
-        let btbaseConfigFile = "btbase_dev"
-        
-        if let filePath = Bundle.main.path(forResource: btbaseConfigFile, ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
-            BTBaseSDK.start(config: config)
-            BTBaseSDK.setupSDKUI()
-            return true
-        }else{
-            return false
-        }
+        return true
     }
 
     func applicationWillResignActive(_: UIApplication) {
