@@ -49,12 +49,12 @@ class GameWallBannerItemCell: UITableViewCell {
             itemIcon.sd_setImage(with: itemIconUrl, placeholderImage: GameWallBannerItemCell.iconPlaceholder)
             gameTitle.text = gameWallItem.getLocalizedGameName()
             playVideoButton.isHidden = String.isNullOrWhiteSpace(gameWallItem.videoUrl)
-            //hot.isHidden = !gameWallItem.hasHotLabel
-            //new.isHidden = !gameWallItem.hasNewLabel
+            // hot.isHidden = !gameWallItem.hasHotLabel
+            // new.isHidden = !gameWallItem.hasNewLabel
 
             hot.isHidden = true
             new.isHidden = true
-            
+
             for i in 0 ..< starImages.count {
                 if Float(i) < gameWallItem.stars {
                     starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(1)
@@ -118,10 +118,18 @@ class GameWallBannerItemCell: UITableViewCell {
 
     func showAppProductViewController() {
         if let appId = gameWallItem?.appLink?.iOSAppId, let rootVc = rootController {
-            let vc = SKStoreProductViewController()
-            vc.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appId], completionBlock: nil)
-            rootVc.present(vc, animated: true, completion: nil)
-            vc.delegate = self
+            if UIApplication.shared.statusBarOrientation.isPortrait {
+                let vc = SKStoreProductViewController()
+                vc.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: appId], completionBlock: nil)
+                rootVc.present(vc, animated: true, completion: nil)
+                vc.delegate = self
+            } else if let url = URL(string: "https://itunes.apple.com/app/id\(appId)") {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
         }
     }
 
