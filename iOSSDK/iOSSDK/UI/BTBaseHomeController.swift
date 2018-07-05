@@ -67,8 +67,6 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
     }
 }
 
-import IQKeyboardManagerSwift
-
 extension Notification.Name {
     static let BTBaseHomeEntryClosed = Notification.Name("BTBaseHomeEntryClosed")
     static let BTBaseHomeEntryDidShown = Notification.Name("BTBaseHomeEntryDidShown")

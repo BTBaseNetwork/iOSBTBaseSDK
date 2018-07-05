@@ -5,15 +5,15 @@
 //  Created by Alex Chow on 2018/6/3.
 //  Copyright © 2018年 btbase. All rights reserved.
 //
-
-import MobilePlayer
-import SDWebImage
+import AVKit
+import AVPlayerCacheSupport
+import BTSDK_SDWebImage
 import StoreKit
 import UIKit
 
 fileprivate let GameWallBannerItemRowHeight: CGFloat = 76
 
-class GameWallBannerItemCell: UITableViewCell {
+class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
     static let reuseId = "GameWallBannerItemCell"
 
     @IBOutlet var playVideoButton: UIButton!
@@ -44,13 +44,10 @@ class GameWallBannerItemCell: UITableViewCell {
 
     var gameWallItem: BTGameWallItem! {
         didSet {
-            let itemIconUrl = URL(string: gameWallItem.iconUrl!)
             itemIcon.tintColor = BTBaseUIConfig.GlobalTintColor
-            itemIcon.sd_setImage(with: itemIconUrl, placeholderImage: GameWallBannerItemCell.iconPlaceholder)
-            gameTitle.text = gameWallItem.getLocalizedGameName()
-            playVideoButton.isHidden = String.isNullOrWhiteSpace(gameWallItem.videoUrl)
-            // hot.isHidden = !gameWallItem.hasHotLabel
-            // new.isHidden = !gameWallItem.hasNewLabel
+            itemIcon.sd_setImage(with: URL(string: gameWallItem.localizedIconUrl), placeholderImage: GameWallBannerItemCell.iconPlaceholder)
+            gameTitle.text = gameWallItem.localizedGameName
+            playVideoButton.isHidden = String.isNullOrWhiteSpace(gameWallItem.localizedVideoUrl)
 
             hot.isHidden = true
             new.isHidden = true
@@ -68,19 +65,22 @@ class GameWallBannerItemCell: UITableViewCell {
     }
 
     @IBAction func onClickPlayVideo(_: Any) {
-        let videoURL = URL(string: gameWallItem.videoUrl)!
-        let playerVC = MobilePlayerViewController(contentURL: videoURL)
-        playerVC.title = gameTitle.text
-        let gameUrl = URL(string: "itms-apps://itunes.apple.com/app/id\(gameWallItem.appLink.iOSAppId!)")!
-        playerVC.activityItems = [gameTitle.text ?? "", gameUrl]
-        if let img = self.itemIcon.image {
-            playerVC.activityItems?.append(img)
+        let videoUrl = URL(string: gameWallItem.localizedVideoUrl)!
+
+        if let item = try? AVPlayerItem.mc_playerItem(withRemoteURL: videoUrl) {
+            let player = AVPlayer(playerItem: item)
+            let vc = BTVideoPlayerViewController()
+            vc.player = player
+            vc.loopVideo = gameWallItem.videoLoop
+            vc.closeVideoOnEnd = gameWallItem.closeVideo
+            rootController?.present(vc, animated: true) {
+                vc.player?.play()
+            }
         }
-        rootController?.present(playerVC, animated: true, completion: nil)
     }
 
     @IBAction func onClickPlayGame(_: Any) {
-        let gameName = gameWallItem.getLocalizedGameName()
+        let gameName = gameWallItem.localizedGameName
         let title = String(format: "BTLocTitleOpenGameXOrOpenStore".localizedBTBaseString, gameName)
         let msg = String(format: "BTLocMsgOpenGameXOrOpenStore".localizedBTBaseString, gameName)
         BTBaseSDK.shareAuthentication()
@@ -138,6 +138,9 @@ class GameWallBannerItemCell: UITableViewCell {
     }
 }
 
+extension GameWallBannerItemCell {
+}
+
 extension GameWallBannerItemCell: SKStoreProductViewControllerDelegate {
     func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
         viewController.dismiss(animated: true, completion: nil)
@@ -145,7 +148,8 @@ extension GameWallBannerItemCell: SKStoreProductViewControllerDelegate {
 }
 
 class GameWallViewController: UIViewController {
-    var gamewall: BTGameWall!
+    var gamewallItems = [BTGameWallItem]()
+
     @IBOutlet var tableView: UITableView!
     @IBOutlet var loadingProgressView: UIProgressView! {
         didSet {
@@ -173,7 +177,7 @@ class GameWallViewController: UIViewController {
                         loadingProgressView.progress = 0
                         loadingTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
                     } else {
-                        refreshButton?.isHidden = (gamewall?.gameItemCount ?? 0) > 0
+                        refreshButton?.isHidden = gamewallItems.count > 0
                         loadingTimer?.invalidate()
                         loadingTimer = nil
                     }
@@ -202,8 +206,7 @@ class GameWallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         SetupBTBaseUI()
-        gamewall = BTServiceContainer.getGameWall()
-        gamewall.loadCachedGamewallConfig()
+        BTServiceContainer.getGameWall()?.loadCachedGamewallConfig()
         tableView.tableFooterView = UIView()
         tableView.tableFooterView?.backgroundColor = view.backgroundColor
         tableView.delegate = self
@@ -212,9 +215,9 @@ class GameWallViewController: UIViewController {
     }
 
     func refreshGamewallList(force: Bool = false) {
-        if !loading {
+        if !loading, let gw = BTServiceContainer.getGameWall() {
             loading = true
-            gamewall.refreshGameWallList(force: force) {
+            gw.refreshGameWallList(force: force) {
                 self.loading = false
             }
         }
@@ -256,18 +259,19 @@ class GameWallViewController: UIViewController {
 
 extension GameWallViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
+        gamewallItems = BTServiceContainer.getGameWall()?.getSortedItemsByPriority() ?? []
+        refreshButton.isHidden = gamewallItems.count > 0
         return 1
     }
 
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        let cnt = gamewall?.gameItemCount ?? 0
-        return cnt
+        return gamewallItems.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GameWallBannerItemCell.reuseId, for: indexPath) as! GameWallBannerItemCell
-        cell.gameWallItem = gamewall.getItem(index: indexPath.row)
         cell.rootController = self
+        cell.gameWallItem = gamewallItems[indexPath.row]
         return cell
     }
 

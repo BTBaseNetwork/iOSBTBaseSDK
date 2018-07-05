@@ -1,0 +1,4 @@
+module AVPlayerCacheSupport [system] {
+    header "AVPlayerItem+MCCacheSupport.h"
+    export *
+}

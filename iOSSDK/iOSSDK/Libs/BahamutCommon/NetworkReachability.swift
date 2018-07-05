@@ -7,7 +7,6 @@
 //
 // Podfile : pod 'Alamofire'
 
-import Alamofire
 import Foundation
 
 let NetworkReachabilityStatusChanged = Notification.Name(rawValue: "NetworkReachabilityStatusChanged")

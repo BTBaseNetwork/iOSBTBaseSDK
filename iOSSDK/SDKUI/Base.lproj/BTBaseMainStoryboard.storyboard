@@ -949,7 +949,7 @@
                                 <action selector="onClickCancel:" destination="cQG-fK-1fZ" id="8kp-TA-f7c"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="btbase_reset_password" style="plain" id="Dn7-CQ-uDC">
+                        <barButtonItem key="rightBarButtonItem" image="btbase_reset_password" id="Dn7-CQ-uDC">
                             <connections>
                                 <segue destination="DbP-go-Qzz" kind="show" identifier="ResetPassword" id="DGx-kX-enN"/>
                             </connections>

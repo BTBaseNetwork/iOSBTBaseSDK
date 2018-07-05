@@ -5,8 +5,6 @@
 //  Created by Alex Chow on 2018/6/3.
 //  Copyright © 2018年 btbase. All rights reserved.
 //
-
-import Alamofire
 import Foundation
 
 class BTGameWall {
@@ -39,6 +37,15 @@ class BTGameWall {
         return nil
     }
 
+    func getSortedItemsByPriority() -> [BTGameWallItem] {
+        if let items = cachedConfigModel?.items {
+            return items.sorted(by: { (a, b) -> Bool in
+                a.priority >= b.priority
+            })
+        }
+        return []
+    }
+
     func refreshGameWallList(force: Bool, completion: (() -> Void)? = nil) {
         if !force, let attrs = try? FileManager.default.attributesOfItem(atPath: BTGameWall.cachedConfigJsonPathUrl.path) {
             let date = (attrs[FileAttributeKey.modificationDate]) ?? (attrs[FileAttributeKey.creationDate])
@@ -50,7 +57,7 @@ class BTGameWall {
             }
         }
 
-        Alamofire.download(self.configJsonUrl, to: self.destination).response { response in
+        download(self.configJsonUrl, to: self.destination).response { response in
             if response.error == nil, let _ = response.destinationURL?.path {
                 self.loadCachedGamewallConfig()
             }

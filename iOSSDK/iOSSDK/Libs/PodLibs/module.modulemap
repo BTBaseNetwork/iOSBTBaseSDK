@@ -1,0 +1,48 @@
+module BTSDK_FMDB [system] {
+    header "FMDB/src/fmdb/FMDatabase.h"
+    header "FMDB/src/fmdb/FMDatabaseAdditions.h"
+    header "FMDB/src/fmdb/FMDatabasePool.h"
+    header "FMDB/src/fmdb/FMDatabaseQueue.h"
+    header "FMDB/src/fmdb/FMDB.h"
+    header "FMDB/src/fmdb/FMResultSet.h"
+    
+    export *
+}
+
+module BTSDK_SDWebImage [system] {
+    header "SDWebImage/SDWebImage/NSButton+WebCache.h"
+    header "SDWebImage/SDWebImage/NSData+ImageContentType.h"
+    header "SDWebImage/SDWebImage/NSImage+WebCache.h"
+    header "SDWebImage/SDWebImage/SDAnimatedImageRep.h"
+    header "SDWebImage/SDWebImage/SDImageCache.h"
+    header "SDWebImage/SDWebImage/SDImageCacheConfig.h"
+    header "SDWebImage/SDWebImage/SDWebImageCoder.h"
+    header "SDWebImage/SDWebImage/SDWebImageCoderHelper.h"
+    header "SDWebImage/SDWebImage/SDWebImageCodersManager.h"
+    header "SDWebImage/SDWebImage/SDWebImageCompat.h"
+    header "SDWebImage/SDWebImage/SDWebImageDownloader.h"
+    header "SDWebImage/SDWebImage/SDWebImageDownloaderOperation.h"
+    header "SDWebImage/SDWebImage/SDWebImageFrame.h"
+    header "SDWebImage/SDWebImage/SDWebImageGIFCoder.h"
+    header "SDWebImage/SDWebImage/SDWebImageImageIOCoder.h"
+    header "SDWebImage/SDWebImage/SDWebImageManager.h"
+    header "SDWebImage/SDWebImage/SDWebImageOperation.h"
+    header "SDWebImage/SDWebImage/SDWebImagePrefetcher.h"
+    header "SDWebImage/SDWebImage/SDWebImageTransition.h"
+    header "SDWebImage/SDWebImage/UIButton+WebCache.h"
+    header "SDWebImage/SDWebImage/UIImage+ForceDecode.h"
+    header "SDWebImage/SDWebImage/UIImage+GIF.h"
+    header "SDWebImage/SDWebImage/UIImage+MultiFormat.h"
+    header "SDWebImage/SDWebImage/UIImageView+HighlightedWebCache.h"
+    header "SDWebImage/SDWebImage/UIImageView+WebCache.h"
+    header "SDWebImage/SDWebImage/UIView+WebCache.h"
+    header "SDWebImage/SDWebImage/UIView+WebCacheOperation.h"
+    
+    export *
+}
+
+module BTSDK_MBProgressHUD [system] {
+    header "MBProgressHUD/MBProgressHUD.h"
+    
+    export *
+}

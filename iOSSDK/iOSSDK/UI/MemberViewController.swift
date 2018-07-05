@@ -6,7 +6,7 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
-import MBProgressHUD
+import BTSDK_MBProgressHUD
 import StoreKit
 import TXScrollLabelView
 import UIKit

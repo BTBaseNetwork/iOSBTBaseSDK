@@ -12,22 +12,6 @@ extension DispatchQueue {
         let time = DispatchTime.now() + Double(NSNumber(value: NSEC_PER_MSEC * ms as UInt64).int64Value) / Double(NSEC_PER_SEC)
         asyncAfter(deadline: time, execute: handler)
     }
-    
-    static var background: DispatchQueue {
-        return DispatchQueue.global(qos: .background)
-    }
-    
-    static var utility: DispatchQueue {
-        return DispatchQueue.global(qos: .utility)
-    }
-    
-    static var defaultQueue: DispatchQueue {
-        return DispatchQueue.global(qos: .default)
-    }
-    
-    static var userInitiated: DispatchQueue {
-        return DispatchQueue.global(qos: .userInitiated)
-    }
 }
 
 extension NotificationCenter {

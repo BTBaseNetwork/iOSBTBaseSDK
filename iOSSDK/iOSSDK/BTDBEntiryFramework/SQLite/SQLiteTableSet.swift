@@ -6,7 +6,7 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
-import FMDB
+import BTSDK_FMDB
 import Foundation
 
 public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {

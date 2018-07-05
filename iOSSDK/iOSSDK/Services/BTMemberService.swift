@@ -5,11 +5,8 @@
 //  Created by Alex Chow on 2018/6/3.
 //  Copyright © 2018年 btbase. All rights reserved.
 //
-
-import Alamofire
 import Foundation
 import StoreKit
-import SwiftyStoreKit
 
 class BTMemberProfile {
     public var accountId = BTServiceConst.ACCOUNT_ID_UNLOGIN
@@ -379,8 +376,7 @@ extension BTMemberService {
 
     func fetchMemberConfig() {
         self.postRefreshState(state: BTRefreshMemberProductsStateStart)
-
-        Alamofire.download(self.memberConfigUrl, to: BTMemberService.cachedMemberConfigDownloadDestination).response { resp in
+        download(self.memberConfigUrl, to: BTMemberService.cachedMemberConfigDownloadDestination).response { resp in
             if resp.error == nil, let _ = resp.destinationURL?.path {
                 if self.loadCachedMemberConfig() {
                     return

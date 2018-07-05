@@ -1,17 +1,16 @@
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/CocoaPods/Specs'
-install! 'cocoapods', :integrate_targets => true
+install! 'cocoapods', :integrate_targets => false
 platform :ios, '8.0'
 
 abstract_target 'CommonRefs' do
     use_frameworks!
-    pod 'Alamofire', '~> 4.7'
-    pod 'FMDB'
-    pod 'SDWebImage', '~> 4.0'
-    pod 'MBProgressHUD', '~> 1.1.0'
-    pod 'SwiftyStoreKit'
-    pod 'MobilePlayer'
-    pod 'IQKeyboardManagerSwift'
+    #pod 'Alamofire', '~> 4.7'
+    #pod 'FMDB'
+    #pod 'SDWebImage', '~> 4.0'
+    #pod 'MBProgressHUD', '~> 1.1.0'
+    #pod 'SwiftyStoreKit'
+    #pod 'IQKeyboardManagerSwift'
     
     #Targets
     target 'BTBaseSDK'

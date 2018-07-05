@@ -5,8 +5,6 @@
 //  Created by Alex Chow on 2018/6/4.
 //  Copyright © 2018年 btbase. All rights reserved.
 //
-
-import Alamofire
 import Foundation
 
 extension Notification.Name {
@@ -53,7 +51,7 @@ class BTAPIRequest<T> where T: Codable {
     public func request(profile: BTAPIClientProfile) -> BTAPIRequest<T> {
         useHeaders(headers: profile.defaultHeaders)
         host = profile.host.hasSuffix("/") ? profile.host : profile.host + "/"
-
+        
         rawRequest = Alamofire.request(url, method: method, parameters: parameters, encoding: URLEncoding.default, headers: headers).validate(contentType: ["application/json"]).responseData(queue: queue, completionHandler: { response in
             if let statusCode = response.response?.statusCode, statusCode == 401 {
                 let tobj = BTAPIResult<T>()

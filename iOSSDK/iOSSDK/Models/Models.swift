@@ -99,9 +99,12 @@ class BTGameWallItem: Codable {
     public var itemId: String!
     public var gameName: String!
     public var iconUrl: String!
+    
     public var videoUrl: String!
     public var videoLoop: Bool = false
+    public var closeVideo: Bool = true //Effect Only the video loop is false
     public var videoType: Int = 0
+    
     public var coverUrl: String!
     public var labels = 0
     public var priority = 0
@@ -115,16 +118,30 @@ class BTGameWallItem: Codable {
         return loc["\(key)_\(langCode)"] ?? defaultValue
     }
 
-    func getLocalizedGameName() -> String {
-        return getLocalizedString(key: "gameName", defaultValue: gameName) ?? "Unknow Game"
-    }
-    
-    public var hasHotLabel:Bool{
+    public var hasHotLabel: Bool {
         return labels & Label.hot.rawValue != 0
     }
-    
-    public var hasNewLabel:Bool{
+
+    public var hasNewLabel: Bool {
         return labels & Label.new.rawValue != 0
+    }
+}
+
+extension BTGameWallItem {
+    var localizedGameName: String {
+        return getLocalizedString(key: "gameName", defaultValue: gameName) ?? "Unknow Game"
+    }
+
+    var localizedIconUrl: String {
+        return getLocalizedString(key: "iconUrl", defaultValue: iconUrl) ?? ""
+    }
+
+    var localizedVideoUrl: String {
+        return getLocalizedString(key: "videoUrl", defaultValue: videoUrl) ?? ""
+    }
+
+    var localizedCoverUrl: String {
+        return getLocalizedString(key: "coverUrl", defaultValue: coverUrl) ?? ""
     }
 }
 

@@ -6,7 +6,7 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
-import FMDB
+import BTSDK_FMDB
 import Foundation
 class BTSessionService {
     public static let onSessionUpdated = NSNotification.Name("BTSessionService_onSessionUpdated")
@@ -55,16 +55,22 @@ class BTSessionService {
         if self.localSession.IsSessionLogined() {
             if self.localSession.sTokenExpires == nil || self.localSession.sTokenExpires!.timeIntervalSince1970 < Date().timeIntervalSince1970 {
                 debugLog("Session Token Is Expired, Relogin...")
-                self.login(self.localSession.accountId, self.localSession.password!, passwordSalted: true, autoFillPassword: false) { _, res in
-                    if res.isHttpOK {
-                        #if DEBUG
-                        debugLog("Session Token Refreshed, New Token Expires:%@", self.localSession.sTokenExpires?.toLocalDateTimeString() ?? "Unknow")
-                        #endif
-                    } else {
-                        debugLog("Relogin Failed:%@", res.error?.msg ?? "Unknow Reason")
-                        self.setSessionInvalid()
+                if String.isNullOrWhiteSpace(self.localSession.password) {
+                    debugLog("Relogin Failed:%@", "No Cached Salted Password")
+                    self.setSessionInvalid()
+                } else {
+                    self.login(self.localSession.accountId, self.localSession.password!, passwordSalted: true, autoFillPassword: false) { _, res in
+                        if res.isHttpOK {
+                            #if DEBUG
+                            debugLog("Session Token Refreshed, New Token Expires:%@", self.localSession.sTokenExpires?.toLocalDateTimeString() ?? "Unknow")
+                            #endif
+                        } else {
+                            debugLog("Relogin Failed:%@", res.error?.msg ?? "Unknow Reason")
+                            self.setSessionInvalid()
+                        }
                     }
                 }
+
             } else if self.localSession.tokenExpires == nil || self.localSession.tokenExpires!.timeIntervalSince1970 < Date().addDays(3).timeIntervalSince1970 {
                 debugLog("Token Is Nearly Expired, Refreshing...")
                 self.refreshToken()

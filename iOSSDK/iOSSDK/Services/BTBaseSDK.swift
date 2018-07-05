@@ -18,7 +18,7 @@
 
 import CommonCrypto
 import Foundation
-import SwiftyStoreKit
+import UIKit
 
 // MARK: SwiftyStoreKitCompleteDelegate
 

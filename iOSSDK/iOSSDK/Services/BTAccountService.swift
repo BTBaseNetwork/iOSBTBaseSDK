@@ -6,7 +6,7 @@
 //  Copyright © 2018年 btbase. All rights reserved.
 //
 
-import FMDB
+import BTSDK_FMDB
 import Foundation
 
 let kBTRegistedAccountId = "kBTRegistedAccountId"

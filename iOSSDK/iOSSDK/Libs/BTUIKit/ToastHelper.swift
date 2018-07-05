@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import MBProgressHUD
+import BTSDK_MBProgressHUD
 import UIKit
 
 extension UIApplication {
