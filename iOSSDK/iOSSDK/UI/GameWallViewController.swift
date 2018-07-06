@@ -169,19 +169,18 @@ class GameWallViewController: UIViewController {
             return !loadingProgressView.isHidden
         }
         set {
-            if let _ = loadingProgressView {
-                if loadingProgressView.isHidden == newValue {
-                    loadingProgressView.isHidden = !newValue
-                    if newValue {
-                        refreshButton?.isHidden = true
-                        loadingProgressView.progress = 0
-                        loadingTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
-                    } else {
-                        refreshButton?.isHidden = gamewallItems.count > 0
-                        loadingTimer?.invalidate()
-                        loadingTimer = nil
-                    }
-                }
+            if loading == newValue {
+                return
+            }
+
+            refreshButton?.isHidden = gamewallItems.count > 0 || newValue
+            loadingProgressView?.isHidden = !newValue
+            if newValue {
+                loadingProgressView.progress = 0
+                loadingTimer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(loadingTimerTick(t:)), userInfo: nil, repeats: true)
+            } else {
+                loadingTimer?.invalidate()
+                loadingTimer = nil
             }
         }
     }
@@ -260,7 +259,7 @@ class GameWallViewController: UIViewController {
 extension GameWallViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
         gamewallItems = BTServiceContainer.getGameWall()?.getSortedItemsByPriority() ?? []
-        refreshButton.isHidden = gamewallItems.count > 0
+        refreshButton?.isHidden = gamewallItems.count > 0 || loading
         return 1
     }
 
