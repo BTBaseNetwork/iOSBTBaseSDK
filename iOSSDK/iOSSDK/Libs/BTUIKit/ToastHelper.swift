@@ -68,23 +68,16 @@ extension UIAlertController {
     }
 }
 
-extension MBProgressHUD {
-    func hideAsync(_ animated: Bool) {
-        DispatchQueue.main.async { () -> Void in
-            self.hide(animated: animated)
-        }
-    }
-}
-
 typealias HudHiddenCompletedHandler = () -> Void
-fileprivate var hudDelegatesHolder = [MBProgressHUD: MBProgHUDDelegate]()
+fileprivate var hudDelegatesHolder = NSMutableDictionary()
 fileprivate class MBProgHUDDelegate: NSObject, MBProgressHUDDelegate {
     var handler: HudHiddenCompletedHandler?
 
     func hudWasHidden(_ hud: MBProgressHUD) {
         DispatchQueue.main.async(execute: { () -> Void in
             hud.removeFromSuperview()
-            if let dg = hudDelegatesHolder.removeValue(forKey: hud) {
+            if let dg = hudDelegatesHolder.object(forKey: hud) as? MBProgHUDDelegate {
+                hudDelegatesHolder.removeObject(forKey: hud)
                 dg.handler?()
             }
         })
