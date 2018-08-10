@@ -27,8 +27,18 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
         }
     }
 
-    @IBOutlet var new: UIImageView!
-    @IBOutlet var hot: UIImageView!
+    @IBOutlet var new: UIImageView! {
+        didSet {
+            new.tintColor = UIColor(hexString: "#1D9BF6")
+        }
+    }
+
+    @IBOutlet var hot: UIImageView! {
+        didSet {
+            hot.tintColor = UIColor(hexString: "#FC2125")
+        }
+    }
+
     @IBOutlet var gameTitle: UILabel!
     @IBOutlet var star0: UIImageView!
     @IBOutlet var star1: UIImageView!
@@ -49,8 +59,8 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
             gameTitle.text = gameWallItem.localizedGameName
             playVideoButton.isHidden = String.isNullOrWhiteSpace(gameWallItem.localizedVideoUrl)
 
-            hot.isHidden = true
-            new.isHidden = true
+            new.isHidden = !gameWallItem.hasNewLabel //Raw Value: 1
+            hot.isHidden = !gameWallItem.hasHotLabel //Raw Value: 2
 
             for i in 0 ..< starImages.count {
                 if Float(i) < gameWallItem.stars {
@@ -71,6 +81,9 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
             let player = AVPlayer(playerItem: item)
             let vc = BTVideoPlayerViewController()
             vc.player = player
+            vc.didDisappearCompletion = {
+                self.shakeAnimationForView()
+            }
             vc.loopVideo = gameWallItem.videoLoop
             vc.closeVideoOnEnd = gameWallItem.closeVideo
             rootController?.present(vc, animated: true) {
@@ -136,9 +149,6 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
     deinit {
         debugLog("Deinited:\(self.description)")
     }
-}
-
-extension GameWallBannerItemCell {
 }
 
 extension GameWallBannerItemCell: SKStoreProductViewControllerDelegate {
