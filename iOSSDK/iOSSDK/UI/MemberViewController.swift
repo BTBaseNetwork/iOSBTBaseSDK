@@ -295,14 +295,11 @@ class MemberViewController: UIViewController {
         tableView.reloadData()
     }
     
-    var lastClickTabbarDate = Date()
-    
     @objc private func onClickTabbarItem(a: Notification) {
+        let lastClickTabbarDate = a.userInfo?[kLastClickTabBarItemDate] as! Date
         if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
             if abs(lastClickTabbarDate.timeIntervalSinceNow) < 1 {
                 fetchIAPList()
-            } else {
-                lastClickTabbarDate = Date()
             }
         }
     }

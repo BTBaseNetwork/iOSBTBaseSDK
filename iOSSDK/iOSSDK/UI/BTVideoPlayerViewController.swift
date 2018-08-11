@@ -13,8 +13,7 @@ class BTVideoPlayerViewController: AVPlayerViewController {
     var loopVideo = false
     var closeVideoOnEnd = false
     
-    var didDisappearCompletion:(()->Void)?
-    
+    var didDisappearAction:(()->Void)?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -30,9 +29,14 @@ class BTVideoPlayerViewController: AVPlayerViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
-        didDisappearCompletion?()
+        didDisappearAction?()
     }
 }

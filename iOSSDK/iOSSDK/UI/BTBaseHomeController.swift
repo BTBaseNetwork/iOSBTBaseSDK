@@ -8,6 +8,8 @@
 
 import UIKit
 let kDidSelectViewController = "kDidSelectVievController"
+let kLastSelectViewController = "kLastSelectViewController"
+let kLastClickTabBarItemDate = "kLastClickTabBarItemDate"
 
 class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
     static let DidSelectViewController = Notification.Name("BTBaseHomeController_DidSelectViewController")
@@ -54,8 +56,16 @@ class BTBaseHomeController: UITabBarController, UITabBarControllerDelegate {
         }
     }
 
+    private var lastSelectedViewController: UIViewController?
+    private var lastClickTabbarDate = Date()
     func tabBarController(_: UITabBarController, didSelect viewController: UIViewController) {
-        NotificationCenter.default.post(name: BTBaseHomeController.DidSelectViewController, object: viewController, userInfo: [kDidSelectViewController: viewController])
+        var uinfo:[String : Any] = [kDidSelectViewController: viewController,kLastClickTabBarItemDate:lastClickTabbarDate]
+        if let lvc = lastSelectedViewController {
+            uinfo[kLastSelectViewController] = lvc
+        }
+        lastClickTabbarDate = Date()
+        lastSelectedViewController = viewController
+        NotificationCenter.default.post(name: BTBaseHomeController.DidSelectViewController, object: viewController, userInfo: uinfo)
     }
 
     @IBAction func OnClickClose(_: Any) {

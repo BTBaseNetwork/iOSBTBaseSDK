@@ -59,8 +59,8 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
             gameTitle.text = gameWallItem.localizedGameName
             playVideoButton.isHidden = String.isNullOrWhiteSpace(gameWallItem.localizedVideoUrl)
 
-            new.isHidden = !gameWallItem.hasNewLabel //Raw Value: 1
-            hot.isHidden = !gameWallItem.hasHotLabel //Raw Value: 2
+            new.isHidden = !gameWallItem.hasNewLabel // Raw Value: 1
+            hot.isHidden = !gameWallItem.hasHotLabel // Raw Value: 2
 
             for i in 0 ..< starImages.count {
                 if Float(i) < gameWallItem.stars {
@@ -81,13 +81,25 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
             let player = AVPlayer(playerItem: item)
             let vc = BTVideoPlayerViewController()
             vc.player = player
-            vc.didDisappearCompletion = {
-                self.shakeAnimationForView()
+            let playVideoBtn = playVideoButton
+            vc.didDisappearAction = {
+                UIView.animate(withDuration: 0.3, animations: {
+                    playVideoBtn?.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    playVideoBtn?.alpha = 1
+                }) { _ in
+                }
             }
+
             vc.loopVideo = gameWallItem.videoLoop
             vc.closeVideoOnEnd = gameWallItem.closeVideo
-            rootController?.present(vc, animated: true) {
-                vc.player?.play()
+
+            UIView.animate(withDuration: 0.3, animations: {
+                playVideoBtn?.transform = CGAffineTransform(scaleX: 3.6, y: 3.6)
+                playVideoBtn?.alpha = 0
+            }) { _ in
+                self.rootController?.present(vc, animated: true) {
+                    vc.player?.play()
+                }
             }
         }
     }
@@ -236,16 +248,24 @@ class GameWallViewController: UIViewController {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(onGameWallListUpdated(a:)), name: BTGameWall.onGameWallListUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onClickTabbarItem(a:)), name: BTBaseHomeController.DidSelectViewController, object: nil)
-        tableView.reloadData()
     }
 
-    var lastClickTabbarDate = Date()
     @objc private func onClickTabbarItem(a: Notification) {
-        if let vc = a.userInfo?[kDidSelectViewController] as? UIViewController, vc == self.navigationController {
-            if abs(lastClickTabbarDate.timeIntervalSinceNow) < 1 {
-                refreshGamewallList(force: true)
+        let vc = a.userInfo?[kDidSelectViewController] as? UIViewController
+        let lastVc = a.userInfo?[kLastSelectViewController] as? UIViewController
+        let lastClickTabbarDate = a.userInfo?[kLastClickTabBarItemDate] as! Date
+
+        if vc == navigationController {
+            if vc == lastVc {
+                if tableView.contentOffset.y > 0 {
+                    if tableView.numberOfSections > 0 && tableView.numberOfRows(inSection: 0) > 0 {
+                        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                    }
+                } else if abs(lastClickTabbarDate.timeIntervalSinceNow) < 1 {
+                    refreshGamewallList(force: true)
+                }
             } else {
-                lastClickTabbarDate = Date()
+                tableView.reloadData()
             }
         }
     }
