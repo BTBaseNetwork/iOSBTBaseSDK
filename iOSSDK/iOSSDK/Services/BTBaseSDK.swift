@@ -40,10 +40,10 @@ public class BTBaseSDK: NSObject {
     public private(set) static var config: BTBaseConfig!
 
     public static var swiftyStoreKitCompleteDelegate: SwiftyStoreKitCompleteDelegate?
-    
-    private static var dbPath:String!
-    
-    static func getDbContext()->BTServiceDBContext {
+
+    private static var dbPath: String!
+
+    static func getDbContext() -> BTServiceDBContext {
         let dbContext = BTServiceDBContext(dbpath: dbPath)
         dbContext.open()
         return dbContext
@@ -61,11 +61,11 @@ public class BTBaseSDK: NSObject {
         BTBaseSDK.config = config
         if let dbname = config.getString(key: "BTBaseDB") {
             dbPath = URL(fileURLWithPath: FileManager.persistentDataPath).appendingPathComponent(dbname).absoluteString
-            
+
             let db = getDbContext()
             db.ensureDatabase()
             db.close()
-            
+
             BTIAPOrderManager.initManager()
 
             // Account Service Must Init First
@@ -90,7 +90,6 @@ public class BTBaseSDK: NSObject {
     }
 
     @objc private func applicationWillTerminate(a: Notification) {
-        
     }
 }
 
@@ -174,6 +173,27 @@ public extension BTBaseSDK {
     }
 }
 
+// MARK: Badge Number
+
+public extension BTBaseSDK {
+    public static var badgeNumber: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "BTBaseSDK:badgeNumber")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "BTBaseSDK:badgeNumber")
+        }
+    }
+
+    @objc public static func clearBadgeNumber() {
+        badgeNumber = -1
+    }
+
+    @objc public static func getBadgeNumber() -> Int {
+        return badgeNumber
+    }
+}
+
 // MARK: Member
 
 public extension BTBaseSDK {
@@ -182,5 +202,13 @@ public extension BTBaseSDK {
             return member.expiredDateTs > Date().timeIntervalSince1970
         }
         return false
+    }
+}
+
+// MARK: Game Wall
+
+public extension BTBaseSDK {
+    @objc public static func fetchGameWallList(force: Bool) {
+        BTServiceContainer.getGameWall()?.refreshGameWallList(force: force)
     }
 }

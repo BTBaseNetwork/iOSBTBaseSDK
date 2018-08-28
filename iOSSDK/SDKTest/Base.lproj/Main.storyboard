@@ -42,6 +42,14 @@
                                     <action selector="onClickProduction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i3O-zx-8ua"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SnT-6p-r6S">
+                                <rect key="frame" x="269" y="292" width="21" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.98823529409999999" green="0.12941176469999999" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -54,6 +62,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="badgeLabel" destination="SnT-6p-r6S" id="uu1-lu-kQH"/>
                         <outlet property="devButton" destination="1is-rB-nfi" id="AWJ-Hq-rVJ"/>
                         <outlet property="homeButton" destination="zob-q8-zKk" id="V9x-QS-TmU"/>
                         <outlet property="productionButton" destination="dJN-ke-tlL" id="lSS-w2-9ZP"/>

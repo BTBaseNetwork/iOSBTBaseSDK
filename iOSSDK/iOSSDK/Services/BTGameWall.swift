@@ -30,6 +30,8 @@ class BTGameWall {
 
     var gameItemCount: Int { return self.cachedConfigModel?.items?.count ?? 0 }
 
+    var latestConfigDateTs: Double = 0
+
     func getItem(index: Int) -> BTGameWallItem? {
         if let items = cachedConfigModel?.items {
             return items[index]
@@ -47,21 +49,38 @@ class BTGameWall {
     }
 
     func refreshGameWallList(force: Bool, completion: (() -> Void)? = nil) {
-        if !force, let attrs = try? FileManager.default.attributesOfItem(atPath: BTGameWall.cachedConfigJsonPathUrl.path) {
-            let date = (attrs[FileAttributeKey.modificationDate]) ?? (attrs[FileAttributeKey.creationDate])
-            if let d = date as? Date {
-                if d.addDays(1).timeIntervalSince1970 > Date().timeIntervalSince1970 {
-                    completion?()
-                    return
-                }
+        let attrs = try? FileManager.default.attributesOfItem(atPath: BTGameWall.cachedConfigJsonPathUrl.path)
+        let date = (attrs?[FileAttributeKey.modificationDate]) ?? (attrs?[FileAttributeKey.creationDate]) ?? Date(timeIntervalSince1970: 0)
+        let d = date as! Date
+        latestConfigDateTs = d.timeIntervalSince1970
+        if !force {
+            if d.addDays(1).timeIntervalSince1970 > Date().timeIntervalSince1970 {
+                completion?()
+                return
             }
         }
 
         download(self.configJsonUrl, to: self.destination).response { response in
             if response.error == nil, let _ = response.destinationURL?.path {
                 self.loadCachedGamewallConfig()
+                self.refreshBadge()
             }
             completion?()
+        }
+    }
+
+    private func refreshBadge() {
+        // Update BTBaseSDK Badge Number
+        if let configModel = self.cachedConfigModel {
+            var badge = 0
+            for msg in configModel.messages ?? [] {
+                if msg.ts > self.latestConfigDateTs {
+                    badge += 1
+                }
+            }
+            if badge > 0 {
+                BTBaseSDK.badgeNumber = BTBaseSDK.badgeNumber > 0 ? BTBaseSDK.badgeNumber + badge : badge
+            }
         }
     }
 

@@ -92,3 +92,23 @@ void _btbaseSDK_SetPauseUnityOnBTHomeShown(BOOL enabled)
 {
     pauseUnityOnBTHomeShown = enabled;
 }
+
+NSInteger _btbaseSDK_GetBadgeNumber()
+{
+    return [BTBaseSDK getBadgeNumber];
+}
+
+void _btbaseSDK_ClearBadgeNumber()
+{
+    [BTBaseSDK clearBadgeNumber];
+}
+
+void _btbaseSDK_FetchGameWallList()
+{
+    [BTBaseSDK fetchGameWallListWithForce:false];
+}
+
+void _btbaseSDK_ForceFetchGameWallList()
+{
+    [BTBaseSDK fetchGameWallListWithForce:true];
+}

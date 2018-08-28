@@ -99,12 +99,12 @@ class BTGameWallItem: Codable {
     public var itemId: String!
     public var gameName: String!
     public var iconUrl: String!
-    
+
     public var videoUrl: String!
     public var videoLoop: Bool = false
-    public var closeVideo: Bool = true //Effect Only the video loop is false
+    public var closeVideo: Bool = true // Effect Only the video loop is false
     public var videoType: Int = 0
-    
+
     public var coverUrl: String!
     public var labels = 0
     public var priority = 0
@@ -145,7 +145,14 @@ extension BTGameWallItem {
     }
 }
 
+class BTGameWallMessage: Codable {
+    public var sender: String!
+    public var content: String!
+    public var ts: Double = 0
+}
+
 class BTGameWallConfig: Codable {
     public var configVersion = 0
     public var items: [BTGameWallItem]!
+    public var messages: [BTGameWallMessage]!
 }

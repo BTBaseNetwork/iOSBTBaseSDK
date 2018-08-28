@@ -15,6 +15,8 @@ class ViewController: UIViewController {
 
     @IBOutlet var homeButton: UIButton!
 
+    @IBOutlet var badgeLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         homeButton.isHidden = true
@@ -23,26 +25,35 @@ class ViewController: UIViewController {
     @IBAction func onClickProduction(_ sender: Any) {
         let btbaseConfigFile = "btbase"
         if let filePath = Bundle.main.path(forResource: btbaseConfigFile, ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
-            BTBaseSDK.start(config: config)
-            BTBaseSDK.setupSDKUI()
-            homeButton.isHidden = false
-            devButton.isHidden = true
-            productionButton.isEnabled = false
+            start(config: config, dev: false)
         }
     }
 
     @IBAction func onClickDev(_ sender: Any) {
         let btbaseConfigFile = "btbase_dev"
         if let filePath = Bundle.main.path(forResource: btbaseConfigFile, ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
-            BTBaseSDK.start(config: config)
-            BTBaseSDK.setupSDKUI()
-            homeButton.isHidden = false
-            devButton.isEnabled = false
-            productionButton.isHidden = true
+            start(config: config, dev: true)
+        }
+    }
+
+    func start(config: BTBaseConfig, dev: Bool) {
+        BTBaseSDK.start(config: config)
+        BTBaseSDK.setupSDKUI()
+        homeButton.isHidden = false
+        devButton.isHidden = true
+        productionButton.isHidden = true
+        BTBaseSDK.fetchGameWallList(force: true)
+        if #available(iOS 10.0, *) {
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                self.badgeLabel.text = "\(BTBaseSDK.badgeNumber)"
+            }
+        } else {
+            // Fallback on earlier versions
         }
     }
 
     @IBAction func OnClickHome(_: Any) {
         BTBaseSDK.openHome(self)
+        BTBaseSDK.clearBadgeNumber()
     }
 }
