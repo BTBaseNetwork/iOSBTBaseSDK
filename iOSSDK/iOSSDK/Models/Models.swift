@@ -90,6 +90,8 @@ class BTGameWallItem: Codable {
         case none = 0
         case new = 1
         case hot = 2
+        case coming = 4
+        case reservable = 8
     }
 
     public static let VIDEO_TYPE_UNSPECIFIC = 0
@@ -124,6 +126,14 @@ class BTGameWallItem: Codable {
 
     public var hasNewLabel: Bool {
         return labels & Label.new.rawValue != 0
+    }
+
+    public var isComingSoon: Bool {
+        return labels & Label.coming.rawValue != 0
+    }
+
+    public var isReservable: Bool {
+        return labels & Label.reservable.rawValue != 0
     }
 }
 

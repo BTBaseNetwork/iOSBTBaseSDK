@@ -127,3 +127,5 @@ BTLocGuest = "Guest";
 BTLocTitleGuestPurchaseLimit = "Guest Limitations";
 BTLocMsgGuestPurchaseLimit = "Subscribe member with guest mode can only be used in this device.\n\nSubscribe member with a logined account can share privileges to other devices.";
 BTLocForceGuestPurchase = "Guest Subscribe";
+BTLocGameStatusComingSoon = "Coming Soon";
+BTLocGameStatusReservable = "Reservable";

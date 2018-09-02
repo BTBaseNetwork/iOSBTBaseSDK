@@ -127,3 +127,5 @@ BTLocGuest = "遊客";
 BTLocTitleGuestPurchaseLimit = "遊客訂閱會員限制";
 BTLocMsgGuestPurchaseLimit = "1. 遊客訂閱的會員僅限當前APP使用。\n2. 删除APP后游客订阅会员不能恢复。\n登錄帳號後訂閱的會員可以與遊戲牆上所有的遊戲共用。";
 BTLocForceGuestPurchase = "遊客模式訂閱(不推薦)";
+BTLocGameStatusComingSoon = "敬請期待";
+BTLocGameStatusReservable = "預約遊戲";

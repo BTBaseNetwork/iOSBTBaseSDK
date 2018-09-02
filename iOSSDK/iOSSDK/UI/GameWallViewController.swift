@@ -39,6 +39,7 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
         }
     }
 
+    @IBOutlet var gameStatusLabel: UILabel!
     @IBOutlet var gameTitle: UILabel!
     @IBOutlet var star0: UIImageView!
     @IBOutlet var star1: UIImageView!
@@ -62,14 +63,34 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
             new.isHidden = !gameWallItem.hasNewLabel // Raw Value: 1
             hot.isHidden = !gameWallItem.hasHotLabel // Raw Value: 2
 
-            for i in 0 ..< starImages.count {
-                if Float(i) < gameWallItem.stars {
-                    starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(1)
-                } else if Float(i) < gameWallItem.stars + 0.5 {
-                    starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(0.5)
-                } else {
-                    starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(0)
-                }
+            let showStars = !gameWallItem.isComingSoon && !gameWallItem.isReservable
+            setStars(showStars: showStars, stars: gameWallItem.stars)
+            updateGameStatusLabel()
+        }
+    }
+
+    private func updateGameStatusLabel() {
+        gameStatusLabel.isHidden = false
+        if gameWallItem.isComingSoon {
+            gameStatusLabel.text = "BTLocGameStatusComingSoon".localizedBTBaseString
+        } else if gameWallItem.isReservable {
+            gameStatusLabel.text = "BTLocGameStatusReservable".localizedBTBaseString
+        } else {
+            gameStatusLabel.isHidden = true
+        }
+    }
+
+    private func setStars(showStars: Bool, stars: Float) {
+        for i in 0 ..< starImages.count {
+            starImages[i].isHidden = false
+            if !showStars {
+                starImages[i].isHidden = true
+            } else if i < Int(stars) {
+                starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(1)
+            } else if i < Int(stars + 0.5) {
+                starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(0.5)
+            } else {
+                starImages[i].tintColor = GameWallBannerItemCell.starIconTintColor.withAlphaComponent(0)
             }
         }
     }
