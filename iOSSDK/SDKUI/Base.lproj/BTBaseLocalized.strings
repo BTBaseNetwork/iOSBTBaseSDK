@@ -129,3 +129,6 @@ BTLocMsgGuestPurchaseLimit = "Subscribe member with guest mode can only be used 
 BTLocForceGuestPurchase = "Guest Subscribe";
 BTLocGameStatusComingSoon = "Coming Soon";
 BTLocGameStatusReservable = "Reservable";
+BTLocReserveGame = "Reserve";
+BTLocMsgOpenStoreToReserve = "Do you want to open the App Store to reserve this game?";
+BTLocMsgGameComingSoon = "This game is coming soon.";

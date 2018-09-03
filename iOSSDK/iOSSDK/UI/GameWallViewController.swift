@@ -127,18 +127,37 @@ class GameWallBannerItemCell: UITableViewCell, AVPlayerViewControllerDelegate {
 
     @IBAction func onClickPlayGame(_: Any) {
         let gameName = gameWallItem.localizedGameName
-        let title = String(format: "BTLocTitleOpenGameXOrOpenStore".localizedBTBaseString, gameName)
-        let msg = String(format: "BTLocMsgOpenGameXOrOpenStore".localizedBTBaseString, gameName)
-        BTBaseSDK.shareAuthentication()
-        let ok = UIAlertAction(title: "BTLocPlayNow".localizedBTBaseString, style: .default) { _ in
-            self.playGame()
+        var title = ""
+        var msg = ""
+        var actions = [UIAlertAction]()
+        if gameWallItem.isComingSoon {
+            title = gameName
+            msg = String(format: "BTLocMsgGameComingSoon".localizedBTBaseString, gameName)
+            actions.append(ALERT_ACTION_OK)
+        } else if gameWallItem.isReservable {
+            title = gameName
+            msg = String(format: "BTLocMsgOpenStoreToReserve".localizedBTBaseString, gameName)
+            actions.append(ALERT_ACTION_CANCEL)
+            actions.append(UIAlertAction(title: "BTLocReserveGame".localizedBTBaseString, style: .default, handler: { _ in
+                self.showAppProductViewController()
+            }))
+        } else {
+            title = String(format: "BTLocTitleOpenGameXOrOpenStore".localizedBTBaseString, gameName)
+            msg = String(format: "BTLocMsgOpenGameXOrOpenStore".localizedBTBaseString, gameName)
+            BTBaseSDK.shareAuthentication()
+            let ok = UIAlertAction(title: "BTLocPlayNow".localizedBTBaseString, style: .default) { _ in
+                self.playGame()
+            }
+            let cancel = UIAlertAction(title: "CANCEL".bahamutCommonLocalizedString, style: .cancel) { _ in
+                #if RELEASE
+                BTBaseSDK.clearSharedAuthentication()
+                #endif
+            }
+            actions.append(cancel)
+            actions.append(ok)
         }
-        let cancel = UIAlertAction(title: "CANCEL".bahamutCommonLocalizedString, style: .cancel) { _ in
-            #if RELEASE
-            BTBaseSDK.clearSharedAuthentication()
-            #endif
-        }
-        rootController?.showAlert(title, msg: msg, actions: [cancel, ok])
+
+        rootController?.showAlert(title, msg: msg, actions: actions)
     }
 
     func playGame() {

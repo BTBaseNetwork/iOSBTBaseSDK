@@ -129,3 +129,6 @@ BTLocMsgGuestPurchaseLimit = "1. 遊客訂閱的會員僅限當前APP使用。\n
 BTLocForceGuestPurchase = "遊客模式訂閱(不推薦)";
 BTLocGameStatusComingSoon = "敬請期待";
 BTLocGameStatusReservable = "預約遊戲";
+BTLocReserveGame = "預約遊戲";
+BTLocMsgOpenStoreToReserve = "打開App Store 并預約該遊戲?";
+BTLocMsgGameComingSoon = "遊戲即將發佈，敬請期待。";
