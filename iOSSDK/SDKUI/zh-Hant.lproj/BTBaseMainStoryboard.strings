@@ -291,3 +291,10 @@
 
 /* Class = "UIBarButtonItem"; title = "Privacy"; ObjectID = "sWL-82-7fo"; */
 "sWL-82-7fo.title" = "Privacy";
+
+//##################################################################################
+//#           AutoGenStrings            2018-09-18 19:03:45
+//##################################################################################
+
+/* Class = "UILabel"; text = "Coming Soon"; ObjectID = "Zz3-yH-Eao"; */
+"Zz3-yH-Eao.text" = "Coming Soon";
