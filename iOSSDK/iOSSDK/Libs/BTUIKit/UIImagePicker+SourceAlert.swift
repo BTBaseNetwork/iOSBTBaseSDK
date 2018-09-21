@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIImagePickerController {
-    static func showUIImagePickerAlert(_ viewController: UIViewController, title: String!, message: String!, allowsEditing: Bool = false, alertStyle: UIAlertControllerStyle = .actionSheet, extraAlertAction: [UIAlertAction]? = nil) -> UIImagePickerController {
+    static func showUIImagePickerAlert(_ viewController: UIViewController, title: String!, message: String!, allowsEditing: Bool = false, alertStyle: UIAlertController.Style = .actionSheet, extraAlertAction: [UIAlertAction]? = nil) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
         let style = UIDevice.current.userInterfaceIdiom == .phone ? alertStyle : .alert
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)

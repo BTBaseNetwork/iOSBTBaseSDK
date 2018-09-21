@@ -14,15 +14,15 @@ class ShareHelper: NSObject {
     static let shareWithType = Notification.Name("ShareHelper_shareWithType")
     static let shareShown = Notification.Name("ShareHelper_shareShown")
 
-    static let snsTypes: [UIActivityType] = [
-        UIActivityType.postToVimeo,
-        UIActivityType.postToWeibo,
-        UIActivityType.postToFlickr,
-        UIActivityType.postToTwitter,
-        UIActivityType.postToFacebook,
-        UIActivityType.postToTencentWeibo,
-        UIActivityType.mail,
-        UIActivityType.message,
+    static let snsTypes: [UIActivity.ActivityType] = [
+        UIActivity.ActivityType.postToVimeo,
+        UIActivity.ActivityType.postToWeibo,
+        UIActivity.ActivityType.postToFlickr,
+        UIActivity.ActivityType.postToTwitter,
+        UIActivity.ActivityType.postToFacebook,
+        UIActivity.ActivityType.postToTencentWeibo,
+        UIActivity.ActivityType.mail,
+        UIActivity.ActivityType.message,
     ]
 
     static let snsBundlePrefix: [String] = [

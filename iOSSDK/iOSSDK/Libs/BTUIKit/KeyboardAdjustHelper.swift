@@ -39,8 +39,8 @@ class ControllerViewAdjustByKeyboardProxy: NSObject {
 
     func registerForKeyboardNotifications(_ views: [UIView]) {
         keyBoardAdjuetResponderViews = views
-        NotificationCenter.default.addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ControllerViewAdjustByKeyboardProxy.keyboardChanged(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     fileprivate var keyBoardAdjuetResponderViews = [UIView]()
@@ -64,19 +64,19 @@ class ControllerViewAdjustByKeyboardProxy: NSObject {
         if !responderView.isFirstResponder {
             return
         }
-        if let kbFrame = (info[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue {
+        if let kbFrame = (info[UIResponder.keyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue {
             let tfFrame = responderView.frame
 
-            if keyboardNotification == NSNotification.Name.UIKeyboardDidShow {
+            if keyboardNotification == UIResponder.keyboardDidShowNotification {
                 offset = tfFrame.origin.y + tfFrame.size.height + 7 - kbFrame.origin.y
                 if offset <= 0 {
                     return
                 }
                 var animationDuration: TimeInterval
-                var animationCurve: UIViewAnimationCurve
-                let curve = info[UIKeyboardAnimationCurveUserInfoKey] as! Int
-                animationCurve = UIViewAnimationCurve(rawValue: curve)!
-                animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+                var animationCurve: UIView.AnimationCurve
+                let curve = info[UIResponder.keyboardAnimationCurveUserInfoKey] as! Int
+                animationCurve = UIView.AnimationCurve(rawValue: curve)!
+                animationDuration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
                 UIView.beginAnimations(nil, context: nil)
                 UIView.setAnimationDuration(animationDuration)
                 UIView.setAnimationCurve(animationCurve)

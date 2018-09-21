@@ -7,7 +7,7 @@
 //
 import Foundation
 
-class BTAPIClientProfile {
+public class BTAPIClientProfile {
     var host = "http://localhost/"
     var defaultHeaders = [String: String]()
 

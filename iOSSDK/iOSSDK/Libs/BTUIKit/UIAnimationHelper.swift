@@ -54,9 +54,9 @@ class UIAnimationHelper {
 
         animation.duration = duration
 
-        animation.type = "pageCurl"
+        animation.type = convertToCATransitionType("pageCurl")
 
-        animation.subtype = kCATransitionFromBottom
+        animation.subtype = CATransitionSubtype.fromBottom
 
         // 添加上动画
         viewLayer.add(animation, forKey: nil)
@@ -83,7 +83,7 @@ class UIAnimationHelper {
 
         let animation = CABasicAnimation(keyPath: "position")
         // 设置运动形式
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.default)
 
         // 设置开始位置
         animation.fromValue = NSValue(cgPoint: a)
@@ -125,7 +125,7 @@ class UIAnimationHelper {
 
         let animation = CABasicAnimation(keyPath: "position")
         // 设置运动形式
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.default)
 
         // 设置开始位置
         animation.fromValue = NSValue(cgPoint: a)
@@ -142,13 +142,13 @@ class UIAnimationHelper {
     static func animationMaxToMin(_ view: UIView, duration: Double, maxScale: CGFloat, repeatCount: Float = 0, completion: AnimationCompletedHandler! = nil) {
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.fromValue = 1.0
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         animation.toValue = maxScale
         animation.duration = duration
         animation.repeatCount = repeatCount
         animation.autoreverses = true
         animation.isRemovedOnCompletion = true
-        animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
         playAnimation(view, animation: animation, key: "animationMaxToMin", completion: completion)
     }
 
@@ -168,8 +168,8 @@ class UIAnimationHelper {
         animation.duration = duration
         animation.repeatCount = MAXFLOAT
         animation.isRemovedOnCompletion = false
-        animation.fillMode = kCAFillModeForwards
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         view.layer.add(animation, forKey: "Flash")
         if autoStop {
             let time = DispatchTime.now() + Double(NSNumber(value: NSEC_PER_MSEC * stopAfterMs as UInt64).int64Value) / Double(NSEC_PER_SEC)
@@ -188,6 +188,11 @@ class UIAnimationHelper {
 extension CAAnimation {
     func setStorePropertyOnComplete() {
         isRemovedOnCompletion = false
-        fillMode = kCAFillModeForwards
+        fillMode = CAMediaTimingFillMode.forwards
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCATransitionType(_ input: String) -> CATransitionType {
+	return CATransitionType(rawValue: input)
 }

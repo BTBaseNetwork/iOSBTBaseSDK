@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 extension NSNotification.Name {
     static let ScreenDidLocked: Notification.Name = Notification.Name("LockScreenNotification.ScreenDidLocked")
     static let ScreenDidUnLocked: Notification.Name = Notification.Name("LockScreenNotification.ScreenDidUnLocked")
@@ -45,8 +47,8 @@ class LockScreenHelper: NSObject {
      }
      */
     static func startLockScreenObservers() {
-        NotificationCenter.default.addObserver(LockScreenHelper.self, selector: #selector(LockScreenHelper.lockEventFromAppDelegate(a:)), name: Notification.Name.UIApplicationProtectedDataWillBecomeUnavailable, object: nil)
-        NotificationCenter.default.addObserver(LockScreenHelper.self, selector: #selector(LockScreenHelper.unlockEventFromAppDelegate(a:)), name: Notification.Name.UIApplicationProtectedDataDidBecomeAvailable, object: nil)
+        NotificationCenter.default.addObserver(LockScreenHelper.self, selector: #selector(LockScreenHelper.lockEventFromAppDelegate(a:)), name: UIApplication.protectedDataWillBecomeUnavailableNotification, object: nil)
+        NotificationCenter.default.addObserver(LockScreenHelper.self, selector: #selector(LockScreenHelper.unlockEventFromAppDelegate(a:)), name: UIApplication.protectedDataDidBecomeAvailableNotification, object: nil)
     }
 
     static func stopLockScreenObservers() {

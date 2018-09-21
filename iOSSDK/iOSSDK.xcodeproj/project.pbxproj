@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -344,7 +344,6 @@
 		E754A28620C3C077006F36EB /* StringHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
 		E754A28720C3C077006F36EB /* UserSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSetting.swift; sourceTree = "<group>"; };
 		E754A28820C3C077006F36EB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BahamutCommonLocalized.strings"; sourceTree = "<group>"; };
-		E754A2A320C3C4CC006F36EB /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		E754A2A420C3CFEA006F36EB /* BTGameWall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTGameWall.swift; sourceTree = "<group>"; };
 		E754A2F020C3EB55006F36EB /* BTBaseSDKBundleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBaseSDKBundleExtensions.swift; sourceTree = "<group>"; };
 		E754A31020C3EC6B006F36EB /* SDKTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -757,7 +756,6 @@
 				E754A28520C3C077006F36EB /* String+MD5.swift */,
 				E754A28620C3C077006F36EB /* StringHelper.swift */,
 				E754A28720C3C077006F36EB /* UserSetting.swift */,
-				E754A2A320C3C4CC006F36EB /* module.modulemap */,
 				E75D401520C516DF00BEAF79 /* CommonRegexPatterns.swift */,
 				E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */,
 				E7DDA55320DA7F66006995C0 /* String+Base64.swift */,
@@ -1346,7 +1344,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = btbase;
 				TargetAttributes = {
 					E707E01E20CFCB89007E4C7A = {
@@ -1357,6 +1355,7 @@
 					};
 					E754A30F20C3EC6B006F36EB = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = "";
 						SystemCapabilities = {
 							com.apple.GameCenter.iOS = {
 								enabled = 1;
@@ -1368,12 +1367,12 @@
 					};
 					E788686220C2F981008E0E8D = {
 						CreatedOnToolsVersion = 9.3.1;
-						LastSwiftMigration = 0930;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
 			buildConfigurationList = E788685D20C2F981008E0E8D /* Build configuration list for PBXProject "iOSSDK" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1479,7 +1478,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n#要build的target名\nTARGET_NAME='BTBaseSDK'\n\n#要合并的framework\nMERGE_FRAMEWORKS=(\n\"${TARGET_NAME}.framework\"\n)\n\n#要拷贝的资源\nCOPY_TARGETS=(\n'BTBaseSDKUI.bundle'\n)\n\nif [[ $1 ]]\nthen\nTARGET_NAME=$1\nfi\nUNIVERSAL_OUTPUT_FOLDER=\"${SRCROOT}/Release/\"\n\n#创建输出目录，并删除之前发布的文件\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}\"\nmkdir -p \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#分别编译模拟器和真机的Framework\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"${TARGET_NAME}\" -sdk iphonesimulator build\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"${TARGET_NAME}\" -sdk iphoneos build\n\n# 循环合并frameworks\nfor item in ${MERGE_FRAMEWORKS[@]};do\n\n#删除路径里的文件夹\nfwk_name=${item##*/}\n#删除路径里的.framework\nbin_name=${fwk_name%*.framework}\n\necho ${fwk_name}\necho ${bin_name}\n\n#拷贝framework到output目录\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#合并framework，输出最终的framework到build目录\ntarget_path=\"${UNIVERSAL_OUTPUT_FOLDER}${fwk_name}/${bin_name}\"\nfile0=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${item}/${bin_name}\"\nfile1=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}/${bin_name}\"\n\nlipo -create -output \"${target_path}\" \"${file0}\" \"${file1}\"\ndone\n\n\n#拷贝资源到output目录\nfor item in ${COPY_TARGETS[@]};do\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\ndone\n# 合并frameworks完成\n\n#删除编译之后生成的无关的配置文件\ndir_path=\"${UNIVERSAL_OUTPUT_FOLDER}${TARGET_NAME}.framework/\"\nfor file in ls $dir_path\ndo\nif [[ ${file} =~ \".xcconfig\" ]]\nthen\nrm -f \"${dir_path}/${file}\"\nfi\ndone\n#判断build文件夹是否存在，存在则删除\nif [ -d \"${SRCROOT}/build\" ]\nthen\nrm -rf \"${SRCROOT}/build\"\nfi\n#rm -rf \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos\"\n#打开合并后的文件夹\nopen \"${UNIVERSAL_OUTPUT_FOLDER}\"\n";
+			shellScript = "#!/bin/sh\n#要build的target名\nTARGET_NAME='BTBaseSDK'\nUI_TARGET_NAME='BTBaseSDKUI'\n\n#要合并的framework\nMERGE_FRAMEWORKS=(\n\"${TARGET_NAME}.framework\"\n)\n\n#要拷贝的资源\nCOPY_TARGETS=(\n'BTBaseSDKUI.bundle'\n)\n\nif [[ $1 ]]\nthen\nTARGET_NAME=$1\nfi\nUNIVERSAL_OUTPUT_FOLDER=\"${SRCROOT}/Release/\"\n\n#创建输出目录，并删除之前发布的文件\nrm -rf \"${UNIVERSAL_OUTPUT_FOLDER}\"\nmkdir -p \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#分别编译模拟器和真机的Framework\necho 'start build iphoneos'\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"${TARGET_NAME}\" -sdk iphoneos build\necho 'build iphoneos finished'\n\necho 'start build iphonesimulator'\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"${TARGET_NAME}\" -sdk iphonesimulator build\necho 'build iphoneos finished'\n\necho 'start build ui'\nxcodebuild -workspace \"iOSSDK.xcworkspace\" -scheme \"${UI_TARGET_NAME}\" -sdk iphoneos build\necho 'build ui finished'\n\n# 循环合并frameworks\nfor item in ${MERGE_FRAMEWORKS[@]};do\n\n#删除路径里的文件夹\nfwk_name=${item##*/}\n#删除路径里的.framework\nbin_name=${fwk_name%*.framework}\n\necho ${fwk_name}\necho ${bin_name}\n\n#拷贝framework到output目录\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\n\n#合并framework，输出最终的framework到build目录\ntarget_path=\"${UNIVERSAL_OUTPUT_FOLDER}${fwk_name}/${bin_name}\"\nfile0=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${item}/${bin_name}\"\nfile1=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}/${bin_name}\"\n\nlipo -create -output \"${target_path}\" \"${file0}\" \"${file1}\"\ndone\n\n\n#拷贝资源到output目录\nfor item in ${COPY_TARGETS[@]};do\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${item}\" \"${UNIVERSAL_OUTPUT_FOLDER}\"\ndone\n# 合并frameworks完成\n\n#删除编译之后生成的无关的配置文件\ndir_path=\"${UNIVERSAL_OUTPUT_FOLDER}${TARGET_NAME}.framework/\"\nfor file in ls $dir_path\ndo\nif [[ ${file} =~ \".xcconfig\" ]]\nthen\nrm -f \"${dir_path}/${file}\"\nfi\ndone\n#判断build文件夹是否存在，存在则删除\nif [ -d \"${SRCROOT}/build\" ]\nthen\nrm -rf \"${SRCROOT}/build\"\nfi\n#rm -rf \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos\"\n#打开合并后的文件夹\nopen \"${UNIVERSAL_OUTPUT_FOLDER}\"\n";
 		};
 		E75B5E1420C8F4C0005BE4FB /* AutoGenStrings */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1914,7 +1913,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.SDKTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1939,7 +1938,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.btbase.SDKTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1950,7 +1949,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
@@ -1974,7 +1973,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1985,7 +1984,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;
@@ -2008,7 +2007,7 @@
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon ${SRCROOT}/iOSSDK/UI/TXScrollLabelView";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2017,6 +2016,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2080,6 +2080,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2140,7 +2141,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
@@ -2166,7 +2167,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2178,7 +2179,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;
@@ -2206,7 +2207,7 @@
 				SWIFT_INCLUDE_PATHS = "${SRCROOT}/iOSSDK/Libs/BahamutCommon ${SRCROOT}/iOSSDK/UI/TXScrollLabelView ${SRCROOT}/iOSSDK/UI/AVPlayerCacheSupport ${SRCROOT}/iOSSDK/Libs/PodLibs/**";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -27,7 +27,7 @@ class GameCenterHelper: NSObject, GKGameCenterControllerDelegate {
     }
 
     func authorizeGameCenter(callback: @escaping (UIViewController?, Error?) -> Void) {
-        let localPlayer = GKLocalPlayer.localPlayer()
+        let localPlayer = GKLocalPlayer.local
         localPlayer.authenticateHandler = { vc, err in
             if localPlayer.isAuthenticated {
                 GameCenterHelper.gameCenterAvailable = true
@@ -58,7 +58,7 @@ class GameCenterHelper: NSObject, GKGameCenterControllerDelegate {
     }
 
     func loadLocalPlayerScore(boardId: String, callback: @escaping (GKScore?, Error?) -> Void) {
-        let localPlayer = GKLocalPlayer.localPlayer()
+        let localPlayer = GKLocalPlayer.local
         let board = GKLeaderboard(players: [localPlayer])
         board.identifier = boardId
         board.loadScores { playersScores, err in

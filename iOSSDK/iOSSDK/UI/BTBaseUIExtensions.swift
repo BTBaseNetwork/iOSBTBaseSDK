@@ -15,12 +15,12 @@ public class BTBaseUIStateColorSet {
         self.defaultColor = defaultColor
     }
 
-    public func add(state: UIControlState, color: UIColor) -> BTBaseUIStateColorSet {
+    public func add(state: UIControl.State, color: UIColor) -> BTBaseUIStateColorSet {
         self.colorSet[state.rawValue] = color
         return self
     }
 
-    public func colorOf(state: UIControlState) -> UIColor {
+    public func colorOf(state: UIControl.State) -> UIColor {
         if let c = colorSet[state.rawValue] {
             return c
         }
@@ -141,20 +141,20 @@ extension UIButton {
             removeConstraint(constr)
         }
 
-        let height = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1, constant: BTBaseUIConfig.ButtonHeight)
+        let height = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.height, multiplier: 1, constant: BTBaseUIConfig.ButtonHeight)
         addConstraint(height)
 
         setTitleColor(BTBaseUIConfig.ButtonTitleColor.colorOf(state: .normal), for: .normal)
         setTitleColor(BTBaseUIConfig.ButtonTitleColor.colorOf(state: .highlighted), for: .highlighted)
         setTitleColor(BTBaseUIConfig.ButtonTitleColor.colorOf(state: .disabled), for: .disabled)
         titleLabel?.font = titleLabel!.font.withSize(BTBaseUIConfig.ButtonTitleFontSize)
-        self.addTarget(self, action: #selector(self.onButtonPressed(sender:)), for: UIControlEvents.touchDown)
-        self.addTarget(self, action: #selector(self.onButtonReleased(sender:)), for: UIControlEvents.touchUpInside)
+        self.addTarget(self, action: #selector(self.onButtonPressed(sender:)), for: UIControl.Event.touchDown)
+        self.addTarget(self, action: #selector(self.onButtonReleased(sender:)), for: UIControl.Event.touchUpInside)
 
         let observer = BTBaseUIViewObserver(objectToObserve: self, keyPath: "enabled")
         observer.onValueChanged = { obj in
             if let btn = obj as? UIButton {
-                let state = btn.isEnabled ? UIControlState.normal : UIControlState.disabled
+                let state = btn.isEnabled ? UIControl.State.normal : UIControl.State.disabled
                 btn.backgroundColor = BTBaseUIConfig.ButtonBackgroundColor.colorOf(state: state)
             }
         }
@@ -173,10 +173,10 @@ extension UIButton {
 
 extension UITextField {
     func SetupBTBaseUI() {
-        if let height = (constraints.first { $0.firstAttribute == NSLayoutAttribute.height }) {
+        if let height = (constraints.first { $0.firstAttribute == NSLayoutConstraint.Attribute.height }) {
             height.constant = BTBaseUIConfig.TextFieldHeight
         } else {
-            let height = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1, constant: BTBaseUIConfig.TextFieldHeight)
+            let height = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.height, multiplier: 1, constant: BTBaseUIConfig.TextFieldHeight)
             addConstraint(height)
         }
         layer.borderColor = BTBaseUIConfig.TextFieldBorderColor.colorOf(state: .normal).cgColor
@@ -188,7 +188,7 @@ extension UITextField {
         let observer = BTBaseUIViewObserver(objectToObserve: self, keyPath: "enabled")
         observer.onValueChanged = { obj in
             if let textField = obj as? UITextField {
-                let state = textField.isEnabled ? UIControlState.normal : UIControlState.disabled
+                let state = textField.isEnabled ? UIControl.State.normal : UIControl.State.disabled
                 textField.backgroundColor = BTBaseUIConfig.TextFieldBackgroundColor.colorOf(state: state)
                 textField.textColor = BTBaseUIConfig.TextFieldTextColor.colorOf(state: state)
                 textField.setPlaceholderTextColor(color: BTBaseUIConfig.TextFieldPlaceHolderColor.colorOf(state: state))

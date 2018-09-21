@@ -11,7 +11,7 @@ extension Notification.Name {
     static let BTAPIRequestUnauthorized = Notification.Name(rawValue: "BTAPIRequestUnauthorized")
 }
 
-class BTAPIRequest<T> where T: Codable {
+public class BTAPIRequest<T> where T: Codable {
     typealias ResponseAction = (_ req: BTAPIRequest<T>, _ result: BTAPIResult<T>) -> Void
     internal(set) var headers = [String: String]()
     internal(set) var parameters = [String: String]()

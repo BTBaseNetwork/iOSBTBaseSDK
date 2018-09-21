@@ -17,11 +17,11 @@ extension UIDevice {
 
     static func isHeadPhoneInserted(includeBluetooth: Bool = true) -> Bool {
         for desc in AVAudioSession.sharedInstance().currentRoute.outputs {
-            var ports = [AVAudioSessionPortHeadphones]
+            var ports = [convertFromAVAudioSessionPort(AVAudioSession.Port.headphones)]
             if includeBluetooth {
-                ports.append(contentsOf: [AVAudioSessionPortBluetoothLE, AVAudioSessionPortBluetoothA2DP, AVAudioSessionPortBluetoothHFP])
+                ports.append(contentsOf: [convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothLE), convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothA2DP), convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothHFP)])
             }
-            return ports.contains(desc.portType)
+            return ports.contains(convertFromAVAudioSessionPort(desc.portType))
         }
         return false
     }
@@ -57,4 +57,9 @@ class VersionReader {
         }
         return 1
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {
+	return input.rawValue
 }

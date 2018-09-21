@@ -33,9 +33,9 @@ class SimpleBrowser: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         webView = UIWebView(frame: view.bounds)
         view.addSubview(webView)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.stop, target: self, action: #selector(SimpleBrowser.back(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.stop, target: self, action: #selector(SimpleBrowser.back(_:)))
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(SimpleBrowser.action(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.action, target: self, action: #selector(SimpleBrowser.action(_:)))
 
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SimpleBrowser.swipeLeft(_:)))
         leftSwipe.direction = .left

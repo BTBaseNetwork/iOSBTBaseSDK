@@ -146,7 +146,7 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         return model
     }
     
-    @discardableResult
+    
     public override func executeUpdateSql(sql: String, parameters: [Any]?) {
         try? database.executeUpdate(sql, values: parameters)
     }
@@ -158,13 +158,13 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
         let queryFieldsSql = priKvs.map { $0.column }.map { "\($0)=?" }.joined(separator: " ")
         let priValues = priKvs.map { $0.value }
         let sql = SQLiteHelper.deleteSql(tableName: entity.scheme, query: queryFieldsSql)
-        if (try? database.executeUpdate(sql, values: priValues)) != nil {
+        if (try? database.executeUpdate(sql, values: priValues as [Any])) != nil {
             return true
         }
         return false
     }
     
-    @discardableResult
+    
     public override func executeDeleteSql(sql: String, parameters: [Any]?) {
         try? database.executeUpdate(sql, values: parameters)
     }

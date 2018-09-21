@@ -9,11 +9,11 @@
 import Foundation
 
 public class DateHelper {
-    open static var UnixTimeSpanTotalMilliseconds: Int64 {
+    public static var UnixTimeSpanTotalMilliseconds: Int64 {
         return Int64(unixTimeSpan * 1000)
     }
 
-    open static var unixTimeSpan: TimeInterval {
+    public static var unixTimeSpan: TimeInterval {
         return Date().timeIntervalSince1970
     }
 

@@ -29,9 +29,9 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         SetupBTBaseUI()
         for textField in [usernameTextField, passwordTextField, emailTextField, confirmEmailTextField] {
-            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
-            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
-            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControl.Event.editingDidBegin)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControl.Event.editingChanged)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControl.Event.editingDidEnd)
         }
         setCheckTag(usernameCheckImage, false)
         setCheckTag(passwordCheckImage, false)

@@ -59,7 +59,7 @@ extension UIViewController {
 }
 
 extension UIAlertController {
-    static func create(title: String? = nil, message: String? = nil, preferredStyle: UIAlertControllerStyle = .alert) -> UIAlertController {
+    static func create(title: String? = nil, message: String? = nil, preferredStyle: UIAlertController.Style = .alert) -> UIAlertController {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         } else {

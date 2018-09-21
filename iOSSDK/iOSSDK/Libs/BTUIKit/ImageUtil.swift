@@ -22,7 +22,7 @@ class ImageUtil {
 
         gen.appliesPreferredTrackTransform = true
 
-        let time: CMTime = CMTimeMakeWithSeconds(1, asset.duration.timescale)
+        let time: CMTime = CMTimeMakeWithSeconds(1, preferredTimescale: asset.duration.timescale)
 
         do {
             let image: CGImage = try gen.copyCGImage(at: time, actualTime: nil)
@@ -35,7 +35,7 @@ class ImageUtil {
 
     class func getVideoThumbImageData(_ videoURL: String, compressionQuality: CGFloat) -> Data? {
         if let thumb: UIImage = generateThumb(videoURL) {
-            return UIImageJPEGRepresentation(thumb, compressionQuality)
+            return thumb.jpegData(compressionQuality: compressionQuality)
         }
         return nil
     }
@@ -76,7 +76,7 @@ extension UIImage {
     }
 
     func generateImageDataOfQuality(_ quality: CGFloat, isPNG _: Bool = false) -> Data? {
-        return UIImageJPEGRepresentation(self, quality)
+        return self.jpegData(compressionQuality: quality)
     }
 }
 

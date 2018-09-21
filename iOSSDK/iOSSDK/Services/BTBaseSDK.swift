@@ -77,7 +77,7 @@ public class BTBaseSDK: NSObject {
 
             NotificationCenter.default.addObserver(instance, selector: #selector(onSessionInvalid(a:)), name: BTSessionService.onSessionInvalid, object: nil)
             NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
-            NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+            NotificationCenter.default.addObserver(instance, selector: #selector(applicationWillTerminate(a:)), name: UIApplication.willTerminateNotification, object: nil)
             SwiftyStoreKit.completeTransactions { purchases in
                 BTBaseSDK.swiftyStoreKitCompleteDelegate?.swiftStoreKitTransactionsComplete(purchases)
             }

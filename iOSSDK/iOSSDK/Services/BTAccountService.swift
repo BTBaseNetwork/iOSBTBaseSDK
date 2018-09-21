@@ -73,7 +73,7 @@ class BTAccountService {
                 account.signDateTs = result.content.signDateTs
                 account.userName = result.content.userName
                 let dbContext = BTBaseSDK.getDbContext()
-                dbContext.tableAccount.update(model: account, upsert: true)
+                let _ = dbContext.tableAccount.update(model: account, upsert: true)
                 dbContext.close()
                 self.localAccount = account
             }
@@ -112,7 +112,7 @@ class BTAccountService {
             if res.isHttpOK {
                 self.localAccount.nick = newNick
                 let dbContext = BTBaseSDK.getDbContext()
-                dbContext.tableAccount.update(model: self.localAccount, upsert: true)
+                let _ = dbContext.tableAccount.update(model: self.localAccount, upsert: true)
                 dbContext.close()
             }
             DispatchQueue.main.async {
@@ -142,7 +142,7 @@ class BTAccountService {
             if res.isHttpOK {
                 self.localAccount.email = "\(newEmail.first!)***@\(newEmail.split("@")[1])"
                 let dbContext = BTBaseSDK.getDbContext()
-                dbContext.tableAccount.update(model: self.localAccount, upsert: true)
+                let _ = dbContext.tableAccount.update(model: self.localAccount, upsert: true)
                 dbContext.close()
             }
             DispatchQueue.main.async {

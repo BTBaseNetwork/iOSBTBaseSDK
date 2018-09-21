@@ -17,9 +17,9 @@ class UpdateNickViewController: UIViewController {
         super.viewDidLoad()
         SetupBTBaseUI()
         for textField in [newNickTextField] {
-            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControlEvents.editingDidBegin)
-            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControlEvents.editingChanged)
-            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControlEvents.editingDidEnd)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidBegin(sender:)), for: UIControl.Event.editingDidBegin)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingChanged(sender:)), for: UIControl.Event.editingChanged)
+            textField?.addTarget(self, action: #selector(onTextFieldEditingDidEnd(sender:)), for: UIControl.Event.editingDidEnd)
         }
         newNickCheckImage.isHidden = true
         newNickCheckImage.tintColor = BTBaseUIConfig.GlobalTintColor

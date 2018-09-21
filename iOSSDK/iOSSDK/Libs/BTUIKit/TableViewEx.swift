@@ -20,6 +20,6 @@ extension UITableViewCell {
 extension UITableView {
     func autoRowHeight() {
         estimatedRowHeight = rowHeight
-        rowHeight = UITableViewAutomaticDimension
+        rowHeight = UITableView.automaticDimension
     }
 }

@@ -34,24 +34,24 @@ extension String {
 }
 
 public class StringHelper {
-    open static let httpUrlPattern = "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
+    public static let httpUrlPattern = "((http[s]{0,1}|ftp)://[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
 
-    open static func IntToLetter(_ letterIndex: Int) -> Character {
+    public static func IntToLetter(_ letterIndex: Int) -> Character {
         return (Character(UnicodeScalar(letterIndex)!))
     }
 
-    open static func IntToLetterString(_ letterIndex: Int) -> String {
+    public static func IntToLetterString(_ letterIndex: Int) -> String {
         return "\(IntToLetter(letterIndex))"
     }
 
-    open static func chineseToLatinLetters(words: String) -> String {
+    public static func chineseToLatinLetters(words: String) -> String {
         let pinyin = NSMutableString(string: words)
         CFStringTransform(pinyin, nil, kCFStringTransformMandarinLatin, false)
         CFStringTransform(pinyin, nil, kCFStringTransformStripCombiningMarks, false) // kCFStringTransformMandarinLatin带音标
         return pinyin.lowercased
     }
 
-    open static func getResemblePY(originPY: String) -> String {
+    public static func getResemblePY(originPY: String) -> String {
         return originPY.replacingOccurrences(of: "zh", with: "z")
             .replacingOccurrences(of: "ch", with: "c")
             .replacingOccurrences(of: "sh", with: "s")
@@ -60,7 +60,7 @@ public class StringHelper {
             .replacingOccurrences(of: "eng", with: "en")
     }
 
-    open static func getSimplifyURLAttributeString(origin: String, urlTips: String, attchLinkMark: Bool) -> (String?, [NSRange]?, [String]?) {
+    public static func getSimplifyURLAttributeString(origin: String, urlTips: String, attchLinkMark: Bool) -> (String?, [NSRange]?, [String]?) {
         var urls = [String]()
 
         if let regex = httpUrlPattern.getRegexExpresstion(options: NSRegularExpression.Options.caseInsensitive) {

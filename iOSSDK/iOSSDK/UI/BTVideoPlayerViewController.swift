@@ -22,7 +22,7 @@ class BTVideoPlayerViewController: AVPlayerViewController {
     
     @objc func didPlayToEndTime(a: Notification) {
         if self.loopVideo {
-            self.player?.seek(to: CMTimeMake(0, 1))
+            self.player?.seek(to: CMTimeMake(value: 0, timescale: 1))
             self.player?.play()
         } else if self.closeVideoOnEnd {
             self.dismiss(animated: true, completion: nil)
