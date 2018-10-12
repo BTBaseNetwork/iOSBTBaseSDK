@@ -46,11 +46,11 @@ extension String {
     }
 
     func isPassword() -> Bool {
-        return isRegexMatch(pattern: CommonRegexPatterns.PATTERN_EMAIL)
+        return isRegexMatch(pattern: CommonRegexPatterns.PATTERN_PASSWORD)
     }
 
     func isUsername() -> Bool {
-        return isRegexMatch(pattern: CommonRegexPatterns.PATTERN_EMAIL)
+        return isRegexMatch(pattern: CommonRegexPatterns.PATTERN_USERNAME)
     }
 
     func isNickName() -> Bool {
