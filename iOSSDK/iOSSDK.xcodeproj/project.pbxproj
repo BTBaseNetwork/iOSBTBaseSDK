@@ -1492,7 +1492,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python ${SRCROOT}/SDKUI/AutoGenStrings.py ${SRCROOT}/SDKUI";
+			shellScript = "python ${SRCROOT}/SDKUI/AutoGenStrings.py ${SRCROOT}/SDKUI\n";
 		};
 		E783769020D4901100170BD4 /* Script-CopySDK+Unity */ = {
 			isa = PBXShellScriptBuildPhase;

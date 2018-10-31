@@ -119,7 +119,11 @@ public class SQLiteTableSet<T>: BTDBTableSet<T> where T: BTDBEntityModel {
     public override func add(model: T) -> T {
         let properties: [BTDBEntity.Property<T>] = entity.getProperties()
         
-        let fields = properties.map { (name: $0.columnName, value: $0.accessor.getValue(model)) }.map { (name: $0.name, value: $0.value) }
+        let fields = properties
+            .filter { !$0.isAutoIncrement }
+            .map { (name: $0.columnName, value: $0.accessor.getValue(model)) }
+            .map { (name: $0.name, value: $0.value) }
+        
         let sql = SQLiteHelper.insertSql(tableName: entity.scheme, fields: fields.map { $0.name })
         let parameters = fields.map { $0.value ?? "" }
         try? database.executeUpdate(sql, values: parameters)

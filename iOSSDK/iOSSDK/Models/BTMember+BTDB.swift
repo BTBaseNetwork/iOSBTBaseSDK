@@ -15,7 +15,7 @@ extension BTMember: BTDBEntityModel {
     public static func onBuildBTDBEntity(entity: BTDBEntity.Builder) {
         entity.hasProperty("id", Int64.self) { (model: BTMember, value: Any) in
             model.id = value as! Int64
-        }.hasPrimaryKey().autoIncrement()
+        }.hasPrimaryKey()
         
         entity.hasProperty("accountId", String.self) { (model: BTMember, value: Any) in
             model.accountId = value as? String
