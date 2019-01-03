@@ -50,6 +50,8 @@ class BTMemberService {
     public static let onPurchaseEvent = Notification.Name("BTMemberService_onPurchaseEvent")
 
     private var config: BTBaseConfig!
+    private var memberConfig:MemberConfig!
+    
     private var host = "http://localhost:6000"
     private var memberConfigUrl: String { return self.config.getString(key: "BTMemberConfigUrl")! }
     static var cachedMemberConfigJsonPathUrl: URL {
@@ -76,10 +78,6 @@ class BTMemberService {
         }
     }
 
-    init() {
-        self.paymentTransactionObserver = BTMemberPaymentTransactionObserver(memberService: self)
-    }
-
     private(set) var localProfile: BTMemberProfile! {
         didSet {
             NotificationCenter.default.postWithMainQueue(name: BTMemberService.onLocalMemberProfileUpdated, object: self)
@@ -90,6 +88,7 @@ class BTMemberService {
         self.config = config
         self.host = config.getString(key: "BTMemberServiceHost")!
         self.loadCachedMemberConfig()
+        self.paymentTransactionObserver = BTMemberPaymentTransactionObserver(memberService: self)
         self.fetchMemberConfig()
         self.setUnloginProfile()
     }
@@ -164,11 +163,14 @@ extension BTMemberService {
     public static let onRefreshProductsEvent = Notification.Name("BTMemberService_onRefreshProductsEvent")
 
     func paymentQueue(_: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        let productIds = memberConfig?.products?.map{$0.id} ?? []
         for transaction in transactions {
-            switch transaction.transactionState {
-            case .purchased, .restored: self.verifyTransactionAndRechargeMember(transaction)
-            case .failed: NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [kBTMemberPurchaseEvent: BTMemberPurchaseEventPurchaseFailed])
-            case .deferred, .purchasing: break
+            if (productIds.contains{transaction.payment.productIdentifier == $0}){
+                switch transaction.transactionState {
+                case .purchased, .restored: self.verifyTransactionAndRechargeMember(transaction)
+                case .failed: NotificationCenter.default.post(name: BTMemberService.onPurchaseEvent, object: self, userInfo: [kBTMemberPurchaseEvent: BTMemberPurchaseEventPurchaseFailed])
+                case .deferred, .purchasing: break
+                }
             }
         }
     }
@@ -360,6 +362,7 @@ extension BTMemberService {
     func loadCachedMemberConfig() -> Bool {
         if let json = try? String(contentsOfFile: BTMemberService.cachedMemberConfigJsonPathUrl.path), let data = json.data(using: String.Encoding.utf8) {
             if let configModel = try? JSONDecoder().decode(MemberConfig.self, from: data) {
+                self.memberConfig = configModel
                 self.retrieveProductsInfo(configModel.products)
                 if let msgdict = configModel.locMessages {
                     if let msgs = msgdict[Locale.preferredLangCodeUnderlined], msgs.count > 0 {
