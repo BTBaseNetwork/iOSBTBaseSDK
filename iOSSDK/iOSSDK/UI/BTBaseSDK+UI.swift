@@ -43,19 +43,27 @@ public extension BTBaseSDK {
                 if res.isHttpOK {
                     openHome(vc)
                 } else {
-                    openHome(vc, completion: { home in
+                    openHome(vc,page:nil, completion: { home in
                         home.showSignIn()
                     })
                 }
             })
         })])
     }
-
-    @objc public static func openHome(_ vc: UIViewController) {
-        openHome(vc) { _ in }
+    
+    @objc public static func openHome(_ vc: UIViewController,_ page:String) {
+        openHome(vc,page:page) { _ in }
     }
 
-    private static func openHome(_ vc: UIViewController, completion: @escaping (BTBaseHomeController) -> Void) {
-        BTBaseHomeEntry.openHome(vc, completion: completion)
+    @objc public static func openHome(_ vc: UIViewController) {
+        openHome(vc,page:nil) { _ in }
+    }
+
+    private static func openHome(_ vc: UIViewController, page:String?, completion: @escaping (BTBaseHomeController) -> Void) {
+        if let str = page,let p = BTBaseHomeEntry.HomePage(rawValue: str){
+            BTBaseHomeEntry.openHome(vc, page: p, completion: completion)
+        }else{
+            BTBaseHomeEntry.openHome(vc, completion: completion)
+        }
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="IH9-nj-N5P">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="IH9-nj-N5P">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -33,7 +33,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DuO-r9-fqL">
-                                                    <rect key="frame" x="-0.5" y="1" width="320" height="74"/>
+                                                    <rect key="frame" x="0.0" y="1" width="320" height="74"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_grid_2" translatesAutoresizingMaskIntoConstraints="NO" id="73d-r5-Af2">
@@ -90,7 +90,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btbase_tag_hot" translatesAutoresizingMaskIntoConstraints="NO" id="P09-6C-lqu">
-                                                    <rect key="frame" x="238" y="18" width="12" height="12"/>
+                                                    <rect key="frame" x="238" y="18.5" width="12" height="12"/>
                                                     <color key="tintColor" red="0.9882352941176471" green="0.12941176470588234" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="12" id="0Ky-YU-b95"/>
@@ -188,7 +188,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="2"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jx-y7-ZST">
-                                <rect key="frame" x="133" y="268.5" width="53" height="30"/>
+                                <rect key="frame" x="133.5" y="269" width="53" height="30"/>
                                 <state key="normal" title="Refresh"/>
                                 <connections>
                                     <action selector="onClickRefresh:" destination="LgY-8q-hzf" eventType="touchUpInside" id="FRX-Du-Sip"/>
@@ -249,7 +249,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RdL-gu-uvp">
-                                                    <rect key="frame" x="-0.5" y="1" width="320" height="70"/>
+                                                    <rect key="frame" x="0.0" y="1" width="320" height="70"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PropertyName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7U-h1-eXZ">
@@ -302,7 +302,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PropertyValue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaU-lK-FgS">
-                                                    <rect key="frame" x="159.5" y="26" width="108.5" height="21"/>
+                                                    <rect key="frame" x="159.5" y="25.5" width="108.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -346,7 +346,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSN-Of-Bku">
-                                                    <rect key="frame" x="-0.5" y="1" width="320" height="54"/>
+                                                    <rect key="frame" x="0.0" y="1" width="320" height="54"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxO-QC-RWG">
@@ -389,7 +389,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout Device" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQk-0h-Dzm">
-                                                    <rect key="frame" x="103.5" y="17.5" width="112.5" height="21"/>
+                                                    <rect key="frame" x="104" y="17.5" width="112.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -402,7 +402,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ikons_iphone" translatesAutoresizingMaskIntoConstraints="NO" id="4bN-3T-tiO">
-                                                    <rect key="frame" x="241" y="11.5" width="32" height="32"/>
+                                                    <rect key="frame" x="241" y="12" width="32" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="40M-h3-6ZW"/>
                                                         <constraint firstAttribute="height" constant="32" id="lN6-dR-msF"/>
@@ -436,7 +436,13 @@
                             <constraint firstItem="N5A-iJ-rIc" firstAttribute="centerX" secondItem="bcJ-ei-ExB" secondAttribute="centerX" id="w7o-tL-KoM"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Me" id="v3P-dO-Ejx"/>
+                    <navigationItem key="navigationItem" title="Me" id="v3P-dO-Ejx">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="h3O-9t-B01">
+                            <connections>
+                                <action selector="onClickClose:" destination="9zD-sO-eI0" id="sV7-Nw-fdC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="N5A-iJ-rIc" id="JyQ-jW-th5"/>
                         <segue destination="iaA-AM-OLu" kind="show" identifier="UpdateEmail" id="RwW-ic-B3V"/>
@@ -1049,7 +1055,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixp-nh-Q0H">
-                                <rect key="frame" x="132" y="236" width="56" height="30"/>
+                                <rect key="frame" x="132.5" y="236" width="55" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
@@ -1063,7 +1069,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ABQ-hh-wtw">
-                                <rect key="frame" x="104" y="241" width="20" height="20"/>
+                                <rect key="frame" x="104.5" y="241" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1342,7 +1348,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SAf-Kw-jFl">
-                                                    <rect key="frame" x="-0.5" y="1" width="320" height="62"/>
+                                                    <rect key="frame" x="0.0" y="1" width="320" height="62"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="llB-LM-Tzi">
@@ -1401,11 +1407,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lMD-1b-tcg">
-                                                    <rect key="frame" x="0.0" y="0.5" width="320" height="61.5"/>
+                                                    <rect key="frame" x="0.0" y="1" width="320" height="62"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Subscription Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bZm-fO-gzT">
-                                                    <rect key="frame" x="62.5" y="21" width="194.5" height="21"/>
+                                                    <rect key="frame" x="63" y="21.5" width="194.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1456,6 +1462,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Member Subscribe" id="CTf-S7-82e">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Ph6-Tx-9z7"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="I7c-5W-eBP">
+                            <connections>
+                                <action selector="onClickClose:" destination="Pgh-2U-2Te" id="ABB-AH-Q0i"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="btbase_order_list" id="fNG-Am-rNv">
                             <connections>
                                 <segue destination="5BV-8T-GcM" kind="show" id="tda-ch-D47"/>
@@ -1609,11 +1620,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btbase_order_list" width="21" height="21"/>
-        <image name="btbase_reset_password" width="21" height="21"/>
-        <image name="btbase_tab_me" width="32" height="32"/>
-        <image name="btbase_tab_member" width="32" height="32"/>
-        <image name="btbase_tab_play_game" width="32" height="32"/>
+        <image name="btbase_order_list" width="64" height="64"/>
+        <image name="btbase_reset_password" width="64" height="64"/>
+        <image name="btbase_tab_me" width="64" height="64"/>
+        <image name="btbase_tab_member" width="64" height="64"/>
+        <image name="btbase_tab_play_game" width="64" height="64"/>
         <image name="btbase_tag_hot" width="128" height="128"/>
         <image name="btbase_tag_new" width="64" height="64"/>
         <image name="ikons_arrow_right" width="128" height="128"/>

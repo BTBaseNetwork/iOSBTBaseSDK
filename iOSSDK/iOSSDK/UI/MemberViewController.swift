@@ -190,6 +190,10 @@ class MemberViewController: UIViewController {
         memberTipsLabel.beginScrolling()
     }
     
+    @IBAction func onClickClose(_ sender: Any) {
+        BTBaseHomeEntry.closeHomeController()
+    }
+    
     @objc private func onRefreshProductsEvent(a: Notification) {
         if let state = a.userInfo?[kBTRefreshMemberProductsStateKey] as? Int {
             DispatchQueue.main.async {

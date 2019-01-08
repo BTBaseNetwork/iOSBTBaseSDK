@@ -15,11 +15,15 @@ class ViewController: UIViewController {
 
     @IBOutlet var homeButton: UIButton!
 
+    @IBOutlet weak var accountButton: UIButton!
+    @IBOutlet weak var memberButton: UIButton!
     @IBOutlet var badgeLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         homeButton.isHidden = true
+        accountButton.isHidden = true
+        memberButton.isHidden = true
     }
 
     @IBAction func onClickProduction(_ sender: Any) {
@@ -40,6 +44,8 @@ class ViewController: UIViewController {
         BTBaseSDK.start(config: config)
         BTBaseSDK.setupSDKUI()
         homeButton.isHidden = false
+        accountButton.isHidden = false
+        memberButton.isHidden = false
         devButton.isHidden = true
         productionButton.isHidden = true
         BTBaseSDK.fetchGameWallList(force: true)
@@ -54,6 +60,16 @@ class ViewController: UIViewController {
 
     @IBAction func OnClickHome(_: Any) {
         BTBaseSDK.openHome(self)
+        BTBaseSDK.clearBadgeNumber()
+    }
+    
+    @IBAction func onClickMmeber(_ sender: Any) {
+        BTBaseSDK.openHome(self, "member")
+        BTBaseSDK.clearBadgeNumber()
+    }
+    
+    @IBAction func onClickAccount(_ sender: Any) {
+        BTBaseSDK.openHome(self, "account")
         BTBaseSDK.clearBadgeNumber()
     }
 }

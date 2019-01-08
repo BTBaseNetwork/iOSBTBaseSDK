@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,10 +22,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zob-q8-zKk">
-                                <rect key="frame" x="140.5" y="318.5" width="94" height="30"/>
-                                <state key="normal" title="BTBaseHome"/>
+                                <rect key="frame" x="102" y="318.5" width="171" height="30"/>
+                                <state key="normal" title="BTBaseHome(Gamewall)"/>
                                 <connections>
                                     <action selector="OnClickHome:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EHE-do-HOe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKi-oX-apa">
+                                <rect key="frame" x="132.5" y="396.5" width="110" height="30"/>
+                                <state key="normal" title="BTBaseMember"/>
+                                <connections>
+                                    <action selector="onClickMmeber:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BiM-Fk-A6u"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1is-rB-nfi">
@@ -50,21 +57,34 @@
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wa-90-rqw">
+                                <rect key="frame" x="133" y="474.5" width="109" height="30"/>
+                                <state key="normal" title="BTBaseAccount"/>
+                                <connections>
+                                    <action selector="onClickAccount:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uAU-og-Rit"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="FKi-oX-apa" firstAttribute="top" secondItem="zob-q8-zKk" secondAttribute="bottom" constant="48" id="4N5-yd-lfg"/>
+                            <constraint firstItem="5wa-90-rqw" firstAttribute="top" secondItem="FKi-oX-apa" secondAttribute="bottom" constant="48" id="GXo-v0-8uz"/>
                             <constraint firstItem="dJN-ke-tlL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JKW-GU-zrH"/>
                             <constraint firstItem="zob-q8-zKk" firstAttribute="top" secondItem="dJN-ke-tlL" secondAttribute="bottom" constant="89.5" id="Mp8-Tb-Iw8"/>
                             <constraint firstItem="zob-q8-zKk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RvD-fF-fgN"/>
                             <constraint firstItem="zob-q8-zKk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tc3-Cl-xRk"/>
+                            <constraint firstItem="FKi-oX-apa" firstAttribute="centerX" secondItem="zob-q8-zKk" secondAttribute="centerX" id="WPK-Bc-EUm"/>
                             <constraint firstItem="1is-rB-nfi" firstAttribute="centerX" secondItem="dJN-ke-tlL" secondAttribute="centerX" id="XGx-OO-gZq"/>
                             <constraint firstItem="dJN-ke-tlL" firstAttribute="top" secondItem="1is-rB-nfi" secondAttribute="bottom" constant="36" id="ls1-L1-OFS"/>
+                            <constraint firstItem="5wa-90-rqw" firstAttribute="centerX" secondItem="FKi-oX-apa" secondAttribute="centerX" id="suV-zU-le8"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="accountButton" destination="5wa-90-rqw" id="mVk-Fp-uG9"/>
                         <outlet property="badgeLabel" destination="SnT-6p-r6S" id="uu1-lu-kQH"/>
                         <outlet property="devButton" destination="1is-rB-nfi" id="AWJ-Hq-rVJ"/>
                         <outlet property="homeButton" destination="zob-q8-zKk" id="V9x-QS-TmU"/>
+                        <outlet property="memberButton" destination="FKi-oX-apa" id="Vhi-kb-EJA"/>
                         <outlet property="productionButton" destination="dJN-ke-tlL" id="lSS-w2-9ZP"/>
                     </connections>
                 </viewController>

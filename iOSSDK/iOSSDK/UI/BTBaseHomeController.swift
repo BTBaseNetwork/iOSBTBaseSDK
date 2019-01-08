@@ -83,6 +83,13 @@ extension Notification.Name {
 }
 
 class BTBaseHomeEntry {
+    
+    enum HomePage:String {
+        case gameWall = "gamewall"
+        case member = "member"
+        case account = "account"
+    }
+    
     private static var homeController: BTBaseHomeController?
     private static var IQKeyboardManagerEnabledOutOfSDK = false
     static func getEntryViewController() -> BTBaseHomeController {
@@ -95,12 +102,26 @@ class BTBaseHomeEntry {
         homeController = board.instantiateViewController(withIdentifier: "BTBaseHomeController") as? BTBaseHomeController
         return homeController!
     }
-
+    
     static func openHome(_ vc: UIViewController, completion: @escaping (BTBaseHomeController) -> Void) {
+        openHome(vc, page: .gameWall, completion: completion)
+    }
+
+    static func openHome(_ vc: UIViewController, page:HomePage, completion: @escaping (BTBaseHomeController) -> Void) {
         let homeVC = BTBaseHomeEntry.getEntryViewController()
         vc.present(homeVC, animated: true) {
             completion(homeVC)
             NotificationCenter.default.post(Notification(name: .BTBaseHomeEntryDidShown))
+            switch page{
+            case .account:
+                if let sessionService = BTServiceContainer.getBTSessionService(),sessionService.isSessionLogined {
+                    homeVC.selectedIndex = 2
+                }else{
+                    homeVC.showSignIn()
+                }
+            case .member:homeVC.selectedIndex = 1
+            case .gameWall:homeVC.selectedIndex = 0
+            }
         }
     }
 

@@ -63,6 +63,27 @@ void _btbaseSDK_OpenHome(){
     }
 }
 
+void _btbaseSDK_OpenHomeGamewallPage(){
+    UIViewController* vc = _btbaseGetUnityViewController();
+    if (vc.topViewController == vc) {
+        [BTBaseSDK openHome:vc :@"gamewall"];
+    }
+}
+
+void _btbaseSDK_OpenHomeMemberPage(){
+    UIViewController* vc = _btbaseGetUnityViewController();
+    if (vc.topViewController == vc) {
+        [BTBaseSDK openHome:vc :@"member"];
+    }
+}
+
+void _btbaseSDK_OpenHomeAccountPage(){
+    UIViewController* vc = _btbaseGetUnityViewController();
+    if (vc.topViewController == vc) {
+        [BTBaseSDK openHome:vc :@"account"];
+    }
+}
+
 BOOL _btbaseSDK_IsSDKInited(){
     return BTBaseSDK.isSDKInited;
 }

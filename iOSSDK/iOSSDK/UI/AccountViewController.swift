@@ -61,6 +61,10 @@ class AccountViewController: UIViewController {
         tableView.reloadData()
     }
 
+    @IBAction func onClickClose(_ sender: Any) {
+        BTBaseHomeEntry.closeHomeController()
+    }
+    
     deinit {
         debugLog("Deinited:\(self.description)")
     }
