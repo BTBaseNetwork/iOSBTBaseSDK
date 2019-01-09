@@ -25,6 +25,8 @@ extension Bundle {
     }
 }
 
+let BTBaseMainStoryboard = "BTBaseMainStoryboard"
+
 extension UIImage {
     static func BTSDKUIImage(named: String) -> UIImage? {
         return UIImage(named: named, in: Bundle.iOSBTBaseSDKUI, compatibleWith: nil)

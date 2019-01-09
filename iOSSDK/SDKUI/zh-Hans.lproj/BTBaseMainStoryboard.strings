@@ -291,3 +291,45 @@
 
 /* Class = "UILabel"; text = "Coming Soon"; ObjectID = "Zz3-yH-Eao"; */
 "Zz3-yH-Eao.text" = "Coming Soon";
+
+//##################################################################################
+//#           AutoGenStrings            2019-01-09 11:21:31
+//##################################################################################
+
+/* Class = "UILabel"; text = "Privileges"; ObjectID = "UpJ-WP-iL2"; */
+//"UpJ-WP-iL2.text" = "会员特权";
+
+/* Class = "UILabel"; text = "Extra Bonus"; ObjectID = "Ty6-oH-BMD"; */
+//"Ty6-oH-BMD.text" = "额外奖励";
+
+/* Class = "UILabel"; text = "Discount"; ObjectID = "1tp-uF-EvZ"; */
+//"1tp-uF-EvZ.text" = "道具打折";
+
+/* Class = "UILabel"; text = "No Ads"; ObjectID = "JXJ-gz-Wqt"; */
+//"JXJ-gz-Wqt.text" = "无广告";
+
+/* Class = "UIButton"; normalTitle = "Member Privileges"; ObjectID = "aK2-lP-a1D"; */
+"aK2-lP-a1D.normalTitle" = "查看";
+
+/* Class = "UINavigationItem"; title = "Premium Member"; ObjectID = "dhi-Gk-x9S"; */
+"dhi-Gk-x9S.title" = "高级会员特权";
+
+/* Class = "UILabel"; text = "All Games Sharing"; ObjectID = "ebd-Bj-eep"; */
+//"ebd-Bj-eep.text" = "所有游戏共享特权";
+
+//##################################################################################
+//#           AutoGenStrings            2019-01-09 11:30:25
+//##################################################################################
+
+/* Class = "UILabel"; text = "Privileges:"; ObjectID = "aGs-W3-hJv"; */
+"aGs-W3-hJv.text" = "会员特权:";
+
+//##################################################################################
+//#           AutoGenStrings            2019-01-09 11:46:18
+//##################################################################################
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dO9-Se-RzA"; */
+"dO9-Se-RzA.text" = "Previlege Title";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "LYK-Op-mPz"; */
+"LYK-Op-mPz.text" = "Previlege Desc";

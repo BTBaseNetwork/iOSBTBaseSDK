@@ -261,6 +261,7 @@
 		E7E5CD6220D0FF8F00FEB232 /* TXScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CD5E20D0FF8F00FEB232 /* TXScrollLabelView.m */; };
 		E7E5CD6320D0FF8F00FEB232 /* UIView+TXFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */; };
 		E7E5CD6420D0FF8F00FEB232 /* UIView+TXFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CD6020D0FF8F00FEB232 /* UIView+TXFrame.m */; };
+		E7FBC38F21E59C9800FB8C28 /* PrivilegeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FBC38E21E59C9800FB8C28 /* PrivilegeDetailViewController.swift */; };
 		E7FD7BD920DCCE6E00CB5E0E /* btbase_dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7FD7BD820DCCE6D00CB5E0E /* btbase_dev.plist */; };
 /* End PBXBuildFile section */
 
@@ -567,6 +568,7 @@
 		E7E5CD5F20D0FF8F00FEB232 /* UIView+TXFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TXFrame.h"; sourceTree = "<group>"; };
 		E7E5CD6020D0FF8F00FEB232 /* UIView+TXFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TXFrame.m"; sourceTree = "<group>"; };
 		E7E5CD6520D0FFB700FEB232 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		E7FBC38E21E59C9800FB8C28 /* PrivilegeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivilegeDetailViewController.swift; sourceTree = "<group>"; };
 		E7FD7BD820DCCE6D00CB5E0E /* btbase_dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btbase_dev.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -708,6 +710,7 @@
 				E754A2F020C3EB55006F36EB /* BTBaseSDKBundleExtensions.swift */,
 				E788687A20C30390008E0E8D /* GameWallViewController.swift */,
 				E788687C20C303A2008E0E8D /* MemberViewController.swift */,
+				E7FBC38E21E59C9800FB8C28 /* PrivilegeDetailViewController.swift */,
 				E788687E20C303BA008E0E8D /* AccountViewController.swift */,
 				E738006120C44DAF0043A201 /* UpdateEmailViewController.swift */,
 				E738006320C44DC20043A201 /* UpdatePasswordViewController.swift */,
@@ -1693,6 +1696,7 @@
 				E79D11D320EE1F0E00735A30 /* MBProgressHUD.m in Sources */,
 				E79D11DA20EE1F0E00735A30 /* NSData+ImageContentType.m in Sources */,
 				E788687320C2FA77008E0E8D /* BTServiceDBContext.swift in Sources */,
+				E7FBC38F21E59C9800FB8C28 /* PrivilegeDetailViewController.swift in Sources */,
 				E754A29B20C3C077006F36EB /* String+MD5.swift in Sources */,
 				E79D121920EE1F0E00735A30 /* SKProduct+LocalizedPrice.swift in Sources */,
 				E788687F20C303BA008E0E8D /* AccountViewController.swift in Sources */,

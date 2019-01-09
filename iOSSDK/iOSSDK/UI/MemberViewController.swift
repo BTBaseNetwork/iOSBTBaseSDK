@@ -9,7 +9,7 @@ import StoreKit
 import TXScrollLabelView
 import UIKit
 
-fileprivate let MemberCardRowHeight: CGFloat = 100
+fileprivate let MemberCardRowHeight: CGFloat = 148
 fileprivate let MemberProductRowHeight: CGFloat = 64
 fileprivate let NoMemberTipsRowHeight: CGFloat = 64
 fileprivate let MemberCardFooterHeight: CGFloat = 16
@@ -26,9 +26,20 @@ class MemberCardCell: UITableViewCell {
     
     weak var rootViewController: MemberViewController!
     
+    @IBOutlet weak var memberPreivilegeButton: UIButton!{
+        didSet{
+            memberPreivilegeButton?.SetupBTBaseUI()
+        }
+    }
     @IBOutlet var memberTypeLabel: UILabel!
     
     @IBOutlet var expiresDateLabel: UILabel!
+    
+    @IBAction func onClickMemberPrivilege(_ sender: Any) {
+        if let vc = rootViewController{
+            PrivilegeDetailViewController.show(rootVC: vc)
+        }
+    }
     
     func refresh() {
         let service = BTServiceContainer.getBTMemberService()!
@@ -80,7 +91,7 @@ class MemberProductCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var purchaseButton: UIButton! {
         didSet {
-            purchaseButton.SetupBTBaseUI()
+            purchaseButton?.SetupBTBaseUI()
         }
     }
     
@@ -111,7 +122,7 @@ class MemberViewController: UIViewController {
     static let noMemberProductCellReuseId = "NoMemberProductCell"
     @IBOutlet var signInButton: UIButton! {
         didSet {
-            signInButton.SetupBTBaseUI()
+            signInButton?.SetupBTBaseUI()
         }
     }
     
