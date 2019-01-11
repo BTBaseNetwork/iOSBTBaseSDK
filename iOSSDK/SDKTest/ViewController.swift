@@ -41,6 +41,7 @@ class ViewController: UIViewController {
     }
 
     func start(config: BTBaseConfig, dev: Bool) {
+        BTBaseSDK.setupLoginedBanner()
         BTBaseSDK.start(config: config)
         BTBaseSDK.setupSDKUI()
         homeButton.isHidden = false

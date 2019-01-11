@@ -144,3 +144,4 @@ BTLocMemberPrivDesc2 = "Buy Game Item With A Discount";
 BTLocMemberPrivIcon3 = "MemberPrivIconExtraBonus";
 BTLocMemberPrivTitle3 = "Extra Bonus";
 BTLocMemberPrivDesc3 = "Get Membership Bonus In Each Game";
+BTLocWelcomeBackX = "Welcome, %@";

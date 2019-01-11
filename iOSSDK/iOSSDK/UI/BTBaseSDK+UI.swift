@@ -11,6 +11,21 @@ import UIKit
 
 public extension BTBaseSDK {
     @objc public var GameServiceName: String { return "BTLocGameServiceName".localizedBTBaseString }
+    
+    @objc public static func setupLoginedBanner() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onLocalAccountUpdated(a:)), name: BTAccountService.onLocalAccountUpdated, object: nil)
+    }
+    
+    @objc private static func onLocalAccountUpdated(a:Notification){
+        let oldValue = a.userInfo?[NSKeyValueChangeKey.oldKey] as? BTAccount
+        let newValue = a.userInfo?[NSKeyValueChangeKey.newKey] as? BTAccount
+        
+        if newValue != nil {
+            if oldValue == nil || oldValue?.accountId != newValue?.accountId{
+                _ = WelcomeToast.play()
+            }
+        }
+    }
 
     @objc public static func setupSDKUI() {
         BahamutCommonLocalizedBundle = Bundle.iOSBTBaseSDKUI!

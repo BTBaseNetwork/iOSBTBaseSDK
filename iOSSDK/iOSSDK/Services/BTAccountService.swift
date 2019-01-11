@@ -21,7 +21,9 @@ class BTAccountService {
 
     var localAccount: BTAccount! {
         didSet {
-            NotificationCenter.default.postWithMainQueue(name: BTAccountService.onLocalAccountUpdated, object: self)
+            let userInfo:[AnyHashable : Any] = [NSKeyValueChangeKey.oldKey:oldValue,NSKeyValueChangeKey.newKey:localAccount]
+            let notification = Notification(name: BTAccountService.onLocalAccountUpdated, object: self, userInfo: userInfo)
+            NotificationCenter.default.postWithMainQueue(notification)
         }
     }
 

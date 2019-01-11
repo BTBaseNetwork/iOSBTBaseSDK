@@ -144,3 +144,4 @@ BTLocMemberPrivDesc2 = "購買遊戲道具可以享受折扣或贈品";
 BTLocMemberPrivIcon3 = "MemberPrivIconExtraBonus";
 BTLocMemberPrivTitle3 = "額外獎勵";
 BTLocMemberPrivDesc3 = "高級會員可以在遊戲裡獲得更多獎勵";
+BTLocWelcomeBackX = "歡迎回來, %@";

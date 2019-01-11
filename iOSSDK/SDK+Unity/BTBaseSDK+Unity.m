@@ -41,6 +41,7 @@ UIViewController* _btbaseGetUnityViewController(){
 }
 
 void _btbaseSDK_Start(){
+    [BTBaseSDK setupLoginedBanner];
     [BTBaseSDK start];
     [BTBaseSDK setupSDKUI];
     [[NSNotificationCenter defaultCenter] addObserverForName:@"BTBaseHomeEntryDidShown" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {

@@ -43,6 +43,7 @@
 		E740BC4C20C78C73001C13F1 /* SQLiteTableSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */; };
 		E740BC4E20C7B93C001C13F1 /* BTAccountSession+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */; };
 		E740BC5020C7BA32001C13F1 /* BTMember+BTDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */; };
+		E74C590621E8292E00CE3493 /* LoginedBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74C590521E8292E00CE3493 /* LoginedBanner.swift */; };
 		E754A1EB20C389DD006F36EB /* BTAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1EA20C389DD006F36EB /* BTAPIClient.swift */; };
 		E754A1EE20C39411006F36EB /* BTAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1ED20C39411006F36EB /* BTAccountAPI.swift */; };
 		E754A1F020C3957D006F36EB /* BTMemberAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E754A1EF20C3957D006F36EB /* BTMemberAPI.swift */; };
@@ -321,6 +322,7 @@
 		E740BC4B20C78C73001C13F1 /* SQLiteTableSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteTableSet.swift; sourceTree = "<group>"; };
 		E740BC4D20C7B93C001C13F1 /* BTAccountSession+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTAccountSession+BTDB.swift"; sourceTree = "<group>"; };
 		E740BC4F20C7BA32001C13F1 /* BTMember+BTDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTMember+BTDB.swift"; sourceTree = "<group>"; };
+		E74C590521E8292E00CE3493 /* LoginedBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginedBanner.swift; sourceTree = "<group>"; };
 		E754A1DB20C37EFB006F36EB /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E754A1EA20C389DD006F36EB /* BTAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAPIClient.swift; sourceTree = "<group>"; };
 		E754A1ED20C39411006F36EB /* BTAccountAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAccountAPI.swift; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 				E78766C420CB87D900767900 /* UITextField+Text.swift */,
 				E79CC63520CE286D003DAB73 /* OrderListViewController.swift */,
 				E79D0E5920EE043E00735A30 /* BTVideoPlayerViewController.swift */,
+				E74C590521E8292E00CE3493 /* LoginedBanner.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1714,6 +1717,7 @@
 				E79D121820EE1F0E00735A30 /* RestorePurchasesController.swift in Sources */,
 				E79D11C820EE1F0E00735A30 /* IQBarButtonItem.swift in Sources */,
 				E740BC4120C786C6001C13F1 /* BTDBEntity.swift in Sources */,
+				E74C590621E8292E00CE3493 /* LoginedBanner.swift in Sources */,
 				E79D120120EE1F0E00735A30 /* UIImage+GIF.m in Sources */,
 				E79D11C220EE1F0E00735A30 /* IQUIViewController+Additions.swift in Sources */,
 				E79D11E820EE1F0E00735A30 /* SDWebImageCodersManager.m in Sources */,
