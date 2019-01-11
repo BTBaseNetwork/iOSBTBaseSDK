@@ -31,8 +31,15 @@ public protocol SwiftyStoreKitCompleteDelegate {
 public class BTBaseSDK: NSObject {
     private static var instance = { BTBaseSDK() }()
     private static var pasteboard: UIPasteboard? {
-        // UIPasteboard(name: UIPasteboardName("mobi.btbase.iossdk"), create: true)
         return UIPasteboard.general
+    }
+    
+    private static var _devTeamPasteboard:UIPasteboard?
+    private static var devTeamPasteboard: UIPasteboard? {
+        if _devTeamPasteboard == nil{
+            _devTeamPasteboard = UIPasteboard(name: UIPasteboard.Name("mobi.btbase.iossdk"), create: true)
+        }
+        return _devTeamPasteboard
     }
 
     @objc public private(set) static var isSDKInited: Bool = false
@@ -113,9 +120,11 @@ public extension BTBaseSDK {
                 accountService?.fetchProfile()
                 memberService?.fetchMemberProfile()
                 BTBaseSDK.clearSharedAuthentication()
+                BTBaseSDK.shareAuthentication(onlyForSameDevTeam: true)
             } else {
                 accountService?.setLogout()
                 memberService?.setLogout()
+                BTBaseSDK.clearSharedAuthentication(clearAll: true)
             }
         }
     }
@@ -139,30 +148,54 @@ public extension BTBaseSDK {
         var password: String!
     }
 
-    static func shareAuthentication() {
+    static func shareAuthentication(onlyForSameDevTeam:Bool = false) {
         if let session = BTServiceContainer.getBTSessionService()?.localSession, session.IsSessionLogined(), let psw = session.password {
             let auth = BTBaseSDK.ClientSharedAuthentication()
             auth.accountId = session.accountId
             auth.password = psw
-            #if DEBUG
-            NSLog("shareAuthentication")
-            #endif
             if let json = auth.toJson(), let base64 = json.base64String {
-                BTBaseSDK.pasteboard?.string = "Authentication:\(base64)"
+                let authStr = "Authentication:\(base64)"
+                if !onlyForSameDevTeam{
+                    BTBaseSDK.pasteboard?.string = authStr
+                    #if DEBUG
+                    NSLog("shareAuthentication:General Pasteboard")
+                    #endif
+                }
+                BTBaseSDK.devTeamPasteboard?.string = authStr
+                #if DEBUG
+                NSLog("shareAuthentication:Same Dev Team Pasteboard")
+                #endif
             }
         }
     }
 
-    static func clearSharedAuthentication() {
-        #if DEBUG
-        NSLog("clearSharedAuthentication")
-        #endif
+    static func clearSharedAuthentication(clearAll:Bool = false) {
+        
         if BTBaseSDK.pasteboard?.string?.hasBegin("Authentication:") ?? false {
             BTBaseSDK.pasteboard?.string = ""
+            #if DEBUG
+            NSLog("clearSharedAuthentication:General Pasteboard")
+            #endif
+        }
+        
+        if clearAll {
+            if BTBaseSDK.devTeamPasteboard?.string?.hasBegin("Authentication:") ?? false {
+                BTBaseSDK.devTeamPasteboard?.string = ""
+                #if DEBUG
+                NSLog("clearSharedAuthentication:Same Dev Team Pasteboard")
+                #endif
+            }
         }
     }
 
     static func getAuthentication() -> ClientSharedAuthentication? {
+        if let content = BTBaseSDK.devTeamPasteboard?.string, content.hasBegin("Authentication:") {
+            let base64 = content.replacingOccurrences(of: "Authentication:", with: "")
+            if let json = base64.valueOfBase64String, let auth = ClientSharedAuthentication.parse(json: json) {
+                return auth
+            }
+        }
+        
         if let content = BTBaseSDK.pasteboard?.string, content.hasBegin("Authentication:") {
             let base64 = content.replacingOccurrences(of: "Authentication:", with: "")
             if let json = base64.valueOfBase64String, let auth = ClientSharedAuthentication.parse(json: json) {
