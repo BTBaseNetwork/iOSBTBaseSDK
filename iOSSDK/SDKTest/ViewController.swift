@@ -19,13 +19,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var memberButton: UIButton!
     @IBOutlet var badgeLabel: UILabel!
 
+    @IBOutlet weak var quickLoginButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         homeButton.isHidden = true
         accountButton.isHidden = true
         memberButton.isHidden = true
+        quickLoginButton.isHidden = true
     }
 
+    @IBAction func onClickTryQuickLogin(_ sender: Any) {
+        BTBaseSDK.tryShowLoginWithSharedAuthenticationAlert(vc: self)
+    }
+    
     @IBAction func onClickProduction(_ sender: Any) {
         let btbaseConfigFile = "btbase"
         if let filePath = Bundle.main.path(forResource: btbaseConfigFile, ofType: "plist"), let config = BTBaseConfig(filePath: filePath) {
@@ -49,6 +55,7 @@ class ViewController: UIViewController {
         memberButton.isHidden = false
         devButton.isHidden = true
         productionButton.isHidden = true
+        quickLoginButton.isHidden = false
         BTBaseSDK.fetchGameWallList(force: true)
         if #available(iOS 10.0, *) {
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in

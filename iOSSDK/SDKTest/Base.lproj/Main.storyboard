@@ -64,17 +64,26 @@
                                     <action selector="onClickAccount:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uAU-og-Rit"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wc3-uZ-tx0">
+                                <rect key="frame" x="138" y="523" width="99" height="30"/>
+                                <state key="normal" title="TryQuickLogin"/>
+                                <connections>
+                                    <action selector="onClickTryQuickLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vjb-hf-Yo5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="FKi-oX-apa" firstAttribute="top" secondItem="zob-q8-zKk" secondAttribute="bottom" constant="48" id="4N5-yd-lfg"/>
                             <constraint firstItem="5wa-90-rqw" firstAttribute="top" secondItem="FKi-oX-apa" secondAttribute="bottom" constant="48" id="GXo-v0-8uz"/>
+                            <constraint firstItem="wc3-uZ-tx0" firstAttribute="top" secondItem="5wa-90-rqw" secondAttribute="bottom" constant="18.5" id="J4M-wu-B2e"/>
                             <constraint firstItem="dJN-ke-tlL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JKW-GU-zrH"/>
                             <constraint firstItem="zob-q8-zKk" firstAttribute="top" secondItem="dJN-ke-tlL" secondAttribute="bottom" constant="89.5" id="Mp8-Tb-Iw8"/>
                             <constraint firstItem="zob-q8-zKk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RvD-fF-fgN"/>
                             <constraint firstItem="zob-q8-zKk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tc3-Cl-xRk"/>
                             <constraint firstItem="FKi-oX-apa" firstAttribute="centerX" secondItem="zob-q8-zKk" secondAttribute="centerX" id="WPK-Bc-EUm"/>
                             <constraint firstItem="1is-rB-nfi" firstAttribute="centerX" secondItem="dJN-ke-tlL" secondAttribute="centerX" id="XGx-OO-gZq"/>
+                            <constraint firstItem="wc3-uZ-tx0" firstAttribute="centerX" secondItem="5wa-90-rqw" secondAttribute="centerX" id="bOQ-2t-hZ5"/>
                             <constraint firstItem="dJN-ke-tlL" firstAttribute="top" secondItem="1is-rB-nfi" secondAttribute="bottom" constant="36" id="ls1-L1-OFS"/>
                             <constraint firstItem="5wa-90-rqw" firstAttribute="centerX" secondItem="FKi-oX-apa" secondAttribute="centerX" id="suV-zU-le8"/>
                         </constraints>
@@ -86,6 +95,7 @@
                         <outlet property="homeButton" destination="zob-q8-zKk" id="V9x-QS-TmU"/>
                         <outlet property="memberButton" destination="FKi-oX-apa" id="Vhi-kb-EJA"/>
                         <outlet property="productionButton" destination="dJN-ke-tlL" id="lSS-w2-9ZP"/>
+                        <outlet property="quickLoginButton" destination="wc3-uZ-tx0" id="E4A-VN-lxU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
