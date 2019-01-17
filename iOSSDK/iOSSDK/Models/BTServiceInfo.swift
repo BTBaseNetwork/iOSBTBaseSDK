@@ -12,7 +12,7 @@ import UIKit
 
 class BTServiceInfo {
     public static var DeviceId: String { return (UIDevice.current.identifierForVendor ?? ASIdentifierManager.shared().advertisingIdentifier).uuidString }
-    public static var Clientd: String { return BundleId }
+
     public static var BundleId: String { return Bundle.main.bundleIdentifier ?? "unknow.bundleId" }
     public static var PlatformId: Int {
         #if TARGET_OS_IPHONE

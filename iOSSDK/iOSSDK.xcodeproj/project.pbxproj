@@ -96,6 +96,11 @@
 		E75D404C20C518F300BEAF79 /* ShareHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403120C518F300BEAF79 /* ShareHelper.swift */; };
 		E75D404D20C518F300BEAF79 /* UIView+RemoveChildView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403220C518F300BEAF79 /* UIView+RemoveChildView.swift */; };
 		E75D404E20C518F300BEAF79 /* TableViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D403320C518F300BEAF79 /* TableViewEx.swift */; };
+		E75ECE1A21F04AE4009A7370 /* BTSignatureUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75ECE1921F04AE4009A7370 /* BTSignatureUtil.swift */; };
+		E75ECE1C21F062B2009A7370 /* BTUserAssetsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75ECE1B21F062B2009A7370 /* BTUserAssetsAPI.swift */; };
+		E75ECE1E21F06D0F009A7370 /* BTUserAssetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75ECE1D21F06D0F009A7370 /* BTUserAssetService.swift */; };
+		E75ECE2021F078DD009A7370 /* TestUserAssetsAPIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75ECE1F21F078DD009A7370 /* TestUserAssetsAPIViewController.swift */; };
+		E75ECE2221F07BA4009A7370 /* AddUpdateUserAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75ECE2121F07BA4009A7370 /* AddUpdateUserAssetsViewController.swift */; };
 		E7773FF720D42E060071EBF8 /* BTBaseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E788686320C2F981008E0E8D /* BTBaseSDK.framework */; };
 		E7773FF820D42E3E0071EBF8 /* BTBaseSDK+Unity.m in Sources */ = {isa = PBXBuildFile; fileRef = E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */; };
 		E7773FFA20D42E440071EBF8 /* UnityInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = E7773F8A20D425BD0071EBF8 /* UnityInterface.h */; };
@@ -385,6 +390,11 @@
 		E75D403120C518F300BEAF79 /* ShareHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareHelper.swift; sourceTree = "<group>"; };
 		E75D403220C518F300BEAF79 /* UIView+RemoveChildView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+RemoveChildView.swift"; sourceTree = "<group>"; };
 		E75D403320C518F300BEAF79 /* TableViewEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewEx.swift; sourceTree = "<group>"; };
+		E75ECE1921F04AE4009A7370 /* BTSignatureUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTSignatureUtil.swift; sourceTree = "<group>"; };
+		E75ECE1B21F062B2009A7370 /* BTUserAssetsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTUserAssetsAPI.swift; sourceTree = "<group>"; };
+		E75ECE1D21F06D0F009A7370 /* BTUserAssetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTUserAssetService.swift; sourceTree = "<group>"; };
+		E75ECE1F21F078DD009A7370 /* TestUserAssetsAPIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserAssetsAPIViewController.swift; sourceTree = "<group>"; };
+		E75ECE2121F07BA4009A7370 /* AddUpdateUserAssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUpdateUserAssetsViewController.swift; sourceTree = "<group>"; };
 		E76E76A120C58260008F61BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/BTBaseLocalized.strings; sourceTree = "<group>"; };
 		E76E76A220C58266008F61BA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/BTBaseLocalized.strings"; sourceTree = "<group>"; };
 		E76E76A320C582F9008F61BA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/BTBaseLocalized.strings"; sourceTree = "<group>"; };
@@ -698,6 +708,7 @@
 				E754A1ED20C39411006F36EB /* BTAccountAPI.swift */,
 				E754A1EF20C3957D006F36EB /* BTMemberAPI.swift */,
 				E754A1F120C396BA006F36EB /* BTSessionAPI.swift */,
+				E75ECE1B21F062B2009A7370 /* BTUserAssetsAPI.swift */,
 			);
 			path = APIRequests;
 			sourceTree = "<group>";
@@ -765,6 +776,7 @@
 				E75D401520C516DF00BEAF79 /* CommonRegexPatterns.swift */,
 				E791C88D20C9897F003E36A1 /* DispatchQueue+Extensions.swift */,
 				E7DDA55320DA7F66006995C0 /* String+Base64.swift */,
+				E75ECE1921F04AE4009A7370 /* BTSignatureUtil.swift */,
 			);
 			path = BahamutCommon;
 			sourceTree = "<group>";
@@ -805,6 +817,8 @@
 				E7FD7BD820DCCE6D00CB5E0E /* btbase_dev.plist */,
 				E754A31E20C3EC6C006F36EB /* Info.plist */,
 				E78B406120C6CA060049ED91 /* btbase.plist */,
+				E75ECE1F21F078DD009A7370 /* TestUserAssetsAPIViewController.swift */,
+				E75ECE2121F07BA4009A7370 /* AddUpdateUserAssetsViewController.swift */,
 			);
 			path = SDKTest;
 			sourceTree = "<group>";
@@ -866,6 +880,7 @@
 				E788688220C30435008E0E8D /* BTAccountService.swift */,
 				E788688420C3043E008E0E8D /* BTMemberService.swift */,
 				E79CC63720CE3B18003DAB73 /* BTIAPOrderManager.swift */,
+				E75ECE1D21F06D0F009A7370 /* BTUserAssetService.swift */,
 				E754A2A420C3CFEA006F36EB /* BTGameWall.swift */,
 				E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */,
 				E724679F20C69A92003641C0 /* BTBaseSDK.swift */,
@@ -1572,7 +1587,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E754A31520C3EC6B006F36EB /* ViewController.swift in Sources */,
+				E75ECE2021F078DD009A7370 /* TestUserAssetsAPIViewController.swift in Sources */,
 				E754A31320C3EC6B006F36EB /* AppDelegate.swift in Sources */,
+				E75ECE2221F07BA4009A7370 /* AddUpdateUserAssetsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1596,6 +1613,7 @@
 				E754A1F020C3957D006F36EB /* BTMemberAPI.swift in Sources */,
 				E79D121A20EE1F0E00735A30 /* SwiftyStoreKit+Types.swift in Sources */,
 				E79D11AC20EE1F0E00735A30 /* SessionDelegate.swift in Sources */,
+				E75ECE1A21F04AE4009A7370 /* BTSignatureUtil.swift in Sources */,
 				E79D11CA20EE1F0E00735A30 /* IQPreviousNextView.swift in Sources */,
 				E79D11E220EE1F0E00735A30 /* SDImageCacheConfig.m in Sources */,
 				E79D11FB20EE1F0E00735A30 /* SDWebImageTransition.m in Sources */,
@@ -1632,6 +1650,7 @@
 				E79D11B620EE1F0E00735A30 /* FMDatabaseAdditions.m in Sources */,
 				E79D11A820EE1F0E00735A30 /* Response.swift in Sources */,
 				E75D401620C516DF00BEAF79 /* CommonRegexPatterns.swift in Sources */,
+				E75ECE1E21F06D0F009A7370 /* BTUserAssetService.swift in Sources */,
 				E740BC4320C7871E001C13F1 /* BTDBTableSet.swift in Sources */,
 				E79D11C920EE1F0E00735A30 /* IQInvocation.swift in Sources */,
 				E740BC4520C78791001C13F1 /* BTDBContext.swift in Sources */,
@@ -1709,6 +1728,7 @@
 				E79D11C720EE1F0E00735A30 /* IQTextView.swift in Sources */,
 				E788687620C2FDF5008E0E8D /* Models.swift in Sources */,
 				E79D11AB20EE1F0E00735A30 /* ServerTrustPolicy.swift in Sources */,
+				E75ECE1C21F062B2009A7370 /* BTUserAssetsAPI.swift in Sources */,
 				E7DDA55420DA7F66006995C0 /* String+Base64.swift in Sources */,
 				E79D11A320EE1F0E00735A30 /* MultipartFormData.swift in Sources */,
 				E79D11A420EE1F0E00735A30 /* NetworkReachabilityManager.swift in Sources */,

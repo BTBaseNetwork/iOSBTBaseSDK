@@ -20,12 +20,15 @@ class ViewController: UIViewController {
     @IBOutlet var badgeLabel: UILabel!
 
     @IBOutlet weak var quickLoginButton: UIButton!
+    
+    @IBOutlet weak var userAssetsButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         homeButton.isHidden = true
         accountButton.isHidden = true
         memberButton.isHidden = true
         quickLoginButton.isHidden = true
+        userAssetsButton.isHidden = true
     }
 
     @IBAction func onClickTryQuickLogin(_ sender: Any) {
@@ -57,6 +60,7 @@ class ViewController: UIViewController {
         productionButton.isHidden = true
         quickLoginButton.isHidden = false
         BTBaseSDK.fetchGameWallList(force: true)
+        userAssetsButton.isHidden = false
         if #available(iOS 10.0, *) {
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 self.badgeLabel.text = "\(BTBaseSDK.badgeNumber)"

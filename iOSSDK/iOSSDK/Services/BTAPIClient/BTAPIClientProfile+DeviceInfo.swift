@@ -46,6 +46,12 @@ extension BTAPIClientProfile {
         useHeader("clientId", BTServiceInfo.DeviceId)
         return self
     }
+    
+    @discardableResult
+    public func useAppBundleId() -> BTAPIClientProfile {
+        useHeader("appBundleId", BTServiceInfo.BundleId)
+        return self
+    }
 
     @discardableResult
     public func usePlatformId() -> BTAPIClientProfile {

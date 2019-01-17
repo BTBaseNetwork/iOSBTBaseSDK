@@ -81,6 +81,7 @@ public class BTBaseSDK: NSObject {
             BTServiceContainer.useBTMemberService(config)
             BTServiceContainer.useBTSessionService(config)
             BTServiceContainer.useBTGameWall(config)
+            BTServiceContainer.useBTUserAssetService(config)
 
             NotificationCenter.default.addObserver(instance, selector: #selector(onSessionInvalid(a:)), name: BTSessionService.onSessionInvalid, object: nil)
             NotificationCenter.default.addObserver(instance, selector: #selector(onSessionUpdated(a:)), name: BTSessionService.onSessionUpdated, object: nil)
@@ -243,5 +244,13 @@ public extension BTBaseSDK {
 public extension BTBaseSDK {
     @objc public static func fetchGameWallList(force: Bool) {
         BTServiceContainer.getGameWall()?.refreshGameWallList(force: force)
+    }
+}
+
+// MARK: User Assets
+
+public extension BTBaseSDK{
+    @objc public static func userAssetsService() -> BTUserAssetService?{
+        return BTServiceContainer.getBTUserAssetService()
     }
 }

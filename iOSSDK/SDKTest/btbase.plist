@@ -12,6 +12,8 @@
 	<string>https://btbase.mobi/web/</string>
 	<key>BTMemberServiceHost</key>
 	<string>https://btbase.mobi/web/</string>
+	<key>BTUserAssetServiceHost</key>
+	<string>https://btbase.mobi/web/</string>
 	<key>BTGameWallConfigUrl</key>
 	<string>https://raw.githubusercontent.com/BTBaseNetwork/Resources/master/config/gamewall_config_01_preview.json</string>
 	<key>BTMemberConfigUrl</key>
