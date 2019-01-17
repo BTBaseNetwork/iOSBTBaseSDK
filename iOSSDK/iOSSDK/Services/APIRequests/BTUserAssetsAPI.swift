@@ -20,14 +20,14 @@ class GetUserAssetsRequest: BTAPIRequest<GetBTUserAssetsResult> {
     }
 }
 
-class GetUserAssetsBycategoryRequest: BTAPIRequest<GetBTUserAssetsResult> {
+class GetUserAssetsByCategoryRequest: BTAPIRequest<GetBTUserAssetsResult> {
     override init() {
         super.init()
     }
     
     var category:String!{
         didSet{
-            api = "api/v1/UserAssets/category/\(category!)"
+            api = "api/v1/UserAssets/Category/\(category!)"
         }
     }
     
