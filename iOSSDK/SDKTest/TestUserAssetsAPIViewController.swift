@@ -101,18 +101,18 @@ class TestUserAssetsAPIViewController: UIViewController {
     @IBAction func onClickRetrieve(_ sender: Any) {
         switch retrieveType {
         case .all:
-            BTBaseSDK.userAssetsService()?.RetrieveUserAssets(callback: { (assets) in
+            BTBaseSDK.userAssetsService()?.retrieveUserAssets(callback: { (assets) in
                 self.userAssets = assets
             })
         case .assetsId:
             if let id = self.retrieveTypeTextField.text{
-                BTBaseSDK.userAssetsService()?.RetrieveUserAssets(byAssetsId: id, callback: { (assets) in
+                BTBaseSDK.userAssetsService()?.retrieveUserAssets(byAssetsId: id, callback: { (assets) in
                     self.userAssets = assets
                 })
             }
         case .category:
             if let cat = self.retrieveTypeTextField.text{
-                BTBaseSDK.userAssetsService()?.RetrieveUserAssets(bycategory: cat, callback: { (assets) in
+                BTBaseSDK.userAssetsService()?.retrieveUserAssets(byCategory: cat, callback: { (assets) in
                     self.userAssets = assets
                 })
             }

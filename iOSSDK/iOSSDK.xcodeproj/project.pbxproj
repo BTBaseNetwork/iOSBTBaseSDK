@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		E70F885021F1657100BE0A8D /* BTBaseSDK+UserAssetService+OCBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70F884F21F1657100BE0A8D /* BTBaseSDK+UserAssetService+OCBridge.swift */; };
 		E71794E220CD469C0054178E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E120CD469C0054178E /* GameKit.framework */; };
 		E71794E420CD46A90054178E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E71794E320CD46A90054178E /* StoreKit.framework */; };
 		E724679C20C691DF003641C0 /* BTBaseLocalized.strings in Resources */ = {isa = PBXBuildFile; fileRef = E76E76A020C58246008F61BA /* BTBaseLocalized.strings */; };
@@ -306,6 +307,7 @@
 		62FF0676A78305323D1BB70A /* Pods-SDKTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-SDKTest/Pods-SDKTest.release.xcconfig"; sourceTree = "<group>"; };
 		65D6C8E0EA77D734511F995D /* Pods-BTBaseSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTBaseSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BTBaseSDK/Pods-BTBaseSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		7CFCC91E1A04E91302F6FB02 /* Pods-iOSSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSSDK/Pods-iOSSDK.release.xcconfig"; sourceTree = "<group>"; };
+		E70F884F21F1657100BE0A8D /* BTBaseSDK+UserAssetService+OCBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTBaseSDK+UserAssetService+OCBridge.swift"; sourceTree = "<group>"; };
 		E716644C20D0BE8E00973200 /* BTBaseSDK+Unity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BTBaseSDK+Unity.m"; sourceTree = "<group>"; };
 		E71794E120CD469C0054178E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E71794E320CD46A90054178E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -884,6 +886,7 @@
 				E754A2A420C3CFEA006F36EB /* BTGameWall.swift */,
 				E75D400F20C4B01700BEAF79 /* BTServiceContainer.swift */,
 				E724679F20C69A92003641C0 /* BTBaseSDK.swift */,
+				E70F884F21F1657100BE0A8D /* BTBaseSDK+UserAssetService+OCBridge.swift */,
 				E791C88B20C97DD0003E36A1 /* BTBaseConfig.swift */,
 			);
 			path = Services;
@@ -1613,6 +1616,7 @@
 				E754A1F020C3957D006F36EB /* BTMemberAPI.swift in Sources */,
 				E79D121A20EE1F0E00735A30 /* SwiftyStoreKit+Types.swift in Sources */,
 				E79D11AC20EE1F0E00735A30 /* SessionDelegate.swift in Sources */,
+				E70F885021F1657100BE0A8D /* BTBaseSDK+UserAssetService+OCBridge.swift in Sources */,
 				E75ECE1A21F04AE4009A7370 /* BTSignatureUtil.swift in Sources */,
 				E79D11CA20EE1F0E00735A30 /* IQPreviousNextView.swift in Sources */,
 				E79D11E220EE1F0E00735A30 /* SDImageCacheConfig.m in Sources */,

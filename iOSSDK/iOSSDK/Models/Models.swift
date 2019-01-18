@@ -171,7 +171,6 @@ public class BTUserAssets: Codable {
     public init() {}
     public var id:Int64 = 0
     public var assetsId:String!
-    public var accountId:String!
     public var category:String!
     public var assets:String!
     public var amount:Int = 0

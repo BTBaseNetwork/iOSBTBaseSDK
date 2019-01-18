@@ -246,11 +246,3 @@ public extension BTBaseSDK {
         BTServiceContainer.getGameWall()?.refreshGameWallList(force: force)
     }
 }
-
-// MARK: User Assets
-
-public extension BTBaseSDK{
-    @objc public static func userAssetsService() -> BTUserAssetService?{
-        return BTServiceContainer.getBTUserAssetService()
-    }
-}

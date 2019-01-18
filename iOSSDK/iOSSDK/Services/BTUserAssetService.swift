@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public class BTUserAssetService : NSObject{
+public class BTUserAssetService {
     private var config: BTBaseConfig!
     private var host = "http://localhost:6000"
     
@@ -16,14 +16,14 @@ public class BTUserAssetService : NSObject{
         self.host = config.getString(key: "BTUserAssetServiceHost")!
     }
     
-    public func RetrieveUserAssets(callback:@escaping ([BTUserAssets]?)->Void) {
+    public func retrieveUserAssets(callback:@escaping ([BTUserAssets]?)->Void) {
         let req = GetUserAssetsRequest()
         req.queue = DispatchQueue.global()
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useLang().useAppBundleId().useAccountId().useAuthorizationAPIToken()
         req.response = { (rq,res) in
-            if res.isHttpOK {
-                callback(res.content.assets)
+            if res.isHttpOK,let assets = res.content?.assets {
+                callback(assets)
             }else{
                 callback(nil)
             }
@@ -31,15 +31,15 @@ public class BTUserAssetService : NSObject{
         req.request(profile: clientProfile)
     }
     
-    public func RetrieveUserAssets(bycategory category:String,callback:@escaping ([BTUserAssets]?)->Void) {
+    public func retrieveUserAssets(byCategory category:String,callback:@escaping ([BTUserAssets]?)->Void) {
         let req = GetUserAssetsByCategoryRequest()
         req.category = category
         req.queue = DispatchQueue.global()
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useLang().useAppBundleId().useAccountId().useAuthorizationAPIToken()
         req.response = { (rq,res) in
-            if res.isHttpOK {
-                callback(res.content.assets)
+            if res.isHttpOK,let assets = res.content?.assets {
+                callback(assets)
             }else{
                 callback(nil)
             }
@@ -47,15 +47,15 @@ public class BTUserAssetService : NSObject{
         req.request(profile: clientProfile)
     }
     
-    public func RetrieveUserAssets(byAssetsId assetsId:String,callback:@escaping ([BTUserAssets]?)->Void) {
+    public func retrieveUserAssets(byAssetsId assetsId:String,callback:@escaping ([BTUserAssets]?)->Void) {
         let req = GetUserAssetsByAssetsIdRequest()
         req.assetsId = assetsId
         req.queue = DispatchQueue.global()
         let clientProfile = BTAPIClientProfile(host: host)
         clientProfile.useLang().useAppBundleId().useAccountId().useAuthorizationAPIToken()
         req.response = { (rq,res) in
-            if res.isHttpOK {
-                callback(res.content.assets)
+            if res.isHttpOK,let assets = res.content?.assets {
+                callback(assets)
             }else{
                 callback(nil)
             }

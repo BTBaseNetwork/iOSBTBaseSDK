@@ -41,7 +41,7 @@ class AddUpdateUserAssetsViewController: UIViewController {
         assetIdTextField?.text = assets?.assetsId
         recordIdLabel?.text = "\(assets?.id ?? 0)"
         bundleLabel?.text = Bundle.main.bundleIdentifier
-        accountLabel?.text = assets?.accountId
+        accountLabel?.text = "******"
     }
     
     @IBAction func onClickAdd(_ sender: Any) {
@@ -104,7 +104,6 @@ class AddUpdateUserAssetsViewController: UIViewController {
         assets.amount = 1
         assets.assets = "Test"
         assets.assetsId = "TestAssetsId"
-        assets.accountId = "Default"
         vc.assets = assets
         vc.isAdd = true
         nvc.pushViewController(vc, animated: true)
