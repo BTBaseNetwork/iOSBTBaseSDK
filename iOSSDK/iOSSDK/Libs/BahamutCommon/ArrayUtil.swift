@@ -101,12 +101,12 @@ public class ArrayUtil {
         dict.updateValue(NSMutableArray(), forKey: "#")
         for item in items {
             let orderString = orderBy(item)
-            let orderCFString: CFMutableString = CFStringCreateMutableCopy(nil, 0, orderString as CFString!)
+            let orderCFString: CFMutableString = CFStringCreateMutableCopy(nil, 0, orderString as CFString?)
             CFStringTransform(orderCFString, nil, kCFStringTransformToLatin, false)
             CFStringTransform(orderCFString, nil, kCFStringTransformStripDiacritics, false)
 
             let stringName = orderCFString as String
-            let n = stringName.characters.index(stringName.startIndex, offsetBy: 1)
+            let n = stringName.index(stringName.startIndex, offsetBy: 1)
             let prefix = stringName.uppercased().substring(to: n)
             var list = dict[prefix]
             if list == nil {

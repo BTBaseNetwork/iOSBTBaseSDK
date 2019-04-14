@@ -55,7 +55,9 @@ class WelcomeToast: UIView {
         self.addSubview(messageLabel)
         
         let centerY = self.frame.height / 2
-        let iconCenterX = iconImageView.frame.width / 2 + (self.frame.width - iconImageView.frame.width - messageLabel.frame.width - 10) / 2
+        let midX = iconImageView.frame.width / 2
+        let midWidth = (self.frame.width - iconImageView.frame.width - messageLabel.frame.width - 10) / 2
+        let iconCenterX = midX + midWidth
         let msgLabelCenterX = iconCenterX + iconImageView.frame.width / 2 + 10 + messageLabel.frame.width / 2
         
         iconImageView.center = CGPoint(x: iconCenterX, y: centerY)

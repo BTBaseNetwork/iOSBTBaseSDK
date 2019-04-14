@@ -141,7 +141,7 @@ public extension String {
     public func split(_ s: String) -> [String] {
         if s.isEmpty {
             var x = [String]()
-            for y in characters {
+            for y in self {
                 x.append(String(y))
             }
             return x
