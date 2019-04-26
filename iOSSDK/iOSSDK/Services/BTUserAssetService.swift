@@ -12,8 +12,11 @@ public class BTUserAssetService {
     private var host = "http://localhost:6000"
     
     func configure(config: BTBaseConfig) {
+        guard let host = config.getString(key: "BTUserAssetServiceHost") else {
+            fatalError("[BTUserAssetService] Config Not Exists:BTUserAssetServiceHost")
+        }
         self.config = config
-        self.host = config.getString(key: "BTUserAssetServiceHost")!
+        self.host = host
     }
     
     public func retrieveUserAssets(callback:@escaping ([BTUserAssets]?)->Void) {

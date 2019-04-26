@@ -22,8 +22,11 @@ class BTSessionService {
     var isSessionLogined: Bool { return self.localSession?.IsSessionLogined() ?? false }
 
     func configure(config: BTBaseConfig) {
+        guard let host = config.getString(key: "BTSessionServiceHost") else {
+            fatalError("[BTSessionService] Config Not Exists:BTSessionServiceHost")
+        }
         self.config = config
-        self.host = config.getString(key: "BTSessionServiceHost")!
+        self.host = host
         self.loadCachedSession()
         NotificationCenter.default.addObserver(self, selector: #selector(self.onRequestUnauthorized(a:)), name: Notification.Name.BTAPIRequestUnauthorized, object: nil)
     }

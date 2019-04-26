@@ -28,8 +28,11 @@ class BTAccountService {
     }
 
     func configure(config: BTBaseConfig) {
+        guard let host = config.getString(key: "BTAccountServiceHost") else {
+            fatalError("[BTAccountService] Config Not Exists:BTAccountServiceHost")
+        }
         self.config = config
-        self.host = config.getString(key: "BTAccountServiceHost")!
+        self.host = host
     }
 
     func loadLocalAccount(accountId: String) {

@@ -85,8 +85,12 @@ class BTMemberService {
     }
 
     func configure(config: BTBaseConfig) {
+        guard let host = config.getString(key: "BTMemberServiceHost") else {
+            fatalError("[BTMemberService] Config Not Exists:BTMemberServiceHost")
+        }
         self.config = config
-        self.host = config.getString(key: "BTMemberServiceHost")!
+        self.host = host
+        
         self.loadCachedMemberConfig()
         self.paymentTransactionObserver = BTMemberPaymentTransactionObserver(memberService: self)
         self.fetchMemberConfig()
